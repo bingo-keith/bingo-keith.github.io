@@ -100,23 +100,23 @@
 
 
 
-  <meta name="description" content="原文地址：25个你不得不知道的数组reduce高级用法 介绍reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。    下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返">
+  <meta name="description" content="介绍 reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。  下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值  形式：array.reduce((t, v, i,">
 <meta name="keywords" content="JavaScript 代码  技巧 reduce">
 <meta property="og:type" content="article">
 <meta property="og:title" content="25个你不得不知道的数组reduce高级用法">
 <meta property="og:url" content="http://www.icrazyman.cn/2020/07/17/25个你不得不知道的数组reduce高级用法/index.html">
 <meta property="og:site_name" content="科瑞兹曼的博客">
-<meta property="og:description" content="原文地址：25个你不得不知道的数组reduce高级用法 介绍reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。    下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返">
+<meta property="og:description" content="介绍 reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。  下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值  形式：array.reduce((t, v, i,">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200309234456121.gif">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9jYW5pdXNlLXJlZHVjZS5wbmc?x-oss-process=image/format,png">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9jYW5pdXNlLXJlZHVjZVJpZ2h0LnBuZw?x-oss-process=image/format,png">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UteC5wbmc?x-oss-process=image/format,png">
 <meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UtMS5wbmc?x-oss-process=image/format,png">
-<meta property="og:updated_time" content="2020-07-17T14:50:33.005Z">
+<meta property="og:updated_time" content="2020-07-17T14:52:14.448Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="25个你不得不知道的数组reduce高级用法">
-<meta name="twitter:description" content="原文地址：25个你不得不知道的数组reduce高级用法 介绍reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。    下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返">
+<meta name="twitter:description" content="介绍 reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。  下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值  形式：array.reduce((t, v, i,">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200309234456121.gif">
 
 
@@ -380,7 +380,7 @@
                 
               
 
-              <time title="创建时间：2020-07-17 17:30:29 / 修改时间：22:50:33" itemprop="dateCreated datePublished" datetime="2020-07-17T17:30:29+08:00">2020-07-17</time>
+              <time title="创建时间：2020-07-17 17:30:29 / 修改时间：22:52:14" itemprop="dateCreated datePublished" datetime="2020-07-17T17:30:29+08:00">2020-07-17</time>
             
 
             
@@ -452,11 +452,7 @@
       
 
       
-        <ol start="10">
-<li><p>原文地址：<a href="https://blog.csdn.net/JowayYoung/article/details/104293122" target="_blank" rel="noopener">25个你不得不知道的数组reduce高级用法</a></p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><code>reduce</code>作为ES5新增的常规数组方法之一，对比<code>forEach</code>、<code>filter</code>和<code>map</code>，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。 </p>
-</li>
-</ol>
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p> <code>reduce</code>作为ES5新增的常规数组方法之一，对比<code>forEach</code>、<code>filter</code>和<code>map</code>，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。 </p>
 <p>下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。</p>
 <ul>
 <li><p>定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值</p>
@@ -806,6 +802,7 @@ console.timeEnd(&quot;reduce&quot;);
 <p>我已同时测试过多台机器和多个浏览器，连续做了10次以上操作，发现reduce总体的平均执行时间还是会比其他三个方法稍微快一点，所以大家还是放心使用啦！本文更多是探讨reduce的使用技巧，如对reduce的兼容和性能存在疑问，可自行参考相关资料进行验证。</p>
 <p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UteC5wbmc?x-oss-process=image/format,png" alt="乘法口诀表"> </p>
 <p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UtMS5wbmc?x-oss-process=image/format,png" alt="乘法口诀表"> </p>
+<p>原文地址：<a href="https://blog.csdn.net/JowayYoung/article/details/104293122" target="_blank" rel="noopener">25个你不得不知道的数组reduce高级用法</a></p>
 
       
     </div>
