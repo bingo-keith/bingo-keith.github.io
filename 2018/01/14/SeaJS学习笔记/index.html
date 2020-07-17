@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="今天专题把seaJs模块化开发了解学习了下，算是把seaJS的基本用法弄清楚了，其他的跟着项目慢慢再深入！现在把自己整理出来的资料保存一下，也方便以后遗忘了可以快速地回顾。 1. 先引seaJS - demo.html     &amp;lt;script src=&amp;quot;http://apps.bdimg.com/libs/seajs/2.3.0/sea.js&amp;quot;&amp;gt;&amp;lt;/scrip">
+<meta name="keywords" content="seaJS 模块 CMD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SeaJS学习笔记">
+<meta property="og:url" content="http://www.icrazyman.cn/2018/01/14/SeaJS学习笔记/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="今天专题把seaJs模块化开发了解学习了下，算是把seaJS的基本用法弄清楚了，其他的跟着项目慢慢再深入！现在把自己整理出来的资料保存一下，也方便以后遗忘了可以快速地回顾。 1. 先引seaJS - demo.html     &amp;lt;script src=&amp;quot;http://apps.bdimg.com/libs/seajs/2.3.0/sea.js&amp;quot;&amp;gt;&amp;lt;/scrip">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-14T13:12:02.070Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SeaJS学习笔记">
+<meta name="twitter:description" content="今天专题把seaJs模块化开发了解学习了下，算是把seaJS的基本用法弄清楚了，其他的跟着项目慢慢再深入！现在把自己整理出来的资料保存一下，也方便以后遗忘了可以快速地回顾。 1. 先引seaJS - demo.html     &amp;lt;script src=&amp;quot;http://apps.bdimg.com/libs/seajs/2.3.0/sea.js&amp;quot;&amp;gt;&amp;lt;/scrip">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2018/01/14/SeaJS学习笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>SeaJS学习笔记 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2018/01/14/SeaJS学习笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SeaJS学习笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-14 20:51:27 / 修改时间：21:12:02" itemprop="dateCreated datePublished" datetime="2018-01-14T20:51:27+08:00">2018-01-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/01/14/SeaJS学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/14/SeaJS学习笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/01/14/SeaJS学习笔记/" class="leancloud_visitors" data-flag-title="SeaJS学习笔记">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天专题把seaJs模块化开发了解学习了下，算是把seaJS的基本用法弄清楚了，其他的跟着项目慢慢再深入！现在把自己整理出来的资料保存一下，也方便以后遗忘了可以快速地回顾。</p>
+<pre><code>1. 先引seaJS - demo.html
+    &lt;script src=&quot;http://apps.bdimg.com/libs/seajs/2.3.0/sea.js&quot;&gt;&lt;/script&gt;
+
+2.1 定义模块app.js
+    define(function(require, exports, module){
+        var jquery = require(&#39;./jquery.js&#39;);
+        var demo = {
+            &#39;jquery&#39;: jquery
+        }
+        module.exports = demo;
+    })
+
+2.2 修改jQuery.js为支持CMD模块(3.2.1版本，10308行)
+    if (typeof define === &quot;function&quot; &amp;&amp; define.cmd) {
+      // 有 Sea.js 等 CMD 模块加载器存在
+      define(function (require, exports, module) {
+        // 使用 module.exports 向外暴露接口对象
+        module.exports = jQuery;
+      })
+    }
+
+3. 启用模块 - demo.html
+    seajs.use(&#39;./app.js&#39;,function(v){
+        v.$(&#39;html, body&#39;).animate({&#39;scrollTop&#39;:v.$(&#39;input&#39;).offset().top},200).find(&#39;input&#39;).focus();
+    })
+</code></pre><a id="more"></a>
+<h1 id="1-SeaJS-介绍"><a href="#1-SeaJS-介绍" class="headerlink" title="1 SeaJS 介绍"></a>1 SeaJS 介绍</h1><ul>
+<li><p>关于 SeaJS</p>
+<ul>
+<li>SeaJS 是一个适用于浏览器环境的 JavaScript 模块加载器<ul>
+<li>一个库文件，类似于 jQuery</li>
+<li>使用这个库提供的规范的模块化的方式来编写 JavaScript 代码</li>
+<li>只关心 JavaScript 文件代码模块如何组织<ul>
+<li>只关心 JavaScript 文件之间如何相互协议、引用、依赖</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SeaJS 的作者是阿里巴巴支付宝前端架构师，花名：玉伯，玉伯也叫射雕<ul>
+<li><a href="http://www.csdn.net/article/2013-09-03/2816801-front-end-development-seajs-framework" target="_blank" rel="noopener">Sea.js创始人玉伯的前端开发之路</a></li>
+</ul>
+</li>
+<li><a href="http://seajs.org/" target="_blank" rel="noopener">SeaJS</a></li>
+<li><a href="https://github.com/seajs/seajs/" target="_blank" rel="noopener">SeaJS -github</a></li>
+</ul>
+</li>
+<li><p>为什么学习和使用 SeaJS ？</p>
+<ul>
+<li><strong>简单友好的模块定义规范</strong>：SeaJS 遵循 CMD 规范，可以像 Node 一样书写模块代码</li>
+<li><strong>自然直观的代码组织方式</strong>：依赖的自动加载、配置简洁清晰，可以让我们更多的享受编码的乐趣</li>
+<li>SeaJS兼容性非常好，几乎可以运行在任何浏览器引擎上</li>
+<li>注1：SeaJS 只是实现模块化开发的一种方式或者说一种工具而已，重在模块化思想的理解</li>
+<li>注2：因为 SeaJS 采用的 CMD 模块规范和 Node 中的 CommonJS 模块规范非常一致，所以有利于我们学习 Node 中的模块化编程</li>
+</ul>
+</li>
+<li><p>谁在用？</p>
+<ul>
+<li>淘宝网、支付宝、京东、爱奇艺。。。</li>
+</ul>
+</li>
+<li><p>SeaJS 适用场景</p>
+<ul>
+<li>没有使用任何框架，例如 AngularJS</li>
+<li>例如 只写写 原生 JavaScript 或者用了一些第三方库</li>
+<li>SeaJS 不提供任何功能性 API，只提供了解决 JavaScript 代码的命名污染和文件依赖的问题</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-快速上手（Getting-Started）"><a href="#2-快速上手（Getting-Started）" class="headerlink" title="2 快速上手（Getting Started）"></a>2 快速上手（Getting Started）</h1><ol start="0">
+<li>下载 sea.js 库文件<ul>
+<li><a href="https://github.com/seajs/seajs/releases" target="_blank" rel="noopener">SeaJS - Release</a></li>
+<li><code>bower install seajs</code></li>
+<li><code>npm install seajs</code></li>
+</ul>
+</li>
+<li>在页面中引入 sea.js</li>
+<li>使用 <code>define</code> 函数定义模块</li>
+<li>使用 <code>require</code> 函数加载模块</li>
+<li>使用 <code>module.exports</code> 对外暴露接口对象</li>
+<li>使用 <code>seajs.use</code> 函数启动模块系统</li>
+</ol>
+<h1 id="3-API-详解"><a href="#3-API-详解" class="headerlink" title="3 API 详解"></a>3 API 详解</h1><h2 id="3-1-seajs-use"><a href="#3-1-seajs-use" class="headerlink" title="3.1 seajs.use"></a>3.1 <code>seajs.use</code></h2><p>加载模块，启动模块系统。</p>
+<ul>
+<li>加载一个模块 <code>seajs.use(&#39;id&#39;)</code></li>
+<li>加载一个模块，在加载完成时，执行回调 <code>seajs.use(&#39;id&#39;, callback)</code></li>
+<li><p>加载多个模块，加载完成时，执行回调 <code>seajs.use([&#39;id1&#39;,&#39;id2&#39;,...],callback)</code></p>
+</li>
+<li><p>注意：</p>
+<ul>
+<li>在调用 seajs.use 之前，需要先引入 sea.js 文件</li>
+<li>seajs.use 与 <code>DOM ready</code> 事件没有任何关系。如果某些操作要确保在 <code>DOM ready</code> 后执行，需要使用 jquery 等类库来保证</li>
+<li>seajs.use 理论上只用于加载启动，不应该出现在 <code>define</code> 中的模块代码里</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-define-factory"><a href="#3-2-define-factory" class="headerlink" title="3.2 define(factory)"></a>3.2 <code>define(factory)</code></h2><p><code>define</code> 是一个全局函数，用来定义模块。</p>
+<p><code>define</code> 接受 <code>factory</code> 参数，<code>factory</code> 可以是一个函数，也可以是一个对象或字符串。</p>
+<p><code>factory</code> 为对象、字符串时，表示模块的接口就是该对象、字符串。</p>
+<ul>
+<li><p>factory 是一个对象时</p>
+<ul>
+<li><code>define({})</code></li>
+</ul>
+</li>
+<li><p>factory 是一个字符串时</p>
+<ul>
+<li><code>define(&#39;hello&#39;)</code></li>
+</ul>
+</li>
+<li><p>factory 是一个函数时</p>
+<ul>
+<li><code>define(function(require, exports, module){})</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="3-3-require"><a href="#3-3-require" class="headerlink" title="3.3 require"></a>3.3 <code>require</code></h2><p>require 用来加载一个 js 文件模块，<br>require 用来获取指定模块的接口对象 <code>module.exports</code>。</p>
+<p>require 在加载和执行的时候，js 会按照同步的方式和执行。</p>
+<p>使用注意：</p>
+<ul>
+<li>正确拼写<ul>
+<li>模块 factory 构造方法的第一个参数 <code>必须</code> 命名为 require</li>
+</ul>
+</li>
+<li>不要修改<ul>
+<li>不要重命名 require 函数，或在任何作用域中给 require 重新赋值</li>
+</ul>
+</li>
+<li>使用字符串直接量<ul>
+<li>require 的参数值 必须 是字符串直接量</li>
+</ul>
+</li>
+</ul>
+<p>Tips: 把 <code>require</code> 看做是语法关键字就好啦</p>
+<h2 id="3-4-模块标识"><a href="#3-4-模块标识" class="headerlink" title="3.4 模块标识"></a>3.4 模块标识</h2><p>模块标识是一个字符串，用来标识模块。</p>
+<ul>
+<li><p>模块标识可以不包含文件后缀名，比如 <code>.js</code></p>
+<ul>
+<li>seajs 推荐不加 .js 文件模块后缀</li>
+</ul>
+</li>
+<li><p>模块标识可以是 <strong>相对</strong> 或 <strong>顶级</strong> 标识</p>
+</li>
+<li><p>相对标识</p>
+</li>
+</ul>
+<p>相对标识以 <code>.</code> 开头，永远相对于当前模块所处的路径来解析。</p>
+<ul>
+<li>顶级标识</li>
+</ul>
+<p>顶级标识不以 <code>.</code> 或 <code>/</code> 开始，会相对模块系统的基础路径（base路径，默认是 sea.js 文件所属的路径）。<br>可以手动配置 base 路径。</p>
+<pre><code class="js">seajs.config({
+  base: &#39;./js&#39;
+})
+</code></pre>
+<ul>
+<li>普通路径</li>
+</ul>
+<p>除了相对和顶级标识之外的标识都是普通路径。<br>普通路径的解析规则，会相对当前页面解析。</p>
+<pre><code class="js">// 假设当前页面是 http://example.com/path/to/page/index.html
+
+// 绝对路径是普通路径：
+require.resolve(&#39;http://cdn.com/js/a&#39;);
+  // =&gt; http://cdn.com/js/a.js
+
+// 根路径是普通路径：
+require.resolve(&#39;/js/b&#39;);
+  // =&gt; http://example.com/js/b.js
+
+// use 中的相对路径始终是普通路径：
+seajs.use(&#39;./c&#39;);
+  // =&gt; 加载的是 http://example.com/path/to/page/c.js
+
+seajs.use(&#39;../d&#39;);
+  // =&gt; 加载的是 http://example.com/path/to/d.js
+</code></pre>
+<p><strong>Tips</strong>:</p>
+<ul>
+<li>顶级标识始终相对 <code>base</code> 基础路径解析。<ul>
+<li>如果不设置，base 路径默认就是 sea.js 库文件所属的路径</li>
+<li>可以通过 <code>seajs.config({ base: &#39;基础路径&#39; })</code> 来配置基础路径</li>
+</ul>
+</li>
+<li>绝对路径和根路径始终相对当前页面解析。</li>
+<li>相对标识永远相对于当前文件</li>
+<li><code>seajs.use</code> 中的相对路径始终相对当前页面来解析。</li>
+</ul>
+<h2 id="3-5-module"><a href="#3-5-module" class="headerlink" title="3.5 module"></a>3.5 module</h2><p>module 是一个对象，上面存储了与当前模块相关联的一些属性和方法。</p>
+<ul>
+<li><code>module.id</code><ul>
+<li>模块的唯一标识，可以通过 <code>define</code> 方法的第一个参数来指定，默认为该模块文件的绝对路径</li>
+</ul>
+</li>
+<li><code>module.uri</code><ul>
+<li>模块的绝对路径</li>
+</ul>
+</li>
+<li><code>module.dependencies</code><ul>
+<li>dependencies 是一个数组，表示当前模块的依赖</li>
+</ul>
+</li>
+<li><code>module.exports</code><ul>
+<li>当前模块对外提供的接口对象</li>
+<li>相当于每个模块内部最终都执行了这么一句话：<code>return module.exports</code></li>
+<li>模块与模块之间的通信接口</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-6-exports"><a href="#3-6-exports" class="headerlink" title="3.6 exports"></a>3.6 exports</h2><p>exports 仅仅是 module.exports 的一个引用。<br>也就是说修改了 exports 就相当于修改了 module.exports。</p>
+<p>但是一旦在 factory 内部给 exports 重新赋值，并不会改变 module.exports 的值。<br>因此给 exports 赋值是无效的。</p>
+<h1 id="4-exports-和-module-exports-的区别"><a href="#4-exports-和-module-exports-的区别" class="headerlink" title="4 exports 和 module.exports 的区别"></a>4 exports 和 module.exports 的区别</h1><ul>
+<li>每个模块内部对外到处的接口对象始终都是 <code>module.exports</code></li>
+<li>可以通过修改 <code>module.exports</code> 或给它赋值改变模块接口对象</li>
+<li><code>exports</code> 是 <code>module.exports</code> 的一个引用，就好比在每一个模块定义最开始的地方写了这么一句代码：<code>var exports = module.exports</code></li>
+</ul>
+<p>关于这俩哥们儿的区别请分析一下代码：</p>
+<pre><code class="js">var module = {
+  exports: {}
+}
+
+function changeExports (exports, module) {
+  // var exports = module.exports
+  exports.foo = &#39;bar&#39;
+
+  // 这里赋值拿不到，不要使用使用
+  // exports = function () {}
+  return module.exports
+}
+
+changeExports(module.exports, module)
+</code></pre>
+<p>那为啥要有 <code>exports</code> ？</p>
+<p>为了开发体验，API更友好，使用 exports 的时候，可以少写一个点儿。</p>
+<p>如果你实在分不清楚 <code>exports</code> 和 <code>module.exports</code> 之间的区别，就只记得 <code>module.exports</code> 就可以了。</p>
+<h1 id="5-如何将一个普通的模块文件改造为兼容-CMD-规范的模块"><a href="#5-如何将一个普通的模块文件改造为兼容-CMD-规范的模块" class="headerlink" title="5 如何将一个普通的模块文件改造为兼容 CMD 规范的模块"></a>5 如何将一个普通的模块文件改造为兼容 CMD 规范的模块</h1><pre><code class="js">if (typeof define === &quot;function&quot; &amp;&amp; define.cmd) {
+  // 有 Sea.js 等 CMD 模块加载器存在
+  define(function (require, exports, module) {
+    // 使用 module.exports 向外暴露接口对象
+    module.exports = jQuery; //以jQuery为例
+    // 或return jQuery 或 exports = jQuery （尽量不要用后者）
+  })
+}
+</code></pre>
+<h1 id="6-高级配置-seajs-config-options"><a href="#6-高级配置-seajs-config-options" class="headerlink" title="6 高级配置 seajs.config(options)"></a>6 高级配置 <code>seajs.config(options)</code></h1><p>可以对 Sea.js 进行配置，让模块编写、开发调试更方便。</p>
+<pre><code class="js">seajs.config({
+
+  // 别名配置
+  alias: {
+    &#39;es5-safe&#39;: &#39;gallery/es5-safe/0.9.3/es5-safe&#39;,
+    &#39;json&#39;: &#39;gallery/json/1.0.2/json&#39;,
+    &#39;jquery&#39;: &#39;jquery/jquery/1.10.1/jquery&#39;
+  },
+
+  // 路径配置
+  paths: {
+    &#39;gallery&#39;: &#39;https://a.alipayobjects.com/gallery&#39;
+  },
+
+  // Sea.js 的基础路径
+  base: &#39;http://example.com/path/to/base/&#39;,
+});
+</code></pre>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/seaJS-模块-CMD/" rel="tag"># seaJS 模块 CMD</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/07/深入了解React的子组件/" rel="next" title="深入了解React的子组件">
+                <i class="fa fa-chevron-left"></i> 深入了解React的子组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/19/JavaScript 可能为 true 吗？/" rel="prev" title="JavaScript 可能为 true 吗？">
+                JavaScript 可能为 true 吗？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-SeaJS-介绍"><span class="nav-number">1.</span> <span class="nav-text">1 SeaJS 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-快速上手（Getting-Started）"><span class="nav-number">2.</span> <span class="nav-text">2 快速上手（Getting Started）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-API-详解"><span class="nav-number">3.</span> <span class="nav-text">3 API 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-seajs-use"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 seajs.use</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-define-factory"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 define(factory)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-require"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 require</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-模块标识"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 模块标识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-module"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-exports"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 exports</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-exports-和-module-exports-的区别"><span class="nav-number">4.</span> <span class="nav-text">4 exports 和 module.exports 的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-如何将一个普通的模块文件改造为兼容-CMD-规范的模块"><span class="nav-number">5.</span> <span class="nav-text">5 如何将一个普通的模块文件改造为兼容 CMD 规范的模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-高级配置-seajs-config-options"><span class="nav-number">6.</span> <span class="nav-text">6 高级配置 seajs.config(options)</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

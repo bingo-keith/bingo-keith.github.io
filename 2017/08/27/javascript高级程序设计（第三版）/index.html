@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="把近期看高程这本书做的笔记摘录整理出来了，总归对原生javascript理论有了一个比较全面的的认识，这次把书中的一些知识要点摘录出来了，便于以后查阅的时候有方向，也更有效率！！">
+<meta name="keywords" content="js javascript 高程 高级 程序 编程 开发 学习 笔记 摘录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript高级程序设计（第三版）学习摘录">
+<meta property="og:url" content="http://www.icrazyman.cn/2017/08/27/javascript高级程序设计（第三版）/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="把近期看高程这本书做的笔记摘录整理出来了，总归对原生javascript理论有了一个比较全面的的认识，这次把书中的一些知识要点摘录出来了，便于以后查阅的时候有方向，也更有效率！！">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-19T15:19:59.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript高级程序设计（第三版）学习摘录">
+<meta name="twitter:description" content="把近期看高程这本书做的笔记摘录整理出来了，总归对原生javascript理论有了一个比较全面的的认识，这次把书中的一些知识要点摘录出来了，便于以后查阅的时候有方向，也更有效率！！">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml"/>
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2017/08/27/javascript高级程序设计（第三版）/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>javascript高级程序设计（第三版）学习摘录 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2017/08/27/javascript高级程序设计（第三版）/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼"/>
+      <meta itemprop="description" content="交流、学习、提升"/>
+      <meta itemprop="image" content="/images/avatar.gif"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript高级程序设计（第三版）学习摘录
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-27 16:40:27" itemprop="dateCreated datePublished" datetime="2017-08-27T16:40:27+08:00">2017-08-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-10-19 23:19:59" itemprop="dateModified" datetime="2017-10-19T23:19:59+08:00">2017-10-19</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2017/08/27/javascript高级程序设计（第三版）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/08/27/javascript高级程序设计（第三版）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2017/08/27/javascript高级程序设计（第三版）/" class="leancloud_visitors" data-flag-title="javascript高级程序设计（第三版）学习摘录">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon"
+            >
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>把近期看高程这本书做的笔记摘录整理出来了，总归对原生javascript理论有了一个比较全面的的认识，这次把书中的一些知识要点摘录出来了，便于以后查阅的时候有方向，也更有效率！！</p>
+<a id="more"></a>
+<h1 id="第一章、javascript简介"><a href="#第一章、javascript简介" class="headerlink" title="第一章、javascript简介"></a>第一章、javascript简介</h1><ul>
+<li><p>0101、完整的javascript有三部分组成：核心ECMAScript，DOM和BOM</p>
+</li>
+<li><p>0102、ECMAScript规定了语言的下列组成部分：语法，类型，语句，关键字，保留字，操作符，对象</p>
+</li>
+</ul>
+<hr>
+<h1 id="第二章、在html中使用javascript"><a href="#第二章、在html中使用javascript" class="headerlink" title="第二章、在html中使用javascript"></a>第二章、在html中使用javascript</h1><ul>
+<li><p>0201、HTML4.01为script定义了下列6个属性：async：可选，表示立即下载脚本，不阻塞；charset：可选，指定字符集；defer：可选，延迟到文档完全被解析和显示之后再执行；language：已废弃；src：可选，包含要执行代码的外部文件；type：可选，脚本语言的内容类型</p>
+</li>
+<li><p>0202、标签的位置：所有script元素都应该放在页面的<body>元素页面内容的后面</body></p>
+</li>
+<li><p>0203、IE8以后不支持defer属性</p>
+</li>
+<li><p>0204、async属性的目的是不让页面等待脚本下载和执行，从而异步加载页面其他内容</p>
+</li>
+<li><p>0205、&lt;小于号在XHTML中会被当作开始一个新标签来解析</p>
+</li>
+<li><p>0206、noscript包含该元素的内容只有在以下情况才会显示出来：不支持脚本，支持脚本但被禁用</p>
+</li>
+</ul>
+<hr>
+<h1 id="第三章、基本概念"><a href="#第三章、基本概念" class="headerlink" title="第三章、基本概念"></a>第三章、基本概念</h1><ul>
+<li><p>0301、标识符，就是指变量、函数、属性的名字，或者函数的参数：第一个字符必须是一个字母、下划线（ _ ）或一个美元符号（ $ ）；<br>其他字符可以是字母、下划线、美元符号或数字</p>
+</li>
+<li><p>0302、严格模式下，ECMAScript 3 中的一些不确定的行为将得到处理，而且对某些不安全的操作也会抛出错误。在函数内部的上方包含这条编译指示，也可以指定函数在严格模式下执行</p>
+</li>
+<li><p>0303、加上这个分号可以避免很多错误，加上分号也会在某些情况下增进代码的性能，因为这样解析器就不必再花时间推测应该在哪里插入分号了</p>
+</li>
+<li><p>0304、用 var 操作符定义的变量将成为定义该变量的作用域中的局部变量。也就是说，如果在函数中使用 var 定义一个变量，那么这个变量在函数退出后就会被销毁。虽然省略 var 操作符可以定义全局变量，但这也不是我们推荐的做法。给未经声明的变量赋值在严格模式下会导致抛出 ReferenceError 错误</p>
+</li>
+<li><p>0305、ECMAScript 中有 5 种简单数据类型（也称为基本数据类型）：Undefined 、Null、Boolean 、Number和 String 。还有 1种复杂数据类型—— Object ， Object 本质上是由一组无序的名值对组成的</p>
+</li>
+<li><p>0306、Safari 5 及之前版本、Chrome 7 及之前版本在对正则表达式调用 typeof 操作符时会返回 “function” ，而其他浏览器在这种情况下会返回”object”</p>
+</li>
+<li><p>0307、对未经声明的变量调用 delete 不会导致错误，但这样做没什么实际意义，而且在严格模式下确实会导致错误</p>
+</li>
+<li><p>0308、对未初始化和未声明的变量执行 typeof 操作符都返回了 undefined 值；这个结果有其逻辑上的合理性。因为虽然这两种变量从技术角度看有本质区别，但实际上无论对哪种变量也不可能执行真正的操作</p>
+</li>
+<li><p>0309、如果定义的变量准备在将来用于保存对象，那么最好将该变量初始化为 null 而不是其他值。只要意在保存对象的变量还没有真正保存对象，就应该明确地让该变量保存null值。这样做不仅可以体现 null 作为空对象指针的惯例，而且也有助于进一步区分null和undefined </p>
+</li>
+<li><p>0310、要将一个值转换为其对应的 Boolean 值，可以调用转型函数 Boolean() </p>
+</li>
+<li><p>0311、八进制字面值的第一位必须是零（0），然后是八进制数字序列（0～7）。如果字面值中的数值超出了范围，那么前导零将被忽略，后面的数值将被当作十进制数值解析</p>
+</li>
+<li><p>0312、十六进制字面值的前两位必须是 0x，后跟任何十六进制数字（0～9 及 A～F）。其中，字母 A～F可以大写，也可以小写</p>
+</li>
+<li><p>0313、保存浮点数值需要的内存空间是保存整数值的两倍，因此 ECMAScript会不失时机地将浮点数值转换为整数值</p>
+</li>
+<li><p>0314、在默认情况下，ECMASctipt 会将那些小数点后面带有 6 个零以上的浮点数值转换为以 e 表示法表示的数值（例如，0.0000003 会被转换成 3e-7）</p>
+</li>
+<li><p>0315、浮点数值的最高精度是 17 位小数，但在进行算术计算时其精确度远远不如整数。例如，0.1 加 0.2的结果不是 0.3，而是 0.30000000000000004。这个小小的舍入误差会导致无法测试特定的浮点数值</p>
+</li>
+<li><p>0316、要想确定一个数值是不是有穷的（换句话说，是不是位于最小和最大的数值之间），可以使用 isFinite() 函数。这个函数在参数位于最小与最大数值之间时会返回 true</p>
+</li>
+<li><p>0317、NaN 与任何值都不相等，包括 NaN本身18、 isNaN() 在接收到一个值之后，会尝试将这个值转换为数值。某些不是数值的值会直接转换为数值，例如字符串 “10” 或 Boolean 值。而任何不能被转换为数值的值都会导致这个函数返回true</p>
+</li>
+<li><p>0318、尽管有点儿不可思议，但 isNaN() 确实也适用于对象。在基于对象调用 isNaN()函数时，会首先调用对象的 valueOf() 方法，然后确定该方法返回的值是否可以转换为数值。如果不能，则基于这个返回值再调用 toString() 方法，再测试返回值。而这个过程也是 ECMAScript中内置函数和操作符的一般执行流程</p>
+</li>
+<li><p>0319、由于 Number() 函数在转换字符串时比较复杂而且不够合理，因此在处理整数的时候更常用的是parseInt()函数。parseInt() 函数在转换字符串时，更多的是看其是否符合数值模式。它会忽略字符串前面的空格，直至找到第一个非空格字符。如果第一个字符不是数字字符或者负号， parseInt()就会返回 NaN ；也就是说，用 parseInt() 转换空字符串会返回 NaN （ Number() 对空字符返回 0）。如果第一个字符是数字字符， parseInt() 会继续解析第二个字符，直到解析完所有后续字符或者遇到了一个非数字字符。例如， “1234blue” 会被转换为 1234，因为 “blue” 会被完全忽略。类似地， “22.5”会被转换为 22，因为小数点并不是有效的数字字符。</p>
+</li>
+<li><p>0320、除了第一个小数点有效之外， parseFloat() 与 parseInt() 的第二个区别在于它始终都会忽略前导的零， parseFloat() 只解析十进制值</p>
+</li>
+<li><p>0321、ECMAScript 中的字符串是不可变的，也就是说，字符串一旦创建，它们的值就不能改变。要改变某个变量保存的字符串，首先要销毁原来的字符串，然后再用另一个包含新值的字符串填充该变量</p>
+</li>
+<li><p>0322、Object 的每个实例都具有下列属性和方法：constructor ：保存着用于创建当前对象的函数。对于前面的例子而言，构造函数（constructor）就是 Object()； hasOwnProperty(propertyName) ：用于检查给定的属性在当前对象实例中（而不是在实例的原型中）是否存在。其中，作为参数的属性名（ propertyName ）必须以字符串形式指定（例如： o.hasOwnProperty(“name”) ）；isPrototypeOf(object) ：用于检查传入的对象是否是传入对象的原型；propertyIsEnumerable(propertyName) ：用于检查给定的属性是否能够使用 for-in 语句（本章后面将会讨论）来枚举。与 hasOwnProperty() 方法一样，作为参数的属性名必须以字符串形式指定；toLocaleString() ：返回对象的字符串表示，该字符串与执行环境的地区对应；toString() ：返回对象的字符串表示；valueOf() ：返回对象的字符串、数值或布尔值表示。通常与 toString() 方法的返回值相同</p>
+</li>
+<li><p>0323、在应用于对象时，相应的操作符通常都会调用对象的 valueOf()和（或） toString() 方法，以便取得可以操作的值</p>
+</li>
+<li><p>0324、使用 while 循环做不到的，使用 for 循环同样也做不到。也就是说， for 循环只是把与循环有关的代码集中在了一个位置</p>
+</li>
+<li><p>0325、Safari 3 以前版本的 for-in 语句中存在一个 bug，该 bug 会导致某些属性被返回两次。</p>
+</li>
+<li><p>0326、break 和 continue 语句用于在循环中精确地控制代码的执行。其中， break 语句会立即退出循环，强制继续执行循环后面的语句。而 continue 语句虽然也是立即退出循环，但退出循环后会从循环的顶部继续执行</p>
+</li>
+<li><p>0327、with 语句的作用是将代码的作用域设置到一个特定的对象中。严格模式下不允许使用 with 语句，否则将视为语法错误。由于大量使用 with 语句会导致性能下降，同时也会给调试代码造成困难，因此在开发大型应用程序时，不建议使用 with 语句</p>
+<pre><code class="javascript">with(location){
+  var qs = search.substring(1);
+  var hostName = hostname;
+  var url = href;
+}
+</code></pre>
+</li>
+<li><p>0328、通过为每个 case 后面都添加一个 break 语句，就可以避免同时执行多个 case代码的情况。假如确实需要混合几种情形，不要忘了在代码中添加注释，说明你是有意省略了 break 关键字。虽然 ECMAScript 中的 switch 语句借鉴自其他语言，但这个语句也有自己的特色。首先，可以在switch 语句中使用任何数据类型（在很多其他语言中只能使用数值），无论是字符串，还是对象都没有问题。其次，每个 case 的值不一定是常量，可以是变量，甚至是表达式</p>
+<pre><code>switch (i) {
+  case 25:
+  /*  合并两种情形 */
+  case 35:
+      alert(&quot;25 or 35&quot;);
+      break;
+  case 45:
+      alert(&quot;45&quot;);
+  break;
+  default:
+      alert(&quot;Other&quot;);
+}
+</code></pre></li>
+<li><p>0329、switch 语句在比较值时使用的是全等操作符，因此不会发生类型转换（例如，字符串 “10” 不等于数值 10）</p>
+</li>
+<li><p>0330、函数会在执行完 return 语句之后停止并立即退出。因此，位于 return 语句之后的任何代码都永远不会执行</p>
+</li>
+<li><p>0331、 return 语句也可以不带有任何返回值。在这种情况下，函数在停止执行后将返回 undefined值。这种用法一般用在需要提前停止函数执行而又不需要返回值的情况下</p>
+</li>
+<li><p>0332、严格模式对函数有一些限制：不能把函数命名为 eval 或 arguments ；不能把参数命名为 eval 或 arguments ； 不能出现两个命名参数同名的情况。如果发生以上情况，就会导致语法错误，代码无法执行</p>
+</li>
+<li><p>0333、函数体内可以通过 arguments 对象来访问这个参数数组，从而获取传递给函数的每一个参数。 arguments 对象只是与数组类似（它并不是 Array 的实例），因为可以使用方括号语法访问它的每一个元素（即第一个元素是 arguments[0] ，第二个元素是 argumetns[1] ，以此类推），使用 length 属性来确定传递进来多少个参数</p>
+</li>
+<li><p>0334、没有传递值的命名参数将自动被赋予 undefined 值</p>
+</li>
+<li><p>0335、严格模式对如何使用 arguments 对象做出了一些限制。把 arguments[1] 设置为 10 ， num2 的值仍然还是 undefined 。其次，重写arguments 的值会导致语法错误（代码将不会执行）</p>
+</li>
+<li><p>0336、ECMAScript 中的所有参数传递的都是值，不可能通过引用传递参数</p>
+</li>
+<li><p>0337、通过检查传入函数中参数的类型和数量并作出不同的反应，可以模仿方法的重载</p>
+</li>
+<li><p>0338、 ECMAScript 中的基本数据类型包括 Undefined 、 Null 、 Boolean 、 Number 和 String</p>
+</li>
+<li><p>0339、与其他语言不同，ECMScript 没有为整数和浮点数值分别定义不同的数据类型， Number 类型可用于表示所有数值</p>
+</li>
+<li><p>0340、ECMAScript 中也有一种复杂的数据类型，即 Object 类型，该类型是这门语言中所有对象的基础类型</p>
+</li>
+<li><p>0341、未指定返回值的函数返回的是一个特殊的 undefined 值</p>
+</li>
+<li><p>0342、 可以向 ECMAScript 函数传递任意数量的参数，并且可以通过 arguments 对象来访问这些参数</p>
+</li>
+<li><p>0343、当复制保存着对象的某个变量时，操作的是对象的引用。但在为对象添加属性时，操作的是实际的对象</p>
+</li>
+</ul>
+<hr>
+<h1 id="第四章、变量、作用域和内存问题"><a href="#第四章、变量、作用域和内存问题" class="headerlink" title="第四章、变量、作用域和内存问题"></a>第四章、变量、作用域和内存问题</h1><ul>
+<li><p>0401、 typeof 操作符是确定一个变量是字符串、数值、布尔值，还是 undefined 的最佳工具</p>
+</li>
+<li><p>0402、通常，我们并不是想知道某个值是对象，而是想知道它是什么类型的对象。为此，ECMAScript提供了 instanceof 操作符</p>
+</li>
+<li><p>0403、函数参数也被当作变量来对待，因此其访问规则与执行环境中的其他变量相同</p>
+</li>
+<li><p>0404、在catch 语句中捕获的错误对象会被添加到执行环境的变量对象，而不是 catch 语句的变量对象中。换句话说，即使是在 catch 块的外部也可以访问到错误对象</p>
+</li>
+<li><p>0405、变量查询也不是没有代价的。很明显，访问局部变量要比访问全局变量更快，因为不用向上搜索作用域链。JavaScript 引擎在优化标识符查询方面做得不错，因此这个差别在将来恐怕就可以忽略不计了</p>
+</li>
+<li><p>0406、一旦数据不再有用，最好通过将其值设置为 null 来释放其引用——这个做法叫做解除引用（dereferencing）</p>
+</li>
+<li><p>0407、基本类型值在内存中占据固定大小的空间，因此被保存在栈内存中</p>
+</li>
+<li><p>0408、 从一个变量向另一个变量复制基本类型的值，会创建这个值的一个副本</p>
+</li>
+<li><p>0409、引用类型的值是对象，保存在堆内存中</p>
+</li>
+<li><p>0410、包含引用类型值的变量实际上包含的并不是对象本身，而是一个指向该对象的指针</p>
+</li>
+<li><p>0411、从一个变量向另一个变量复制引用类型的值，复制的其实是指针，因此两个变量最终都指向同一个对象</p>
+</li>
+<li><p>0412、确定一个值是哪种基本类型可以使用 typeof 操作符，而确定一个值是哪种引用类型可以使用instanceof 操作符</p>
+</li>
+<li><p>0413、 “标记清除”是目前主流的垃圾收集算法，这种算法的思想是给当前不使用的值加上标记，然后再回收其内存</p>
+</li>
+<li><p>0414、解除变量的引用不仅有助于消除循环引用现象，而且对垃圾收集也有好处。为了确保有效地回收内存，应该及时解除不再使用的全局对象、全局对象属性以及循环引用变量的引用</p>
+</li>
+<li><p>0415、除非必须使用变量来访问属性，否则我们建议使用点表示法</p>
+</li>
+</ul>
+<hr>
+<h1 id="第五章、引用类型"><a href="#第五章、引用类型" class="headerlink" title="第五章、引用类型"></a>第五章、引用类型</h1><ul>
+<li><p>0501、与对象一样，在使用数组字面量表示法时，也不会调用 Array 构造函数（Firefox 3及更早版本除外）</p>
+</li>
+<li><p>0502、数组最多可以包含 4 294 967 295 个项，这几乎已经能够满足任何编程需求了。如果想添加的项数超过这个上限值，就会发生异常。而创建一个初始大小与这个上限值接近的数组，则可能会导致运行时间超长的脚本错误</p>
+</li>
+<li><p>0503、所有对象都具有 toLocaleString() 、 toString() 和 valueOf() 方法。其中，调用数组的 toString() 方法会返回由数组中每个值的字符串形式拼接而成的一个以逗号分隔的字符串。而调用 valueOf() 返回的还是数组。实际上，为了创建这个字符串会调用数组每一项的 toString() 方法</p>
+</li>
+<li><p>0504、 toLocaleString() 方法经常也会返回与 toString() 和 valueOf() 方法相同的值，但也不总是如此</p>
+</li>
+<li><p>0505、如果数组中的某一项的值是 null 或者 undefined ，那么该值在 join() 、toLocaleString() 、 toString() 和 valueOf() 方法返回的结果中以空字符串表示</p>
+</li>
+<li><p>0506、push() 方法可以接收任意数量的参数，把它们逐个添加到数组末尾，并返回修改后数组的长度。而pop() 方法则从数组末尾移除最后一项，减少数组的 length 值，然后返回移除的项</p>
+</li>
+<li><p>0507、栈数据结构的访问规则是 LIFO（后进先出），而队列数据结构的访问规则是 FIFO（First-In-First-Out，先进先出）</p>
+</li>
+<li><p>0508、结合使用 shift() 和 push() 方法，可以像使用队列一样使用数组</p>
+</li>
+<li><p>0509、同时使用 unshift() 和 pop() 方法，可以从相反的方向来模拟队列，即在数组的前端添加项，从数组末端移除项</p>
+</li>
+<li><p>0510、alert([0, 1, 5, 10, 15].sort());//0,1,10,15,5。可见，即使例子中值的顺序没有问题，但 sort() 方法也会根据测试字符串的结果改变原来的顺序。因为数值 5 虽然小于 10，但在进行字符串比较时， “10” 则位于 “5” 的前面，于是数组的顺序就被修改了。不用说，这种排序方式在很多情况下都不是最佳方案。比较函数接收两个参数，如果第一个参数应该位于第二个之前则返回一个负数，如果两个参数相等则返回 0，如果第一个参数应该位于第二个之后则返回一个正数</p>
+</li>
+<li><p>0511、由于比较函数通过返回一个小于零、等于零或大于零的值来影响排序结果，因此减法操作就可以适当地处理所有这些情况</p>
+</li>
+<li><p>0512、 concat() 方法会先创建当前数组一个副本，然后将接收到的参数添加到这个副本的末尾，最后返回新构建的数组。在没有给 concat() 方法传递参数的情况下，它只是复制当前数组并返回副本。如果传递给 concat() 方法的是一或多个数组，则该方法会将这些数组中的每一项都添加到结果数组中。如果传递的值不是数组，这些值就会被简单地添加到结果数组的末尾</p>
+</li>
+<li><p>0513、slice() 方法可以接受一或两个参数，即要返回项的起始和结束位置。在只有一个参数的情况下， slice() 方法返回从该参数指定位置开始到当前数组末尾的所有项。如果有两个参数，该方法返回起始和结束位置之间的项——但不包括结束位置的项。注意， slice() 方法不会影响原始数组</p>
+</li>
+<li><p>0514、如果 slice() 方法的参数中有一个负数，则用数组长度加上该数来确定相应的位置。例如，在一个包含5项的数组上调用 slice(-2,-1) 与调用 slice(3,4) 得到的结果相同。如果结束位置小于起始位置，则返回空数组</p>
+</li>
+<li><p>0515、splice() 方法可以删除任意数量的项，只需指定2个参数：要删除的第一项的位置和要删除的项数；可以向指定位置插入任意数量的项，只需提供 3 个参数：起始位置、0（要删除的项数）和要插入的项。如果要插入多个项，可以再传入第四、第五，以至任意多个项；可以向指定位置插入任意数量的项，且同时删除任意数量的项，只需指定3个参数：起始位置、要删除的项数和要插入的任意数量的项。插入的项数不必与删除的项数相等</p>
+</li>
+<li><p>0516、splice() 方法始终都会返回一个数组，该数组中包含从原始数组中删除的项（如果没有删除任何项，则返回一个空数组）</p>
+</li>
+<li><p>0517、 indexOf() 和 lastIndexOf()。这两个方法都接收两个参数：要查找的项和（可选的）表示查找起点位置的索引。其中， indexOf() 方法从数组的开头（位置0）开始向后查找，lastIndexOf()方法则从数组的末尾开始向前查找。这两个方法都返回要查找的项在数组中的位置，或者在没找到的情况下返回-1。支持它们的浏览器包括 IE9+、Firefox 2+、Safari3+、Opera 9.5+和 Chrome</p>
+</li>
+<li><p>0518、ECMAScript 5 为数组定义了5个迭代方法，这些方法中的函数会接收三个参数：数组项的值、该项在数组中的位置和数组对象本身。every() ：对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true；filter()：对数组中的每一项运行给定函数，返回该函数会返回true的项组成的数组；forEach()：对数组中的每一项运行给定函数。这个方法没有返回值；map() ：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组；some()：对数组中的每一项运行给定函数，如果该函数对任一项返回 true ，则返回 true。以上方法都不会修改数组中的包含的值</p>
+</li>
+<li><p>0519、这些数组方法通过执行不同的操作，可以大大方便处理数组的任务。支持这些迭代方法的浏览器有IE9+、Firefox2+、Safari 3+、Opera 9.5+和 Chrome</p>
+</li>
+<li><p>0520、 reduce() 和 reduceRight()。这两个方法都会迭代数组的所有项，然后构建一个最终返回的值。这两个方法都接收两个参数：一个在每一项上调用的函数和（可选的）作为归并基础的初始值。传给reduce()和reduceRight()的函数接收4个参数：前一个值、当前值、项的索引和数组对象。这个函数返回的任何值都会作为第一个参数自动传给下一项。第一次迭代发生在数组的第二项上，因此第一个参数是数组的第一项，第二个参数就是数组的第二项。使用reduce()方法可以执行求数组中所有值之和的操作</p>
+</li>
+<li><p>0521、使用 reduce() 还是 reduceRight() ，主要取决于要从哪头开始遍历数组。除此之外，它们完全相同</p>
+</li>
+<li><p>0522、在调用 Date 构造函数而不传递参数的情况下，新创建的对象自动获得当前日期和时间</p>
+</li>
+<li><p>0523、 Date.parse() 方法接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日期的毫秒数。ECMA-262没有定义Date.parse() 应该支持哪种日期格式，因此这个方法的行为因实现而异，而且通常是因地区而异</p>
+</li>
+<li><p>0524、如果传入 Date.parse()方法的字符串不能表示日期，那么它会返回NaN。实际上，如果直接将表示日期的字符串传递给 Date 构造函数，也会在后台调用 Date.parse() 。换句话说，下面的代码与前面的例子是等价的：var someDate = new Date(“May 25, 2004”);</p>
+</li>
+<li><p>0525、Date.UTC() 方法同样也返回表示日期的毫秒数，但它与Date.parse()在构建值时使用不同的信息。Date.UTC()的参数分别是年份、基于 0 的月份（一月是0，二月是1，以此类推）、月中的哪一天（1到31）、小时数（0到23）、分钟、秒以及毫秒数。在这些参数中，只有前两个参数（年和月）是必需的。如果没有提供月中的天数，则假设天数为1；如果省略其他参数，则统统假设为 0。</p>
+</li>
+<li><p>0526、ECMAScript 5 添加了 Data.now() 方法，返回表示调用这个方法时的日期和时间的毫秒数</p>
+</li>
+<li><p>0527、支持 Data.now() 方法的浏览器包括IE9+、Firefox3+、Safari3+、Opera10.5和Chrome。在不支持它的浏览器中，使用+操作符把 Data 对象转换成字符串，也可以达到同样的目的</p>
+</li>
+<li><p>0528、正则表达式。字面量声明和构造函数声明的区别，字面量始终会共享一个RegExp实例，而使用构造函数创建的每一个新RegExp实例都是一个新实例</p>
+</li>
+<li><p>0529、RegExp 对象的主要方法是 exec() ，该方法是专门为捕获组而设计的。 exec() 接受一个参数，即要应用模式的字符串，然后返回包含第一个匹配项信息的数组；或者在没有匹配项的情况下返回 null 。返回的数组虽然是 Array 的实例，但包含两个额外的属性： index 和 input 。其中， index 表示匹配项在字符串中的位置，而 input 表示应用正则表达式的字符串。在数组中，第一项是与整个模式匹配的字符串，其他项是与模式中的捕获组匹配的字符串（如果模式中没有捕获组，则该数组只包含一项）</p>
+</li>
+<li><p>0530、正则表达式的第二个方法是 test() ，它接受一个字符串参数。在模式与该参数匹配的情况下返回true ；否则，返回 false 。在只想知道目标字符串与某个模式是否匹配，但不需要知道其文本内容的情况下，使用这个方法非常方便</p>
+</li>
+<li><p>0531、正则表达式的 valueOf() 方法返回正则表达式本身。</p>
+</li>
+<li><p>0532、即使 test() 方法只返回一个布尔值，但RegExp 构造函数的属性$1和$2也会被匹配相应捕获组的字符串自动填充</p>
+</li>
+<li><p>0533、每个函数都是Function类型的实例，而且都与其他引用类型一样具有属性和方法。由于函数是对象，因此函数名实际上也是一个指向函数对象的指针，不会与某个函数绑定</p>
+</li>
+<li><p>0534、Function构造函数可以接收任意数量的参数，但最后一个参数始终都被看成是函数体，而前面的参数则枚举出了新函数的参数。但是，我们不推荐读者使用这种方法定义函数，因为这种语法会导致解析两次代码（第一次是解析常规 ECMAScript代码，第二次是解析传入构造函数中的字符串），从而影响性能</p>
+</li>
+<li><p>0535、函数声明式与函数表达式的区别。解析器在向执行环境中加载数据时，对函数声明和函数表达式并非一视同仁。解析器会率先读取函数声明，并使其在执行任何代码之前可用（可以访问）；至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真正被解释执行</p>
+</li>
+<li><p>0536、因为 ECMAScript中的函数名本身就是变量，所以函数也可以作为值来使用。也就是说，不仅可以像传递参数一样把一个函数传递给另一个函数，而且可以将一个函数作为另一个函数的结果返回</p>
+</li>
+<li><p>0537、arguments是一个类数组对象，包含着传入函数中的所有参数。虽然 arguments 的主要用途是保存函数参数，但这个对象还有一个名叫 callee 的属性，该属性是一个指针，指向拥有这个 arguments 对象的函数</p>
+</li>
+<li><p>0538、this引用的是函数据以执行的环境对象——或者也可以说是this值（当在网页的全局作用域中调用函数时，this对象引用的就是window）</p>
+</li>
+<li><p>0539、函数的名字仅仅是一个包含指针的变量而已。因此，即使是在不同的环境中执行，全局的 sayColor() 函数与 o.sayColor() 指向的仍然是同一个函数</p>
+</li>
+<li><p>0540、ECMAScript5也规范化了另一个函数对象的属性： caller 。除了Opera的早期版本不支持，其他浏览器都支持这个 ECMAScript3并没有定义的属性。这个属性中保存着调用当前函数的函数的引用，如果是在全局作用域中调用当前函数，它的值为null。为了实现更松散的耦合，也可以通过 arguments.callee.caller来访问相同的信息</p>
+</li>
+<li><p>0541、IE、Firefox、Chrome和Safari的所有版本以及 Opera 9.6 都支持 caller 属性</p>
+</li>
+<li><p>0542、当函数在严格模式下运行时，访问arguments.callee 会导致错误。ECMAScript5还定义了arguments.caller 属性，但在严格模式下访问它也会导致错误，而在非严格模式下这个属性始终是undefined。定义这个属性是为了分清 arguments.caller和函数的caller属性。以上变化都是为了加强这门语言的安全性，这样第三方代码就不能在相同的环境里窥视其他代码了</p>
+</li>
+<li><p>0543、ECMAScript中的函数是对象，因此函数也有属性和方法。每个函数都包含两个属性： length和prototype 。其中，length属性表示函数希望接收的命名参数的个数</p>
+</li>
+<li><p>0544、在ECMAScript5中，prototype属性是不可枚举的，因此使用 for-in 无法发现</p>
+</li>
+<li><p>0545、每个函数都包含两个非继承而来的方法：apply() 和 call() 。这两个方法的用途都是在特定的作用域中调用函数，实际上等于设置函数体内this对象的值。首先， apply() 方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。其中，第二个参数可以是Array 的实例，也可以是arguments 对象</p>
+</li>
+<li><p>0546、在严格模式下，未指定环境对象而调用函数，则 this 值不会转型为 window 。除非明确把函数添加到某个对象或者调用 apply() 或 call() ，否则 this 值将是undefined</p>
+</li>
+<li><p>0547、call()方法与apply()方法的作用相同，它们的区别仅在于接收参数的方式不同。对于call()方法而言，第一个参数是 this值没有变化，变化的是其余参数都直接传递给函数。换句话说，在使用call()方法时，传递给函数的参数必须逐个列举出来</p>
+</li>
+<li><p>0548、事实上，传递参数并非 apply() 和 call() 真正的用武之地；它们真正强大的地方是能够扩充函数赖以运行的作用域</p>
+</li>
+<li><p>0549、使用 call()（或apply()）来扩充作用域的最大好处，就是对象不需要与方法有任何耦合关系</p>
+</li>
+<li><p>0550、ECMAScript 5 还定义了一个方法： bind() 。这个方法会创建一个函数的实例，其 this 值会被绑定到传给 bind() 函数的值。支持 bind() 方法的浏览器有 IE9+、Firefox 4+、Safari 5.1+、Opera 12+和 Chrome</p>
+</li>
+<li><p>0551、为了便于操作基本类型值，ECMAScript还提供了 3 个特殊的引用类型：Boolean、Number和String。这些类型与本章介绍的其他引用类型相似，但同时也具有与各自的基本类型相应的特殊行为。实际上，每当读取一个基本类型值的时候，后台就会创建一个对应的基本包装类型的对象，从而让我们能够调用一些方法来操作这些数据</p>
+</li>
+<li><p>0552、引用类型与基本包装类型的主要区别就是对象的生存期。使用 new操作符创建的引用类型的实例，在执行流离开当前作用域之前都一直保存在内存中。而自动创建的基本包装类型的对象，则只存在于一行代码的执行瞬间，然后立即被销毁。这意味着我们不能在运行时为基本类型值添加属性和方法</p>
+</li>
+<li><p>0553、Object构造函数也会像工厂方法一样，根据传入值的类型返回相应基本包装类型的实例。var obj = new Object(“some text”); alert(obj instanceof String); //true</p>
+</li>
+<li><p>0554、使用new调用基本包装类型的构造函数，与直接调用同名的转型函数是不一样的</p>
+</li>
+<li><p>0555、 toFixed()方法会按照指定的小数位返回数值的字符串表示。如果数值本身包含的小数位比指定的还多，那么接近指定的最大小数位的值就会舍入。可以利用round配合toFixed加爵该方法的在ie浏览器上的兼容问题</p>
+</li>
+<li><p>0556、对于一个数值来说，toPrecision()方法可能会返回固定大小（fixed）格式，也可能返回指数（exponential）格式；具体规则是看哪种格式最合适。这个方法接收一个参数，即表示数值的所有数字的位数（不包括指数部分）。实际上，toPrecision()会根据要处理的数值决定到底是调用 toFixed() 还是调用 toExponential() </p>
+</li>
+<li><p>0557、在使用typeof操作符测试基本类型数值时，始终会返回 “number” ，而在测试 Number 对象时，则会返回 “object” 。类似地，Number对象是Number类型的实例，而基本类型的数值则不是</p>
+</li>
+<li><p>0558、两个用于访问字符串中特定字符的方法是：charAt() 和 charCodeAt()。这两个方法都接收一个参数，即基于 0 的字符位置。其中，charAt()方法以单字符字符串的形式返回给定位置的那个字符（ECMAScript中没有字符类型）</p>
+</li>
+<li><p>0559、ECMAScript5还定义了另一个访问个别字符的方法。在支持此方法的浏览器中，可以使用方括号加数字索引来访问字符串中的特定字符。使用方括号表示法访问个别字符的语法得到了 IE8 及 Firefox、Safari、Chrome 和 Opera 所有版本的支持。如果是在IE7及更早版本中使用这种语法，会返回undefined值（尽管根本不是特殊的undefined 值）</p>
+</li>
+<li><p>0560、ECMAScript还提供了三个基于子字符串创建新字符串的方法： slice() 、 substr() 和 substring() 。这三个方法都会返回被操作字符串的一个子字符串，而且也都接受一或两个参数。第一个参数指定子字符串的开始位置，第二个参数（在指定的情况下）表示子字符串到哪里结束。具体来说， slice() 和substring() 的第二个参数指定的是子字符串最后一个字符后面的位置。而 substr() 的第二个参数指定的则是返回的字符个数。如果没有给这些方法传递第二个参数，则将字符串的长度作为结束位置。与concat() 方法一样， slice() 、 substr() 和 substring() 也不会修改字符串本身的值——它们只是返回一个基本类型的字符串值，对原始字符串没有任何影响。在传递给这些方法的参数是负值的情况下，它们的行为就不尽相同了。其中， slice() 方法会将传入的负值与字符串的长度相加， substr() 方法将负的第一个参数加上字符串的长度，而将负的第二个参数转换为 0。最后， substring() 方法会把所有负值参数都转换为 0</p>
+</li>
+<li><p>0561、IE 的 JavaScript 实现在处理向 substr() 方法传递负值的情况时存在问题，它会返回原始的字符串。IE9 修复了这个问题</p>
+</li>
+<li><p>0562、有两个可以从字符串中查找子字符串的方法： indexOf() 和 lastIndexOf() 。这两个方法都是从一个字符串中搜索给定的子字符串，然后返子字符串的位置（如果没有找到该子字符串，则返回 -1 ）。这两个方法的区别在于： indexOf() 方法从字符串的开头向后搜索子字符串，而 lastIndexOf() 方法是从字符串的末尾向前搜索子字符串。这两个方法都可以接收可选的第二个参数，表示从字符串中的哪个位置开始搜索</p>
+</li>
+<li><p>0563、ECMAScript 5 为所有字符串定义了 trim() 方法。这个方法会创建一个字符串的副本，删除前置及后缀的所有空格，然后返回结果。由于 trim() 返回的是字符串的副本，所以原始字符串中的前置及后缀空格会保持不变。支持这个方法的浏览器有 IE9+、Firefox 3.5+、Safari 5+、Opera 10.5+和 Chrome。此外，Firefox 3.5+、Safari 5+和 Chrome 8+还支持非标准的 trimLeft() 和 trimRight() 方法，分别用于删除字符串开头和末尾的空格</p>
+</li>
+<li><p>0564、接下来我们要介绍的是一组与大小写转换有关的方法。ECMAScript中涉及字符串大小写转换的方法有 4 个：toLowerCase()、toLocaleLowerCase()、toUpperCase()和 toLocaleUpperCase() 。其中， toLowerCase() 和 toUpperCase() 是两个经典的方法，借鉴自 java.lang.String 中的同名方法。而 toLocaleLowerCase() 和 toLocaleUpperCase() 方法则是针对特定地区的实现。一般来说，在不知道自己的代码将在哪种语言环境中运行的情况下，还是使用针对地区的方法更稳妥一些</p>
+</li>
+<li><p>0565、String 类型定义了几个用于在字符串中匹配模式的方法。第一个方法就是 match() ，在字符串上调用这个方法，本质上与调用 RegExp 的 exec() 方法相同。 match() 方法只接受一个参数，要么是一个正则表达式，要么是一个 RegExp 对象</p>
+</li>
+<li><p>0566、另一个用于查找模式的方法是 search() 。这个方法的唯一参数与 match() 方法的参数相同：由字符串或 RegExp 对象指定的一个正则表达式。 search() 方法返回字符串中第一个匹配项的索引；如果没有找到匹配项，则返回 -1 。而且， search() 方法始终是从字符串开头向后查找模式</p>
+</li>
+<li><p>0567、ECMAScript 提供了 replace() 方法。这个方法接受两个参数：第一个参数可以是一个 RegExp 对象或者一个字符串（这个字符串不会被转换成正则表达式），第二个参数可以是一个字符串或者一个函数。如果第一个参数是字符串，那么只会替换第一个子字符串。要想替换所有子字符串，唯一的办法就是提供一个正则表达式，而且要指定全局（ g ）标志</p>
+</li>
+<li><p>0568、replace() 方法的第二个参数也可以是一个函数。在只有一个匹配项（即与模式匹配的字符串）的情况下，会向这个函数传递 3 个参数：模式的匹配项、模式匹配项在字符串中的位置和原始字符串。在正则表达式中定义了多个捕获组的情况下，传递给函数的参数依次是模式的匹配项、第一个捕获组的匹配项、第二个捕获组的匹配项……，但最后两个参数仍然分别是模式的匹配项在字符串中的位置和原始字符串。这个函数应该返回一个字符串，表示应该被替换的匹配项使用函数作为 replace() 方法的第二个参数可以实现更加精细的替换操作</p>
+</li>
+<li><p>0569、最后一个与模式匹配有关的方法是 split() ，这个方法可以基于指定的分隔符将一个字符串分割成多个子字符串，并将结果放在一个数组中。分隔符可以是字符串，也可以是一个 RegExp 对象（这个方法不会将字符串看成正则表达式）。 split() 方法可以接受可选的第二个参数，用于指定数组的大小，以便确保返回的数组不会超过既定大小。对 split() 中正则表达式的支持因浏览器而异。尽管对于简单的模式没有什么差别，但对于未发现匹配项以及带有捕获组的模式，匹配的行为就不大相同了</p>
+</li>
+<li><p>0570、与操作字符串有关的最后一个方法是 localeCompare() ，这个方法比较两个字符串，并返回下列值中的一个： 如果字符串在字母表中应该排在字符串参数之前，则返回一个负数（大多数情况下是 -1 ，具体的值要视实现而定）； 如果字符串等于字符串参数，则返回 0 ；如果字符串在字母表中应该排在字符串参数之后，则返回一个正数（大多数情况下是 1 ，具体的值同样要视实现而定）。localeCompare() 方法比较与众不同的地方，就是实现所支持的地区（国家和语言）决定了这个方法的行为</p>
+</li>
+<li><p>0571、另外， String 构造函数本身还有一个静态方法： fromCharCode() 。这个方法的任务是接收一或多个字符编码，然后将它们转换成一个字符串。从本质上来看，这个方法与实例方法 charCodeAt()执行的是相反的操作</p>
+</li>
+<li><p>0572、 encodeURI() 主要用于整个 URI（例如，<a href="http://www.wrox.com/illegal" target="_blank" rel="noopener">http://www.wrox.com/illegal</a> value.htm），而 encode-URIComponent() 主要用于对 URI 中的某一段（例如前面 URI 中的 illegal value.htm ）进行编码。它们的主要区别在于， encodeURI() 不会对本身属于 URI 的特殊字符进行编码，例如冒号、正斜杠、问号和井字号；而 encodeURIComponent() 则会对它发现的任何非标准字符进行编码</p>
+</li>
+<li><p>0573、一 般 来 说 ， 我 们 使 用 encodeURIComponent() 方 法 的 时 候 要 比 使 用encodeURI() 更多，因为在实践中更常见的是对查询字符串参数而不是对基础 URI进行编码。</p>
+</li>
+<li><p>0574、与 encodeURI() 和 encodeURIComponent() 方法对应的两个方法分别是 decodeURI() 和decodeURIComponent()</p>
+</li>
+<li><p>0575、现在，我们介绍最后一个——大概也是整个 ECMAScript语言中最强大的一个方法： eval() 。 eval()方法就像是一个完整的 ECMAScript 解析器，它只接受一个参数，即要执行的 ECMAScript （或 JavaScript）字符串</p>
+</li>
+<li><p>0576、能够解释代码字符串的能力非常强大，但也非常危险。因此在使用 eval() 时必须极为谨慎，特别是在用它执行用户输入数据的情况下。否则，可能会有恶意用户输入威胁你的站点或应用程序安全的代码（即所谓的代码注入）</p>
+</li>
+<li><p>0577、其中， min() 和 max() 方法用于确定一组数值中的最小值和最大值。这两个方法都可以接收任意多个数值参数</p>
+</li>
+<li><p>0578、要找到数组中的最大或最小值，可以像下面这样使用 apply() 方法。Math.max.apply(Math,[1,2,4,65,8,4)//65</p>
+</li>
+<li><p>0579、下面来介绍将小数值舍入为整数的几个方法： Math.ceil() 、 Math.floor() 和 Math.round()</p>
+</li>
+<li><p>0580、Math.random() 方法返回大于等于 0 小于 1 的一个随机数</p>
+</li>
+<li><p>0581、 引用类型与传统面向对象程序设计中的类相似，但实现不同</p>
+</li>
+<li><p>0582、Object 是一个基础类型，其他所有类型都从 Object 继承了基本的行为</p>
+</li>
+<li><p>0583、Array 类型是一组值的有序列表，同时还提供了操作和转换这些值的功能</p>
+</li>
+<li><p>0584、Date 类型提供了有关日期和时间的信息，包括当前日期和时间以及相关的计算功能</p>
+</li>
+<li><p>0585、RegExp 类型是 ECMAScript 支持正则表达式的一个接口，提供了最基本的和一些高级的正则表达式功能</p>
+</li>
+<li><p>0586、函数实际上是 Function 类型的实例，因此函数也是对象；而这一点正是 JavaScript 最有特色的地方。由于函数是对象，所以函数也拥有方法，可以用来增强其行为</p>
+</li>
+<li><p>0587、因为有了基本包装类型，所以 JavaScript 中的基本类型值可以被当作对象来访问。三种基本包装类型分别是： Boolean 、 Number 和 String 。以下是它们共同的特征</p>
+</li>
+<li><p>0588、在所有代码执行之前，作用域中就已经存在两个内置对象： Global 和 Math 。在大多数 ECMAScript实现中都不能直接访问 Global 对象；不过，Web 浏览器实现了承担该角色的 window 对象。全局变量和函数都是 Global 对象的属性。 Math 对象提供了很多属性和方法，用于辅助完成复杂的数学计算任务</p>
+</li>
+</ul>
+<hr>
+<h1 id="第六章、面向对象的程序设计"><a href="#第六章、面向对象的程序设计" class="headerlink" title="第六章、面向对象的程序设计"></a>第六章、面向对象的程序设计</h1><ul>
+<li><p>0601、ECMAScript中有两种属性：数据属性和访问器属性。数据属性包含一个数据值的位置。在这个位置可以读取和写入值。数据属性有4个描述其行为的特性。对于像前面例子中那样直接在对象上定义的属性，它们的[[Configurable]] 、[[Enumerable]]和[[Writable]]特性都被设置为 true ，而[[Value]]特性被设置为指定的值。要修改属性默认的特性，必须使用ECMAScript5的Object.defineProperty()方法。这个方法接收三个参数：属性所在的对象、属性的名字和一个描述符对象。其中，描述符（descriptor）对象的属性必须是：configurable、enumerable 、 writable和value。设置其中的一或多个值，可以修改对应的特性值。可以多次调用Object.defineProperty() 方法修改同一个属性，但在把configurable特性设置为 false 之后就会有限制了。在调用Object.defineProperty() 方法时，如果不指定，configurable、enumerable 和writable特性的默认值都是false。多数情况下，可能都没有必要利用Object.defineProperty()方法提供的这些高级功能</p>
+</li>
+<li><p>0602、访问器属性不包含数据值；它们包含一对儿getter 和 setter函数（不过，这两个函数都不是必需的）。在读取访问器属性时，会调用getter函数，这个函数负责返回有效的值；在写入访问器属性时，会调用setter函数并传入新值，这个函数负责决定如何处理数据。访问器属性有如下 4 个特性：[[Configurable]]、[[Enumerable]]、[[Get]]、[[Set]]</p>
+</li>
+<li><p>0603、在不支持Object.defineProperty()方法的浏览器中不能修改[[Configurable]]和[[Enumerable]]</p>
+</li>
+<li><p>0604、支持 Object.defineProperties()方法的浏览器有 IE9+、Firefox 4+、Safari 5+、Opera 12+和Chrome</p>
+</li>
+<li><p>0605、在 JavaScript 中，可以针对任何对象——包括 DOM 和 BOM 对象，使用 Object.getOwnProperty-Descriptor() 方法。支持这个方法的浏览器有 IE9+、Firefox 4+、Safari 5+、Opera 12+和 Chrome</p>
+</li>
+<li><p>0606、工厂模式是软件工程领域一种广为人知的设计模式，这种模式抽象了创建具体对象的过程。工厂模式虽然解决了创建多个相似对象的问题，但却没有解决对象识别的问题（即怎样知道一个对象的类型）</p>
+</li>
+<li><p>0607、构造器模式。没有显式地创建对象；直接将属性和方法赋给了 this 对象；没有 return 语句。以这种方式调用构造函数实际上会经历以下 4个步骤：创建一个新对象； 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象）；执行构造函数中的代码（为这个新对象添加属性）；返回新对象。以这种方式定义的构造函数是定义在 Global 对象（在浏览器中是 window 对象）中的。使用构造函数的主要问题，就是每个方法都要在每个实例上重新创建一遍。在前面的例子中， person1 和 person2 都有一个名为 sayName() 的方法，但那两个方法不是同一个 Function 的实例</p>
+</li>
+<li><p>0608、 prototype 就是通过调用构造函数而创建的那个对象实例的原型对象我们创建的每个函数都有一个 prototype （原型）属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。使用原型对象的好处是可以让所有对象实例共享它所包含的属性和方法。换句话说，不必在构造函数中定义对象实例的信息，而是可以将这些信息直接添加到原型对象中</p>
+</li>
+<li><p>0609、无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个 prototype属性，这个属性指向函数的原型对象。在默认情况下，所有原型对象都会自动获得一个 constructor（构造函数）属性，这个属性包含一个指向 prototype 属性所在函数的指针</p>
+</li>
+<li><p>0610、使用 Object.getPrototypeOf()可以方便地取得一个对象的原型，而这在利用原型实现继承（本章稍后会讨论）的情况下是非常重要的。支持这个方法的浏览器有 IE9+、Firefox 3.5+、Safari 5+、Opera 12+和 Chrome</p>
+</li>
+<li><p>0611、使用 delete 操作符则可以完全删除实例属性，从而让我们能够重新访问原型中的属性</p>
+</li>
+<li><p>0612、使用 hasOwnProperty() 方法可以检测一个属性是存在于实例中，还是存在于原型中。这个方法（不要忘了它是从 Object 继承来的）只在给定属性存在于对象实例中时，才会返回 true</p>
+</li>
+<li><p>0613、ECMAScript 5 的 Object.getOwnPropertyDescriptor() 方法只能用于实例属性，要取得原型属性的描述符，必须直接在原型对象上调用 Object.getOwnProperty-Descriptor() 方法</p>
+</li>
+<li><p>0614、有两种方式使用 in 操作符：单独使用和在 for-in 循环中使用。在单独使用时， in 操作符会在通过对象能够访问给定属性时返回true，无论该属性存在于实例中还是原型中</p>
+</li>
+<li><p>0615、由于 in 操作符只要通过对象能够访问到属性就返回 true ， hasOwnProperty() 只在属性存在于实例中时才返回 true ，因此只要 in 操作符返回 true 而 hasOwnProperty() 返回 false ，就可以确定属性是原型中的属性</p>
+</li>
+<li><p>0616、要取得对象上所有可枚举的实例属性，可以使用 ECMAScript 5 的 Object.keys() 方法。这个方法接收一个对象作为参数，返回一个包含所有可枚举属性的字符串数组</p>
+</li>
+<li><p>0617、如果你想要得到所有实例属性，无论它是否可枚举，都可以使用 Object.getOwnPropertyNames()方法。 Object.keys() 和 Object.getOwnProperty-Names() 方法都可以用来替代 for-in 循环。支持这两个方法的浏览器有 IE9+、Firefox 4+、Safari 5+、Opera12+和 Chrome</p>
+</li>
+<li><p>0618、实例与原型之间的连接只不过是一个指针，而非一个副本，因此就可以在原型中找到新的 sayHi 属性并返回保存在那里的函数</p>
+</li>
+<li><p>0619、原型模式也不是没有缺点。首先，它省略了为构造函数传递初始化参数这一环节，结果所有实例在默认情况下都将取得相同的属性值。虽然这会在某种程度上带来一些不方便，但还不是原型的最大问题。原型模式的最大问题是由其共享的本性所导致的</p>
+</li>
+<li><p>0620、混合模式。创建自定义类型的最常见方式，就是组合使用构造函数模式与原型模式。构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性。结果，每个实例都会有自己的一份实例属性的副本，但同时又共享着对方法的引用，最大限度地节省了内存。另外，这种混成模式还支持向构造函数传递参数；可谓是集两种模式之长。这种构造函数与原型混成的模式，是目前在 ECMAScript中使用最广泛、认同度最高的一种创建自定义类型的方法。可以说，这是用来定义引用类型的一种默认模式</p>
+</li>
+<li><p>0621、使用动态原型模式时，不能使用对象字面量重写原型。前面已经解释过了，如果在已经创建了实例的情况下重写原型，那么就会切断现有实例与新原型之间的联系</p>
+</li>
+<li><p>0622、关于寄生构造函数模式，有一点需要说明：首先，返回的对象与构造函数或者与构造函数的原型属性之间没有关系；也就是说，构造函数返回的对象与在构造函数外部创建的对象没有什么不同。为此，不能依赖 instanceof 操作符来确定对象类型。由于存在上述问题，我们建议在可以使用其他模式的情况下，不要使用这种模式</p>
+</li>
+<li><p>0623、继承是 OO 语言中的一个最为人津津乐道的概念。许多 OO 语言都支持两种继承方式：接口继承和实现继承。接口继承只继承方法签名，而实现继承则继承实际的方法。如前所述，由于函数没有签名，在 ECMAScript 中无法实现接口继承。ECMAScript 只支持实现继承，而且其实现继承主要是依靠原型链来实现的</p>
+</li>
+<li><p>0624、构造函数、原型和实例的关系。每个构造函数都有一个原型对象，原型对象都包含一个指向构造函数的指针，而实例都包含一个指向原型对象的内部指针</p>
+</li>
+<li><p>0625、谨慎地定义方法。子类型有时候需要重写超类型中的某个方法，或者需要添加超类型中不存在的某个方法。但不管怎样，给原型添加方法的代码一定要放在替换原型的语句之后</p>
+</li>
+<li><p>0626、通过原型链实现继承时，不能使用对象字面量创建原型方法。因为这样做就会重写原型链</p>
+</li>
+<li><p>0627、在解决原型中包含引用类型值所带来问题的过程中，开发人员开始使用一种叫做借用构造函数（constructor stealing）的技术（有时候也叫做伪造对象或经典继承）。这种技术的基本思想相当简单，即在子类型构造函数的内部调用超类型构造函数。别忘了，函数只不过是在特定环境中执行代码的对象，因此通过使用 apply() 和 call() 方法也可以在（将来）新创建的对象上执行构造函数</p>
+</li>
+<li><p>0628、相对于原型链而言，借用构造函数有一个很大的优势，即可以在子类型构造函数中向超类型构造函数传递参数</p>
+</li>
+<li><p>0629、如果仅仅是借用构造函数，那么也将无法避免构造函数模式存在的问题——方法都在构造函数中定义，因此函数复用就无从谈起了。而且，在超类型的原型中定义的方法，对子类型而言也是不可见的，结果所有类型都只能使用构造函数模式。考虑到这些问题，借用构造函数的技术也是很少单独使用的</p>
+</li>
+<li><p>0630、ECMAScript 5 通过新增 Object.create() 方法规范化了原型式继承。这个方法接收两个参数：一个用作新对象原型的对象和（可选的）一个为新对象定义额外属性的对象。在传入一个参数的情况下，Object.create() 与 object() 方法的行为相同。Object.create() 方法的第二个参数与 Object.defineProperties() 方法的第二个参数格式相同：每个属性都是通过自己的描述符定义的。以这种方式指定的任何属性都会覆盖原型对象上的同名属性</p>
+</li>
+<li><p>0631、寄生组合式继承，即通过借用构造函数来继承属性，通过原型链的混成形式来继承方法</p>
+</li>
+<li><p>0632、 工厂模式，使用简单的函数创建对象，为对象添加属性和方法，然后返回对象。这个模式后来被构造函数模式所取代</p>
+</li>
+<li><p>0633、 构造函数模式，可以创建自定义引用类型，可以像创建内置对象实例一样使用 new 操作符。不过，构造函数模式也有缺点，即它的每个成员都无法得到复用，包括函数。由于函数可以不局限于任何对象（即与对象具有松散耦合的特点），因此没有理由不在多个对象间共享函数</p>
+</li>
+<li><p>0634、原型模式，使用构造函数的 prototype 属性来指定那些应该共享的属性和方法。组合使用构造函数模式和原型模式时，使用构造函数定义实例属性，而使用原型定义共享的属性和方法</p>
+</li>
+<li><p>0635、JavaScript 主要通过原型链实现继承。原型链的构建是通过将一个类型的实例赋值给另一个构造函数的原型实现的。这样，子类型就能够访问超类型的所有属性和方法，这一点与基于类的继承很相似。原型链的问题是对象实例共享所有继承的属性和方法，因此不适宜单独使用。解决这个问题的技术是借用构造函数，即在子类型构造函数的内部调用超类型构造函数。这样就可以做到每个实例都具有自己的属性，同时还能保证只使用构造函数模式来定义类型。使用最多的继承模式是组合继承，这种模式使用原型链继承共享的属性和方法，而通过借用构造函数继承实例属性。 寄生组合式继承，集寄生式继承和组合继承的优点与一身，是实现基于类型继承的最有效方式</p>
+</li>
+<li><p>0636、当某个函数被调用时，会创建一个执行环境（execution context）及相应的作用域链。然后，使用 arguments 和其他命名参数的值来初始化函数的活动对象（activation object）。但在作用域链中，外部函数的活动对象始终处于第二位，外部函数的外部函数的活动对象处于第三位，……直至作为作用域链终点的全局执行环境</p>
+</li>
+</ul>
+<hr>
+<h1 id="第七章-函数表达式"><a href="#第七章-函数表达式" class="headerlink" title="第七章 函数表达式"></a>第七章 函数表达式</h1><ul>
+<li><p>0701、由于闭包会携带包含它的函数的作用域，因此会比其他函数占用更多的内存。过度使用闭包可能会导致内存占用过多，我们建议读者只在绝对必要时再考虑使用闭包。虽然像 V8 等优化后的 JavaScript 引擎会尝试回收被闭包占用的内存，但请大家还是要慎重使用闭包</p>
+</li>
+<li><p>0702、在闭包中使用 this 对象也可能会导致一些问题。我们知道， this 对象是在运行时基于函数的执行环境绑定的：在全局函数中， this 等于 window ，而当函数被作为某个对象的方法调用时， this 等于那个对象。不过，匿名函数的执行环境具有全局性，因此其 this 对象通常指向window。但有时候由于编写闭包的方式不同，这一点可能不会那么明显</p>
+</li>
+<li><p>0703、如果闭包的作用域链中保存着一个HTML 元素，那么就意味着该元素将无法被销毁</p>
+</li>
+<li><p>0704、闭包会引用包含函数的整个活动对象，而其中包含着 element 。即使闭包不直接引用 element ，包含函数的活动对象中也仍然会保存一个引用。因此，有必要把 element 变量设置为 null 。这样就能够解除对 DOM 对象的引用，顺利地减少其引用数，确保正常回收其占用的内存</p>
+</li>
+<li><p>0705、函数声明后面不能跟圆括号。然而，函数表达式的后面可以跟圆括号。要将函数声明转换成函数表达式，只要像下面这样给它加上一对圆括号即可</p>
+</li>
+<li><p>0706、一般来说，我们都应该尽量少向全局作用域中添加变量和函数。在一个由很多开发人员共同参与的大型应用程序中，过多的全局变量和函数很容易导致命名冲突。而通过创建私有作用域，每个开发人员既可以使用自己的变量，又不必担心搞乱全局作用域</p>
+</li>
+<li><p>0707、严格来讲，JavaScript 中没有私有成员的概念；所有对象属性都是公有的。不过，倒是有一个私有变量的概念。任何在函数中定义的变量，都可以认为是私有变量，因为不能在函数的外部访问这些变量。私有变量包括函数的参数、局部变量和在函数内部定义的其他函数。</p>
+</li>
+<li><p>0708、构造函数模式的缺点是针对每个实例都会创建同样一组新方法，而使用静态私有变量来实现特权方法就可以避免这个问题</p>
+</li>
+<li><p>0709、初始化未经声明的变量，总是会创建一个全局变量</p>
+</li>
+<li><p>0710、多查找作用域链中的一个层次，就会在一定程度上影响查找速度。而这正是使用闭包和私有变量的一个显明的不足之处</p>
+</li>
+<li><p>0711、 函数表达式不同于函数声明。函数声明要求有名字，但函数表达式不需要。没有名字的函数表达式也叫做匿名函数</p>
+</li>
+<li><p>0712、在无法确定如何引用函数的情况下，递归函数就会变得比较复杂</p>
+</li>
+<li><p>0713、 递归函数应该始终使用 arguments.callee 来递归地调用自身，不要使用函数名——函数名可能会发生变化</p>
+</li>
+<li><p>0714、当在函数内部定义了其他函数时，就创建了闭包。闭包有权访问包含函数内部的所有变量：在后台执行环境中，闭包的作用域链包含着它自己的作用域、包含函数的作用域和全局作用域；通常，函数的作用域及其所有变量都会在函数执行结束后被销毁；但是，当函数返回了一个闭包时，这个函数的作用域将会一直在内存中保存到闭包不存在为止</p>
+</li>
+<li><p>0715、使用闭包可以在 JavaScript中模仿块级作用域（JavaScript本身没有块级作用域的概念）</p>
+</li>
+<li><p>0716、JavaScript 中的函数表达式和闭包都是极其有用的特性，利用它们可以实现很多功能。不过，因为创建闭包必须维护额外的作用域，所以过度使用它们可能会占用大量内存</p>
+</li>
+</ul>
+<hr>
+<h1 id="第八章-BOM"><a href="#第八章-BOM" class="headerlink" title="第八章 BOM"></a>第八章 BOM</h1><ul>
+<li><p>0801、抛开全局变量会成为 window 对象的属性不谈，定义全局变量与在 window 对象上直接定义属性还是有一点差别：全局变量不能通过 delete 操作符删除，而直接在 window 对象上的定义的属性可以</p>
+</li>
+<li><p>0802、刚才使用 var 语句添加的 window 属性有一个名为 [[Configurable]] 的特性，这个特性的值被设置为 false ，因此这样定义的属性不可以通过 delete 操作符删除。IE8及更早版本在遇到使用 delete删除 window 属性的语句时，不管该属性最初是如何创建的，都会抛出错误，以示警告。IE9 及更高版本不会抛出错误</p>
+</li>
+<li><p>0803、尝试访问未声明的变量会抛出错误，但是通过查询 window 对象，可以知道某个可能未声明的变量是否存在202、窗口位置。用来确定和修改 window 对象位置的属性和方法有很多。IE、Safari、Opera 和 Chrome 都提供了screenLeft 和 screenTop 属性，分别用于表示窗口相对于屏幕左边和上边的位置。Firefox 则在screenX 和 screenY 属性中提供相同的窗口位置信息，Safari 和 Chrome 也同时支持这两个属性。Opera虽然也支持 screenX 和 screenY 属性，但与 screenLeft 和 screenTop 属性并不对应，因此建议大家不要在 Opera 中使用它们</p>
+</li>
+<li><p>0804、最终结果，就是无法在跨浏览器的条件下取得窗口左边和上边的精确坐标值。然而，使用 moveTo()和 moveBy() 方法倒是有可能将窗口精确地移动到一个新位置。这两个方法都接收两个参数，其中moveTo() 接收的是新位置的 x 和 y 坐标值，而 moveBy() 接收的是在水平和垂直方向上移动的像素数。</p>
+</li>
+<li><p>0805、需要注意的是，这两个方法可能会被浏览器禁用；而且，在 Opera 和 IE 7（及更高版本）中默认就是禁用的。另外，这两个方法都不适用于框架，只能对最外层的 window 对象使用</p>
+</li>
+<li><p>0806、跨浏览器确定一个窗口的大小不是一件简单的事。IE9+、Firefox、Safari、Opera 和 Chrome 均为此提供了 4个属性： innerWidth、 innerHeight 、 outerWidth 和 outerHeight 。在 IE9+、Safari和 Firefox中， outerWidth 和 outerHeight 返回浏览器窗口本身的尺寸（无论是从最外层的 window 对象还是从某个框架访问）。在Opera中，这两个属性的值表示页面视图容器① 的大小。而innerWidth 和 innerHeight则表示该容器中页面视图区的大小（减去边框宽度）。在 Chrome 中， outerWidth 、 outerHeight 与innerWidth 、 innerHeight 返回相同的值，即视口（viewport）大小而非浏览器窗口大小</p>
+</li>
+<li><p>0807、在 IE、Firefox、Safari、Opera 和 Chrome 中， document.documentElement.clientWidth 和document.documentElement.clientHeight 中保存了页面视口的信息。在 IE6 中，这些属性必须在标准模式下才有效；如果是混杂模式，就必须通过 document.body.clientWidth 和 document.body.clientHeight 取得相同信息。而对于混杂模式下的 Chrome，则无论通过 document.documentEle-ment 还是 document.body 中的 clientWidth 和 clientHeight 属性，都可以取得视口的大小</p>
+</li>
+<li><p>0808、对于移动设备， window.innerWidth 和 window.innerHeight 保存着可见视口，也就是屏幕上可见页面区域的大小。移动 IE 浏览器不支持这些属性，但通过 document.documentElement.client-Width 和 document.documentElement.clientHeihgt 提供了相同的信息。随着页面的缩放，这些值也会相应变化</p>
+</li>
+<li><p>0809、有关移动设备视口的话题比较复杂，有很多非常规的情形，也有各种各样的建议。移动开发咨询师 Peter-Paul Koch 记述了他对这个问题的研究：<a href="http://t.cn/zOZs0Tz。如果你在做移动" target="_blank" rel="noopener">http://t.cn/zOZs0Tz。如果你在做移动</a> Web 开发，推荐你读一读这篇文章</p>
+</li>
+<li><p>0810、 window.open() 方法既可以导航到一个特定的 URL，也可以打开一个新的浏览器窗口。这个方法可以接收 4 个参数：要加载的 URL、窗口目标、一个特性字符串以及一个表示新页面是否取代浏览器历史记录中当前加载页面的布尔值。通常只须传递第一个参数，最后一个参数只在不打开新窗口的情况下使用。后面这行代码会打开一个新的可以调整大小的窗口，窗口初始大小为 400×400 像素，并且距屏幕上沿和左边各 10 像素。window.open(“<a href="http://www.wrox.com/&quot;,&quot;wroxWindow&quot;,&quot;height=400,width=400,top=10,left=10,resizable=yes&quot;)" target="_blank" rel="noopener">http://www.wrox.com/&quot;,&quot;wroxWindow&quot;,&quot;height=400,width=400,top=10,left=10,resizable=yes&quot;)</a>;</p>
+</li>
+<li><p>0811、wroxWin.close()这个方法仅适用于通过 window.open() 打开的弹出窗口。对于浏览器的主窗口，如果没有得到用户的允许是不能关闭它的。不过，弹出窗口倒是可以调用 top.close() 在不经用户允许的情况下关闭自己。弹出窗口关闭之后，窗口的引用仍然还在，但除了像下面这样检测其 closed 属性之外，已经没有其他用处了</p>
+</li>
+<li><p>0812、超时调用需要使用 window 对象的 setTimeout() 方法，它接受两个参数：要执行的代码和以毫秒表示的时间（即在执行代码前需要等待多少毫秒）。由于传递字符串可能导致性能损失，因此不建议以字符串作为第一个参数</p>
+</li>
+<li><p>0813、JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。 setTimeout() 的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行</p>
+</li>
+<li><p>0814、超时调用的代码都是在全局作用域中执行的，因此函数中 this 的值在非严格模式下指向 window 对象，在严格模式下是 undefined</p>
+</li>
+<li><p>0815、一般认为，使用超时调用来模拟间歇调用的是一种最佳模式。在开发环境下，很少使用真正的间歇调用，原因是后一个间歇调用可能会在前一个间歇调用结束之前启动。而像前面示例中那样使用超时调用，则完全可以避免这一点。所以，最好不要使用间歇调用</p>
+</li>
+<li><p>0816、通过 JavaScript 打开的对话框，即“查找”和“打印”。这两个对话框都是异步显示的，能够将控制权立即交还给脚本。这两个对话框与用户通过浏览器菜单的“查找”和“打印”命令打开的对话框相同。而在 JavaScript 中则可以像下面这样通过 window 对象的 find() 和 print() 方法打开它们</p>
+</li>
+<li><p>0817、URL获取参数并封装成对象。这个函数的第一步是先去掉查询字符串开头的问号。当然，前提是 location.search 中必须要包含一或多个字符。然后，所有参数将被保存在 args 对象中，该对象以字面量形式创建。接下来，根据和号（&amp;）来分割查询字符串，并返回 name=value 格式的字符串数组。下面的 for 循环会迭代这个数组，然后再根据等于号分割每一项，从而返回第一项为参数名，第二项为参数值的数组。再使用 decodeURIComponent() 分别解码 name 和 value （因为查询字符串应该是被编码过的）。最后，将 name 作为 args 对象的属性，将 value 作为相应属性的值</p>
+</li>
+<li><p>0818、每次修改 location 的属性（ hash 除外），页面都会以新 URL 重新加载</p>
+</li>
+<li><p>0819、在 IE8、Firefox 1、Safari 2+、Opera 9+和 Chrome 中，修改 hash 的值会在浏览器的历史记录中生成一条新记录。在 IE 的早期版本中， hash 属性不会在用户单击“后退”和“前进”按钮时被更新，而只会在用户单击包含 hash 的 URL 时才会被更新</p>
+</li>
+<li><p>0820、replace() 方法。这个方法只接受一个参数，即要导航到的 URL；结果虽然会导致浏览器位置改变，但不会在历史记录中生成新记录。在调用 replace() 方法之后，用户不能回到前一个页面</p>
+</li>
+<li><p>0821、与位置有关的最后一个方法是 reload() ，作用是重新加载当前显示的页面。如果调用 reload()时不传递任何参数，页面就会以最有效的方式重新加载。也就是说，如果页面自上次请求以来并没有改变过，页面就会从浏览器缓存中重新加载。如果要强制从服务器重新加载，则需要像下面这样为该方法传递参数 true。位于 reload() 调用之后的代码可能会也可能不会执行，这要取决于网络延迟或系统资源等因素。为此，最好将 reload() 放在代码的最后一行</p>
+</li>
+<li><p>0822、检测浏览器中是否安装了特定的插件是一种最常见的检测例程。对于非 IE 浏览器，可以使用plugins 数组来达到这个目的。</p>
+</li>
+<li><p>0823、检测 IE 中的插件比较麻烦，因为 IE 不支持 Netscape 式的插件。在 IE 中检测插件的唯一方式就是使用专有的 ActiveXObject 类型，并尝试创建一个特定插件的实例。IE 是以 COM对象的方式实现插件的，而 COM对象使用唯一标识符来标识。因此，要想检查特定的插件，就必须知道其 COM 标识符。例如，Flash 的标识符是 ShockwaveFlash.ShockwaveFlash </p>
+</li>
+<li><p>0824、plugins 集合有一个名叫 refresh() 的方法，用于刷新 plugins 以反映最新安装的插件。这个方法接收一个参数：表示是否应该重新加载页面的一个布尔值。如果将这个值设置为 true ，则会重新加载包含插件的所有页面；否则，只更新 plugins集合，不重新加载页面</p>
+</li>
+<li><p>0825、history 对象保存着用户上网的历史记录，从窗口被打开的那一刻算起。因为 history 是 window对象的属性，因此每个浏览器窗口、每个标签页乃至每个框架，都有自己的 history 对象与特定的window 对象关联</p>
+</li>
+<li><p>0826、使用 go() 方法可以在用户的历史记录中任意跳转，可以向后也可以向前。这个方法接受一个参数，表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转（类似于单击浏览器的“后退”按钮），正数表示向前跳转（类似于单击浏览器的“前进”按钮）。也可以给 go() 方法传递一个字符串参数，此时浏览器会跳转到历史记录中包含该字符串的第一个位置——可能后退，也可能前进，具体要看哪个位置最近。如果历史记录中不包含该字符串，那么这个方法什么也不做</p>
+</li>
+<li><p>0827、另外，还可以使用两个简写方法 back() 和 forward() 来代替 go() 。顾名思义，这两个方法可以模仿浏览器的“后退”和“前进”按钮</p>
+</li>
+<li><p>0828、当页面的 URL 改变时，就会生成一条历史记录。在 IE8 及更高版本、Opera、Firefox、Safari 3 及更高版本以及 Chrome 中，这里所说的改变包括 URL 中 hash 的变化（因此，设置 location.hash 会在这些浏览器中生成一条新的历史记录）</p>
+</li>
+<li><p>0829、浏览器对象模型（BOM）以 window 对象为依托，表示浏览器窗口以及页面可见区域。同时， window对象还是 ECMAScript 中的 Global 对象，因而所有全局变量和函数都是它的属性，且所有原生的构造函数及其他函数也都存在于它的命名空间下</p>
+</li>
+</ul>
+<hr>
+<h1 id="第九章-客户端检测"><a href="#第九章-客户端检测" class="headerlink" title="第九章 客户端检测"></a>第九章 客户端检测</h1><ul>
+<li><p>0901、检测 Web 客户端的手段很多，而且各有利弊。但最重要的还是要知道，不到万不得已，就不要使用客户端检测。只要能找到更通用的方法，就应该优先采用更通用的方法。一言以蔽之，先设计最通用的方案，然后再使用特定于浏览器的技术增强该方案</p>
+</li>
+<li><p>0902、在实际开发中，应该将能力检测作为确定下一步解决方案的依据，而不是用它来判断用户使用的是什么浏览器</p>
+</li>
+<li><p>0903、与能力检测类似，怪癖检测（quirks detection）的目标是识别浏览器的特殊行为。但与能力检测确认浏览器支持什么能力不同，怪癖检测是想要知道浏览器存在什么缺陷（“怪癖”也就是 bug）</p>
+</li>
+<li><p>0904、能力检测：在编写代码之前先检测特定浏览器的能力</p>
+</li>
+<li><p>0905、 怪癖检测：怪癖实际上是浏览器实现中存在的 bug</p>
+</li>
+<li><p>0906、用户代理检测：通过检测用户代理字符串来识别浏览器</p>
+</li>
+<li><p>0907、在决定使用哪种客户端检测方法时，一般应优先考虑使用能力检测。怪癖检测是确定应该如何处理代码的第二选择。而用户代理检测则是客户端检测的最后一种方案，因为这种方法对用户代理字符串具有很强的依赖性</p>
+</li>
+</ul>
+<hr>
+<h1 id="第十章-DOM"><a href="#第十章-DOM" class="headerlink" title="第十章 DOM"></a>第十章 DOM</h1><ul>
+<li><p>1001、每一段标记都可以通过树中的一个节点来表示：HTML 元素通过元素节点表示，特性（attribute）通过特性节点表示，文档类型通过文档类型节点表示，而注释则通过注释节点表示。总共有 12 种节点类型，这些类型都继承自一个基类型</p>
+</li>
+<li><p>1002、JavaScript 中的所有节点类型都继承自 Node 类型，因此所有节点类型都共享着相同的基本属性和方法</p>
+</li>
+<li><p>1003、所有节点都有的最后一个属性是 ownerDocument ，该属性指向表示整个文档的文档节点。这种关系表示的是任何节点都属于它所在的文档，任何节点都不能同时存在于两个或更多个文档中。通过这个属性，我们可以不必在节点层次中通过层层回溯到达顶端，而是可以直接访问文档节点</p>
+</li>
+<li><p>1004、如果需要把节点放在 childNodes 列表中某个特定的位置上，而不是放在末尾，那么可以使用insertBefore() 方法。这个方法接受两个参数：要插入的节点和作为参照的节点。插入节点后，被插入的节点会变成参照节点的前一个同胞节点（ previousSibling ），同时被方法返回。如果参照节点是null ，则 insertBefore() 与 appendChild() 执行相同的操作</p>
+</li>
+<li><p>1005、 replaceChild() 方法接受的两个参数是：要插入的节点和要替换的节点。要替换的节点将由这个方法返回并从文档树中被移除，同时由要插入的节点占据其位置</p>
+</li>
+<li><p>1006、如果只想移除而非替换节点，可以使用 removeChild() 方法。这个方法接受一个参数，即要移除的节点。被移除的节点将成为方法的返回值</p>
+</li>
+<li><p>1007、要使用这几个方法必须先取得父节点（使用 parentNode 属性）。另外，并不是所有类型的节点都有子节点，如果在不支持子节点的节点上调用了这些方法，将会导致错误发生</p>
+</li>
+<li><p>1008、 cloneNode() ，用于创建调用这个方法的节点的一个完全相同的副本。 cloneNode() 方法接受一个布尔值参数，表示是否执行深复制</p>
+</li>
+<li><p>1009、cloneNode() 方法不会复制添加到 DOM 节点中的 JavaScript 属性，例如事件处理程序等。这个方法只复制特性、（在明确指定的情况下也复制）子节点，其他一切都不会复制。IE 在此存在一个 bug，即它会复制事件处理程序，所以我们建议在复制之前最好先移除事件处理程序</p>
+</li>
+<li><p>1010、最后一个方法是 normalize() ，这个方法唯一的作用就是处理文档树中的文本节点。由于解析器的实现或 DOM 操作等原因，可能会出现文本节点不包含文本，或者接连出现两个文本节点的情况。当在某个节点上调用这个方法时，就会在该节点的后代节点中查找上述两种情况。如果找到了空文本节点，则删除它；如果找到相邻的文本节点，则将它们合并为一个文本节点</p>
+</li>
+<li><p>1011、虽然 DOM 标准规定 Document 节点的子节点可以是 DocumentType 、 Element 、 ProcessingIn-struction 或 Comment ，但还有两个内置的访问其子节点的快捷方式。第一个就是 documentElement属性，该属性始终指向 HTML 页面中的 <html> 元素。另一个就是通过 childNodes 列表访问文档元素，但通过 documentElement 属性则能更快捷、更直接地访问该元素</html></p>
+</li>
+<li><p>1012、所有浏览器都支持 document.documentElement 和 document.body 属性</p>
+</li>
+<li><p>1013、作为 HTMLDocument 的一个实例， document 对象还有一些标准的 Document 对象所没有的属性。这些属性提供了 document 对象所表现的网页的一些信息。其中第一个属性就是 title ，包含着<title> 元素中的文本——显示在浏览器窗口的标题栏或标签页上。通过这个属性可以取得当前页面的标题，也可以修改当前页面的标题并反映在浏览器的标题栏中。修改 title 属性的值不会改变 <title>元素</title></title></p>
+</li>
+<li><p>1014、 URL 属性中包含页面完整的 URL（即地址栏中显示的 URL）， domain 属性中只包含页面的域名，而 referrer属性中则保存着链接到当前页面的那个页面的 URL。在没有来源页面的情况下， referrer 属性中可能会包含空字符串。所有这些信息都存在于请求的 HTTP 头部，只不过是通过这些属性让我们能够在JavaScrip 中访问它们而已</p>
+</li>
+<li><p>1015、当页面中包含来自其他子域的框架或内嵌框架时，能够设置 document.domain 就非常方便了。由于 跨 域 安 全 限 制 ， 来 自 不 同 子 域 的 页 面 无 法 通 过 JavaScript 通 信 。 而 通 过 将 每 个 页 面 的document.domain 设置为相同的值，这些页面就可以互相访问对方包含的 JavaScript 对象了</p>
+</li>
+<li><p>1016、假设有一个页面加载自 <a href="http://www.wrox.com，其中包含一个内嵌框架，框架内的页面加载自" target="_blank" rel="noopener">www.wrox.com，其中包含一个内嵌框架，框架内的页面加载自</a> p2p.wrox.com。由于 document.domain 字符串不一样，内外两个页面之间无法相互访问对方的 JavaScript 对象。但如果将这两个页面的 document.domain 值都设置为 “wrox.com” ，它们之间就可以通信了。浏览器对 domain 属性还有一个限制，即如果域名一开始是“松散的”（loose），那么不能将它再设置为“紧绷的”（tight）。换句话说，在将 document.domain 设置为 “wrox.com” 之后，就不能再将其设置回 “p2p.wrox.com” ，否则将会导致错误</p>
+</li>
+<li><p>1017、HTMLCollection 对象还有一个方法，叫做 namedItem() ，使用这个方法可以通过元素的 name特性取得集合中的项。对 HTMLCollection 而言，我们可以向方括号中传入数值或字符串形式的索引值。在后台，对数值索引就会调用 item() ，而对字符串索引就会调用 namedItem()</p>
+</li>
+<li><p>1018、有一个 document 对象的功能已经存在很多年了，那就是将输出流写入到网页中的能力。这个能力体现在下列 4 个方法中： write() 、 writeln() 、 open() 和 close() 。其中， write() 和 writeln()方法都接受一个字符串参数，即要写入到输出流中的文本。 write() 会原样写入，而 writeln() 则会在字符串的末尾添加一个换行符（ \n ）。在页面被加载的过程中，可以使用这两个方法向页面中动态地加入内容</p>
+</li>
+<li><p>1019、方法 open() 和 close() 分别用于打开和关闭网页的输出流</p>
+</li>
+<li><p>1020、每个元素都有一或多个特性，这些特性的用途是给出相应元素或其内容的附加信息。操作特性的DOM 方法主要有三个，分别是 getAttribute() 、 setAttribute() 和 removeAttribute()</p>
+</li>
+<li><p>1021、与 getAttribute() 对应的方法是 setAttribute() ，这个方法接受两个参数：要设置的特性名和值。如果特性已经存在， setAttribute() 会以指定的值替换现有的值；如果特性不存在， setAttribute()则创建该属性并设置相应的值</p>
+</li>
+<li><p>1022、 removeAttribute() ，这个方法用于彻底删除元素的特性。调用这个方法不仅会清除特性的值，而且也会从元素中完全删除特性</p>
+</li>
+<li><p>1023、使用 document.createElement() 方法可以创建新元素。这个方法只接受一个参数，即要创建元素的标签名。这个标签名在 HTML 文档中不区分大小写，而在 XML（包括 XHTML）文档中，则是区分大小写的</p>
+</li>
+<li><p>1024、文本节点由 Text 类型表示，包含的是可以照字面解释的纯文本内容。纯文本中可以包含转义后的HTML 字符，但不能包含 HTML 代码</p>
+</li>
+<li><p>1025、可以使用 document.createTextNode() 创建新文本节点，这个方法接受一个参数——要插入节点中的文本</p>
+</li>
+<li><p>1026、使用 document.createComment() 并为其传递注释文本也可以创建注释节点</p>
+</li>
+<li><p>1027、虽然不能把文档片段直接添加到文档中，但可以将它作为一个“仓库”来使用，即可以在里面保存将来可能会添加到文档中的节点。要创建文档片段，可以使用 document.createDocumentFragment() 方法</p>
+</li>
+<li><p>1028、文档片段继承了 Node 的所有方法，通常用于执行那些针对文档的 DOM操作。如果将文档中的节点添加到文档片段中，就会从文档树中移除该节点，也不会从浏览器中再看到该节点。添加到文档片段中的新节点同样也不属于文档树。可以通过 appendChild() 或insertBefore() 将文档片段中内容添加到文档中。在将文档片段作为参数传递给这两个方法时，实际上只会将文档片段的所有子节点添加到相应位置上；文档片段本身永远不会成为文档树的一部分</p>
+</li>
+<li><p>1029、Attr 对象有 3 个属性： name 、 value 和 specified 。其中， name 是特性名称（与 nodeName 的值相同）， value 是特性的值（与 nodeValue 的值相同），而 specified 是一个布尔值，用以区别特性是在代码中指定的，还是默认的</p>
+</li>
+<li><p>1030、理解 NodeList 及其“近亲” NamedNodeMap 和 HTMLCollection ，是从整体上透彻理解 DOM 的关键所在。这三个集合都是“动态的”；换句话说，每当文档结构发生变化时，它们都会得到更新。因此，它们始终都会保存着最新、最准确的信息。从本质上说，所有 NodeList 对象都是在访问 DOM文档时实时运行的查询</p>
+</li>
+<li><p>1031、一般来说，应该尽量减少访问 NodeList 的次数。因为每次访问 NodeList ，都会运行一次基于文档的查询。所以，可以考虑将从 NodeList 中取得的值缓存起来</p>
+</li>
+<li><p>1032、querySelector() 方法接收一个 CSS 选择符，返回与该模式匹配的第一个元素，如果没有找到匹配的元素，返回 null 。</p>
+</li>
+<li><p>1033、querySelectorAll() 方法接收的参数与 querySelector() 方法一样，都是一个 CSS 选择符，但返回的是所有匹配的元素而不仅仅是一个元素。这个方法返回的是一个 NodeList 的实例</p>
+</li>
+<li><p>1034、如果传入了浏览器不支持的选择符或者选择符中有语法错误，querySelectorAll() 会抛出错误</p>
+</li>
+<li><p>1035、Selectors API Level 2 规范为 Element 类型新增了一个方法 matchesSelector() 。这个方法接收一个参数，即 CSS 选择符，如果调用元素与该选择符匹配，返回 true ；否则，返回 false</p>
+</li>
+<li><p>1036、对于元素间的空格，IE9及之前版本不会返回文本节点，而其他所有浏览器都会返回文本节点</p>
+</li>
+<li><p>1037、支持 getElementsByClassName() 方法的浏览器有 IE 9+、Firefox 3+、Safari 3.1+、Chrome 和Opera 9.5+</p>
+</li>
+<li><p>1038、新增了 document.hasFocus() 方法，这个方法用于确定文档是否获得了焦点</p>
+</li>
+<li><p>1039、使用 document.readyState 的最恰当方式，就是通过它来实现一个指示文档已经加载完成的指示器。支持 readyState 属性的浏览器有 IE4+、Firefox 3.6+、Safari、Chrome和 Opera 9+</p>
+</li>
+<li><p>1040、自从 IE6 开始区分渲染页面的模式是标准的还是混杂的，检测页面的兼容模式就成为浏览器的必要功能。IE 为此给 document 添加了一个名为 compatMode 的属性，这个属性就是为了告诉开发人员浏览器采用了哪种渲染模式。就像下面例子中所展示的那样，在标准模式下， document.compatMode 的值等于 “CSS1Compat” ，而在混杂模式下， document.compatMode 的值等于 “BackCompat”。</p>
+</li>
+<li><p>1041、HTML5规定可以为元素添加非标准的属性，但要添加前缀 data- ，目的是为元素提供与渲染无关的信息，或者提供语义信息。这些属性可以任意添加、随便命名，只要以 data- 开头即可</p>
+</li>
+<li><p>1042、在读模式下， innerHTML 属性返回与调用元素的所有子节点（包括元素、注释和文本节点）对应的 HTML 标记。在写模式下， innerHTML 会根据指定的值创建新的 DOM树，然后用这个 DOM 树完全替换调用元素原先的所有子节点</p>
+</li>
+<li><p>1043、在写模式下， innerHTML 的值会被解析为 DOM 子树，替换调用元素原来的所有子节点。因为它的值被认为是 HTML，所以其中的所有标签都会按照浏览器处理 HTML 的标准方式转换为元素（同样，这里的转换结果也因浏览器而异）。如果设置的值仅是文本而没有 HTML 标签，那么结果就是设置纯文本</p>
+</li>
+<li><p>1044、 innerHTML 字符串一开始（而且整个）就是一个“无作用域的元素”，所以这个字符串会变成空字符串</p>
+</li>
+<li><p>1045、不支持 innerHTML 的元素有：<code>&lt;col&gt; 、 &lt;colgroup&gt; 、&lt;frameset&gt; 、 &lt;head&gt; 、 &lt;html&gt; 、 &lt;style&gt; 、 &lt;table&gt; 、&lt;tbody&gt; 、&lt;thead&gt; 、&lt;tfoot&gt; 和 &lt;tr&gt;</code> 。此外，在 IE8 及更早版本中， <title> 元素也没有 innerHTML 属性</title></p>
+</li>
+<li><p>1046、在读模式下， outerHTML 返回调用它的元素及所有子节点的 HTML 标签。在写模式下， outerHTML会根据指定的 HTML 字符串创建新的 DOM子树，然后用这个 DOM 子树完全替换调用元素。</p>
+</li>
+<li><p>1047、由于 IE9 之前的版本与其他浏览器在处理文本节点中的空白符时有差异，因此就出现了 children属性。这个属性是 HTMLCollection 的实例，只包含元素中同样还是元素的子节点。除此之外，children 属性与 childNodes 没有什么区别，即在元素只包含元素子节点时，这两个属性的值相同</p>
+</li>
+<li><p>1048、在实际开发中，经常需要知道某个节点是不是另一个节点的后代。调用 contains() 方法的应该是祖先节点，也就是搜索开始的节点，这个方法接收一个参数，即要检测的后代节点。如果被检测的节点是后代节点，该方法返回 true ；否则，返回 false 。</p>
+</li>
+<li><p>1049、innerText 与 textContent 返回的内容并不完全一样。比如，innerText 会忽略行内的样式和脚本，而 textContent 则会像返回其他文本一样返回行内的样式和脚本代码。避免跨浏览器兼容问题的最佳途径，就是从不包含行内样式或行内脚本的 DOM 子树副本或 DOM 片段中读取文本</p>
+</li>
+<li><p>1050、scrollIntoViewIfNeeded(alignCenter) ：只在当前元素在视口中不可见的情况下，才滚动浏览器窗口或容器元素，最终让它可见。如果当前元素在视口中可见，这个方法什么也不做。如果将可选的 alignCenter 参数设置为 true ，则表示尽量将元素显示在视口中部（垂直方向）。Safari 和 Chrome 实现了这个方法</p>
+</li>
+<li><p>1051、在标准模式下，所有度量值都必须指定一个度量单位。在混杂模式下，可以将style.width 设置为 “20” ，浏览器会假设它是 “20px” ；但在标准模式下，将style.width 设置为 “20” 会导致被忽略——因为没有度量单位。在实践中，最好始终都指定度量单位</p>
+</li>
+<li><p>1052、通过 cssText 属性可以访问style特性中的CSS代码。在读取模式下， cssText 返回浏览器对 style特性中 CSS 代码的内部表示。在写入模式下，赋给 cssText 的值会重写整个 style 特性的值；也就是说，以前通过 style 特性指定的样式信息都将丢失</p>
+</li>
+<li><p>1053、如果你需要更多信息，可以使用 getPropertyCSSValue() 方法，它返回一个包含两个属性的 CSSValue 对象，这两个属性分别是： cssText 和 cssValueType 。其中， cssText 属性的值与 getPropertyValue() 返回的值相同，而 cssValueType 属性则是一个数值常量，表示值的类型：0 表示继承的值，1 表示基本的值，2 表示值列表，3 表示自定义的值</p>
+</li>
+<li><p>1054、要从元素的样式中移除某个 CSS 属性，需要使用 removeProperty() 方法。使用这个方法移除一个属性，意味着将会为该属性应用默认的样式（从其他样式表经层叠而来）。例如，要移除通过 style特性设置的  border 属性</p>
+</li>
+<li><p>1055、 getComputedStyle() 方法返回一个 CSSStyleDeclaration 对象（与 style 属性的类型相同），其中包含当前元素的所有计算的样式。IE 不支持 getComputedStyle() 方法，但它有一种类似的概念。在 IE 中，每个具有 style 属性的元素还有一个 currentStyle 属性。这个属性是 CSSStyleDeclaration 的实例，包含当前元素全部计算后的样式</p>
+</li>
+<li><p>1056、无论在哪个浏览器中，最重要的一条是要记住所有计算的样式都是只读的；不能修改计算后样式对象中的 CSS 属性。此外，计算后的样式也包含属于浏览器内部样式表的样式信息，因此任何具有默认值的 CSS 属性都会表现在计算后的样式中。例如，所有浏览器中的 visibility 属性都有一个默认值，但这个值会因实现而异</p>
+</li>
+<li><p>1057、CSSStyleSheet 类型表示的是样式表，包括通过 <code>&lt;link&gt;</code> 元素包含的样式表和在 <code>&lt;style&gt;</code> 元素中定义的样式表</p>
+</li>
+<li><p>1058、从样式表中删除规则的方法是 deleteRule() ，这个方法接受一个参数：要删除的规则的位置</p>
+</li>
+<li><p>1059、首先要介绍的属性涉及偏移量（offset dimension），包括元素在屏幕上占用的所有可见的空间。元素的可见大小由其高度、宽度决定，包括所有内边距、滚动条和边框大小（注意，不包括外边距）</p>
+</li>
+<li><p>1060、所有这些偏移量属性都是只读的，而且每次访问它们都需要重新计算。因此，应该尽量避免重复访问这些属性；如果需要重复使用其中某些属性的值，可以将它们保存在局部变量中，以提高性能。</p>
+</li>
+</ul>
+<hr>
+<h1 id="第十一章-DOM扩展、第十二章-DOM2和DOM3"><a href="#第十一章-DOM扩展、第十二章-DOM2和DOM3" class="headerlink" title="第十一章 DOM扩展、第十二章 DOM2和DOM3"></a>第十一章 DOM扩展、第十二章 DOM2和DOM3</h1><ul>
+<li><p>1101、querySelector() 方法接收一个 CSS 选择符，返回与该模式匹配的第一个元素，如果没有找到匹配的元素，返回 null</p>
+</li>
+<li><p>1102、querySelectorAll() 方法接收的参数与 querySelector() 方法一样，都是一个 CSS 选择符，但返回的是所有匹配的元素而不仅仅是一个元素。这个方法返回的是一个 NodeList 的实例。返回的值实际上是带有所有属性和方法的 NodeList ，而其底层实现则类似于一组元素的快照，而非不断对文档进行搜索的动态查询</p>
+</li>
+<li><p>1103、childElementCount ：返回子元素（不包括文本节点和注释）的个数；firstElementChild ：指向第一个子元素； firstChild 的元素版；lastElementChild ：指向最后一个子元素； lastChild 的元素版； previousElementSibling ：指向前一个同辈元素； previousSibling 的元素版；nextElementSibling ：指向后一个同辈元素； nextSibling 的元素版</p>
+</li>
+<li><p>1104、getElementsByClassName() 方法接收一个参数，即一个包含一或多个类名的字符串，返回带有指定类的所有元素的 NodeList。传入多个类名时，类名的先后顺序不重要。因为返回的对象是 NodeList ，所以使用这个方法与使用 getElementsByTagName()。以及其他返回 NodeList 的 DOM 方法都具有同样的性能问题。支持 getElementsByClassName() 方法的浏览器有 IE 9+、Firefox 3+、Safari 3.1+、Chrome 和Opera 9.5+</p>
+</li>
+<li><p>1105、div.classList.remove(“user”)  =&gt;   add(value) ：将给定的字符串值添加到列表中。如果值已经存在，就不添加了；contains(value) ：表示列表中是否存在给定的值，如果存在则返回 true ，否则返回 false；remove(value) ：从列表中删除给定的字符串；toggle(value) ：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它。支持 classList 属性的浏览器有 Firefox 3.6+和 Chrome</p>
+</li>
+<li><p>1106、 document.activeElement 属性，这个属性始终会引用 DOM 中当前获得了焦点的元素。默认情况下，文档刚刚加载完成时， document.activeElement 中保存的是 document.body 元素的引用。文档加载期间， document.activeElement 的值为 null</p>
+</li>
+<li><p>1107、 document.hasFocus() 方法，这个方法用于确定文档是否获得了焦点。</p>
+</li>
+<li><p>1108、实现了这两个属性的浏览器的包括 IE 4+、Firefox 3+、Safari 4+、Chrome 和 Opera 8+</p>
+</li>
+<li><p>1109、使用 document.readyState 的最恰当方式，就是通过它来实现一个指示文档已经加载完成的指示器</p>
+</li>
+<li><p>1110、在标准模式下， document.compatMode 的值等于 “CSS1Compat” ，而在混杂模式下， document.compatMode 的值等于 “BackCompat”</p>
+</li>
+<li><p>1111、HTML5 新增了 document.head 属性，引用文档的 <head><meta name="generator" content="Hexo 3.8.0"> 元素。实现 document.head 属性的浏览器包括 Chrome 和 Safari 5</head></p>
+</li>
+<li><p>1112、HTML5规定可以为元素添加非标准的属性，但要添加前缀 data- ，目的是为元素提供与渲染无关的信息，或者提供语义信息。这些属性可以任意添加、随便命名，只要以 data- 开头即可</p>
+</li>
+<li><p>1113、添加了自定义属性之后，可以通过元素的 dataset 属性来访问自定义属性的值。 dataset 属性的值是 DOMStringMap 的一个实例，也就是一个名值对儿的映射。在这个映射中，每个 data-name 形式的属性都会有一个对应的属性，只不过属性名没有 data- 前缀（比如，自定义属性是 data-myname ，那映射中对应的属性就是 myname ）</p>
+</li>
+<li><p>1114、在读模式下， innerHTML 属性返回与调用元素的所有子节点（包括元素、注释和文本节点）对应的 HTML 标记。在写模式下， innerHTML 会根据指定的值创建新的 DOM树，然后用这个 DOM 树完全替换调用元素原先的所有子节点</p>
+</li>
+<li><p>1115、使用 innerHTML 属性也有一些限制。比如，在大多数浏览器中，通过 innerHTML 插入 <code>&lt;script&gt;</code>元素并不会执行其中的脚本。IE8 及更早版本是唯一能在这种情况下执行脚本的浏览器，但必须满足一些条件。一是必须为 <code>&lt;script&gt;</code> 元素指定 defer 属性，二是 <code>&lt;script&gt;</code> 元素必须位于（微软所谓的）“有作用域的元素”（scoped element）之后。 <code>&lt;script&gt;</code> 元素被认为是“无作用域的元素”（NoScope element），也就是在页面中看不到的元素，与 <code>&lt;style&gt;</code> 元素或注释类似。如果通过 innerHTML 插入的字符串开头就是一个“无作用域的元素”，那么 IE 会在解析这个字符串前先删除该元素。<code>div.innerHTML = &quot;&lt;input type=\&quot;hidden\&quot;&gt;&lt;script defer&gt;alert(&#39;hi&#39;);&lt;\/script&gt;&quot;</code></p>
+</li>
+<li><p>1116、并不是所有元素都支持 innerHTML 属性。不支持 innerHTML 的元素有： <code>&lt;col&gt; 、 &lt;colgroup&gt; 、&lt;frameset&gt; 、 &lt;head&gt; 、 &lt;html&gt; 、 &lt;style&gt; 、 &lt;table&gt; 、 &lt;tbody&gt; 、 &lt;thead&gt; 、 &lt;tfoot&gt; 和 &lt;tr&gt;</code> 。此外，在 IE8 及更早版本中， <title> 元素也没有 innerHTML 属性</title></p>
+</li>
+<li><p>1117、IE8 为此提供了 window.toStaticHTML() 方法，这个方法接收一个参数，即一个 HTML 字符串；返回一个经过无害处理后的版本——从源 HTML 中删除所有脚本节点和事件处理程序属性</p>
+</li>
+<li><p>1118、如果在<div>元素上调用outerHTML，会返回与上面相同的代码，包括<div>本身。支持outerHTML属性的浏览器有IE4+、Safari 4+、Chrome和Opera 8+。Firefox 7及之前版本都不支持outerHTML属性</div></div></p>
+</li>
+<li><p>1119、插入标记的最后一个新增方式是 insertAdjacentHTML() 方法。这个方法最早也是在IE中出现的，它接收两个参数：插入位置和要插入的 HTML 文本。”beforebegin” ，在当前元素之前插入一个紧邻的同辈元素；”afterbegin” ，在当前元素之下插入一个新的子元素或在第一个子元素之前再插入新的子元素；”beforeend” ，在当前元素之下插入一个新的子元素或在最后一个子元素之后再插入新的子元素；”afterend” ，在当前元素之后插入一个紧邻的同辈元素。第二个参数是一个 HTML 字符串（与 innerHTML 和 outerHTML的值相同）。支持insertAdjacentHTML() 方法的浏览器有 IE、Firefox 8+、Safari、Opera 和 Chrome</p>
+</li>
+<li><p>1120、scrollIntoView() 可以在所有 HTML 元素上调用，通过滚动浏览器窗口或某个容器元素，调用元素就可以出现在视口中。如果给这个方法传入 true 作为参数，或者不传入任何参数，那么窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。如果传入 false 作为参数，调用元素会尽可能全部出现在视口中，（可能的话，调用元素的底部会与视口顶部平齐）。支持 scrollIntoView() 方法的浏览器有 IE、Firefox、Safari 和 Opera</p>
+</li>
+<li><p>1121、children这个属性是 HTMLCollection 的实例，只包含元素中同样还是元素的子节点。除此之外，children 属性与 childNodes 没有什么区别，即在元素只包含元素子节点时，这两个属性的值相同。支持 children 属性的浏览器有 IE5、Firefox 3.5、Safari 2（但有 bug）、Safari 3（完全支持）、Opera8和 Chrome（所有版本）。IE8 及更早版本的 children 属性中也会包含注释节点，但 IE9 之后的版本则只返回元素节点</p>
+</li>
+<li><p>1122、调用 contains() 方法的应该是祖先节点，也就是搜索开始的节点，这个方法接收一个参数，即要检测的后代节点。如果被检测的节点是后代节点，该方法返回 true ；否则，返回 false。支持 contains() 方法的浏览器有 IE、Firefox 9+、Safari、Opera 和 Chrome</p>
+</li>
+<li><p>1123、多数情况下，都可以通过简单地转换属性名的格式来实现转换。其中一个不能直接转换的 CSS 属性就是 float 。由于 float 是 JavaScript 中的保留字，因此不能用作属性名。“DOM2 级样式”规范规定样式对象上相应的属性名应该是 cssFloat ；Firefox、Safari、Opera 和 Chrome 都支持这个属性，而 IE支持的则是 styleFloat</p>
+</li>
+<li><p>1124、通过 cssText 属性可以访问style特性中的CSS代码。在读取模式下， cssText 返回浏览器对 style特性中 CSS 代码的内部表示。在写入模式下，赋给 cssText 的值会重写整个 style 特性的值；也就是说，以前通过 style 特性指定的样式信息都将丢失</p>
+</li>
+<li><p>1125、getPropertyValue() 方法取得的始终都是 CSS 属性值的字符串表示。如果你需要更多信息，可以使用 getPropertyCSSValue() 方法，它返回一个包含两个属性的 CSSValue 对象，这两个属性分别是： cssText 和 cssValueType 。其中， cssText 属性的值与getPropertyValue() 返回的值相同，而 cssValueType 属性则是一个数值常量，表示值的类型：0 表示继承的值，1 表示基本的值，2 表示值列表，3 表示自定义的值。在实际开发中， getPropertyCSSValue() 使用得比 getPropertyValue() 少得多。IE9+、Safarie3+以及 Chrome 支持这个方法。Firefox 7 及之前版本也提供这个访问，但调用总返回 null</p>
+</li>
+<li><p>1126、要从元素的样式中移除某个 CSS 属性，需要使用 removeProperty() 方法。使用这个方法移除一个属性，意味着将会为该属性应用默认的样式（从其他样式表经层叠而来）</p>
+</li>
+<li><p>1127、getComputedStyle() 方法。这个方法接受两个参数：要取得计算样式的元素和一个伪元素字符串（例如 “:after” ）。如果不需要伪元素信息，第二个参数可以是 null 。 getComputedStyle() 方法返回一个 CSSStyleDeclaration 对象（与 style 属性的类型相同），其中包含当前元素的所有计算的样式。IE 不支持 getComputedStyle() 方法，但它有一种类似的概念。在 IE 中，每个具有 style 属性的元素还有一个 currentStyle 属性。这个属性是 CSSStyleDeclaration 的实例，包含当前元素全部计算后的样式。与 DOM 版本的方式一样，IE 也没有返回 border 样式，因为这是一个综合属性。无论在哪个浏览器中，最重要的一条是要记住所有计算的样式都是只读的；不能修改计算后样式对象中的 CSS 属性。此外，计算后的样式也包含属于浏览器内部样式表的样式信息，因此任何具有默认值的 CSS 属性都会表现在计算后的样式中</p>
+</li>
+<li><p>1128、CSSStyleSheet 类型表示的是样式表，包括通过 <link> 元素包含的样式表和在 <code>&lt;style&gt;</code> 元素中定义的样式表。有读者可能记得，这两个元素本身分别是由 HTMLLinkElement 和 HTMLStyleElement 类型表示的。但是， CSSStyleSheet 类型相对更加通用一些，它只表示样式表，而不管这些样式表在 HTML中是如何定义的。此外，上述两个针对元素的类型允许修改 HTML特性，但 CSSStyleSheet 对象则是一套只读的接口（有一个属性例外）。disabled ：表示样式表是否被禁用的布尔值。这个属性是可读/写的，将这个值设置为 true 可以禁用样式表</p>
+</li>
+<li><p>1129、其中三个最常用的属性是 cssText 、 selectorText 和 style 。 cssText 属性与 style.cssText属性类似，但并不相同。前者包含选择符文本和围绕样式信息的花括号，后者只包含样式信息（类似于元素的 style.cssText ）。此外， cssText 是只读的，而 style.cssText 也可以被重写</p>
+</li>
+<li><p>1130、 insertRule() 方法接受两个参数：规则文本和表示在哪里插入规则的索引。Firefox、Safari、Opera 和 Chrome都支持 insertRule() 方法。IE8 及更早版本支持一个类似的方法，名叫 addRule() ，也接收两必选参数：选择符文本和 CSS样式信息；一个可选参数：插入规则的位置</p>
+</li>
+<li><p>1131、从样式表中删除规则的方法是 deleteRule() ，这个方法接受一个参数：要删除的规则的位置；IE 支持的类似方法叫 removeRule() ，使用方法相同。与添加规则相似，删除规则也不是实际 Web 开发中常见的做法。考虑到删除规则可能会影响 CSS层叠的效果，因此请大家慎重使用</p>
+</li>
+<li><p>1132、偏移量。offsetHeight ：元素在垂直方向上占用的空间大小，以像素计。包括元素的高度、（可见的）水平滚动条的高度、上边框高度和下边框高度；offsetWidth ：元素在水平方向上占用的空间大小，以像素计。包括元素的宽度、（可见的）垂直滚动条的宽度、左边框宽度和右边框宽度；offsetLeft ：元素的左外边框至包含元素的左内边框之间的像素距离；offsetTop ：元素的上外边框至包含元素的上内边框之间的像素距离。要想知道某个元素在页面上的偏移量，将这个元素的 offsetLeft 和 offsetTop 与其 offsetParent的相同属性相加，如此循环直至根元素，就可以得到一个基本准确的值</p>
+</li>
+<li><p>1133、所有这些偏移量属性都是只读的，而且每次访问它们都需要重新计算。因此，应该尽量避免重复访问这些属性；如果需要重复使用其中某些属性的值，可以将它们保存在局部变量中，以提高性能</p>
+</li>
+<li><p>1134、元素的客户区大小（client dimension），指的是元素内容及其内边距所占据的空间大小。有关客户区大小的属性有两个： clientWidth 和 clientHeight 。其中， clientWidth 属性是元素内容区宽度加上左右内边距宽度； clientHeight 属性是元素内容区高度加上上下内边距高度。注意这两个属性不包含边框（border）</p>
+</li>
+<li><p>1135、与偏移量相似，客户区大小也是只读的，也是每次访问都要重新计算的</p>
+</li>
+<li><p>1136、有些元素（例如<html> 元素），即使没有执行任何代码也能自动地添加滚动条；但另外一些元素，则需要通过 CSS 的overflow 属性进行设置才能滚动。scrollHeight ：在没有滚动条的情况下，元素内容的总高度；scrollWidth ：在没有滚动条的情况下，元素内容的总宽度；scrollLeft ：被隐藏在内容区域左侧的像素数。通过设置这个属性可以改变元素的滚动位置；scrollTop ：被隐藏在内容区域上方的像素数。通过设置这个属性可以改变元素的滚动位置</html></p>
+</li>
+<li><p>1137、对于 不 包含 滚动 条 的页 面而 言 ， scrollWidth 和 scrollHeight 与 clientWidth 和clientHeight 之间的关系并不十分清晰</p>
+</li>
+<li><p>1138、在确定文档的总高度时（包括基于视口的最小高度时），必须取得 scrollWidth/clientWidth 和scrollHeight/clientHeight 中的最大值，才能保证在跨浏览器的环境下得到精确的结果</p>
+</li>
+<li><p>1139、通过 scrollLeft 和 scrollTop 属性既可以确定元素当前滚动的状态，也可以设置元素的滚动位置。在元素尚未被滚动时，这两个属性的值都等于 0。如果元素被垂直滚动了，那么 scrollTop 的值会大于 0，且表示元素上方不可见内容的像素高度。如果元素被水平滚动了，那么 scrollLeft 的值会大于 0，且表示元素左侧不可见内容的像素宽度。这两个属性都是可以设置的，因此将元素的scrollLeft 和 scrollTop 设置为 0，就可以重置元素的滚动位置</p>
+</li>
+<li><p>1140、IE、Firefox 3+、Safari 4+、Opera 9.5及 Chrome为每个元素都提供了一个 getBoundingClientRect() 方法。这个方法返回会一个矩形对象，包含 4 个属性： left 、 top 、 right 和 bottom 。这些属性给出了元素在页面中相对于视口的位置。但是，浏览器的实现稍有不同。IE8 及更早版本认为文档的左上角坐标是(2, 2)，而其他浏览器包括 IE9 则将传统的(0,0)作为起点坐标。因此，就需要在一开始检查一下位于(0,0)处的元素的位置，在 IE8 及更早版本中，会返回(2,2)，而在其他浏览器中会返回(0,0)</p>
+</li>
+<li><p>1141、对于不支持 getBoundingClientRect() 的浏览器，可以通过其他手段取得相同的信息。一般来说， right 和 left 的差值与 offsetWidth 的值相等，而 bottom 和 top 的差值与 offsetHeight相等。而且， left 和 top 属性大致等于使用本章前面定义的 getElementLeft() 和 getElementTop()函数取得的值</p>
+</li>
+<li><p>1142、DOM2 级在 Document 类型中定义了 createRange() 方法。在兼容 DOM 的浏览器中，这个方法属于 document 对象。使用 hasFeature() 或者直接检测该方法，都可以确定浏览器是否支持范围</p>
+</li>
+<li><p>1143、要使用范围来选择文档中的一部分，最简的方式就是使用 selectNode() 或 selectNodeContents() 。这两个方法都接受一个参数，即一个 DOM 节点，然后使用该节点中的信息来填充范围。其中，selectNode() 方法选择整个节点，包括其子节点；而 selectNodeContents() 方法则只选择节点的子节点</p>
+</li>
+<li><p>1144、要创建复杂的范围就得使用 setStart() 和 setEnd() 方法。这两个方法都接受两个参数：一个参照节点和一个偏移量值。对 setStart() 来说，参照节点会变成 startContainer ，而偏移量值会变成startOffset 。对于 setEnd() 来说，参照节点会变成 endContainer ，而偏移量值会变成 endOffset</p>
+</li>
+<li><p>1145、使用 insertNode()方法可以向范围选区的开始处插入一个节点。<code>&lt;span&gt;</code> 正好被插入到了 “Hello” 中的 “llo” 前面，而该位置就是范围选区的开始位置。还要注意的是，由于这里没有使用上一节介绍的方法，结果原始的 HTML 并没有添加或删除 <code>&lt;b&gt;</code> 元素。使用这种技术可以插入一些帮助提示信息，例如在打开新窗口的链接旁边插入一幅图像</p>
+</li>
+<li><p>1146、除了向范围内部插入内容之外，还可以环绕范围插入内容，此时就要使用 surroundContents()方法。这个方法接受一个参数，即环绕范围内容的节点。在环绕范围插入内容时，后台会执行下列步骤：提取出范围中的内容（类似执行 extractContent() ）；将给定节点插入到文档中原来范围所在的位置上；将文档片段的内容添加到给定节点中</p>
+</li>
+<li><p>1147、所谓折叠范围，就是指范围中未选择文档的任何部分。使用 collapse() 方法来折叠范围，这个方法接受一个参数，一个布尔值，表示要折叠到范围的哪一端。参数 true 表示折叠到范围的起点，参数 false 表示折叠到范围的终点。要确定范围已经折叠完毕，可以检查 collapsed 属性</p>
+</li>
+<li><p>1148、可以使用 cloneRange() 方法复制范围。这个方法会创建调用它的范围的一个副本。新创建的范围与原来的范围包含相同的属性，而修改它的端点不会影响原来的范围</p>
+</li>
+<li><p>1149、在使用完范围之后，最好是调用 detach() 方法，以便从创建范围的文档中分离出该范围。调用detach() 之后，就可以放心地解除对范围的引用，从而让垃圾回收机制回收其内存了</p>
+</li>
+<li><p>1150、IE9、Firefox、Opera、Safari 和 Chrome 全都已经实现了“DOM2 级事件”模块的核心部分。IE8 是最后一个仍然使用其专有事件系统的主要浏览器</p>
+</li>
+</ul>
+<hr>
+<h1 id="第十三章-事件"><a href="#第十三章-事件" class="headerlink" title="第十三章 事件"></a>第十三章 事件</h1><ul>
+<li><p>1301、事件流描述的是从页面中接收事件的顺序。但有意思的是，IE 和 Netscape 开发团队居然提出了差不多是完全相反的事件流的概念。IE 的事件流是事件冒泡流，而 Netscape Communicator 的事件流是事件捕获流</p>
+</li>
+<li><p>1302、IE 的事件流叫做事件冒泡（event bubbling），即事件开始时由最具体的元素（文档中嵌套层次最深的那个节点）接收，然后逐级向上传播到较为不具体的节点（文档）</p>
+</li>
+<li><p>1303、Netscape Communicator团队提出的另一种事件流叫做事件捕获（event capturing）。事件捕获的思想是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。事件捕获的用意在于在事件到达预定目标之前捕获它</p>
+</li>
+<li><p>1304、虽然事件捕获是 Netscape Communicator 唯一支持的事件流模型，但 IE9、Safari、Chrome、Opera和 Firefox 目前也都支持这种事件流模型。尽管“DOM2 级事件”规范要求事件应该从 document 对象开始传播，但这些浏览器都是从 window 对象开始捕获事件的。</p>
+</li>
+<li><p>1305、由于老版本的浏览器不支持，因此很少有人使用事件捕获。我们也建议读者放心地使用事件冒泡，在有特殊需要时再使用事件捕获</p>
+</li>
+<li><p>1306、“DOM2级事件”规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段和事件冒泡阶段。首先发生的是事件捕获，为截获事件提供了机会。然后是实际的目标接收到事件。最后一个阶段是冒泡阶段，可以在这个阶段对事件做出响应</p>
+</li>
+<li><p>1307、在 DOM 事件流中，实际的目标（ <div> 元素）在捕获阶段不会接收到事件</div></p>
+</li>
+<li><p>1308、多数支持 DOM事件流的浏览器都实现了一种特定的行为；即使“DOM2 级事件”规范明确要求捕获阶段不会涉及事件目标，但 IE9、Safari、Chrome、Firefox 和 Opera 9.5 及更高版本都会在捕获阶段触发事件对象上的事件。结果，就是有两个机会在目标对象上面操作事件。IE9、Opera、Firefox、Chrome 和 Safari 都支持 DOM 事件流；IE8 及更早版本不支持 DOM 事件流。</p>
+</li>
+<li><p>1309、将事件处理程序设置为 null 之后，再单击按钮将不会有任何动作发生</p>
+</li>
+<li><p>1310、“DOM2级事件”定义了两个方法，用于处理指定和删除事件处理程序的操作： addEventListener()和 removeEventListener() 。所有 DOM 节点中都包含这两个方法，并且它们都接受 3 个参数：要处理的事件名、作为事件处理程序的函数和一个布尔值。最后这个布尔值参数如果是 true ，表示在捕获阶段调用事件处理程序；如果是 false ，表示在冒泡阶段调用事件处理程序</p>
+</li>
+<li><p>1311、通过 addEventListener() 添加的事件处理程序只能使用 removeEventListener() 来移除；移除时传入的参数与添加处理程序时使用的参数相同。这也意味着通过 addEventListener() 添加的匿名函数将无法移除。把传入的匿名函数赋给一个变量，在添加事件监听或移除事件监听使用该变量可以移除</p>
+</li>
+<li><p>1312、大多数情况下，都是将事件处理程序添加到事件流的冒泡阶段，这样可以最大限度地兼容各种浏览器。最好只在需要在事件到达目标之前截获它的时候将事件处理程序添加到捕获阶段。如果不是特别需要，我们不建议在事件捕获阶段注册事件处理程序</p>
+</li>
+<li><p>1313、IE 实现了与 DOM 中类似的两个方法： attachEvent() 和 detachEvent() 。这两个方法接受相同的两个参数：事件处理程序名称与事件处理程序函数。由于 IE8 及更早版本只支持事件冒泡，所以通过attachEvent() 添加的事件处理程序都会被添加到冒泡阶段。注意， attachEvent() 的第一个参数是 “onclick” ，而非 DOM 的 addEventListener() 方法中的 “click”</p>
+</li>
+<li><p>1314、在 IE 中使用 attachEvent() 与使用 DOM0 级方法的主要区别在于事件处理程序的作用域。在使用 DOM0 级方法的情况下，事件处理程序会在其所属元素的作用域内运行；在使用 attachEvent() 方法的情况下，事件处理程序会在全局作用域中运行，因此 this 等于 window</p>
+</li>
+<li><p>1315、这里调用了两次 attachEvent() ，为同一个按钮添加了两个不同的事件处理程序。不过，与 DOM方法不同的是，这些事件处理程序不是以添加它们的顺序执行，而是以相反的顺序被触发</p>
+</li>
+<li><p>1316、使用 attachEvent() 添加的事件可以通过 detachEvent() 来移除，条件是必须提供相同的参数。与 DOM 方法一样，这也意味着添加的匿名函数将不能被移除。不过，只要能够将对相同函数的引用传给 detachEvent() ，就可以移除相应的事件处理程序</p>
+</li>
+<li><p>1317、在触发 DOM 上的某个事件时，会产生一个事件对象 event ，这个对象中包含着所有与事件有关的信息。包括导致事件的元素、事件的类型以及其他与特定事件相关的信息。例如，鼠标操作导致的事件对象中，会包含鼠标位置的信息，而键盘操作导致的事件对象中，会包含与按下的键有关的信息。所有浏览器都支持 event 对象，但支持方式不同</p>
+</li>
+<li><p>1318、在事件处理程序内部，对象 this 始终等于 currentTarget 的值，而 target 则只包含事件的实际目标。如果直接将事件处理程序指定给了目标元素，则 this 、 currentTarget 和 target 包含相同的值。如果事件处理程序存在于按钮的父节点中（例如 document.body ），那么这些值是不相同的</p>
+</li>
+<li><p>1319、事件委托是通过事件冒泡来实现的</p>
+</li>
+<li><p>1320、要阻止特定事件的默认行为，可以使用 preventDefault() 方法。例如，链接的默认行为就是在被单击时会导航到其 href 特性指定的 URL。如果你想阻止链接导航这一默认行为，那么通过链接的onclick 事件处理程序可以取消它</p>
+</li>
+<li><p>1321、只有 cancelable 属性设置为 true 的事件，才可以使用 preventDefault() 来取消其默认行为</p>
+</li>
+<li><p>1322、 stopPropagation() 方法用于立即停止事件在 DOM 层次中的传播，即取消进一步的事件捕获或冒泡</p>
+</li>
+<li><p>1323、事件对象的eventPhase属性，可以用来确定事件当前正位于事件流的哪个阶段。如果是在捕获阶段调用的事件处理程序，那么 eventPhase 等于 1 ；如果事件处理程序处于目标对象上，则event-Phase等于2；如果是在冒泡阶段调用的事件处理程序， eventPhase 等于 3</p>
+</li>
+<li><p>1324、只有在事件处理程序执行期间， event 对象才会存在；一旦事件处理程序执行完成， event 对象就会被销毁</p>
+</li>
+<li><p>1325、 returnValue 属性相当于 DOM中的 preventDefault() 方法，它们的作用都是取消给定事件的默认行为。只要将 returnValue 设置为 false ，就可以阻止默认行为</p>
+</li>
+<li><p>1326、cancelBubble 属性与 DOM 中的 stopPropagation() 方法作用相同，都是用来停止事件冒泡的。由于 IE 不支持事件捕获，因而只能取消事件冒泡；但 stopPropagatioin() 可以同时取消事件捕获和冒泡</p>
+</li>
+<li><p>1327、在 onclick 事件处理程序中将 cancelBubble 设置为 true ，就可阻止事件通过冒泡而触发document.body 中注册的事件处理程序</p>
+</li>
+<li><p>1328、JavaScript 中最常用的一个事件就是 load 。当页面完全加载后（包括所有图像、JavaScript 文件、CSS 文件等外部资源），就会触发 window 上面的 load 事件</p>
+</li>
+<li><p>1329、与 load 事件对应的是 unload 事件，这个事件在文档被完全卸载后触发。只要用户从一个页面切换到另一个页面，就会发生 unload 事件</p>
+</li>
+<li><p>1330、当浏览器窗口被调整到一个新的高度或宽度时，就会触发 resize 事件。这个事件在 window （窗口）上面触发，因此可以通过 JavaScript 或者 <body> 元素中的 onresize 特性来指定事件处理程序</body></p>
+</li>
+<li><p>1331、关于何时会触发 resize 事件，不同浏览器有不同的机制。IE、Safari、Chrome 和 Opera 会在浏览器窗口变化了 1 像素时就触发 resize 事件，然后随着变化不断重复触发。Firefox 则只会在用户停止调整窗口大小时才会触发 resize 事件。由于存在这个差别，应该注意不要在这个事件的处理程序中加入大计算量的代码，因为这些代码有可能被频繁执行，从而导致浏览器反应明显变慢。浏览器窗口最小化或最大化时也会触发 resize 事件</p>
+</li>
+<li><p>1332、焦点事件会在页面元素获得或失去焦点时触发。利用这些事件并与document.hasFocus()方法及document.activeElement 属性配合，可以知晓用户在页面上的行踪</p>
+</li>
+<li><p>1333、 focus 和 blur ，它们都是 JavaScript 早期就得到所有浏览器支持的事件。这些事件的最大问题是它们不冒泡。因此，IE 的 focusin 和 focusout 与 Opera 的 DOMFocusIn和 DOMFocusOut 才会发生重叠。IE 的方式最后被 DOM3 级事件采纳为标准方式</p>
+</li>
+<li><p>1334、鼠标事件中还有一类滚轮事件。而说是一类事件，其实就是一个 mousewheel 事件。这个事件跟踪鼠标滚轮，类似于 Mac 的触控板</p>
+</li>
+<li><p>1335、鼠标事件都是在浏览器视口中的特定位置上发生的。这个位置信息保存在事件对象的 clientX 和clientY 属性中。所有浏览器都支持这两个属性，它们的值表示事件发生时鼠标指针在视口中的水平和垂直坐标。注意，这些值中不包括页面滚动的距离，因此这个位置并不表示鼠标在页面上的位置。</p>
+</li>
+<li><p>1336、页面坐标通过事件对象的pageX和pageY属性，能告诉你事件是在页面中的什么位置发生的。换句话说，这两个属性表示鼠标光标在页面中的位置，因此坐标是从页面本身而非视口的左边和顶边计算的</p>
+</li>
+<li><p>1337、IE8 及更早版本不支持事件对象上的页面坐标，不过使用客户区坐标和滚动信息可以计算出来。这时候需要用到 document.body （混杂模式）或 document.documentElement （标准模式）中的scrollLeft 和 scrollTop 属性</p>
+</li>
+<li><p>1338、通过 screenX 和 screenY 属性就可以确定鼠标事件发生时鼠标指针相对于整个屏幕的坐标信息</p>
+</li>
+<li><p>1339、虽然鼠标事件主要是使用鼠标来触发的，但在按下鼠标时键盘上的某些键的状态也可以影响到所要采取的操作。这些修改键就是 Shift、Ctrl、Alt 和 Meta（在 Windows键盘中是 Windows键，在苹果机中是 Cmd 键），它们经常被用来修改鼠标事件的行为。DOM 为此规定了 4 个属性，表示这些修改键的状态： shiftKey 、 ctrlKey 、 altKey 和 metaKey 。这些属性中包含的都是布尔值，如果相应的键被按下了，则值为 true ，否则值为 false 。当某个鼠标事件发生时，通过检测这几个属性就可以确定用户是否同时按下了其中的键</p>
+</li>
+<li><p>1340、DOM通过 event 对象的 relatedTarget 属性提供了相关元素的信息。这个属性只对于 mouseover和 mouseout 事件才包含值；对于其他事件，这个属性的值是 null</p>
+</li>
+<li><p>1341、只有在主鼠标按钮被单击（或键盘回车键被按下）时才会触发 click事件，因此检测按钮的信息并不是必要的。但对于 mousedown 和 mouseup 事件来说，则在其 event 对象存在一个 button 属性，表示按下或释放的按钮。DOM 的 button 属性可能有如下 3 个值： 0 表示主鼠标按钮， 1 表示中间的鼠标按钮（鼠标滚轮按钮）， 2 表示次鼠标按钮</p>
+</li>
+<li><p>1342、“DOM2 级事件”规范在 event 对象中还提供了 detail 属性，用于给出有关事件的更多信息。对于鼠标事件来说， detail 中包含了一个数值，表示在给定位置上发生了多少次单击。在同一个元素上相继地发生一次 mousedown 和一次 mouseup 事件算作一次单击。 detail 属性从 1 开始计数，每次单击发生后都会递增</p>
+</li>
+<li><p>1343、IE 6.0 首先实现了 mousewheel 事件。此后，Opera、Chrome 和 Safari 也都实现了这个事件。当用户通过鼠标滚轮与页面交互、在垂直方向上滚动页面时（无论向上还是向下），就会触发 mousewheel事件。这个事件可以在任何元素上面触发，最终会冒泡到 document （IE8）或 window （IE9、Opera、Chrome 及 Safari）对象。与 mousewheel 事件对应的 event 对象除包含鼠标事件的所有标准信息外，还包含一个特殊的 wheelDelta 属性。当用户向前滚动鼠标滚轮时， wheelDelta 是 120 的倍数；当用户向后滚动鼠标滚轮时， wheelDelta 是120 的倍数。</p>
+</li>
+<li><p>1344、多数情况下，只要知道鼠标滚轮滚动的方向就够了，而这通过检测 wheelDelta 的正负号就可以确定。有一点要注意：在 Opera 9.5 之前的版本中， wheelDelta 值的正负号是颠倒的。如果你打算支持早期的 Opera 版本，就需要使用浏览器检测技术来确定实际的值</p>
+</li>
+<li><p>1345、键盘事件keydown、keypress、keyup与鼠标事件一样，都支持相同的修改键。而且，键盘事件的事件对象中也有 shiftKey 、 ctrlKey 、 altKey 和 metaKey 属性。IE 不支持 metaKey</p>
+</li>
+<li><p>1346、键码在发生 keydown 和 keyup 事件时， event 对象的 keyCode 属性中会包含一个代码，与键盘上一个特定的键对应。对数字字母字符键， keyCode 属性的值与 ASCII 码中对应小写字母或数字的编码相同</p>
+</li>
+<li><p>1347、发生 keypress 事件意味着按下的键会影响到屏幕中文本的显示。在所有浏览器中，按下能够插入或删除字符的键都会触发 keypress 事件；按下其他键能否触发此事件因浏览器而异</p>
+</li>
+<li><p>1348、IE8及之前版本和Opera则是在 keyCode 中保存字符的ASCII编码。要想以跨浏览器的方式取得字符编码，必须首先检测 charCode 属性是否可用，如果不可用则使用 keyCode。在取得了字符编码之后，就可以使用 String.fromCharCode() 将其转换成实际的字符</p>
+</li>
+<li><p>1349、尽管所有浏览器都实现了某种形式的键盘事件，DOM3 级事件还是做出了一些改变。比如，DOM3级事件中的键盘事件，不再包含 charCode 属性，而是包含两个新属性： key 和 char。其中， key 属性是为了取代 keyCode 而新增的，它的值是一个字符串。在按下某个字符键时， key的值就是相应的文本字符（如“k”或“M”）；在按下非字符键时，  key 的值是相应键的名（如“Shift”或“Down”）。而 char 属性在按下字符键时的行为与 key 相同，但在按下非字符键时值为 null。由于存在跨浏览器问题，因此本书不推荐使用 key 、 keyIdentifier 或 char</p>
+</li>
+<li><p>1350、 event 对象上还有一个属性，叫 inputMethod ，表示把文本输入到文本框中的方式。 1，表示是使用键盘输入的；2，表示文本是粘贴进来的； 3，表示文本是拖放进来的； 7，表示文本是通过语音输入的</p>
+</li>
+<li><p>1351、支持 textInput 属性的浏览器有 IE9+、Safari 和 Chrome。只有 IE 支持 inputMethod 属性</p>
+</li>
+<li><p>1352、在所有浏览器中都可以取消这个事件：在兼容 DOM 的浏览器中，使用 event.preventDefalut() ；在 IE 中，将 event.returnValue 的值设置为 false 。因为 contextmenu 事件属于鼠标事件，所以其事件对象中包含与光标位置有关的所有属性。通常使用 contextmenu 事件来显示自定义的上下文菜单，而使用 onclick 事件处理程序来隐藏该菜单。支持 contextmenu 事件的浏览器有 IE、Firefox、Safari、Chrome 和 Opera 11+</p>
+</li>
+<li><p>1353、之所以有发生在 window 对象上的 beforeunload 事件，是为了让开发人员有可能在页面卸载前阻止这一操作。这个事件会在浏览器卸载页面之前触发，可以通过它来取消卸载并继续使用原有页面。但是，不能彻底取消这个事件，因为那就相当于让用户无法离开当前页面了。为此，这个事件的意图是将控制权交给用户。显示的消息会告知用户页面行将被卸载（正因为如此才会显示这个消息），询问用户是否真的要关闭页面，还是希望继续留下来。IE 和 Firefox、Safari 和 Chrome 都支持 beforeunload 事件，也都会弹出这个对话框询问用户是否真想离开。Opera 11 及之前的版本不支持 beforeunload 事件</p>
+</li>
+<li><p>1354、touchstart ：当手指触摸屏幕时触发；即使已经有一个手指放在了屏幕上也会触发。touchmove ：当手指在屏幕上滑动时连续地触发。在这个事件发生期间，调用 preventDefault()可以阻止滚动。touchend ：当手指从屏幕上移开时触发。touchcancel ：当系统停止跟踪触摸时触发。关于此事件的确切触发时间，文档中没有明确说明。上面这几个事件都会冒泡，也都可以取消</p>
+</li>
+<li><p>1355、gesturestart ：当一个手指已经按在屏幕上而另一个手指又触摸屏幕时触发。gesturechange ：当触摸屏幕的任何一个手指的位置发生变化时触发。gestureend ：当任何一个手指从屏幕上面移开时触发。</p>
+</li>
+<li><p>1356、事件委托利用了事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。使用事件委托，只需在DOM 树中尽量最高的层次上添加一个事件处理程序。最适合采用事件委托技术的事件包括 click 、 mousedown 、 mouseup 、 keydown 、 keyup 和 keypress 。虽然 mouseover 和 mouseout 事件也冒泡，但要适当处理它们并不容易，而且经常需要计算元素的位置</p>
+</li>
+<li><p>1357、第一种情况就是从文档中移除带有事件处理程序的元素时。这可能是通过纯粹的 DOM 操作，例如使用 removeChild() 和 replaceChild() 方法，但更多地是发生在使用 innerHTML 替换页面中某一部分的时候。如果带有事件处理程序的元素被 innerHTML 删除了，那么原来添加到元素中的事件处理程序极有可能无法被当作垃圾回收；导致“空事件处理程序”的另一种情况，就是卸载页面的时候</p>
+</li>
+</ul>
+<hr>
+<h1 id="第十四章-表单脚本"><a href="#第十四章-表单脚本" class="headerlink" title="第十四章 表单脚本"></a>第十四章 表单脚本</h1><ul>
+<li><p>1401、在以调用 submit() 方法的形式提交表单时，不会触发 submit 事件，因此要记得在调用此方法之前先验证表单数据</p>
+</li>
+<li><p>1402、提交表单时可能出现的最大问题，就是重复提交表单。在第一次提交表单后，如果长时间没有反应，用户可能会变得不耐烦。这时候，他们也许会反复单击提交按钮。结果往往很麻烦（因为服务器要处理重复的请求），或者会造成错误（如果用户是下订单，那么可能会多订好几份）。解决这一问题的办法有两个：在第一次提交表单后就禁用提交按钮，或者利用 onsubmit 事件处理程序取消后续的表单提交操作</p>
+</li>
+<li><p>1403、每个表单都有elements 属性，该属性是表单中所有表单元素（字段）的集合。这个 elements 集合是一个有序列表，其中包含着表单中的所有字段，例如 <code>&lt;input&gt; 、 &lt;textarea&gt; 、 &lt;button&gt; 和 &lt;fieldset&gt;</code> 。每个表单字段在 elements 集合中的顺序，与它们出现在标记中的顺序相同，可以按照位置和 name 特性来访问它们。如果有多个表单控件都在使用一个 name （如单选按钮），那么就会返回以该 name 命名的一个NodeList</p>
+</li>
+<li><p>1404、很多用户可能会重复单击表单的提交按钮。在涉及信用卡消费时，这就是个问题：因为会导致费用翻番。为此，最常见的解决方案，就是在第一次单击后就禁用提交按钮。只要侦听 submit 事件，并在该事件发生时禁用提交按钮即可</p>
+</li>
+<li><p>1405、HTML5 为表单字段新增了一个 autofocus 属性。在支持这个属性的浏览器中，只要设置这个属性，不用 JavaScript 就能自动把焦点移动到相应字段</p>
+</li>
+<li><p>1406、在默认情况下，只有表单字段可以获得焦点。对于其他元素而言，如果先将其tabIndex 属性设置为1，然后再调用 focus() 方法，也可以让这些元素获得焦点。只有 Opera 不支持这种技术</p>
+</li>
+<li><p>1407、关于 blur 和 change 事件的关系，并没有严格的规定。在某些浏览器中， blur事件会先于 change 事件发生；而在其他浏览器中，则恰好相反。为此，不能假定这两个事件总会以某种顺序依次触发，这一点要特别注意</p>
+</li>
+<li><p>1408、要表现文本框，必须将 <code>&lt;input&gt;</code> 元素的 type 特性设置为 “text” 。而通过设置 size 特性，可以指定文本框中能够显示的字符数。通过 value 特性，可以设置文本框的初始值，而 maxlength 特性则用于指定文本框可以接受的最大字符数</p>
+</li>
+<li><p>1409、<code>&lt;textarea&gt;</code> 元素则始终会呈现为一个多行文本框。要指定文本框的大小，可以使用 rows和 cols 特性。其中， rows 特性指定的是文本框的字符行数，而 cols 特性指定的是文本框的字符列数（类似于 <code>&lt;inpu&gt;</code> 元素的 size 特性）。与 <code>&lt;input&gt;</code> 元素不同， <code>&lt;textarea&gt;</code> 的初始值必须要放在<code>&lt;textarea&gt;</code> 和 <code>&lt;/textarea&gt;</code> 之间</p>
+</li>
+<li><p>1410、 select() 方法，这个方法用于选择文本框中的所有文本。在调用 select()方法时，大多数浏览器（Opera 除外）都会将焦点设置到文本框中。这个方法不接受参数，可以在任何时候被调用<br>420、 select 事件。在选择了文本框中的文本时，就会触发 select事件。不过，到底什么时候触发 select 事件，还会因浏览器而异。在 IE9+、Opera、Firefox、Chrome和 Safari 中，只有用户选择了文本（而且要释放鼠标），才会触发 select 事件。而在 IE8 及更早版本中，只要用户选择了一个字母（不必释放鼠标），就会触发 select 事件。另外，在调用 select() 方法时也会触发 select 事件</p>
+</li>
+<li><p>1411、取得选择的文本。HTML5 通过一些扩展方案解决了这个问题，以便更顺利地取得选择的文本。该规范采取的办法是添加两个属性： selectionStart 和 selectionEnd 。这两个属性中保存的是基于 0 的数值，表示所选择文本的范围（即文本选区开头和结尾的偏移量）</p>
+</li>
+<li><p>1412、HTML5也为选择文本框中的部分文本提供了解决方案 ， 即 最 早 由 Firefox 引 入 的setSelectionRange() 方法。现在除 select() 方法之外，所有文本框都有一个 setSelectionRange()方法。这个方法接收两个参数：要选择的第一个字符的索引和要选择的最后一个字符之后的字符的索引（类似于 substring() 方法的两个参数）</p>
+</li>
+<li><p>1413、 clipboardData 对象有三个方法： getData() 、 setData() 和 clearData() 。其中， getData()用于从剪贴板中取得数据，它接受一个参数，即要取得的数据的格式； setData() 方法的第一个参数也是数据类型，第二个参数是要放在剪贴板中的文本</p>
+</li>
+<li><p>1414、任何标注有 required 的字段，在提交表单时都不能空着。这个属性适用于 <code>&lt;input&gt; 、 &lt;textarea&gt;和 &lt;select&gt;</code> 字段（Opera 11 及之前版本还不支持 <code>&lt;select&gt;</code> 的 required 属性）。在 JavaScript 中，通过对应的 required 属性，可以检查某个表单字段是否为必填字段</p>
+</li>
+<li><p>1415、HTML5 为文本字段新增了 pattern 属性。这个属性的值是一个正则表达式，用于匹配文本框中的值</p>
+</li>
+<li><p>1416、使用 checkValidity() 方法可以检测表单中的某个字段是否有效。所有表单字段都有个方法，如果字段的值有效，这个方法返回 true ，否则返回 false 。字段的值是否有效的判断依据是本节前面介绍过的那些约束。换句话说，必填字段中如果没有值就是无效的，而字段中的值与 pattern 属性不匹配也是无效的</p>
+</li>
+<li><p>1417、要检测整个表单是否有效，可以在表单自身调用 checkValidity() 方法。如果所有表单字段都有效，这个方法返回 true ；即使有一个字段无效，这个方法也会返回 false </p>
+</li>
+<li><p>1418、对于只允许选择一项的选择框，访问选中项的最简单方式，就是使用选择框的 selectedIndex 属性</p>
+</li>
+<li><p>1419、与 selectedIndex 不同，在允许多选的选择框中设置选项的 selected 属性，不会取消对其他选中项的选择，因而可以动态选中任意多个项。但是，如果是在单选选择框中，修改某个选项的 selected 属性则会取消对其他选项的选择。需要注意的是，将 selected 属性设置为 false 对单选选择框没有影响</p>
+</li>
+<li><p>1420、 contenteditable 属性应用给页面中的任何元素，然后用户立即就可以编辑该元素。document.body.contentEditable=’true’</p>
+</li>
+</ul>
+<hr>
+<h1 id="第十五章-使用canvas绘图"><a href="#第十五章-使用canvas绘图" class="headerlink" title="第十五章 使用canvas绘图"></a>第十五章 使用canvas绘图</h1><hr>
+<h1 id="第十六章-HTML5脚本编程"><a href="#第十六章-HTML5脚本编程" class="headerlink" title="第十六章 HTML5脚本编程"></a>第十六章 HTML5脚本编程</h1><hr>
+<h1 id="第十七章-错误处理与调试"><a href="#第十七章-错误处理与调试" class="headerlink" title="第十七章 错误处理与调试"></a>第十七章 错误处理与调试</h1><ul>
+<li><p>1701、在 IE7 及更早版本中，如果错误发生在位于外部文件的脚本中，行号通常会与错误所在的行号差 1。如果是嵌入在页面中的脚本发生错误，则行号就是错误所在的行号</p>
+</li>
+<li><p>1702、ECMA-262 第 3 版引入了 try-catch 语句，作为 JavaScript 中处理异常的一种标准方式。也就是说，我们应该把所有可能会抛出错误的代码都放在 try 语句块中，而把那些用于错误处理的代码放在 catch 块中。如果 try 块中的任何代码发生了错误，就会立即退出代码执行过程，然后接着执行 catch 块。此时， catch 块会接收到一个包含错误信息的对象。与在其他语言中不同的是，即使你不想使用这个错误对象，也要给它起个名字。这个对象中包含的实际信息会因浏览器而异，但共同的是有一个保存着错误消息的 message 属性。ECMA-262 还规定了一个保存错误类型的 name 属性；当前所有浏览器都支持这个属性（Opera 9 之前的版本不支持这个属性）。因此，在发生错误时，就可以像下面这样实事求是地显示浏览器给出的消息</p>
+</li>
+<li><p>1703、只要代码中包含 finally 子句，那么无论 try 还是 catch 语句块中的 return 语句都将被忽略。因此，在使用 finally 子句之前，一定要非常清楚你想让代码怎么样</p>
+</li>
+<li><p>1704、TypeError 类型在 JavaScript 中会经常用到，在变量中保存着意外的类型时，或者在访问不存在的方法时，都会导致这种错误。错误的原因虽然多种多样，但归根结底还是由于在执行特定于类型的操作时，变量的类型并不符合要求所致</p>
+</li>
+<li><p>1705、使用 try-catch 最适合处理那些我们无法控制的错误。假设你在使用一个大型 JavaScript 库中的函数，该函数可能会有意无意地抛出一些错误。由于我们不能修改这个库的源代码，所以大可将对该函数的调用放在 try-catch 语句当中，万一有什么错误发生，也好恰当地处理它们</p>
+</li>
+<li><p>1706、在遇到 throw 操作符时，代码会立即停止执行。仅当有 try-catch 语句捕获到被抛出的值时，代码才会继续执行<br>437、利用原型链还可以通过继承 Error 来创建自定义错误类型（原型链在第 6 章中介绍）。此时，需要为新创建的错误类型指定 name 和 message 属性</p>
+</li>
+<li><p>1707、说到抛出错误与捕获错误，我们认为只应该捕获那些你确切地知道该如何处理的错误。捕获错误的目的在于避免浏览器以默认方式处理它们；而抛出错误的目的在于提供错误发生具体原因的消息</p>
+</li>
+<li><p>1708、图像也支持 error 事件。只要图像的 src 特性中的 URL 不能返回可以被识别的图像格式，就会触发 error 事件。此时的 error 事件遵循 DOM格式，会返回一个以图像为目标的 event 对象</p>
+</li>
+<li><p>1709、通过在 for 循环中添加 try-catch 语句，任何模块初始化时出错，都不会影响其他模块的初始化。在以上重写的代码中，如果有错误发生，相应的错误将会得到独立的处理，并不会影响到用户的体验</p>
+</li>
+<li><p>1710、console对象具有下列方法：error(message) ：将错误消息记录到控制台；info(message) ：将信息性消息记录到控制台；log(message) ：将一般消息记录到控制台；warn(message) ：将警告消息记录到控制台</p>
+</li>
+<li><p>1711、还有一种方案是使用 LiveConnect，也就是在 JavaScript 中运行 Java 代码。Firefox、Safari 和 Opera都支持 LiveConnect，因此可以操作 Java 控制台：java.lang.System.out.println(“Your message”)</p>
+</li>
+<li><p>1712、记录消息要比使用 alert() 函数更可取，因为警告框会阻断程序的执行，而在测定异步处理对时间的影响时，使用警告框会影响结果</p>
+</li>
+<li><p>1713、抛出错误例子：throw new Error(“divide(): Both arguments must be numbers.”)</p>
+</li>
+<li><p>1714、在可能发生错误的地方使用 try-catch 语句，这样你还有机会以适当的方式对错误给出响应，而不必沿用浏览器处理错误的机制</p>
+</li>
+<li><p>1715、使用 window.onerror 事件处理程序，这种方式可以接受 try-catch 不能处理的所有错误（仅限于 IE、Firefox 和 Chrome）</p>
+</li>
+</ul>
+<hr>
+<h1 id="第十八章-JavaScript-与-XML"><a href="#第十八章-JavaScript-与-XML" class="headerlink" title="第十八章 JavaScript 与 XML"></a>第十八章 JavaScript 与 XML</h1><hr>
+<h1 id="第十九章-E4X"><a href="#第十九章-E4X" class="headerlink" title="第十九章 E4X"></a>第十九章 E4X</h1><hr>
+<h1 id="第二十章-JSON"><a href="#第二十章-JSON" class="headerlink" title="第二十章 JSON"></a>第二十章 JSON</h1><ul>
+<li><p>2001、JavaScript 字符串与 JSON 字符串的最大区别在于，JSON 字符串必须使用双引号（单引号会导致语法错误）</p>
+</li>
+<li><p>2002、JSON 中的对象要求给属性加引号</p>
+</li>
+<li><p>2003、JSON 中没有变量的概念</p>
+</li>
+<li><p>2004、JSON没有末尾的分号</p>
+</li>
+<li><p>2005、 eval() 函数可以解析、解释并返回 JavaScript 对象和数组</p>
+</li>
+<li><p>2006、JSON 对象有两个方法： stringify() 和 parse() 。在最简单的情况下，这两个方法分别用于把JavaScript 对象序列化为 JSON 字符串和把 JSON 字符串解析为原生 JavaScript 值</p>
+</li>
+<li><p>2007、将 JSON 字符串直接传递给 JSON.parse() 就可以得到相应的 JavaScript 值</p>
+</li>
+<li><p>2008、 JSON.stringify() 除了要序列化的 JavaScript 对象外，还可以接收另外两个参数，这两个参数用于指定以不同的方式序列化 JavaScript 对象。第一个参数是个过滤器，可以是一个数组，也可以是一个函数；第二个参数是一个选项，表示是否在 JSON 字符串中保留缩进</p>
+</li>
+<li><p>2009、有时候， JSON.stringify() 还是不能满足对某些对象进行自定义序列化的需求。在这些情况下，可以给对象定义 toJSON() 方法，返回其自身的 JSON 数据格式</p>
+</li>
+</ul>
+<hr>
+<h1 id="第二十一章-Ajax-与-Comet"><a href="#第二十一章-Ajax-与-Comet" class="headerlink" title="第二十一章 Ajax 与 Comet"></a>第二十一章 Ajax 与 Comet</h1><ul>
+<li><p>2101、在使用 XHR 对象时，要调用的第一个方法是 open() ，它接受 3 个参数：要发送的请求的类型（ “get” 、 “post” 等）、请求的 URL 和表示是否异步发送请求的布尔值</p>
+</li>
+<li><p>2102、要发送特定的请求，必须调用 send() 方法。这里的 send() 方法接收一个参数，即要作为请求主体发送的数据。如果不需要通过请求主体发送数据，则必须传入 null ，因为这个参数对有些浏览器来说是必需的。调用 send() 之后，请求就会被分派到服务器</p>
+</li>
+<li><p>2103、调用 XHR 对象的 getResponseHeader() 方法并传入头部字段名称，可以取得相应的响应头部信息。而调用 getAllResponseHeaders() 方法则可以取得一个包含所有头部信息的长字符串</p>
+</li>
+<li><p>2104、使用 GET 请求经常会发生的一个错误，就是查询字符串的格式有问题。查询字符串中每个参数的名称和值都必须使用 encodeURIComponent() 进行编码，然后才能放到 URL 的末尾；而且所有名-值对儿都必须由和号（&amp;）分隔</p>
+</li>
+<li><p>2105、 POST 请求应该把数据作为请求的主体提交，而 GET 请求传统上不是这样。 POST 请求的主体可以包含非常多的数据，而且格式不限</p>
+</li>
+<li><p>2106、如果不设置 Content-Type 头部信息，那么发送给服务器的数据就不会出现在 $_POST 超级全局变量中。这时候，要访问同样的数据，就必须借助 $HTTP_RAW_POST_DATA</p>
+</li>
+<li><p>2107、与 GET 请求相比， POST 请求消耗的资源会更多一些。从性能角度来看，以发送相同的数据计， GET 请求的速度最多可达到 POST 请求的两倍</p>
+</li>
+<li><p>2108、XMLHttpRequest 2 级为此定义了FormData 类型。 FormData 为序列化表单以及创建与表单格式相同的数据（用于通过 XHR 传输）提供了便利</p>
+</li>
+<li><p>2109、使用 FormData 的方便之处体现在不必明确地在 XHR 对象上设置请求头部。XHR 对象能够识别传入的数据类型是 FormData 的实例，并配置适当的头部信息</p>
+</li>
+<li><p>2110、支持 FormData 的浏览器有 Firefox 4+、Safari 5+、Chrome 和 Android 3+版 WebKit</p>
+</li>
+<li><p>2111、IE8 为 XHR 对象添加了一个 timeout 属性，表示请求在等待响应多少毫秒之后就终止。在给timeout 设置一个数值后，如果在规定的时间内浏览器还没有接收到响应，那么就会触发 timeout 事件，进而会调用 ontimeout 事件处理程序。这项功能后来也被收入了 XMLHttpRequest 2 级规范中。IE 8+是唯一支持超时设定的浏览器</p>
+</li>
+<li><p>2112、Firefox 最早引入了 overrideMimeType() 方法，用于重写 XHR 响应的 MIME 类型。这个方法后来也被纳入了 XMLHttpRequest 2 级规范。因为返回响应的 MIME 类型决定了 XHR 对象如何处理它，所以提供一种方法能够重写服务器返回的 MIME 类型是很有用的</p>
+</li>
+<li><p>2113、微软在 IE8 中引入了 XDR（ XDomainRequest ）类型。这个对象与 XHR 类似，但能实现安全可靠的跨域通信。XDR 对象的安全机制部分实现了 W3C 的 CORS 规范</p>
+</li>
+<li><p>2114、即使浏览器对 CORS 的支持程度并不都一样，但所有浏览器都支持简单的（非 Preflight 和不带凭据的）请求，因此有必要实现一个跨浏览器的方案。检测 XHR 是否支持 CORS 的最简单方式，就是检查是否存在 withCredentials 属性。再结合检测 XDomainRequest 对象是否存在，就可以兼顾所有浏览器了</p>
+</li>
+<li><p>2115、第一种跨域请求技术是使用 <img> 标签，但该方法只能用于浏览器与服务器间的单向通信</p>
+</li>
+<li><p>2116、JSONP 是 JSON with padding（填充式 JSON 或参数式 JSON）的简写，是应用 JSON 的一种新方法，在后来的 Web 服务中非常流行。JSONP 看起来与 JSON 差不多，只不过是被包含在函数调用中的 JSON</p>
+</li>
+<li><p>2117、JSONP 由两部分组成：回调函数和数据。回调函数是当响应到来时应该在页面中调用的函数。回调函数的名字一般是在请求中指定的。而数据就是传入回调函数中的JSON数据。下面是一个典型的JSONP请求</p>
+</li>
+<li><p>2118、JSONP 是通过动态 <code>&lt;script&gt;</code> 元素（要了解详细信息，请参考第 13 章）来使用的，使用时可以为src 属性指定一个跨域 URL。这里的 <code>&lt;script&gt;</code> 元素与 <img> 元素类似，都有能力不受限制地从其他域加载资源。因为 JSONP 是有效的 JavaScript 代码，所以在请求完成后，即在 JSONP 响应加载到页面中以后，就会立即执行</p>
+</li>
+<li><p>2119、Ajax 是一种从页面向服务器请求数据的技术，而 Comet 则是一种服务器向页面推送数据的技术。Comet 能够让信息近乎实时地被推送到页面上，非常适合处理体育比赛的分数和股票报价</p>
+</li>
+<li><p>2120、SSE（Server-Sent Events，服务器发送事件）是围绕只读 Comet 交互推出的 API 或者模式。SSE API用于创建到服务器的单向连接，服务器通过这个连接可以发送任意数量的数据。服务器响应的 MIME类型必须是 text/event-stream ，而且是浏览器中的 JavaScript API 能解析格式输出。SSE 支持短轮询、长轮询和 HTTP 流，而且能在断开连接时自动确定何时重新连接</p>
+</li>
+<li><p>2121、Web Sockets的目标是在一个单独的持久连接上提供全双工、双向通信。在 JavaScript 中创建了 Web Socket 之后，会有一个 HTTP 请求发送到浏览器以发起连接。在取得服务器响应后，建立的连接会使用 HTTP 升级从 HTTP 协议交换为 WebSocket 协议。也就是说，使用标准的 HTTP 服务器无法实现 Web Sockets，只有支持这种协议的专门服务器才能正常工作</p>
+</li>
+<li><p>2122、使用自定义协议而非 HTTP 协议的好处是，能够在客户端和服务器之间发送非常少量的数据，而不必担心 HTTP 那样字节级的开销。由于传递的数据包很小，因此 Web Sockets非常适合移动应用。毕竟对移动应用而言，带宽和网络延迟都是关键问题。使用自定义协议的缺点在于，制定协议的时间比制定JavaScript API 的时间还要长。Web Sockets曾几度搁浅，就因为不断有人发现这个新协议存在一致性和安全性的问题。Firefox 4 和 Opera 11 都曾默认启用 Web Sockets，但在发布前夕又禁用了，因为又发现了安全隐患。目前支持 Web Sockets 的浏览器有 Firefox 6+、Safari 5+、Chrome 和 iOS 4+版 Safari</p>
+</li>
+<li><p>2123、因为 Web Sockets只能通过连接发送纯文本数据，所以对于复杂的数据结构，在通过连接发送之前，必须进行序列化</p>
+</li>
+<li><p>2124、面对某个具体的用例，在考虑是使用 SSE 还是使用 Web Sockets 时，可以考虑如下几个因素。首先，你是否有自由度建立和维护 Web Sockets服务器？因为 Web Socket 协议不同于 HTTP，所以现有服务器不能用于 Web Socket 通信。SSE 倒是通过常规 HTTP 通信，因此现有服务器就可以满足需求。第二个要考虑的问题是到底需不需要双向通信。如果用例只需读取服务器数据（如比赛成绩），那么 SSE 比较容易实现。如果用例必须双向通信（如聊天室），那么 Web Sockets 显然更好。别忘了，在不能选择 Web Sockets 的情况下，组合 XHR 和 SSE 也是能实现双向通信的</p>
+</li>
+<li><p>2125、同源策略是对 XHR 的一个主要约束，它为通信设置了“相同的域、相同的端口、相同的协议”这一限制。试图访问上述限制之外的资源，都会引发安全错误，除非采用被认可的跨域解决方案。这个解决方案叫做 CORS（Cross-Origin Resource Sharing，跨源资源共享），IE8 通过 XDomainRequest 对象支持CORS，其他浏览器通过 XHR 对象原生支持 CORS。图像 Ping 和 JSONP 是另外两种跨域通信的技术，但不如 CORS 稳妥</p>
+</li>
+<li><p>2126、Comet 是对 Ajax 的进一步扩展，让服务器几乎能够实时地向客户端推送数据。实现 Comet 的手段主要有两个：长轮询和 HTTP 流。所有浏览器都支持长轮询，而只有部分浏览器原生支持 HTTP 流。SSE（Server-Sent Events，服务器发送事件）是一种实现 Comet 交互的浏览器 API，既支持长轮询，也支持HTTP 流</p>
+</li>
+<li><p>2127、Web Sockets是一种与服务器进行全双工、双向通信的信道。与其他方案不同，Web Sockets 不使用HTTP 协议，而使用一种自定义的协议。这种协议专门为快速传输小数据设计。虽然要求使用不同的Web 服务器，但却具有速度上的优势</p>
+</li>
+</ul>
+<hr>
+<h1 id="第二十二章-高级技巧"><a href="#第二十二章-高级技巧" class="headerlink" title="第二十二章 高级技巧"></a>第二十二章 高级技巧</h1><ul>
+<li><p>2201、函数绑定可以在特定的 this 环境中以指定参数调用另一个函数。该技巧常常和回调函数与事件处理程序一起使用，以便在将函数作为变量传递的同时保留代码执行环境</p>
+</li>
+<li><p>2202、一个简单的 bind() 函数接受一个函数和一个环境，并返回一个在给定环境中调用给定函数的函数，并且将所有参数原封不动传递过去</p>
+</li>
+<li><p>2203、ECMAScript 5 为所有函数定义了一个原生的 bind() 方法，进一步简单了操作<br>485、原生的 bind() 方法与前面介绍的自定义 bind() 方法类似，都是要传入作为 this 值的对象。支持原生 bind() 方法的浏览器有 IE9+、Firefox 4+和 Chrome</p>
+</li>
+<li><p>2204、与函数绑定紧密相关的主题是函数柯里化（function currying），它用于创建已经设置好了一个或多个参数的函数。函数柯里化的基本方法和函数绑定是一样的：使用一个闭包返回一个函数。两者的区别在于，当函数被调用时，返回的函数还需要设置一些传入的参数</p>
+</li>
+<li><p>2205、JavaScript 共享的本质一直是开发人员心头的痛。因为任何对象都可以被在同一环境中运行的代码修改。开发人员很可能会意外地修改别人的代码，甚至更糟糕地，用不兼容的功能重写原生对象。ECMAScript 5致力于解决这个问题，可以让开发人员定义防篡改对象（tamper-proof object）</p>
+</li>
+<li><p>2206、第一行代码已经完整定义 person 对象，但第二行代码仍然能给它添加属性。使用Object.preventExtensions() 方法可以改变这个行为，让你不能再给对象添加属性和方法</p>
+</li>
+<li><p>2207、虽然不能给对象添加新成员，但已有的成员则丝毫不受影响。你仍然还可以修改和删除已有的成员。另外，使用 Object.istExtensible() 方法还可以确定对象是否可以扩展</p>
+</li>
+<li><p>2208、密封对象不可扩展，而且已有成员的 [[Configurable]] 特性将被设置为 false 。这就意味着不能删除属性和方法。要密封对象，可以使用 Object.seal() 方法</p>
+</li>
+<li><p>2209、冻结的对象既不可扩展，又是密封的，而且对象数据属性的 [[Writable]] 特性会被设置为 false 。如果定义 [[Set]] 函数，访问器属性仍然是可写的。ECMAScript 5定义的 Object.freeze() 方法可以用来冻结对象</p>
+</li>
+<li><p>2210、除了主 JavaScript 执行进程外，还有一个需要在进程下一次空闲时执行的代码队列。随着页面在其生命周期中的推移，代码会按照执行顺序添加入队列。例如，当某个按钮被按下时，它的事件处理程序代码就会被添加到队列中，并在下一个可能的时间里执行。当接收到某个 Ajax 响应时，回调函数的代码会被添加到队列。在 JavaScript 中没有任何代码是立刻执行的，但一旦进程空闲则尽快执行</p>
+</li>
+<li><p>2211、定时器对队列的工作方式是，当特定时间过去后将代码插入。注意，给队列添加代码并不意味着对它立刻执行，而只能表示它会尽快执行。设定一个 150ms 后执行的定时器不代表到了 150ms代码就立刻执行，它表示代码会在 150ms 后被加入到队列中。如果在这个时间点上，队列中没有其他东西，那么这段代码就会被执行，表面上看上去好像代码就在精确指定的时间点上执行了。其他情况下，代码可能明显地等待更长时间才执行</p>
+</li>
+<li><p>2212、使用 setInterval() 创建的定时器确保了定时器代码规则地插入队列中。这个方式的问题在于，定时器代码可能在代码再次被添加到队列之前还没有完成执行，结果导致定时器代码连续运行好几次，而之间没有任何停顿。幸好，JavaScript 引擎够聪明，能避免这个问题。当使用 setInterval() 时，仅当没有该定时器的任何其他代码实例时，才将定时器代码添加到队列中</p>
+</li>
+<li><p>2213、这种重复定时器的规则有两个问题：(1) 某些间隔会被跳过；(2) 多个定时器的代码执行之间的间隔可能会比预期的小</p>
+</li>
+<li><p>2214、运行在浏览器中的 JavaScript 都被分配了一个确定数量的资源。不同于桌面应用往往能够随意控制他们要的内存大小和处理器时间，JavaScript 被严格限制了，以防止恶意的 Web 程序员把用户的计算机搞挂了。其中一个限制是长时间运行脚本的制约，如果代码运行超过特定的时间或者特定语句数量就不让它继续执行。如果代码达到了这个限制，会弹出一个浏览器错误的对话框，告诉用户某个脚本会用过长的时间执行，询问是允许其继续执行还是停止它</p>
+</li>
+<li><p>2215、浏览器中某些计算和处理要比其他的昂贵很多。例如，DOM 操作比起非 DOM 交互需要更多的内存和 CPU 时间。连续尝试进行过多的 DOM相关操作可能会导致浏览器挂起，有时候甚至会崩溃。尤其在 IE 中使用 onresize 事件处理程序的时候容易发生，当调整浏览器大小的时候，该事件会连续触发。在 onresize 事件处理程序内部如果尝试进行 DOM 操作，其高频率的更改可能会让浏览器崩溃。为了绕开这个问题，你可以使用定时器对该函数进行节流</p>
+</li>
+<li><p>2216、只要代码是周期性执行的，都应该使用节流，但是你不能控制请求执行的速率</p>
+</li>
+<li><p>2217、事件是一种叫做观察者的设计模式，这是一种创建松散耦合代码的技术。对象可以发布事件，用来表示在该对象生命周期中某个有趣的时刻到了。然后其他对象可以观察该对象，等待这些有趣的时刻到来并通过运行代码来响应</p>
+</li>
+<li><p>2218、观察者模式由两类对象组成：主体和观察者。主体负责发布事件，同时观察者通过订阅这些事件来观察该主体。该模式的一个关键概念是主体并不知道观察者的任何事情，也就是说它可以独自存在并正常运作即使观察者不存在。从另一方面来说，观察者知道主体并能注册事件的回调函数（事件处理程序）。涉及 DOM 上时，DOM 元素便是主体，你的事件处理代码便是观察者</p>
+</li>
+<li><p>2219、拖放是一种非常流行的用户界面模式。它的概念很简单：点击某个对象，并按住鼠标按钮不放，将鼠标移动到另一个区域，然后释放鼠标按钮将对象“放”在这里。拖放功能也流行到了 Web 上，成为了一些更传统的配置界面的一种候选方案</p>
+</li>
+<li><p>2220、JavaScript 中的函数非常强大，因为它们是第一类对象。使用闭包和函数环境切换，还可以有很多使用函数的强大方法。可以创建作用域安全的构造函数，确保在缺少 new 操作符时调用构造函数不会改变错误的环境对象</p>
+</li>
+</ul>
+<hr>
+<h1 id="第二十三章-离线应用与客户端存储"><a href="#第二十三章-离线应用与客户端存储" class="headerlink" title="第二十三章 离线应用与客户端存储"></a>第二十三章 离线应用与客户端存储</h1><hr>
+<h1 id="第二十四章-最-佳-实-践"><a href="#第二十四章-最-佳-实-践" class="headerlink" title="第二十四章 最 佳 实 践"></a>第二十四章 最 佳 实 践</h1><ul>
+<li><p>2401、变量和函数命名：变量名应为名词如 car 或 person；函数名应该以动词开始，如 getName() 。返回布尔类型值的函数一般以 is 开头，如isEnable()； 变量和函数都应使用合乎逻辑的名字，不要担心长度。长度问题可以通过后处理和压缩（本章后面会讲到）来缓解</p>
+</li>
+<li><p>2402、由于在 JavaScript 中变量是松散类型的，很容易就忘记变量所应包含的数据类型。合适的命名方式可以一定程度上缓解这个问题，但放到所有的情况下看，还不够。有三种表示变量数据类型的方式。第一种方式是初始化；第二种方法是使用匈牙利标记法来指定变量类型；最后一种指定变量类型的方式是使用类型注释</p>
+</li>
+<li><p>2403、只要应用的某个部分过分依赖于另一部分，代码就是耦合过紧，难于维护。典型的问题如：对象直接引用另一个对象，并且当修改其中一个的同时需要修改另外一个。紧密耦合的软件难于维护并且需要经常重写</p>
+</li>
+<li><p>2404、编程实践：尊重对象所有权；避免全局量；避免与 null 进行比较；使用常量</p>
+</li>
+<li><p>2405、性能：注意作用域，避免全局查找，，避免 with 语句；选择正确方法，避免不必要的属性查找，优化循环，展开循环，避免双重解释，原生方法较快， Switch 语句较快，位运算符较快；最小化语句数，多个变量声明，插入迭代值，使用数组和对象字面量；优化DOM交互，最小化现场更新，使用  innerHTML，使用事件委托，注意 HTMLCollection；部署，构建过程，验证，压缩</p>
+</li>
+</ul>
+<hr>
+<h1 id="第二十五章-新兴的API"><a href="#第二十五章-新兴的API" class="headerlink" title="第二十五章 新兴的API"></a>第二十五章 新兴的API</h1><ul>
+<li><p>2501、requestAnimationFrame() ：是一个着眼于优化 JavaScript 动画的 API，能够在动画运行期间发出信号。通过这种机制，浏览器就能够自动优化屏幕重绘操作。</p>
+</li>
+<li><p>2502、Page Visibility API：让开发人员知道用户什么时候正在看着页面，而什么时候页面是隐藏的。</p>
+</li>
+<li><p>2503、Geolocation API：在得到许可的情况下，可以确定用户所在的位置。在移动 Web 应用中，这个API 非常重要而且常用。</p>
+</li>
+<li><p>2504、File API：可以读取文件内容，用于显示、处理和上传。与 HTML5 的拖放功能结合，很容易就能创造出拖放上传功能。</p>
+</li>
+<li><p>2505、Web Timing：给出了页面加载和渲染过程的很多信息，对性能优化非常有价值。</p>
+</li>
+<li><p>2506、Web Workers：可以运行异步 JavaScript 代码，避免阻塞用户界面。在执行复杂计算和数据处理的时候，这个 API 非常有用；要不然，这些任务轻则会占用很长时间，重则会导致用户无法与页面交互。</p>
+</li>
+</ul>
+<hr>
+<h1 id="附录-A"><a href="#附录-A" class="headerlink" title="附录 A"></a>附录 A</h1><ul>
+<li>常量</li>
+<li>块级作用域及其他作用域</li>
+<li>剩余参数与分布参数</li>
+<li>默认参数值</li>
+<li>生成器</li>
+<li>迭代器</li>
+<li>数组领悟</li>
+<li>解构赋值</li>
+<li>代理对象</li>
+<li>代理函数</li>
+<li>映射与集合</li>
+<li>WeakMap</li>
+<li>StructType</li>
+<li>ArrayType</li>
+<li>类，私有成员</li>
+<li>getter 和 setter</li>
+<li>继承</li>
+<li>模块</li>
+</ul>
+<h1 id="附录-B"><a href="#附录-B" class="headerlink" title="附录 B"></a>附录 B</h1><ul>
+<li>选择使用</li>
+<li>变量</li>
+<li>对象</li>
+<li>函数</li>
+<li>eval()</li>
+<li>eval 与 arguments</li>
+<li>抑制 this</li>
+<li>其他变化</li>
+</ul>
+<h1 id="附录-C"><a href="#附录-C" class="headerlink" title="附录 C"></a>附录 C</h1><ul>
+<li>JavaScript 库</li>
+</ul>
+<h1 id="附录-D"><a href="#附录-D" class="headerlink" title="附录 D"></a>附录 D</h1><ul>
+<li>JavaScript工具</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js-javascript-高程-高级-程序-编程-开发-学习-笔记-摘录/" rel="tag"># js javascript 高程 高级 程序 编程 开发 学习 笔记 摘录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/26/HTTP 缓存机制详解/" rel="next" title="HTTP 缓存机制详解">
+                <i class="fa fa-chevron-left"></i> HTTP 缓存机制详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/29/react前端框架dva/" rel="prev" title="react前端框架dva">
+                react前端框架dva <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一章、javascript简介"><span class="nav-number">1.</span> <span class="nav-text">第一章、javascript简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章、在html中使用javascript"><span class="nav-number">2.</span> <span class="nav-text">第二章、在html中使用javascript</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章、基本概念"><span class="nav-number">3.</span> <span class="nav-text">第三章、基本概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章、变量、作用域和内存问题"><span class="nav-number">4.</span> <span class="nav-text">第四章、变量、作用域和内存问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第五章、引用类型"><span class="nav-number">5.</span> <span class="nav-text">第五章、引用类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第六章、面向对象的程序设计"><span class="nav-number">6.</span> <span class="nav-text">第六章、面向对象的程序设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第七章-函数表达式"><span class="nav-number">7.</span> <span class="nav-text">第七章 函数表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第八章-BOM"><span class="nav-number">8.</span> <span class="nav-text">第八章 BOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第九章-客户端检测"><span class="nav-number">9.</span> <span class="nav-text">第九章 客户端检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十章-DOM"><span class="nav-number">10.</span> <span class="nav-text">第十章 DOM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十一章-DOM扩展、第十二章-DOM2和DOM3"><span class="nav-number">11.</span> <span class="nav-text">第十一章 DOM扩展、第十二章 DOM2和DOM3</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十三章-事件"><span class="nav-number">12.</span> <span class="nav-text">第十三章 事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十四章-表单脚本"><span class="nav-number">13.</span> <span class="nav-text">第十四章 表单脚本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十五章-使用canvas绘图"><span class="nav-number">14.</span> <span class="nav-text">第十五章 使用canvas绘图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十六章-HTML5脚本编程"><span class="nav-number">15.</span> <span class="nav-text">第十六章 HTML5脚本编程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十七章-错误处理与调试"><span class="nav-number">16.</span> <span class="nav-text">第十七章 错误处理与调试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十八章-JavaScript-与-XML"><span class="nav-number">17.</span> <span class="nav-text">第十八章 JavaScript 与 XML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第十九章-E4X"><span class="nav-number">18.</span> <span class="nav-text">第十九章 E4X</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十章-JSON"><span class="nav-number">19.</span> <span class="nav-text">第二十章 JSON</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十一章-Ajax-与-Comet"><span class="nav-number">20.</span> <span class="nav-text">第二十一章 Ajax 与 Comet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十二章-高级技巧"><span class="nav-number">21.</span> <span class="nav-text">第二十二章 高级技巧</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十三章-离线应用与客户端存储"><span class="nav-number">22.</span> <span class="nav-text">第二十三章 离线应用与客户端存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十四章-最-佳-实-践"><span class="nav-number">23.</span> <span class="nav-text">第二十四章 最 佳 实 践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二十五章-新兴的API"><span class="nav-number">24.</span> <span class="nav-text">第二十五章 新兴的API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录-A"><span class="nav-number">25.</span> <span class="nav-text">附录 A</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录-B"><span class="nav-number">26.</span> <span class="nav-text">附录 B</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录-C"><span class="nav-number">27.</span> <span class="nav-text">附录 C</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附录-D"><span class="nav-number">28.</span> <span class="nav-text">附录 D</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一般情况下我们用js设置元素对象的样式会使用这样的形式：">
+<meta name="keywords" content="redux react 柯里化 纯函数 状态 框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux源码深度解析">
+<meta property="og:url" content="http://www.icrazyman.cn/2017/10/25/Redux源码深度解析/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="一般情况下我们用js设置元素对象的样式会使用这样的形式：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-25T16:07:18.753Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redux源码深度解析">
+<meta name="twitter:description" content="一般情况下我们用js设置元素对象的样式会使用这样的形式：">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2017/10/25/Redux源码深度解析/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Redux源码深度解析 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2017/10/25/Redux源码深度解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Redux源码深度解析
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-10-25 23:31:55" itemprop="dateCreated datePublished" datetime="2017-10-25T23:31:55+08:00">2017-10-25</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-10-26 00:07:18" itemprop="dateModified" datetime="2017-10-26T00:07:18+08:00">2017-10-26</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2017/10/25/Redux源码深度解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/10/25/Redux源码深度解析/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2017/10/25/Redux源码深度解析/" class="leancloud_visitors" data-flag-title="Redux源码深度解析">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>一般情况下我们用js设置元素对象的样式会使用这样的形式：</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="1、什么是redux，这里就不做介绍，如想了解可以移步-ReadMe-redux，整体redux的代码只有800行，src下面分为一下几个部分。"><a href="#1、什么是redux，这里就不做介绍，如想了解可以移步-ReadMe-redux，整体redux的代码只有800行，src下面分为一下几个部分。" class="headerlink" title="1、什么是redux，这里就不做介绍，如想了解可以移步 ReadMe.redux，整体redux的代码只有800行，src下面分为一下几个部分。"></a>1、什么是redux，这里就不做介绍，如想了解可以移步 ReadMe.redux，整体redux的代码只有800行，src下面分为一下几个部分。</h2><ul>
+<li><p>applyMiddleware.js</p>
+</li>
+<li><p>bindActionCreators.js</p>
+</li>
+<li><p>combineReducers.js</p>
+</li>
+<li><p>compose.js</p>
+</li>
+<li><p>createStore.js</p>
+</li>
+<li><p>index.js</p>
+</li>
+</ul>
+<p>首先我们来看index.js主js的内容，很简单，就是引入和模块和抛出模块，这里有一句提醒内容，如果是production生产环境并且js已经被压缩，会输出warning信息</p>
+<pre><code>function isCrushed() {}
+
+if (
+  process.env.NODE_ENV !== &#39;production&#39; &amp;&amp;
+  typeof isCrushed.name === &#39;string&#39; &amp;&amp;
+  isCrushed.name !== &#39;isCrushed&#39;
+) {
+  warning(
+    &#39;You are currently using minified code outside of NODE_ENV === \&#39;production\&#39;. &#39; +
+    &#39;This means that you are running a slower development build of Redux. &#39; +
+    &#39;You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify &#39; +
+    &#39;or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) &#39; +
+    &#39;to ensure you have the correct code for your production build.&#39;
+  )
+}
+</code></pre><p>注: isCrushed.name 函数名.name是一个es6的属性，返回函数的名称。<br>除了index.js外，我们接下去从redux实现的接口，来深度分析一下Redux的源码。</p>
+<h2 id="2、compose-js"><a href="#2、compose-js" class="headerlink" title="2、compose.js"></a>2、compose.js</h2><p>我们首先从compose.js入手，首先redux贯穿始终的是函数式变成的思想，个人对于函数式编程的理解为：</p>
+<p>–首先是纯函数（相同的输入产生相同的输出）</p>
+<p>–在范畴论理，状态或者输出表示点，函数表示边，从点到点的转移可以看成运算符，函数也是一种运算符，因为运算符是纯净的，因此函数式编程中的函数也是纯净的</p>
+<p>–函数式编程中的函数，与变量等价，可以作为参数传递或者成为其他函数函数体里的一部分</p>
+<p>–因为是函数式编程，便于函数的组合，这里有一个curry和compose的组合过程</p>
+<p>基础了解函数式编程之后，下面我们来看compose.js的源码：</p>
+<pre><code>export default function compose(...funcs) {
+  if (funcs.length === 0) {
+    return arg =&gt; arg
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0]
+  }
+
+  return funcs.reduce((a, b) =&gt; (...args) =&gt; a(b(...args)))
+}
+</code></pre><p>这个compose其实很简单，传入的参数为函数数组，返回的为reduce从左到右合并后的新的函数。是一个类似于链式调用的过程。</p>
+<p>来看：</p>
+<pre><code>funcs.reduce((a, b) =&gt; (...args) =&gt; a(b(...args)))
+</code></pre><p>这句特别重要，组合函数的这部非常重要，我们发现…args参数会依次的从右到左执行，比如将b（…args）的执行结果，传入a中作为参数继续执行。</p>
+<h2 id="3、applyMiddleware-js"><a href="#3、applyMiddleware-js" class="headerlink" title="3、applyMiddleware.js"></a>3、applyMiddleware.js</h2><p>applyMiddleware.js其实是基于compose.js来实现的</p>
+<pre><code>export default function applyMiddleware(...middlewares) {
+  return (createStore) =&gt; (reducer, preloadedState, enhancer) =&gt; {
+    const store = createStore(reducer, preloadedState, enhancer)
+    let dispatch = store.dispatch
+    let chain = []
+
+    const middlewareAPI = {
+      getState: store.getState,
+      dispatch: (action) =&gt; dispatch(action)
+    }
+    chain = middlewares.map(middleware =&gt; middleware(middlewareAPI))
+    dispatch = compose(...chain)(store.dispatch)
+
+    return {
+      ...store,
+      dispatch
+    }
+  }
+}
+</code></pre><p>上述代码如果applyMiddleware(…Middleware)(createStore)这样调用，会生成一个新的createStore函数，用于创建新的createStore，新在哪里呢？就是链式的调用了所有的middleware：</p>
+<pre><code>let chain = []
+
+const middlewareAPI = {
+   getState: store.getState,
+   dispatch: (action) =&gt; dispatch(action)
+}
+chain = middlewares.map(middleware =&gt; middleware(middlewareAPI))
+dispatch = compose(...chain)(store.dispatch)
+</code></pre><p>来看上述的代码，chain是一个函数数组，是middleware({})执行后的返回函数的数组，compose(…chain)是链式的组合函数，这里的…args是初始时候的store.dispatch，当最右边的函数以store.dispatch为参数，执行后生成一个新的store.dispatch，又向外传递，因此middleware是从右到左执行的。</p>
+<p>从上述的描述中，我们知道了middle的书写形式，如果以纯函数的形式，首先第一个参数应该是{getState:”,dispatch:”}，第二个参数是store.dispatch，第三个参数应该是action，因此最基本形式的middleware应该是：</p>
+<p>return ({ dispatch, getState }) =&gt; next =&gt; action =&gt; {</p>
+<p>}</p>
+<p>我们以redux-thunk为例，redux-thunk中间件是严格按照上述的形式，</p>
+<p>代码只有13行：</p>
+<pre><code>function createThunkMiddleware(extraArgument) {
+  return ({ dispatch, getState }) =&gt; next =&gt; action =&gt; {
+    if (typeof action === &#39;function&#39;) {
+      return action(dispatch, getState, extraArgument);
+    }
+
+    return next(action);
+  };
+}
+
+const thunk = createThunkMiddleware();
+thunk.withExtraArgument = createThunkMiddleware;
+
+export default thunk;
+</code></pre><p>这个中间件的功能其实很简单，也就是action如果是一个函数就选择执行这个函数，并且action函数执行的时候，会传入dispatch和getState.</p>
+<h2 id="4、createStore-js"><a href="#4、createStore-js" class="headerlink" title="4、createStore.js"></a>4、createStore.js</h2><p>createStore相对而言会较为的复杂，我们还是从接口出发。</p>
+<p>（1）首先看,createStore()函数的返回值store有哪些接口：</p>
+<p>–getState()：返回当前的state树</p>
+<p>–dispatch(action)：分发action，是改变state的唯一方法</p>
+<p>–subscribe(listener)：添加一个监听器，当state变化的时候，执行监听器里面的函数。</p>
+<p>–unsubscribe(listener)：subscribe的返回值，用于移除监听器</p>
+<p>–replaceReducer(nextReducer)：替换store中当前的reducer</p>
+<p>（2）下面根据代码，依次来看，各个接口的实现情况。</p>
+<p>首先明确createStore的形参，形参有3个，分别是reducer(处理函数)，preloadedState（初始化state），enhancer（一个高阶函数，可以改变store的接口）。</p>
+<pre><code>export default function createStore(reducer, preloadedState, enhancer) {
+
+}
+</code></pre><ul>
+<li>getState函数：</li>
+</ul>
+<pre><code>let currentState = preloadedState
+function getState() {
+    return currentState
+}
+</code></pre><p>getState函数比较简单，类似于一个get的方法，返回currentState的值</p>
+<ul>
+<li>dispatch函数：</li>
+</ul>
+<pre><code>function dispatch(action) {
+    if (!isPlainObject(action)) {
+      throw new Error(
+        &#39;Actions must be plain objects. &#39; +
+        &#39;Use custom middleware for async actions.&#39;
+      )
+    }
+
+    if (typeof action.type === &#39;undefined&#39;) {
+      throw new Error(
+        &#39;Actions may not have an undefined &quot;type&quot; property. &#39; +
+        &#39;Have you misspelled a constant?&#39;
+      )
+    }
+
+    if (isDispatching) {
+      throw new Error(&#39;Reducers may not dispatch actions.&#39;)
+    }
+
+    try {
+      isDispatching = true
+      currentState = currentReducer(currentState, action)
+    } finally {
+      isDispatching = false
+    }
+
+    const listeners = currentListeners = nextListeners
+    for (let i = 0; i &lt; listeners.length; i++) {
+      const listener = listeners[i]
+      listener()
+    }
+
+    return action
+}
+</code></pre><p>dispatch也不复杂，去掉判断类型（因为action必须是对象）的部分，其实只有2步：</p>
+<pre><code> try {
+  isDispatching = true
+  currentState = currentReducer(currentState, action)
+} finally {
+  isDispatching = false
+}
+
+const listeners = currentListeners = nextListeners
+for (let i = 0; i &lt; listeners.length; i++) {
+  const listener = listeners[i]
+  listener()
+}
+</code></pre><p>这就很显然易见了，就是执行currentReducer()传入当前的currentState和action，返回新的state，并且执行监听函数数组里面的所有函数。</p>
+<ul>
+<li>subscribe：</li>
+</ul>
+<pre><code>function subscribe(listener) {
+  if (typeof listener !== &#39;function&#39;) {
+    throw new Error(&#39;Expected listener to be a function.&#39;)
+  }
+
+  let isSubscribed = true
+
+  ensureCanMutateNextListeners()
+  nextListeners.push(listener)
+
+  return function unsubscribe() {
+    if (!isSubscribed) {
+      return
+    }
+
+    isSubscribed = false
+
+    ensureCanMutateNextListeners()
+    const index = nextListeners.indexOf(listener)
+    nextListeners.splice(index, 1)
+  }
+}
+</code></pre><p>监听函数也挺简单，就是一个简单的移入和移出，这是一个底层 API。多数情况下，你不会直接使用它，会使用一些 React（或其它库）的绑定。比如react-redux中的容器组件中的props改变会自动的更新（也算一个监听过程）。</p>
+<ul>
+<li>replaceReducer：</li>
+</ul>
+<pre><code>function replaceReducer(nextReducer) {
+    if (typeof nextReducer !== &#39;function&#39;) {
+      throw new Error(&#39;Expected the nextReducer to be a function.&#39;)
+    }
+
+    currentReducer = nextReducer
+    dispatch({ type: ActionTypes.INIT })
+}
+</code></pre><p>这个函数就更加的简单了，replaceReducer是为了改变当前的reducer，因此只要将currentReducer赋值为形参即可。</p>
+<h2 id="5、combineReducers-js"><a href="#5、combineReducers-js" class="headerlink" title="5、combineReducers.js"></a>5、combineReducers.js</h2><p>最复杂的部分就是combineReducer.js了</p>
+<ul>
+<li>combineReducer（reducer）接受一个reducer对象,recuder是key表示属性名，value是一个小的reduce函数：</li>
+</ul>
+<pre><code>export default function combineReducers(reducers) {
+
+}
+</code></pre><ul>
+<li>遍历reducer中的对象，取出其中的value值（reduce函数），生成一个新的对象：</li>
+</ul>
+<pre><code>const reducerKeys = Object.keys(reducers)
+const finalReducers = {}
+for (let i = 0; i &lt; reducerKeys.length; i++) {
+  const key = reducerKeys[i]
+  finalReducers[key] = reducers[key]
+}
+</code></pre><ul>
+<li>因为reduce函数有一个初始执行过程，即会自动执行一次 type: ActionTypes.INIT,因此有以下过程：</li>
+</ul>
+<pre><code>assertReducerShape(finalReducers);
+function assertReducerShape(reducers) {
+  Object.keys(reducers).forEach(key =&gt; {
+    const reducer = reducers[key]
+    const initialState = reducer(undefined, { type: ActionTypes.INIT })
+  }
+}
+</code></pre><ul>
+<li>最后就是最终要的返回的combine函数：</li>
+</ul>
+<p>其原理也很简单，state的属性名和reducer对象的key是相对的，因此也就是在所有的小的reduce函数中，传入相对的state[key]，action,依次执行后得到一个新的newState，然后与state做比较，选择性返回。</p>
+<pre><code>return function combination(state = {}, action) {
+
+    let hasChanged = false
+    const nextState = {}
+    for (let i = 0; i &lt; finalReducerKeys.length; i++) {
+      const key = finalReducerKeys[i]
+      const reducer = finalReducers[key]
+      const previousStateForKey = state[key]
+      const nextStateForKey = reducer(previousStateForKey, action)
+      if (typeof nextStateForKey === &#39;undefined&#39;) {
+        const errorMessage = getUndefinedStateErrorMessage(key, action)
+        throw new Error(errorMessage)
+      }
+      nextState[key] = nextStateForKey
+      hasChanged = hasChanged || nextStateForKey !== previousStateForKey
+    }
+    return hasChanged ? nextState : state
+  }
+}
+</code></pre><h2 id="6、bindActionCreators-js"><a href="#6、bindActionCreators-js" class="headerlink" title="6、bindActionCreators.js"></a>6、bindActionCreators.js</h2><p>这个一般比较少用，这里就不分析源码了，只简单的阐述功能，</p>
+<p>bindActionCreators（）把 action creators 转成拥有同名 keys 的对象，但使用 dispatch 把每个 action creator 包围起来，这样可以直接调用它们。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redux-react-柯里化-纯函数-状态-框架/" rel="tag"># redux react 柯里化 纯函数 状态 框架</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/25/函数式编程之纯函数/" rel="next" title="函数式编程之纯函数">
+                <i class="fa fa-chevron-left"></i> 函数式编程之纯函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/04/数组reduce方法的高级技巧/" rel="prev" title="数组reduce方法的高级技巧">
+                数组reduce方法的高级技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、什么是redux，这里就不做介绍，如想了解可以移步-ReadMe-redux，整体redux的代码只有800行，src下面分为一下几个部分。"><span class="nav-number">1.</span> <span class="nav-text">1、什么是redux，这里就不做介绍，如想了解可以移步 ReadMe.redux，整体redux的代码只有800行，src下面分为一下几个部分。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、compose-js"><span class="nav-number">2.</span> <span class="nav-text">2、compose.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、applyMiddleware-js"><span class="nav-number">3.</span> <span class="nav-text">3、applyMiddleware.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、createStore-js"><span class="nav-number">4.</span> <span class="nav-text">4、createStore.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、combineReducers-js"><span class="nav-number">5.</span> <span class="nav-text">5、combineReducers.js</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、bindActionCreators-js"><span class="nav-number">6.</span> <span class="nav-text">6、bindActionCreators.js</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

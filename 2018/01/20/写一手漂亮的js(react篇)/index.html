@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="近来有空一直在学习react的技术栈，虽说学习的深度没那么深，但总归初窥门径了，今天把在编码中的一些好方法好习惯记录一下。">
+<meta name="keywords" content="javscript react 代码 优化 习惯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写一手漂亮的js(react篇)">
+<meta property="og:url" content="http://www.icrazyman.cn/2018/01/20/写一手漂亮的js(react篇)/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="近来有空一直在学习react的技术栈，虽说学习的深度没那么深，但总归初窥门径了，今天把在编码中的一些好方法好习惯记录一下。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-03-21T14:25:04.682Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="写一手漂亮的js(react篇)">
+<meta name="twitter:description" content="近来有空一直在学习react的技术栈，虽说学习的深度没那么深，但总归初窥门径了，今天把在编码中的一些好方法好习惯记录一下。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2018/01/20/写一手漂亮的js(react篇)/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>写一手漂亮的js(react篇) | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2018/01/20/写一手漂亮的js(react篇)/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">写一手漂亮的js(react篇)
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-20 21:38:16" itemprop="dateCreated datePublished" datetime="2018-01-20T21:38:16+08:00">2018-01-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-03-21 22:25:04" itemprop="dateModified" datetime="2018-03-21T22:25:04+08:00">2018-03-21</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/01/20/写一手漂亮的js(react篇)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/20/写一手漂亮的js(react篇)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/01/20/写一手漂亮的js(react篇)/" class="leancloud_visitors" data-flag-title="写一手漂亮的js(react篇)">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>　　近来有空一直在学习react的技术栈，虽说学习的深度没那么深，但总归初窥门径了，今天把在编码中的一些好方法好习惯记录一下。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="个人原则"><a href="#个人原则" class="headerlink" title="个人原则"></a>个人原则</h1><ol>
+<li>既然react是组件化的，那么相同的代码，我不会写第二遍</li>
+<li>不在dom结构中夹杂太多js逻辑</li>
+</ol>
+<h1 id="对生命周期函数排序"><a href="#对生命周期函数排序" class="headerlink" title="对生命周期函数排序"></a>对生命周期函数排序</h1><pre><code>// bad
+class Demo extends React.Component {
+  render() {}
+
+  componentDidMount() {}
+
+  componentWillMount() {}
+}
+
+// good
+class Demo extends React.Component {
+  componentWillMount() {}
+
+  componentDidMount() {}
+
+  render() {}
+}
+</code></pre><h1 id="传递多个props时注意换行"><a href="#传递多个props时注意换行" class="headerlink" title="传递多个props时注意换行"></a>传递多个props时注意换行</h1><pre><code>// bad
+&lt;Demo className=&#39;a&#39; value={a} onClick={() =&gt; {}} /&gt;
+
+// goood
+&lt;Demo
+  className=&#39;a&#39;
+  value={a}
+  onClick={() =&gt; {}}
+/&gt;
+</code></pre><h1 id="利用对象展开符传递props"><a href="#利用对象展开符传递props" class="headerlink" title="利用对象展开符传递props"></a>利用对象展开符传递props</h1><pre><code>const someProps = {
+  a: 1,
+  b: 2,
+  c: 3
+}
+
+// bad
+&lt;Demo
+  a={someProps.a}
+  b={someProps.b}
+  c={someProps.c}
+/&gt;
+
+// goood
+&lt;Demo {...someProps} /&gt;
+
+// 当有些属性不需要传递的时候
+const {
+  a,
+  ...otherProps
+} = someProps
+
+&lt;Demo {...otherProps} /&gt;
+</code></pre><h1 id="利用箭头函数绑定this"><a href="#利用箭头函数绑定this" class="headerlink" title="利用箭头函数绑定this"></a>利用箭头函数绑定this</h1><pre><code>// bad
+class Demo extends React.Component {
+  handleClick() {
+
+  }
+
+  render() {
+    &lt;Button
+      onClick={this.handleClick.bind(this)}
+    /&gt;
+  }
+}
+
+// good
+class Demo extends React.Component {
+  handleClick = () =&gt; {
+
+  }
+
+  render() {
+    &lt;Button
+      onClick={this.handleClick}
+    /&gt;
+  }
+}
+</code></pre><h1 id="提前解构state，props"><a href="#提前解构state，props" class="headerlink" title="提前解构state，props"></a>提前解构state，props</h1><pre><code>// bad
+class Demo extends React.Component {
+  handleClick = () =&gt; {
+    this.props.add(this.state.a + this.state.b)
+    this.props.respond()
+  }
+}
+
+// good
+class Demo extends React.Component {
+  handleClick = () =&gt; {
+    const { a, b } = this.state
+    const { respond, add } = this.props
+
+    add(a + b)
+    respond()
+  }
+}
+</code></pre><h1 id="map时不要使用index当做key，用item的id"><a href="#map时不要使用index当做key，用item的id" class="headerlink" title="map时不要使用index当做key，用item的id"></a>map时不要使用index当做key，用item的id</h1><blockquote>
+<p>index没办法利用key来避免不必要的渲染</p>
+</blockquote>
+<pre><code>// bad
+class Demo extends React.Component {
+  render() {
+    return arr.map((item, i) =&gt; (
+      &lt;span key={i}&gt;{item.name}&lt;/span&gt;
+    ))
+  }
+}
+
+// good
+class Demo extends React.Component {
+  render() {
+    return arr.map(item =&gt; (
+      &lt;span key={item.id}&gt;{item.name}&lt;/span&gt;
+    ))
+  }
+}
+</code></pre><h1 id="不要将大段的内联样式写在组件上"><a href="#不要将大段的内联样式写在组件上" class="headerlink" title="不要将大段的内联样式写在组件上"></a>不要将大段的内联样式写在组件上</h1><blockquote>
+<p>影响阅读</p>
+</blockquote>
+<pre><code>// bad
+class Demo extends React.Component {
+  render() {
+    return (
+      &lt;div style={{
+        width: '100px',
+        height: '100px',
+        textAlign: 'center',
+        lineHeight: '100px'
+      }}&gt;11&lt;/div&gt;
+    )
+  }
+}
+
+// good
+const styles = {
+  container: {
+    width: &#39;100px&#39;,
+    height: &#39;100px&#39;,
+    textAlign: &#39;center&#39;,
+    lineHeight: &#39;100px&#39;
+  }
+}
+
+class Demo extends React.Component {
+  render() {
+    return (
+      &lt;div style={styles.container}&gt;11&lt;/div&gt;
+    )
+  }
+}
+</code></pre><h1 id="给props加上类型检查"><a href="#给props加上类型检查" class="headerlink" title="给props加上类型检查"></a>给props加上类型检查</h1><blockquote>
+<p>一定程度上能及时发现问题，当然更好的选择是flow、ts</p>
+</blockquote>
+<pre><code>// bad
+class Demo extends React.Component {
+  // nothing
+}
+
+// good
+import PropTypes from &#39;prop-types&#39;;
+
+class Demo extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    url: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.array,
+    ]),
+    onClick: PropTypes.func,
+  }
+}
+</code></pre><h1 id="尽量不要在渲染组件时传递匿名函数"><a href="#尽量不要在渲染组件时传递匿名函数" class="headerlink" title="尽量不要在渲染组件时传递匿名函数"></a>尽量不要在渲染组件时传递匿名函数</h1><ol>
+<li>首先它会影响阅读</li>
+<li>每次渲染会生成新的匿名函数，对子组件来说就是新的props，就会触发再一次更新</li>
+<li>当然，当函数只有一行的时候，我觉得也是可以这么做的，从代码简洁性考虑</li>
+</ol>
+<pre><code>// bad
+class Demo extends React.Component {
+  handleClick = () =&gt; {
+    a++
+    this.props.add()
+  }
+
+  render() {
+    return (
+      &lt;Hello onClick={this.handleClick}&gt;11&lt;/Hello&gt;
+    )
+  }
+}
+
+// good
+class Demo extends React.Component {
+  render() {
+    return (
+      &lt;Hello onClick={() =&gt; {
+        a++
+        this.props.add()
+      }}&gt;11&lt;/Hello&gt;
+    )
+  }
+}
+</code></pre>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javscript-react-代码-优化-习惯/" rel="tag"># javscript react 代码 优化 习惯</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/19/JavaScript 可能为 true 吗？/" rel="next" title="JavaScript 可能为 true 吗？">
+                <i class="fa fa-chevron-left"></i> JavaScript 可能为 true 吗？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/20/jQuery核心源码详细解析/" rel="prev" title="jquery核心代码详细解析">
+                jquery核心代码详细解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#个人原则"><span class="nav-number">1.</span> <span class="nav-text">个人原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对生命周期函数排序"><span class="nav-number">2.</span> <span class="nav-text">对生命周期函数排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传递多个props时注意换行"><span class="nav-number">3.</span> <span class="nav-text">传递多个props时注意换行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用对象展开符传递props"><span class="nav-number">4.</span> <span class="nav-text">利用对象展开符传递props</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用箭头函数绑定this"><span class="nav-number">5.</span> <span class="nav-text">利用箭头函数绑定this</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提前解构state，props"><span class="nav-number">6.</span> <span class="nav-text">提前解构state，props</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#map时不要使用index当做key，用item的id"><span class="nav-number">7.</span> <span class="nav-text">map时不要使用index当做key，用item的id</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不要将大段的内联样式写在组件上"><span class="nav-number">8.</span> <span class="nav-text">不要将大段的内联样式写在组件上</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#给props加上类型检查"><span class="nav-number">9.</span> <span class="nav-text">给props加上类型检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#尽量不要在渲染组件时传递匿名函数"><span class="nav-number">10.</span> <span class="nav-text">尽量不要在渲染组件时传递匿名函数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

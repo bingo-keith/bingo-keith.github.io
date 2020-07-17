@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在这篇文章中，我将向您展示如何通过JavaScript在网页上访问设备的摄像头，并支持多种浏览器，而无需外部库。">
+<meta name="keywords" content="前端 javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用JavaScript访问设备摄像头（前后）">
+<meta property="og:url" content="http://www.icrazyman.cn/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="在这篇文章中，我将向您展示如何通过JavaScript在网页上访问设备的摄像头，并支持多种浏览器，而无需外部库。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/2.png">
+<meta property="og:image" content="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/3.png">
+<meta property="og:image" content="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/4.png">
+<meta property="og:image" content="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/5.png">
+<meta property="og:updated_time" content="2020-06-09T01:21:14.563Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何使用JavaScript访问设备摄像头（前后）">
+<meta name="twitter:description" content="在这篇文章中，我将向您展示如何通过JavaScript在网页上访问设备的摄像头，并支持多种浏览器，而无需外部库。">
+<meta name="twitter:image" content="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/2.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>如何使用JavaScript访问设备摄像头（前后） | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何使用JavaScript访问设备摄像头（前后）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-06-09 09:08:20 / 修改时间：09:21:14" itemprop="dateCreated datePublished" datetime="2020-06-09T09:08:20+08:00">2020-06-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/" class="leancloud_visitors" data-flag-title="如何使用JavaScript访问设备摄像头（前后）">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在这篇文章中，我将向您展示如何通过JavaScript在网页上访问设备的摄像头，并支持多种浏览器，而无需外部库。</p>
+<a id="more"></a>
+<h1 id="如何使用相机API"><a href="#如何使用相机API" class="headerlink" title="如何使用相机API"></a>如何使用相机API</h1><p>要访问用户的相机（或麦克风），我们使用JavaScript <strong>MediaStream API</strong>。该API允许通过流访问这些设备捕获的视频和音频。</p>
+<p>第一步是检查浏览器是否支持此API：</p>
+<pre><code class="js">if (
+  &quot;mediaDevices&quot; in navigator &amp;&amp;
+  &quot;getUserMedia&quot; in navigator.mediaDevices
+) {
+  // ok, 浏览器支持它
+}
+</code></pre>
+<p>在现代浏览器中，支持是不错的（当然没有Internet Explorer）。</p>
+<h2 id="捕获视频流"><a href="#捕获视频流" class="headerlink" title="捕获视频流"></a>捕获视频流</h2><p>要捕获由摄像机生成的视频流，我们使用 <code>mediaDevices</code> 对象的 <code>getUserMedia</code> 方法。这个方法接收一个对象，其中包含我们要请求的媒体类型（视频或音频）和一些要求。首先，我们可以通过 <code>{video: true}</code> 来获取摄像机的视频。</p>
+<pre><code class="js">const videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+</code></pre>
+<p>此调用将询问用户是否允许访问摄像机。如果用户拒绝，它将引发异常并且不返回流。因此，必须在 <code>try/catch</code> 块内完成处理这种情况。</p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/2.png" alt=""></p>
+<p>请注意，它返回一个Promise，因此您必须使用 <code>async/await</code> 或 <code>then</code> 块。在Mac OS系统上还会弹出授权</p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/3.png" alt=""></p>
+<p>点击“好”，就可以访问电脑摄像头了，控制台输出的 <code>videoStream</code> 对象如下</p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/4.png" alt=""></p>
+<h2 id="视频规格（requirements）"><a href="#视频规格（requirements）" class="headerlink" title="视频规格（requirements）"></a>视频规格（requirements）</h2><p>我们可以通过传递有关所需分辨率以及最小和最大限制的信息来改善视频的要求：</p>
+<pre><code class="js">const constraints = {
+  video: {
+    width: {
+      min: 1280,
+      ideal: 1920,
+      max: 2560,
+    },
+    height: {
+      min: 720,
+      ideal: 1080,
+      max: 1440,
+    },
+  },
+};
+
+const videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+</code></pre>
+<p>这样，流以正确的宽度和高度比例进入，如果它是处于纵向模式的手机，则需要进行尺寸反转。</p>
+<h2 id="在页面上显示视频"><a href="#在页面上显示视频" class="headerlink" title="在页面上显示视频"></a>在页面上显示视频</h2><p>既然有了流，我们该如何处理？</p>
+<p>我们可以在页面上的 <code>video</code> 元素中显示视频：</p>
+<pre><code class="js">// 页面中有一个 &lt;video autoplay id=&quot;video&quot;&gt;&lt;/video&gt; 标签
+const video = document.querySelector(&quot;#video&quot;);
+const videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+video.srcObject = videoStream;
+</code></pre>
+<p>请注意 <code>video</code> 标签中的自动播放属性 <code>autoplay</code>，没有它，你需要调用 <code>video.play()</code> 才能真正开始显示图像。</p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/5.png" alt=""></p>
+<h2 id="访问手机的前后摄像头"><a href="#访问手机的前后摄像头" class="headerlink" title="访问手机的前后摄像头"></a>访问手机的前后摄像头</h2><p>默认情况下，<code>getUserMedia</code> 将使用系统默认的视频录制设备。如果是有两个摄像头的手机，它使用前置摄像头。</p>
+<p>要访问后置摄像头，我们必须在视频规格中包括 <code>faceModeMode:&quot;environment&quot;</code>：</p>
+<pre><code class="js">const constraints = {
+  video: {
+    width: { ... },
+    height: { ... },
+    facingMode: &quot;environment&quot;
+  },
+};
+</code></pre>
+<p>默认值为 <code>faceingMode:&quot;user&quot;</code>，即前置摄像头。</p>
+<p>需要注意的是，如果你想在已经播放视频的情况下更换摄像机，你需要先停止当前的视频流，然后再将其替换成另一台摄像机的视频流。</p>
+<pre><code class="js">videoStream.getTracks().forEach((track) =&gt; {
+  track.stop();
+});
+</code></pre>
+<h2 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h2><p>你可以做的另一件很酷的事情是捕获视频的图像（屏幕快照）。</p>
+<p>你可以在canvas上绘制当前视频帧，例如：</p>
+<pre><code class="js">// 页面中有一个 &lt;canvas id=&quot;canvas&quot;&gt;&lt;/canvas&gt; 标签
+const canvas = document.querySelector(&quot;#canvas&quot;);
+canvas.width = video.videoWidth;
+canvas.height = video.videoHeight;
+canvas.getContext(&quot;2d&quot;).drawImage(video, 0, 0);
+</code></pre>
+<p>你还可以在 <code>img</code> 元素中显示画布内容。</p>
+<p>在本教程创建的示例中，我添加了一个按钮，该按钮可从画布动态创建图像并将其添加到页面：</p>
+<pre><code class="js">const img = document.createElement(&quot;img&quot;);
+img.src = canvas.toDataURL(&quot;image/png&quot;);
+screenshotsContainer.prepend(img);
+</code></pre>
+<h2 id="完整示例和代码"><a href="#完整示例和代码" class="headerlink" title="完整示例和代码"></a>完整示例和代码</h2><pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;title&gt;摄像头&lt;/title&gt;
+    &lt;style type=&quot;text/css&quot;&gt;
+        #video {
+          width: 100%;
+        }
+
+        .is-hidden {
+          display: none;
+        }
+
+        .btns {
+          margin-bottom: 10px;
+        }
+
+        button {
+          font-size: 22px;
+          padding: 8px 10px;
+          border: 2px solid #ccc;
+          border-radius: 10px;
+        }
+
+        .video-screenshot {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-column-gap: 10px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;如何使用JavaScript访问设备摄像头（前后）&lt;/h1&gt;
+&lt;div class=&quot;btns&quot;&gt;
+  &lt;button class=&quot;button is-hidden&quot; id=&quot;btnPlay&quot;&gt;
+    播放
+  &lt;/button&gt;
+  &lt;button class=&quot;button&quot; id=&quot;btnPause&quot;&gt;
+    暂停
+  &lt;/button&gt;
+  &lt;button class=&quot;button&quot; id=&quot;btnScreenshot&quot;&gt;
+    截屏
+  &lt;/button&gt;
+  &lt;button class=&quot;button&quot; id=&quot;btnChangeCamera&quot; style=&quot;padding: 6px 10px;&quot;&gt;
+    切换摄像头
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;div class=&quot;video-screenshot&quot;&gt;
+  &lt;video autoplay id=&quot;video&quot;&gt;&lt;/video&gt;
+  &lt;div&gt;
+    &lt;div id=&quot;screenshotsContainer&quot;&gt;
+      &lt;canvas id=&quot;canvas&quot; class=&quot;is-hidden&quot;&gt;&lt;/canvas&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+// https://segmentfault.com/a/1190000022867561
+window.onload = async function () {
+  if (
+    !&quot;mediaDevices&quot; in navigator ||
+    !&quot;getUserMedia&quot; in navigator.mediaDevices
+  ) {
+    document.write(&#39;当前浏览器不支持Camera API，请更新浏览器。&#39;)
+    return;
+  }
+
+  const video = document.querySelector(&quot;#video&quot;);
+  const canvas = document.querySelector(&quot;#canvas&quot;);
+  const screenshotsContainer = document.querySelector(&quot;#screenshotsContainer&quot;);
+  let videoStream = null
+  let useFrontCamera = true; // 前置摄像头
+  const constraints = {
+    video: {
+      width: {
+        min: 1280,
+        ideal: 1920,
+        max: 2560,
+      },
+      height: {
+        min: 720,
+        ideal: 1080,
+        max: 1440,
+      }
+    },
+  };
+
+  // play
+  btnPlay.addEventListener(&quot;click&quot;, function () {
+    video.play();
+    btnPlay.classList.add(&quot;is-hidden&quot;);
+    btnPause.classList.remove(&quot;is-hidden&quot;);
+  });
+
+  // pause
+  btnPause.addEventListener(&quot;click&quot;, function () {
+    video.pause();
+    btnPause.classList.add(&quot;is-hidden&quot;);
+    btnPlay.classList.remove(&quot;is-hidden&quot;);
+  });
+
+  // 切换摄像头
+  btnChangeCamera.addEventListener(&quot;click&quot;, function () {
+    useFrontCamera = !useFrontCamera;
+    init();
+  });
+
+
+  // 停止视频流
+  function stopVideoStream() {
+    if (videoStream) {
+      videoStream.getTracks().forEach((track) =&gt; {
+        track.stop();
+      });
+    }
+  }
+
+  // 截图
+  btnScreenshot.addEventListener(&quot;click&quot;, function () {
+    let img = document.getElementById(&#39;screenshot&#39;);
+    if (!img) {
+      img = document.createElement(&quot;img&quot;);
+      img.id = &#39;screenshot&#39;;
+      img.style.width = &#39;100%&#39;;
+    }
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext(&quot;2d&quot;).drawImage(video, 0, 0);
+    img.src = canvas.toDataURL(&quot;image/png&quot;);
+    screenshotsContainer.prepend(img);
+  });
+
+  async function init() {
+    stopVideoStream();
+    constraints.video.facingMode = useFrontCamera ? &quot;user&quot; : &quot;environment&quot;;
+    try {
+      videoStream = await navigator.mediaDevices.getUserMedia(constraints);
+      video.srcObject = videoStream;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  init();
+}
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端-javascript/" rel="tag"># 前端 javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/08/Web前端开发标准规范/" rel="next" title="Web前端开发标准规范">
+                <i class="fa fa-chevron-left"></i> Web前端开发标准规范
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用相机API"><span class="nav-number">1.</span> <span class="nav-text">如何使用相机API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#捕获视频流"><span class="nav-number">1.1.</span> <span class="nav-text">捕获视频流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频规格（requirements）"><span class="nav-number">1.2.</span> <span class="nav-text">视频规格（requirements）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在页面上显示视频"><span class="nav-number">1.3.</span> <span class="nav-text">在页面上显示视频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问手机的前后摄像头"><span class="nav-number">1.4.</span> <span class="nav-text">访问手机的前后摄像头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#截屏"><span class="nav-number">1.5.</span> <span class="nav-text">截屏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整示例和代码"><span class="nav-number">1.6.</span> <span class="nav-text">完整示例和代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

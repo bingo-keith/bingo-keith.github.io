@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="React的核心是组件。你可以像嵌套HTML标签一样来嵌套这些组件，这使得写JSX变得容易，因为他和标记语言很像。 当刚开始学习React的时候，我认为“会用props.children，我就知道了关于子组件的一切”。难道，我有错吗？ 因为我们在使用JavaScript，我们可以改变子组件。我们可以向他们发送特定的属性，决定我们是否希望它们显示，并且可以按照我们的意愿操作它们。让我们探究一下Rea">
+<meta name="keywords" content="react 组件 模块 javascript 框架 库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入了解React的子组件">
+<meta property="og:url" content="http://www.icrazyman.cn/2018/01/07/深入了解React的子组件/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="React的核心是组件。你可以像嵌套HTML标签一样来嵌套这些组件，这使得写JSX变得容易，因为他和标记语言很像。 当刚开始学习React的时候，我认为“会用props.children，我就知道了关于子组件的一切”。难道，我有错吗？ 因为我们在使用JavaScript，我们可以改变子组件。我们可以向他们发送特定的属性，决定我们是否希望它们显示，并且可以按照我们的意愿操作它们。让我们探究一下Rea">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/skCYXj1.png">
+<meta property="og:image" content="https://i.imgur.com/K4EdUB3.png">
+<meta property="og:image" content="https://i.imgur.com/0AIrxKD.png">
+<meta property="og:image" content="https://i.imgur.com/0iVe7O6.png">
+<meta property="og:image" content="https://i.imgur.com/ovt61Qu.png">
+<meta property="og:image" content="https://i.imgur.com/CvXLz2D.png">
+<meta property="og:image" content="https://i.imgur.com/gwRdNAx.png">
+<meta property="og:image" content="https://i.imgur.com/AwAip0N.png">
+<meta property="og:updated_time" content="2018-01-07T12:55:24.852Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入了解React的子组件">
+<meta name="twitter:description" content="React的核心是组件。你可以像嵌套HTML标签一样来嵌套这些组件，这使得写JSX变得容易，因为他和标记语言很像。 当刚开始学习React的时候，我认为“会用props.children，我就知道了关于子组件的一切”。难道，我有错吗？ 因为我们在使用JavaScript，我们可以改变子组件。我们可以向他们发送特定的属性，决定我们是否希望它们显示，并且可以按照我们的意愿操作它们。让我们探究一下Rea">
+<meta name="twitter:image" content="https://i.imgur.com/skCYXj1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2018/01/07/深入了解React的子组件/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>深入了解React的子组件 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2018/01/07/深入了解React的子组件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入了解React的子组件
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-07 14:16:12 / 修改时间：20:55:24" itemprop="dateCreated datePublished" datetime="2018-01-07T14:16:12+08:00">2018-01-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/01/07/深入了解React的子组件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/01/07/深入了解React的子组件/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/01/07/深入了解React的子组件/" class="leancloud_visitors" data-flag-title="深入了解React的子组件">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>React的核心是组件。你可以像嵌套HTML标签一样来嵌套这些组件，这使得写JSX变得容易，因为他和标记语言很像。 当刚开始学习React的时候，我认为“会用<code>props.children</code>，我就知道了关于子组件的一切”。难道，我有错吗？ 因为我们在使用JavaScript，我们可以改变子组件。我们可以向他们发送特定的属性，决定我们是否希望它们显示，并且可以按照我们的意愿操作它们。让我们探究一下React中的子组件。</p>
+<a id="more"></a>
+<p>假设我们有一个可以包含若干组件的组件。你会像这样使用它：</p>
+<pre><code>&lt;Grid&gt;
+  &lt;Row /&gt;
+  &lt;Row /&gt;
+  &lt;Row /&gt;
+&lt;/Grid&gt;
+</code></pre><p><img src="https://i.imgur.com/skCYXj1.png" alt=""></p>
+<p>通过<code>props.children</code>，<code>Grid</code>组件可以获得这三个<code>Row</code>组件。父组件通过一个表现容器来渲染这些子组件：</p>
+<pre><code>class Grid extends React.Component {
+  render() {
+    return &lt;div&gt;{this.props.children}&lt;/div&gt;
+  }
+}
+</code></pre><p>父组件也可以决定不渲染任何子组件或者在渲染他们之前操控它们。比如说，下面这个组件就不渲染任何子组件：</p>
+<pre><code>
+class Fullstop extends React.Component {
+  render() {
+    return &lt;h1&gt;Hello world!&lt;/h1&gt;
+  }
+}
+
+</code></pre><p>不管你传递哪个组件给上面这个组件，它总是会只显示“Hello world！”。</p>
+<blockquote>
+<p>注意： 上面例子中的<code>Fullstop</code>组件（非常像HTML的原语），在渲染‘Hello World!’的情况下，不会渲染它的子组件。</p>
+</blockquote>
+<p>一切都可以是子组件</p>
+<p>在React中，子组件没有必要必须是一个组件，他们可以是任意内容。比方说，我们可以给上面的<code>Grid</code>组件传递文本作为子组件且结果很完美。</p>
+<p><img src="https://i.imgur.com/K4EdUB3.png" alt=""></p>
+<p>JSX会自动清除每行开始和结束处的空格以及空白的行。它还将字符串文字中间的空行浓缩成一个空格。</p>
+<p>这意味着下面这些示例都会渲染成相同的内容：</p>
+<pre><code>&lt;Grid&gt;Hello world!&lt;/Grid&gt;
+
+&lt;Grid&gt;
+  Hello world!
+&lt;/Grid&gt;
+
+&lt;Grid&gt;
+  Hello
+  world!
+&lt;/Grid&gt;
+
+&lt;Grid&gt;
+
+  Hello world!
+&lt;/Grid&gt;
+</code></pre><p>你还可以很好地混合和搭配多种类型的子组件：</p>
+<pre><code>&lt;Grid&gt;
+  Here is a row:
+  &lt;Row /&gt;
+  Here is another row:
+  &lt;Row /&gt;
+&lt;/Grid&gt;
+</code></pre><p><img src="https://i.imgur.com/0AIrxKD.png" alt=""></p>
+<h1 id="函数子组件"><a href="#函数子组件" class="headerlink" title="函数子组件"></a>函数子组件</h1><p>我们可以传递任何JavaScript表达式作为子组件，当然包括函数。</p>
+<p>为了说明它看起来是什么样子，下面的组件渲染的就是一个传递给它的函数子组件：</p>
+<pre><code>class Executioner extends React.Component {
+  render() {
+    // 请看我们如何调用一个函数子组件?
+    //                        ↓
+    return this.props.children()
+  }
+}
+</code></pre><p>你会像这样使用这个组件：</p>
+<pre><code>&lt;Executioner&gt;
+  {() =&gt; &lt;h1&gt;Hello World!&lt;/h1&gt;}
+&lt;/Executioner&gt;
+</code></pre><p>这个具体的例子当然没有什么用，但它说明了这个想法。</p>
+<p>假设必须从服务器获取一些数据。你可能有多种方式做到这一点，但是通过下面的函数子组件也可以：</p>
+<pre><code>&lt;Fetch url=&quot;api.myself.com&quot;&gt;
+  {(result) =&gt; &lt;p&gt;{result}&lt;/p&gt;}
+&lt;/Fetch&gt;
+</code></pre><h1 id="操控子组件"><a href="#操控子组件" class="headerlink" title="操控子组件"></a>操控子组件</h1><p>如果你看过React的文档，你会发现它有说“子组件是一种不透明的数据结构”。他们本质上，是想告诉我们props.children可以是任意类型，比如数组、函数、对象等等，因为你可以传递任何内容，所以你永远也不能确定它。</p>
+<p>React提供了一系列帮助函数，使操作子组件变得轻松和惬意。它们都在React.Children上适用。</p>
+<h1 id="遍历子组件"><a href="#遍历子组件" class="headerlink" title="遍历子组件"></a>遍历子组件</h1><p>最明显的两个帮助类函数是<code>React.Children.map</code> 和 <code>React.Children.forEach</code>。它们和数组中的map及foreach工作完全相同，除了一点：当子组件是函数、对象或者任何内容时，它们仍能正常工作。</p>
+<pre><code>class IgnoreFirstChild extends React.Component {
+  render() {
+    const children = this.props.children
+    return (
+      &lt;div&gt;
+        {React.Children.map(children, (child, i) =&gt; {
+          // 忽略第一个子组件
+          if (i &lt; 1) return
+          return child
+        })}
+      &lt;/div&gt;
+    )
+  }
+}
+</code></pre><p>这里的<code>IgnoreFirstChild</code>组件遍历它所有的子组件，忽略掉第一个子组件，渲染剩余子组件。</p>
+<pre><code>&lt;IgnoreFirstChild&gt;
+  &lt;h1&gt;First&lt;/h1&gt;
+  &lt;h1&gt;Second&lt;/h1&gt; // &lt;- 只有这个被渲染
+&lt;/IgnoreFirstChild&gt;
+</code></pre><p><img src="https://i.imgur.com/0iVe7O6.png" alt=""></p>
+<p>在这种情况下，我们也可以使用<code>this.props.children.map</code>。但是，如果有人传进来一个函数子组件会发生什么？<code>this.props.children</code>将会是一个函数而不是数组，我们会看到一个报错！ 😱</p>
+<p><img src="https://i.imgur.com/ovt61Qu.png" alt=""></p>
+<p>然而使用<code>React.Children.map</code>函数，就不会发生这种问题：</p>
+<pre><code>&lt;IgnoreFirstChild&gt;
+  {() =&gt; &lt;h1&gt;First&lt;/h1&gt;} // &lt;- 忽略掉 💪
+&lt;/IgnoreFirstChild&gt;
+</code></pre><h1 id="统计子组件"><a href="#统计子组件" class="headerlink" title="统计子组件"></a>统计子组件</h1><p>由于<code>this.props.children</code>可以是任意类型，统计一个组件有多少子组件是一件很困难的事情。当传递的子组件是一个字符串或者函数时，使用<code>this.props.children.length</code>就会失效。比方说，我们有一个子组件，<code>&quot;Hello World!&quot;</code>，但是<code>.length</code>将会是12。</p>
+<p>这就是为什么我们会有<code>React.Children.count</code>:</p>
+<pre><code>class ChildrenCounter extends React.Component {
+  render() {
+    return &lt;p&gt;React.Children.count(this.props.children)&lt;/p&gt;
+  }
+}
+</code></pre><p>它会返回子组件的数量，不管子组件的类型是什么：</p>
+<pre><code>// Renders &quot;1&quot;
+&lt;ChildrenCounter&gt;
+  Second!
+&lt;/ChildrenCounter&gt;
+
+// Renders &quot;2&quot;
+&lt;ChildrenCounter&gt;
+  &lt;p&gt;First&lt;/p&gt;
+  &lt;ChildComponent /&gt;
+&lt;/ChildrenCounter&gt;
+
+// Renders &quot;3&quot;
+&lt;ChildrenCounter&gt;
+  {() =&gt; &lt;h1&gt;First!&lt;/h1&gt;}
+  Second!
+  &lt;p&gt;Third!&lt;/p&gt;
+&lt;/ChildrenCounter&gt;
+</code></pre><h1 id="转换子组件为数组"><a href="#转换子组件为数组" class="headerlink" title="转换子组件为数组"></a>转换子组件为数组</h1><p>作为最后的手段，如果上面的方法都不满足你的的需求，你可以使用<code>React.Children.toArray</code>将你的子组件转换为一个数组。这将会很有用，如果你需要比方说将它们排序：</p>
+<pre><code>class Sort extends React.Component {
+  render() {
+    const children = React.Children.toArray(this.props.children)
+    // 排序并渲染子组件
+    return &lt;p&gt;{children.sort().join(&#39; &#39;)}&lt;/p&gt;
+  }
+}
+</code></pre><pre><code>&lt;Sort&gt;
+  // 我们使用花括号来确保我们的字符串是作为三个子组件传入，
+  // 而不是一个。
+  {&#39;bananas&#39;}{&#39;oranges&#39;}{&#39;apples&#39;}
+&lt;/Sort&gt;
+</code></pre><p>上面的例子渲染出字符串，但是是排序后的：</p>
+<p><img src="https://i.imgur.com/CvXLz2D.png" alt=""></p>
+<h1 id="限制单一子组件"><a href="#限制单一子组件" class="headerlink" title="限制单一子组件"></a>限制单一子组件</h1><p>回想我们上面的<code>Executioner</code>组件，它只希望传递过来一个子组件，并且还必须是一个函数子组件。</p>
+<pre><code>class Executioner extends React.Component {
+  render() {
+    return this.props.children()
+  }
+}
+</code></pre><p>我们可以用<code>proptypes</code>来控制，它看起来会像这样：</p>
+<pre><code>Executioner.propTypes = {
+  children: React.PropTypes.func.isRequired,
+}
+</code></pre><p>这将把信息记录到控制台，然而有些开发者可能会忽略掉这里的报警信息。因此，取而代之，我们可以在<code>render</code>方法中使用<code>React.Children.only</code>。</p>
+<pre><code>class Executioner extends React.Component {
+  render() {
+    return React.Children.only(this.props.children)()
+  }
+}
+</code></pre><p>这将返回<code>this.props.children</code>中唯一的子组件。如果多余一个子组件，它就会抛出一个错误，因此，可以降低我们应用变得不完美的风险，可以避免懒惰的开发者试图扰乱我们的组件。😎</p>
+<h1 id="编辑子组件"><a href="#编辑子组件" class="headerlink" title="编辑子组件"></a>编辑子组件</h1><p>我们不仅可以通过子组件的方式，渲染任意组件，而且还可以通过父组件来控制它们，而不是在子组件内部。为了说明这点，假设我们有一个<code>RadioGroup</code>组件，这个组件中包含多个<code>RadioButton</code>组件（渲染一个单选框）。</p>
+<p>这些<code>RadioButton</code>组件并不是在<code>RadioGroup</code>组件中渲染的，它们是作为子组件被渲染的。这意味着在我们应用的某个地方有这个组件的代码：</p>
+<pre><code>render() {
+  return(
+    &lt;RadioGroup&gt;
+      &lt;RadioButton value=&quot;first&quot;&gt;First&lt;/RadioButton&gt;
+      &lt;RadioButton value=&quot;second&quot;&gt;Second&lt;/RadioButton&gt;
+      &lt;RadioButton value=&quot;third&quot;&gt;Third&lt;/RadioButton&gt;
+    &lt;/RadioGroup&gt;
+  )
+}
+</code></pre><p>但是这里的代码有一个问题。这些<code>input</code>组件并没有被组合起来，这将会导致下面的结果：</p>
+<p><img src="https://i.imgur.com/gwRdNAx.png" alt=""></p>
+<p>要将<code>input</code>标签组合在一起，它们都需要具有相同的<code>name</code>属性。我们当然可以为每一个<code>RadioButton</code>组件指定一个<code>name</code>属性。</p>
+<pre><code>&lt;RadioGroup&gt;
+  &lt;RadioButton name=&quot;g1&quot; value=&quot;first&quot;&gt;First&lt;/RadioButton&gt;
+  &lt;RadioButton name=&quot;g1&quot; value=&quot;second&quot;&gt;Second&lt;/RadioButton&gt;
+  &lt;RadioButton name=&quot;g1&quot; value=&quot;third&quot;&gt;Third&lt;/RadioButton&gt;
+&lt;/RadioGroup&gt;
+</code></pre><p>但那是乏味和容易出错的。我们掌握了JavaScript的全部力量！我们能否使用它来告诉我们的<code>RadioGroup</code>组件，我们想要添加在所有子组件上的<code>name</code>属性，并让它自动添加呢？</p>
+<p>改变子组件的属性<br>在<code>RadioGroup</code>组件中，我们将会增加一个新的叫<code>renderChildren</code>的方法，用这个方法，我们可以修改子组件的属性：</p>
+<pre><code>class RadioGroup extends React.Component {
+  constructor() {
+    super()
+    // 将方法绑定到组件上下文
+    this.renderChildren = this.renderChildren.bind(this)
+  }
+
+  renderChildren() {
+    // TODO: 修改所有子组件的name属性为this.props.name
+    return this.props.children
+  }
+
+  render() {
+    return (
+      &lt;div className=&quot;group&quot;&gt;
+        {this.renderChildren()}
+      &lt;/div&gt;
+    )
+  }
+}
+</code></pre><p>让我们以遍历所有的子组件，来获取到每一个单独的子组件开始：</p>
+<pre><code>renderChildren() {
+  return React.Children.map(this.props.children, child =&gt; {
+    // TODO: 改变name属性为this.props.name
+    return child
+  })
+}
+</code></pre><p>然而我们改如何编辑它们的属性呢？</p>
+<h1 id="克隆元素"><a href="#克隆元素" class="headerlink" title="克隆元素"></a>克隆元素</h1><p>这就是今天最后一个帮助方法发挥作用的地方了。顾名思义，<code>React.cloneElement</code>会克隆一个元素。我们将要克隆的元素作为第一个参数传递给它，然后第二个参数，我们可以传递一个对象，这个对象中包含的就是我们希望在克隆元素上出现的属性。</p>
+<pre><code>const cloned = React.cloneElement(element, {
+  new: &#39;yes!&#39;
+})
+</code></pre><p>这个<code>cloned</code>元素现在就有了一个值为”yes!”的new属性。</p>
+<p>这正是我们完成<code>RadioGroup</code>组件所需要的。我们克隆每一个子组件，并且把克隆子组件的<code>name</code>属性设置为<code>this.props.name</code>:</p>
+<pre><code>renderChildren() {
+  return React.Children.map(this.props.children, child =&gt; {
+    return React.cloneElement(child, {
+      name: this.props.name
+    })
+  })
+}
+</code></pre><p>最后一步是为<code>RadioGroup</code>组件设置一个唯一的<code>name</code>属性：</p>
+<pre><code>&lt;RadioGroup name=&quot;g1&quot;&gt;
+  &lt;RadioButton value=&quot;first&quot;&gt;First&lt;/RadioButton&gt;
+  &lt;RadioButton value=&quot;second&quot;&gt;Second&lt;/RadioButton&gt;
+  &lt;RadioButton value=&quot;third&quot;&gt;Third&lt;/RadioButton&gt;
+&lt;/RadioGroup&gt;
+</code></pre><p><img src="https://i.imgur.com/AwAip0N.png" alt=""></p>
+<p>成功了！🎉 取代手动地去设置每一个<code>RadioButton</code>组件的<code>name</code>属性，我们只需要告诉<code>RadioGroup</code>组件我们想要的<code>name</code>属性值，它就会自动地去做好了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>子组件使React组件看起来就像一系列的标记，而不是分割的个体。使用JavaScript和React的帮助类函数，我们可以创建声明类的API，让我们的开发更轻松。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react-组件-模块-javascript-框架-库/" rel="tag"># react 组件 模块 javascript 框架 库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/17/入门Webpack，看这篇就够了/" rel="next" title="入门Webpack，看这篇就够了">
+                <i class="fa fa-chevron-left"></i> 入门Webpack，看这篇就够了
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/14/SeaJS学习笔记/" rel="prev" title="SeaJS学习笔记">
+                SeaJS学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数子组件"><span class="nav-number">1.</span> <span class="nav-text">函数子组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操控子组件"><span class="nav-number">2.</span> <span class="nav-text">操控子组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#遍历子组件"><span class="nav-number">3.</span> <span class="nav-text">遍历子组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#统计子组件"><span class="nav-number">4.</span> <span class="nav-text">统计子组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#转换子组件为数组"><span class="nav-number">5.</span> <span class="nav-text">转换子组件为数组</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#限制单一子组件"><span class="nav-number">6.</span> <span class="nav-text">限制单一子组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编辑子组件"><span class="nav-number">7.</span> <span class="nav-text">编辑子组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#克隆元素"><span class="nav-number">8.</span> <span class="nav-text">克隆元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

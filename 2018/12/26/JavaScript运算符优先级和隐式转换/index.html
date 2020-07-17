@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="昨天圣诞节，本应该是一个开心的日子，但对有些程序猿来说，是非常糟糕的一天。在很多技术开发群里，在技术论坛以及github社区都炸天了。我想说的是，使用开源的人，得有感激之心，但是贡献开源的人更应该要有敬畏之心。我们要感谢每一个开源的人，他们为这个世界贡献了自己的力量，为这个社会提高了效率，而开源的人也应该怀有敬畏之心，尊重每一个使用者，更好地回馈使用者，使用者和开源这相互成就。 好了，话说回来，今">
+<meta name="keywords" content="JavaScript 运算符 优先级 隐式转换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript运算符优先级和隐式转换">
+<meta property="og:url" content="http://www.icrazyman.cn/2018/12/26/JavaScript运算符优先级和隐式转换/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="昨天圣诞节，本应该是一个开心的日子，但对有些程序猿来说，是非常糟糕的一天。在很多技术开发群里，在技术论坛以及github社区都炸天了。我想说的是，使用开源的人，得有感激之心，但是贡献开源的人更应该要有敬畏之心。我们要感谢每一个开源的人，他们为这个世界贡献了自己的力量，为这个社会提高了效率，而开源的人也应该怀有敬畏之心，尊重每一个使用者，更好地回馈使用者，使用者和开源这相互成就。 好了，话说回来，今">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/8IpzJoy.png">
+<meta property="og:image" content="https://i.imgur.com/b834A7c.jpg">
+<meta property="og:image" content="https://i.imgur.com/cdDv5jr.png">
+<meta property="og:image" content="https://i.imgur.com/9hKHPCu.jpg">
+<meta property="og:updated_time" content="2018-12-26T15:28:19.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript运算符优先级和隐式转换">
+<meta name="twitter:description" content="昨天圣诞节，本应该是一个开心的日子，但对有些程序猿来说，是非常糟糕的一天。在很多技术开发群里，在技术论坛以及github社区都炸天了。我想说的是，使用开源的人，得有感激之心，但是贡献开源的人更应该要有敬畏之心。我们要感谢每一个开源的人，他们为这个世界贡献了自己的力量，为这个社会提高了效率，而开源的人也应该怀有敬畏之心，尊重每一个使用者，更好地回馈使用者，使用者和开源这相互成就。 好了，话说回来，今">
+<meta name="twitter:image" content="https://i.imgur.com/8IpzJoy.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2018/12/26/JavaScript运算符优先级和隐式转换/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JavaScript运算符优先级和隐式转换 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2018/12/26/JavaScript运算符优先级和隐式转换/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript运算符优先级和隐式转换
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-26 20:40:51 / 修改时间：23:28:19" itemprop="dateCreated datePublished" datetime="2018-12-26T20:40:51+08:00">2018-12-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2018/12/26/JavaScript运算符优先级和隐式转换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/26/JavaScript运算符优先级和隐式转换/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2018/12/26/JavaScript运算符优先级和隐式转换/" class="leancloud_visitors" data-flag-title="JavaScript运算符优先级和隐式转换">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>昨天圣诞节，本应该是一个开心的日子，但对有些程序猿来说，是非常糟糕的一天。在很多技术开发群里，在技术论坛以及github社区都炸天了。我想说的是，使用开源的人，得有感激之心，但是贡献开源的人更应该要有敬畏之心。我们要感谢每一个开源的人，他们为这个世界贡献了自己的力量，为这个社会提高了效率，而开源的人也应该怀有敬畏之心，尊重每一个使用者，更好地回馈使用者，使用者和开源这相互成就。</p>
+<p>好了，话说回来，今天看了一篇文章，其中有一个题目感觉非常有趣，我也给大家送一个彩蛋吧，其中也引发了我对JavaScript运算符和隐式转换的思考了，所以还是坐下来静下心把JavaScript的运算符和隐式转换学习总结了一下，但其中难免会有些错误，不喜勿喷啊！</p>
+<p>先贴个彩蛋：</p>
+<p><code>({}+[])[[~!+[]]*~+[]]+(!(~+[])+{})[--[~+&quot;&quot;][+[]]*[~+[]] + ~~!+[]]</code></p>
+<p>各位童鞋，你算出来了吗？点击后将揭晓答案哦！当然，等不及的童鞋肯定自己在控制台复制粘贴得出结果了吧，呵呵！</p>
+<a id="more"></a>
+<p>答案就是：</p>
+<p><img src="https://i.imgur.com/8IpzJoy.png" alt=""></p>
+<p>哈哈，是不是被骂了还在问人这段代码是什么意思呢？</p>
+<p>我来告诉你：</p>
+<p>这段代码为什么会输出sb呢？其实这段代码考的是js的类型转化的一些基本原理。</p>
+<p>首先要运用到的第一个知识就是js运算符的优先级，因为这么长一段运算看的人眼花，我们必须得先根据优先级分成n小段，然后再各个击破。</p>
+<h1 id="js运算符的优先级"><a href="#js运算符的优先级" class="headerlink" title="js运算符的优先级"></a>js运算符的优先级</h1><p>优先级的排列如下表，优先级从高到低：</p>
+<p><img src="https://i.imgur.com/b834A7c.jpg" alt=""></p>
+<p>根据此规则，我们把这一串运算分为以下表达式：</p>
+<p><img src="https://i.imgur.com/cdDv5jr.png" alt=""></p>
+<p>其实中括号[]也是一个运算符，用来通过索引访问数组项，另外也可以访问字符串的子字符，有点类似charAt方法，如：’abcd’[1] // 返回’b’。而且中括号的优先级还是最高的哦。</p>
+<p>接下来需要运用的就是JavaScript的类型转化知识了，我们先说说什么情况下需要进行类型转化。当操作符两边的操作数类型不一致或者不是基本类型（也叫原始类型）时，需要进行类型转化。</p>
+<p>让我们快速的复习一下，在JavaScript中，一共有两种类型的值：原始值(primitives)和对象值(objects)。</p>
+<p>原始值有：undefined、null、布尔值(booleans)、数字(numbers)、还有字符串(strings)。</p>
+<p>其他的所有值都是对象类型的值，包括数组(arrays)和函数(functions)。</p>
+<h1 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h1><p>先按运算符来分一下类：</p>
+<p>减号-，乘号*，肯定是进行数学运算，所以操作数需转化为number类型。</p>
+<p>加号+，可能是字符串拼接，也可能是数学运算，所以可能会转化为number或string。</p>
+<p>一元运算，如+[]，只有一个操作数的，转化为number类型。</p>
+<p>下面来看一下转化规则。</p>
+<h2 id="对于非原始类型的，通过ToPrimitive-将值转换成原始类型"><a href="#对于非原始类型的，通过ToPrimitive-将值转换成原始类型" class="headerlink" title="对于非原始类型的，通过ToPrimitive()将值转换成原始类型"></a>对于非原始类型的，通过ToPrimitive()将值转换成原始类型</h2><p><code>ToPrimitive(input, PreferredType?)</code></p>
+<p>可选参数PreferredType是Number或者是String。返回值为任何原始值。</p>
+<p>如果PreferredType是Number，执行顺序如下：</p>
+<ol>
+<li><p>如果input为primitive，返回；</p>
+</li>
+<li><p>如果input为Object。调用obj.valueOf()，如果结果是primitive，返回；</p>
+</li>
+<li><p>否则，调用obj.toString()，如果结果是primitive，返回；</p>
+</li>
+<li><p>否则，抛出TypeError。</p>
+</li>
+</ol>
+<p>如果 PreferredType是String，步骤2跟3互换，如果PreferredType没有，Date实例被设置成String，其他都是Number。</p>
+<h2 id="通过ToNumber-将值转换为数字"><a href="#通过ToNumber-将值转换为数字" class="headerlink" title="通过ToNumber()将值转换为数字"></a>通过ToNumber()将值转换为数字</h2><p>通过ToNumber()把值转换成Number，直接看ECMA 9.3的表格：</p>
+<p>如果输入的值是一个对象，则会首先会调用ToPrimitive(obj,Number)将该对象转换为原始值，然后在调用ToNumber()将这个原始值转换为数字。</p>
+<h2 id="通过ToString-将值转换为字符串"><a href="#通过ToString-将值转换为字符串" class="headerlink" title="通过ToString()将值转换为字符串"></a>通过ToString()将值转换为字符串</h2><p>通过ToString()把值转化成字符串， 直接看ECMA 9.8的表格</p>
+<p><img src="https://i.imgur.com/9hKHPCu.jpg" alt=""></p>
+<p>如果输入的值是一个对象，则会首先会调用ToPrimitive(obj,String)将该对象转换为原始值，然后再调用ToString()将这个原始值转换为字符串.规则就这么多，接下来实践一下，根据我们上面划分出的子表达式，一步一步将这个神奇的代码给执行出来。开工~</p>
+<p>先看最简单的子表达式：</p>
+<p><code>+[]</code></p>
+<p>只有一个操作数[]，肯定是转化为number了，根据上面的规则2，[]是个数组，object类型，即对象。所以得先调用toPrimitive转化为原始类型，并且PreferredType为number，这个参数表示更“倾向于”转化的类型，这里肯定是number了。然后首先调用数组的valueOf方法，数组调用valueOf会返回自身，</p>
+<p>这个时候，我们得到一个空串“”，还没有结束，看上面的规则2描述，继续调用toNumber，转化为number类型，大功告成！子表达式16转化完毕，+[]，最终得到0。</p>
+<p>来看子表达式：</p>
+<p><code>[~+&quot;&quot;]</code></p>
+<p>空串””前面有两个一元操作符，但是操作数还是只有一个，所以，最终要转化为的类型是number。看规则2吧，空串调用toNumber得到0。接下来是~，这是个什么东东呢？它是位运算符，作用可以记为把数字取负然后减一，所以~0就是-1 。</p>
+<p>别忘了，这个子表达式外头还包着中括号，所以最终的值为[-1]，即一个数组，里面只有一个元素-1.</p>
+<p>接下来看子表达式就简单了</p>
+<p>把以上求出来的填进去，就变成了这样：–[-1][0]，取数组的第0个元素，然后自减，结果为-2，是不so easy!</p>
+<p>继续往后走，子表达式：</p>
+<p><code>[~+[]]</code></p>
+<p>其实把上面的原理用上就非常明显了，答案[-1]。</p>
+<p>继续，此刻它已变成：-2<em>[-1]，有稍许不一样，不过没关系，我们还是按照规则来，运算符是乘号</em>，当然是做数学运算，那后面的[-1]就得转化为number，过程如下：</p>
+<ol>
+<li><p>调用toPrimitive，发现是object类型</p>
+</li>
+<li><p>调用valueOf，返回自身[-1]</p>
+</li>
+<li><p>因为不是原始类型，继续调用toString，返回”-1”</p>
+</li>
+<li><p>“-1”是原始类型了，然后调用toNumber，返回-1</p>
+</li>
+<li><p>与-2相乘，返回2</p>
+</li>
+</ol>
+<p>子表达式：</p>
+<p><code>~~!+[]</code></p>
+<p>不多说了，答案1。就是从右往左依次一元计算。</p>
+<p>此刻它已经长这样了：2+1， 好，我不多说了。</p>
+<p>继续看表达式：</p>
+<p><code>!(~+[])，~+[]=-1</code></p>
+<p>这个根据上面已经知道了，那!-1是什么呢？这里要说一下这个感叹号，它是逻辑取非的意思，会把表达式转化为布尔类型，转化规则和js的Truthy和Falsy原则是一样的，后面跟数字的，除0以外都为false，后面跟字符串的，除空串以外都为false。这里的!-1当然就是false了。</p>
+<p>接下来这个表达式3：false+{}有点关键</p>
+<p>一个布尔加一个对象，那这个{}应该先转化为原始类型，流程如下：</p>
+<ol>
+<li><p>调用toPrimitive，发现是object类型</p>
+</li>
+<li><p>调用valueOf，返回自身{}，</p>
+</li>
+<li><p>不是原始类型，调用toString，返回</p>
+</li>
+<li><p>[objectObject]</p>
+</li>
+<li><p>false与[objectObject]相加，false先转化为字符串”false”</p>
+</li>
+</ol>
+<p>相加得结果false[objectObject] 此时它是这样的：false[objectObject][3]，因为这个[]可以取字符串的子字符，像charAt一样，所以得到了结果”s”</p>
+<p>经过上面艰难的流程，我们拿到了字符”s”，也就是那张图的左半边，剩下的那个”b”，相同的原理可以搞出来，我这里就不一一演示了，留给你练练吧~</p>
+<p>回顾一下这个过程其实也不复杂，只是有一些需要重复劳动的，只要你掌握了运算的优先级，能把大串分解成一个个小串，然后运用类型转化的知识挨个处理就搞定了。怎么样，看到这里你还觉得神奇吗？</p>
+<p>同样的，中文字符也是由这样组成的，跟英文同样的道理。</p>
+<h1 id="操作符也会影响数据的类型转换"><a href="#操作符也会影响数据的类型转换" class="headerlink" title="操作符也会影响数据的类型转换"></a>操作符也会影响数据的类型转换</h1><ol>
+<li><p>当+号作为一元操作符操作单操作数的时候，他就会将这个数转换为数字类型</p>
+</li>
+<li><p>当+号作为二元操作符时，如果两个操作数中存在一个字符类型的话，那么另外一个操作数也会无条件地转换为字符串</p>
+</li>
+<li><p>当+号作为二元操作符时，如果两个操作数一个都不是字符串的话，两个操作数会隐式转换成数字类型(如果无法成功转换成数字，则变成NaN，再往下操作)，再进行加法算数操作</p>
+</li>
+<li><p>当算数运算的操作符是+号以外的其他操作数时，两个操作数都会转成数字类型进行数字运算。</p>
+</li>
+</ol>
+<h1 id="引用对象如何转换为简单值"><a href="#引用对象如何转换为简单值" class="headerlink" title="引用对象如何转换为简单值"></a>引用对象如何转换为简单值</h1><ol>
+<li><p>一个复杂对象在转为基础类型的时候会调用ToPrimitive(hint)方法来指定其目标类型</p>
+</li>
+<li><p>如果传入的hint值为number,那么就先调用对象的valueOf()方法，调用完valueOf()方法后，如果返回的是原始值，则结束ToPrimitive操作</p>
+</li>
+<li><p>如果返回的不是原始值，则继续调用对象的toString()方法，调用完toString()方法之后如果返回的是一个原始值，则结束ToPrimitive操作</p>
+</li>
+<li><p>如果返回的还是复杂值，则抛出异常。如果传入的hint值为string，则先调用toString()方法，再调用valueOf()方法，其余的过程一样。</p>
+</li>
+</ol>
+<h1 id="那么复杂对象是以什么标准来判断ToPrimitive-hint-操作传入的hint值到底是number还是string呢？"><a href="#那么复杂对象是以什么标准来判断ToPrimitive-hint-操作传入的hint值到底是number还是string呢？" class="headerlink" title="那么复杂对象是以什么标准来判断ToPrimitive(hint)操作传入的hint值到底是number还是string呢？"></a>那么复杂对象是以什么标准来判断ToPrimitive(hint)操作传入的hint值到底是number还是string呢？</h1><ol>
+<li><p>如果运行环境非常明确的需要将一个复杂对象转换为数字则传入number如 Number(value) 和 +value 则传入number</p>
+</li>
+<li><p>如果运行环境非常明确的需要将一个复杂对象转换为字符串则传入string如String(value) 和 alert(value) 则传入string</p>
+</li>
+<li><p>如果是用+号连接两个操作数，操作数在确定确定其中只要有一个为字符串的时候另外一个操作数会转为字符串，ToPrimitive()会传入string，但是如果两个操作数都不能确定是字符串的时候则默认传入number(Date对象是一个例外，它会默认传入string)进行数据类型转换。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript-运算符-优先级-隐式转换/" rel="tag"># JavaScript 运算符 优先级 隐式转换</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/22/js 事件循环（Event Loop）机制/" rel="next" title="js 事件循环（Event Loop）机制">
+                <i class="fa fa-chevron-left"></i> js 事件循环（Event Loop）机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/08/JavaScript 代码简洁之道/" rel="prev" title="JavaScript 代码简洁之道">
+                JavaScript 代码简洁之道 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#js运算符的优先级"><span class="nav-number">1.</span> <span class="nav-text">js运算符的优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型转化"><span class="nav-number">2.</span> <span class="nav-text">类型转化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对于非原始类型的，通过ToPrimitive-将值转换成原始类型"><span class="nav-number">2.1.</span> <span class="nav-text">对于非原始类型的，通过ToPrimitive()将值转换成原始类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过ToNumber-将值转换为数字"><span class="nav-number">2.2.</span> <span class="nav-text">通过ToNumber()将值转换为数字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过ToString-将值转换为字符串"><span class="nav-number">2.3.</span> <span class="nav-text">通过ToString()将值转换为字符串</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作符也会影响数据的类型转换"><span class="nav-number">3.</span> <span class="nav-text">操作符也会影响数据的类型转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用对象如何转换为简单值"><span class="nav-number">4.</span> <span class="nav-text">引用对象如何转换为简单值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#那么复杂对象是以什么标准来判断ToPrimitive-hint-操作传入的hint值到底是number还是string呢？"><span class="nav-number">5.</span> <span class="nav-text">那么复杂对象是以什么标准来判断ToPrimitive(hint)操作传入的hint值到底是number还是string呢？</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

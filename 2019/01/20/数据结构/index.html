@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在过去的几年中，得益于Node.js的兴起，JavaScript越来越广泛地用于服务器端编程。鉴于JavaScript语言已经走出了浏览器，程序员发现他们需要更多传统语言（比如C++和Java）提供的工具。这些工具包括传统的数据结构（如链表，栈，队列，图等），也包括传统的排序和查找算法。本文主要是总结什么情况下使用何种数据结构较好，并没有细讲里面的原理和实现方式，仅仅提供给阅读过《数据结构和算法">
+<meta name="keywords" content="JavaScript 数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="http://www.icrazyman.cn/2019/01/20/数据结构/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="在过去的几年中，得益于Node.js的兴起，JavaScript越来越广泛地用于服务器端编程。鉴于JavaScript语言已经走出了浏览器，程序员发现他们需要更多传统语言（比如C++和Java）提供的工具。这些工具包括传统的数据结构（如链表，栈，队列，图等），也包括传统的排序和查找算法。本文主要是总结什么情况下使用何种数据结构较好，并没有细讲里面的原理和实现方式，仅仅提供给阅读过《数据结构和算法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/k0yBPn0.png">
+<meta property="og:image" content="https://i.imgur.com/lNPG23S.jpg">
+<meta property="og:updated_time" content="2019-01-21T14:55:11.902Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构">
+<meta name="twitter:description" content="在过去的几年中，得益于Node.js的兴起，JavaScript越来越广泛地用于服务器端编程。鉴于JavaScript语言已经走出了浏览器，程序员发现他们需要更多传统语言（比如C++和Java）提供的工具。这些工具包括传统的数据结构（如链表，栈，队列，图等），也包括传统的排序和查找算法。本文主要是总结什么情况下使用何种数据结构较好，并没有细讲里面的原理和实现方式，仅仅提供给阅读过《数据结构和算法">
+<meta name="twitter:image" content="https://i.imgur.com/k0yBPn0.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2019/01/20/数据结构/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数据结构 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2019/01/20/数据结构/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-20 22:47:32" itemprop="dateCreated datePublished" datetime="2019-01-20T22:47:32+08:00">2019-01-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-01-21 22:55:11" itemprop="dateModified" datetime="2019-01-21T22:55:11+08:00">2019-01-21</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/01/20/数据结构/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/20/数据结构/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/01/20/数据结构/" class="leancloud_visitors" data-flag-title="数据结构">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>在过去的几年中，得益于Node.js的兴起，JavaScript越来越广泛地用于服务器端编程。鉴于JavaScript语言已经走出了浏览器，程序员发现他们需要更多传统语言（比如C++和Java）提供的工具。这些工具包括传统的数据结构（如链表，栈，队列，图等），也包括传统的排序和查找算法。本文主要是总结什么情况下使用何种数据结构较好，并没有细讲里面的原理和实现方式，仅仅提供给阅读过《数据结构和算法》的同学作为总结和参考笔记，如果未细究过数据结构和算法的同学，本文也可以作为一个方向，希望能引导你去深究数据结构和算法。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="为什么需要学习数据结构？"><a href="#为什么需要学习数据结构？" class="headerlink" title="为什么需要学习数据结构？"></a>为什么需要学习数据结构？</h1><h2 id="语言是相通的"><a href="#语言是相通的" class="headerlink" title="语言是相通的?"></a>语言是相通的?</h2><p>人们常说，编程语言是相通的，掌握了一门，其他语言很容易就能掌握，个人认为这是一个似是而非的观点。</p>
+<p>每门编程语言都离不开变量，数组，循环，条件判断这些概念，这似乎能够支持上面的观点，但是，每门编程语言都有自己的适用范围。都有自己擅长的事情，即便是有了node.js这种能够一统前后端的语言，也总有它不能胜任的工作，比如机器学习。像python这样的近乎万能的语言，也总有无能为力的时候，比如面对高性能计算，许多python库的底层实现可都是C语言哦。</p>
+<p>多年的工作经验告诉我，真正相通的不是语言，而是数据结构和算法。</p>
+<p>数据结构和算法是脱离编程语言而存在的，不同的语言有不同的实现版本，但内在的逻辑却不会有变化，所体现的编程思想不会有变化。</p>
+<h2 id="一段亲身经历"><a href="#一段亲身经历" class="headerlink" title="一段亲身经历"></a>一段亲身经历</h2><p>我曾经在工作有过这样一次经历，我在后端通过websockt向前端发送数据，数据是一个具体的坐标，前端的同学得到坐标后，要在前端的中国地图上根据坐标显示一个光圈。这是一个非常简单的事情，但却遇到了麻烦，后端向前端推送数据是一个不定时的行为，有时1秒钟推了3条数据，有时3秒钟才推1条数据，当我推送数据频繁的时候，如果这些坐标都在地图上显示，地图会非常乱。长时间不推送数据时，前端页面不应该一直显示之前推送过的坐标，因为每一个坐标代表一个用户刚刚在我们的网站上做了一项操作。</p>
+<p>于是，我们对前端显示做了限制，前端同一个时刻最多显示10个坐标，如果已经有10个，新来的坐标要把之前最早到来的坐标挤掉，每个坐标最多显示5秒钟。就是这样一个简单的要求，前端同学却迟迟不能实现该功能，因为他无法兼顾最多显示10个坐标和每个坐标最多显示5秒钟的要求。</p>
+<p>后来，我让他用队列来实现。前端在收到坐标后，将坐标和收到时间构造成一个新的对象，一同放入到队列中，如果列队元素已经有10个，则把队列头部的元素删除，于此同时，每隔1秒钟就对队列里的元素检查一次，队列头部的元素都是最早到来的，如果当前时间距离到来时间超过5秒，则删除队列头部元素。</p>
+<p>就这样，前端同学使用队列，非常快的实现了这个功能，而且对数据结构产生了浓厚的兴趣。</p>
+<p>每当你怀疑学习数据结构的必要性和作用时，请提醒自己，如果你手里只有锤子，那么目光所及之处都是钉子。</p>
+<h2 id="学习数据结构的目标"><a href="#学习数据结构的目标" class="headerlink" title="学习数据结构的目标"></a>学习数据结构的目标</h2><ul>
+<li><p>提高程序设计能力</p>
+</li>
+<li><p>提高算法能力</p>
+</li>
+<li><p>找工作面试的时候hold住面试官</p>
+</li>
+</ul>
+<p>数据结构的精髓在于总结提炼了许多存储管理和使用数据的模式，这些模式的背后是最精华的编程思想，这些思想的领悟需要时间，不要想当然的认为学会了几种数据结构就可以在工作中大显身手，但学会了数据结构，对自身能力的提升是不言而喻的。</p>
+<p>当然，在没有参悟这些数据管理方式和编程思想之前，我们先学习具体的工具和方法。</p>
+<h2 id="学习数据结构需要准备哪些知识"><a href="#学习数据结构需要准备哪些知识" class="headerlink" title="学习数据结构需要准备哪些知识"></a>学习数据结构需要准备哪些知识</h2><p>你需要熟练地使用数组这种数据类型，我想这没什么困难，再有就是知道如何在javascript中定义类，这里推荐一篇文章<a href="http://www.ruanyifeng.com/blog/2012/07/three_ways_to_define_a_javascript_class.html" target="_blank" rel="noopener">Javascript定义类（class）的三种方法</a>本系列课程主要使用构造函数法定义类。</p>
+<h1 id="数据结构之—-栈"><a href="#数据结构之—-栈" class="headerlink" title="数据结构之—-栈"></a>数据结构之—-栈</h1><h2 id="栈的定义"><a href="#栈的定义" class="headerlink" title="栈的定义"></a>栈的定义</h2><p>栈是一种特殊的线性表，仅能够在栈顶进行操作，有着先进后出(后进先出)的特性，下面这张图展示了栈的工作特点：</p>
+<p><img src="https://i.imgur.com/k0yBPn0.png" alt=""></p>
+<p>对于栈的理解，你必须牢牢抓住一点，那便是你只能在栈顶进行操作，生活中有一个非常贴切的例子，玩羽毛球的同学都会买一桶羽毛球，羽毛球桶就是典型的栈结构。</p>
+<p><img src="https://i.imgur.com/lNPG23S.jpg" alt=""></p>
+<p>每次取羽毛球时，都只能从顶部取，最底下的羽毛球，你是取不到的，用完了羽毛球后，也只能从顶部放回去。</p>
+<h2 id="栈的实现"><a href="#栈的实现" class="headerlink" title="栈的实现"></a>栈的实现</h2><p>上一小节，我们对栈这种数据结构有了视觉上的接触和理解，接下来，我们要对栈进行定义，毕竟，我们写一个栈，为的是使用它，那么就必须先定义数据存储在哪里，提供什么样的方法。</p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>从数据存储的角度看，实现栈有两种方式，一种是以数组做基础，一种是以链表做基础，数组是最简单的实现方式，链表在后面会作为单独的一种数据结构来讲解。本次课程将使用数组来实现栈和队列，数组是大家平时用的最频繁的，也是最了解熟悉的数据类型。</p>
+<p>我们先定义一个简单的Stack类</p>
+<pre><code>function Stack() {
+    var items = [];  // 使用数组存储数据
+};
+</code></pre><p>数据将存储在items数组之中，现在，这个类没有任何方法。</p>
+<h3 id="栈的方法"><a href="#栈的方法" class="headerlink" title="栈的方法"></a>栈的方法</h3><p>栈有以下几个方法：</p>
+<ul>
+<li>push 添加一个元素到栈顶（向桶里放入一个羽毛球）</li>
+</ul>
+<pre><code>// push方法向栈里压入一个元素
+this.push = function(item){
+    items.push(item);
+};
+</code></pre><ul>
+<li>pop 弹出栈顶元素（从桶里拿出一个羽毛球）</li>
+</ul>
+<pre><code>// pop方法把栈顶的元素弹出
+this.pop = function(){
+    return items.pop();
+};
+</code></pre><p>数组的pop方法会删除最靠后的那个元素，同时return该元素</p>
+<ul>
+<li>top 返回栈顶元素，注意，不是弹出（看一眼桶里最顶端的羽毛球，但是不拿）</li>
+</ul>
+<pre><code>// top 方法返回栈顶元素
+this.top = function(){
+    return items[items.length - 1];
+};
+</code></pre><p>top方法只是想查看一下最顶端的元素</p>
+<ul>
+<li>isEmpty 判断栈是否为空（看看羽毛球是不是都用完了）</li>
+</ul>
+<pre><code>// isEmpty返回栈是否为空
+this.isEmpty = function(){
+    return items.length == 0;
+};
+</code></pre><ul>
+<li>size 返回栈里元素的个数（数一下桶里还有多少羽毛球）</li>
+</ul>
+<pre><code>// size方法返回栈的大小
+this.size = function(){
+    return items.length;
+};
+</code></pre><ul>
+<li>clear 清空栈（把桶里的羽毛球都倒出来扔掉）</li>
+</ul>
+<pre><code>// clear 清空栈
+this.clear = function(){
+    items = []
+}
+</code></pre><p>最终完成版的代码如下</p>
+<pre><code>function Stack() {
+    var items = [];  // 使用数组存储数据
+
+    // push方法向栈里压入一个元素
+    this.push = function(item){
+        items.push(item);
+    };
+    // 获取数组
+    this.get = function() {
+        return items;
+    }
+
+    // pop方法把栈顶的元素弹出
+    this.pop = function(){
+        return items.pop();
+    };
+
+    // top 方法返回栈顶元素
+    this.top = function(){
+        return items[items.length - 1];
+    };
+
+    // isEmpty返回栈是否为空
+    this.isEmpty = function(){
+        return items.length == 0;
+    };
+
+    // size方法返回栈的大小
+    this.size = function(){
+        return items.length;
+    };
+
+    // clear 清空栈
+    this.clear = function(){
+        items = []
+    }
+}
+</code></pre><h3 id="被欺骗的错觉"><a href="#被欺骗的错觉" class="headerlink" title="被欺骗的错觉"></a>被欺骗的错觉</h3><p>看完上面的实现，难道你没有一种被欺骗的感觉么？传的那么神乎其神的数据结构，这里实现的栈，竟然就只是对数组做了一层封装而已啊！！！</p>
+<p>只是做了一层封装么？请思考下面几个问题：</p>
+<ul>
+<li><p>给你一个数组，你可以通过索引操作任意一个元素，但是给你一个栈，你能操作任意元素么？栈提供的方法只允许你操作栈顶的元素，也就是数组的最后一个元素，这种限制其实提供给我们一种思考问题的方式，这个方式也就是栈的特性，后进先出。</p>
+</li>
+<li><p>既然栈的底层实现其实就是数组，栈能做的事情，数组一样可以做啊，为什么弄出一个栈来，是不是多此一举？封装是为了隐藏实现细节，站在栈的肩膀上思考问题显然要比站在数组的肩膀上思考问题更方便，后面的练习题你将有所体会。</p>
+</li>
+<li><p>既然栈的底层就是对数组的操作，而你平时对数组的使用已经到了非常熟练的程度了，那么请问问自己，为什么就从来都没有自己实现过一个栈呢？是你此前不知道栈的这个概念，还是知道栈的概念但是不知道它有哪些具体方法？不论是哪一种情况，都表明栈对你来说是一个全新的知识，尽管底层的实现是那么的简单，可是越简单就越能说明问题，为啥，你自己就没想出栈这个东西？</p>
+</li>
+</ul>
+<h2 id="栈的应用练习"><a href="#栈的应用练习" class="headerlink" title="栈的应用练习"></a>栈的应用练习</h2><p>通过两个练习题，你或许能够明白我前面所说的站在栈的肩膀上思考问题显然要比站在数组的肩膀上思考问题更方便。</p>
+<h3 id="合法括号"><a href="#合法括号" class="headerlink" title="合法括号"></a>合法括号</h3><ul>
+<li>题目要求</li>
+</ul>
+<p>下面的字符串中包含小括号，请编写一个函数判断字符串中的括号是否合法，所谓合法，就是括号成对出现</p>
+<pre><code>sdf(ds(ew(we)rw)rwqq)qwewe   合法
+(sd(qwqw)sd(sd))             合法
+()()sd()(sd()fw))(           不合法
+</code></pre><ul>
+<li>思路分析</li>
+</ul>
+<p>括号存在嵌套关系，也存在并列关系，如果是用数组存储这些括号，然后再想办法一对一对的抵消掉，似乎是一个可行的办法，可是如何判断一个左括号对应的是哪个右括号呢？站在数组的肩膀上思考这个问题，就陷入到一种无从下手的绝望之中。</p>
+<p>现在，我们站在栈的肩膀上思考这个问题，解题的步骤就非常简单，我们可以使用for循环遍历字符串的每一个字符，对每个字符做如下的操作：</p>
+<ul>
+<li><p>遇到左括号，就把左括号压如栈中</p>
+</li>
+<li><p>遇到右括号，判断栈是否为空，为空说明没有左括号与之对应，缺少左括号，字符串括号不合法，如果栈不为空，则把栈顶元素移除，这对括号抵消掉了</p>
+</li>
+</ul>
+<p>当for循环结束之后，如果栈是空的，就说明所有的左右括号都抵消掉了，如果栈里还有元素，则说明缺少右括号，字符串括号不合法。</p>
+<ul>
+<li>示例代码</li>
+</ul>
+<pre><code>function is_leagl_brackets(string){
+    var stack = new Stack();
+    for(var i=0; i&lt;string.length; i++ ){
+        var item = string[i];
+        if(item == &quot;(&quot;){
+            // 将左括号压入栈
+            stack.push(item);
+        }else if (item==&quot;)&quot;){
+            // 如果为空,就说明没有左括号与之抵消
+            if(stack.isEmpty()){
+                return false;
+            }else{
+                // 将栈顶的元素弹出
+                stack.pop();
+            }
+        }
+
+    }
+    return stack.size() == 0;
+};
+
+console.log(is_leagl_brackets(&quot;()()))&quot;));
+console.log(is_leagl_brackets(&quot;sdf(ds(ew(we)rw)rwqq)qwewe&quot;));
+console.log(is_leagl_brackets(&quot;()()sd()(sd()fw))(&quot;));
+</code></pre><ul>
+<li>小结</li>
+</ul>
+<p>栈的底层是不是使用了数组这不重要，重要的是栈的这种后进先出的特性，重要的是你只能操作栈顶元素的的限制，一定要忽略掉栈的底层如何实现，而只去关心栈的特性。</p>
+<p>我们在编辑文档时，包括写代码，经常进行回退的操作，control+z就可以了，那么你有没有想过，这其实就可以用栈来实现，每一步操作都放入到栈中，当你想回退的时候，就使用pop方法把栈顶元素弹出，于是得到了你之前的一步操作。</p>
+<hr>
+<h3 id="计算逆波兰表达式"><a href="#计算逆波兰表达式" class="headerlink" title="计算逆波兰表达式"></a>计算逆波兰表达式</h3><ul>
+<li>题目要求</li>
+</ul>
+<p>逆波兰表达式，也叫后序表达式，它将复杂表达式转换为可以依靠简单的操作得到计算结果的表达式，例如 (a+b)<em>(c+d)转换为ab+cd+</em>。</p>
+<pre><code>[&quot;4&quot;, &quot;13&quot;, &quot;5&quot;, &quot;/&quot;, &quot;+&quot;] 等价于(4 + (13 / 5)) = 6
+[&quot;10&quot;, &quot;6&quot;, &quot;9&quot;, &quot;3&quot;, &quot;+&quot;, &quot;-11&quot;, &quot;*&quot;, &quot;/&quot;, &quot;*&quot;, &quot;17&quot;, &quot;+&quot;, &quot;5&quot;, &quot;+&quot;] 等价于((10 * (6 / ((9 + 3) * -11))) + 17) + 5
+</code></pre><p>请编写函数calc_exp(exp) 实现逆波兰表达式计算，exp的类型是数组。</p>
+<ul>
+<li>思路分析</li>
+</ul>
+<p>[“4”, “13”, “5”, “/“, “+”] 就是一个数组，在数组层面上思考这个问题，遇到 / 时，把13 和 5 拿出来计算，然后把13 和 5 删除并把结果放入到4的后面，天哪，太复杂了，太笨拙了，我已经无法继续思考了。</p>
+<p>如果是使用栈来解决这个问题，一切就那么的自然而简单，使用for循环遍历数组，对每一个元素做如下操作：</p>
+<ol>
+<li><p>如果元素不是 + - * / 中的某一个，就压入栈中</p>
+</li>
+<li><p>如果元素是 + - * / 中的某一个，则从栈里连续弹出两个元素，并对这两个元素进行计算，将计算结果压入栈中</p>
+</li>
+</ol>
+<p>for循环结束之后，栈里只有一个元素，这个元素就是整个表达式的计算结果</p>
+<ul>
+<li>示例代码</li>
+</ul>
+<pre><code>function calc_exp(arr) {
+    var stack = new Stack();
+    for(var i = 0, len = arr.length; i &lt; len; i ++) {
+        var item = arr[i];
+        if (~[&#39;+&#39;, &#39;-&#39;, &#39;*&#39;, &#39;/&#39;].indexOf(item)) {
+            // 注意这里需要用到后序表达式或中序表达式转换一下
+            var v1 = stack.pop();
+            var v2 = stack.pop();
+            var exp_res = parseInt(eval(v2 + item + v1));
+            stack.push(exp_res);
+        } else {
+            stack.push(item);
+        }
+    }
+    return stack.pop();
+}
+console.log(&quot;-----------------------------------------&quot;);
+console.log(calc_exp([&quot;4&quot;, &quot;13&quot;, &quot;5&quot;, &quot;/&quot;, &quot;+&quot;])); // 6
+</code></pre><h3 id="课后练习题"><a href="#课后练习题" class="headerlink" title="课后练习题"></a>课后练习题</h3><ul>
+<li>实现一个有min方法的栈</li>
+</ul>
+<p>实现一个栈，除了常见的push，pop方法以外，提供一个min方法，返回栈里最小的元素，且时间复杂度为o(1)</p>
+<ul>
+<li>思路分析</li>
+</ul>
+<p>使用两个栈来存储数据，其中一个命名为data_stack,专门用来存储数据，另一个命名为min_stack，专门用来存储栈里最小的数据。</p>
+<p>注意了，我接下来的分析过程非常重要，我希望你能多阅读几遍。</p>
+<ol>
+<li><p>我们要实现的是一个栈，除了常规的方法，还要有一个min方法，data_stack就是专门为常规方法而存在的，min_stack就是为了这个min方法而存在的。</p>
+</li>
+<li><p>编程思想里有一个分而治之的思想，简单来说，就是分开想，分开处理。那么我们现在考虑data_stack，这个时候别管min方法，你就只关心data_stack，它就是一个普通的栈啊，没什么特别的，一个简单的栈你还不会么，就是push，pop那些方法，正常实现就可以了。</p>
+</li>
+<li><p>data_stack处理完了以后，再考虑min_stack，这个时候，你就别想data_stack了，只关心min_stack，它要存储栈里的最小值，我们先考虑边界情况，如果min_stack为空，这个时候，如果push进来一个数据，那这个数据一定是最小的，所以此时，直接放入min_stack即可。如果min_stack不为空，这个时候它的栈顶不正是栈的最小元素么，如果push进来的元素比栈顶元素还小，放入min_stack就好了，这样，min_stack的栈顶始终都是栈里的最小值。</p>
+</li>
+</ol>
+<ul>
+<li>示例代码:</li>
+</ul>
+<pre><code>function MinStack() {
+    var data_stack = new Stack();
+    var min_stack = new Stack();
+
+    this.push = function(item) {
+        data_stack.push(item);
+
+        if (min_stack.isEmpty() || min_stack.top &gt; item) {
+            min_stack.push(item);
+        } else {
+            min_stack.push(min_stack.top());
+        }
+    }
+    this.pop = function() {
+        min_stack.pop();
+        return data_stack.pop();
+    }
+    this.get = function() {
+        return data_stack.get();
+    }
+    this.min = function() {
+        return min_stack.top();
+    }
+}
+var minstack = new MinStack();
+minstack.push(3);
+minstack.push(6);
+minstack.push(8);
+console.log(minstack.get()); // [3, 6, 8]
+console.log(minstack.min()); // 3
+minstack.push(2);
+console.log(minstack.min()); // 3
+</code></pre><h3 id="使用栈，完成中序表达式转后序表达式"><a href="#使用栈，完成中序表达式转后序表达式" class="headerlink" title="使用栈，完成中序表达式转后序表达式"></a>使用栈，完成中序表达式转后序表达式</h3><pre><code>输入:[&quot;12&quot;,&quot;+&quot;, &quot;3&quot;]
+输出:[&quot;12&quot;,&quot;3&quot;,&quot;+&quot;]
+
+输入:[&quot;(&quot;,&quot;1&quot;,&quot;+&quot;,&quot;(&quot;,&quot;4&quot;,&quot;+&quot;,&quot;5&quot;,&quot;+&quot;,&quot;3&quot;,&quot;)&quot;,
+&quot;-&quot;,&quot;3&quot;,&quot;)&quot;,&quot;+&quot;,&quot;(&quot;,&quot;9&quot;,&quot;+&quot;,&quot;8&quot;,&quot;)&quot;]
+输出:[ &#39;1&#39;, &#39;4&#39;, &#39;5&#39;, &#39;+&#39;, &#39;3&#39;, &#39;+&#39;, &#39;+&#39;, &#39;3&#39;, &#39;-&#39;, &#39;9&#39;, &#39;8&#39;, &#39;+&#39;, &#39;+&#39; ]
+
+输入:[&#39;(&#39;, &#39;1&#39;, &#39;+&#39;, &#39;(&#39;, &#39;4&#39;, &#39;+&#39;, &#39;5&#39;, &#39;+&#39;, &#39;3&#39;,
+&#39;)&#39;, &#39;/&#39;, &#39;4&#39;, &#39;-&#39;, &#39;3&#39;, &#39;)&#39;, &#39;+&#39;, &#39;(&#39;, &#39;6&#39;, &#39;+&#39;, &#39;8&#39;, &#39;)&#39;, &#39;*&#39;, &#39;3&#39;]
+输出:[&#39;1&#39;, &#39;4&#39;, &#39;5&#39;, &#39;+&#39;, &#39;3&#39;, &#39;+&#39;, &#39;4&#39;,
+&#39;/&#39;, &#39;+&#39;, &#39;3&#39;, &#39;-&#39;, &#39;6&#39;, &#39;8&#39;, &#39;+&#39;, &#39;3&#39;, &#39;*&#39;, &#39;+&#39;]
+</code></pre><ul>
+<li>思路分析</li>
+</ul>
+<p>定义数组postfix_lst，用于存储后序表达式，遍历中序表达式，对每一个遍历到的元素做如处理:</p>
+<ol>
+<li><p>如果是数字,直接放入到postfix_lst中</p>
+</li>
+<li><p>遇到左括号入栈</p>
+</li>
+<li><p>遇到右括号,把栈顶元素弹出并放入到postfix_lst中,直到遇到左括号，最后弹出左括号</p>
+</li>
+<li><p>遇到运算符,把栈顶的运算符弹出,直到栈顶的运算符优先级小于当前运算符， 把弹出的运算符加入到postfix_lst，当前的运算符入栈</p>
+</li>
+<li><p>for循环结束后, 栈里可能还有元素,都弹出放入到postfix_lst中</p>
+</li>
+</ol>
+<pre><code>// 定义运算符的优先级
+var priority_map = {
+    &quot;+&quot;: 1,
+    &quot;-&quot;: 1,
+    &quot;*&quot;: 2,
+    &quot;/&quot;: 2};
+
+function infix_exp_2_postfix_exp(exp){
+    var stack = new Stack();
+
+    var postfix_lst = [];
+    for(var i = 0;i&lt;exp.length;i++){
+        var item = exp[i];
+        // 如果是数字,直接放入到postfix_lst中
+        if(!isNaN(item)){
+            postfix_lst.push(item);
+        }else if (item == &quot;(&quot;){
+            // 遇到左括号入栈
+            stack.push(item);
+        }else if (item == &quot;)&quot;){
+            // 遇到右括号,把栈顶元素弹出,直到遇到左括号
+            while(stack.top() != &quot;(&quot;){
+                postfix_lst.push(stack.pop());
+            }
+            stack.pop();   // 左括号出栈
+        }else{
+            // 遇到运算符,把栈顶的运算符弹出,直到栈顶的运算符优先级小于当前运算符
+            while(!stack.isEmpty() &amp;&amp; [&quot;+&quot;, &quot;-&quot;, &quot;*&quot;, &quot;/&quot;].indexOf(stack.top()) &gt;= 0 &amp;&amp; priority_map[stack.top()] &gt;= priority_map[item]){
+                // 把弹出的运算符加入到postfix_lst
+                postfix_lst.push(stack.pop());
+            }
+            // 当前的运算符入栈
+            stack.push(item);
+        }
+
+    }
+
+    // for循环结束后, 栈里可能还有元素,都弹出放入到postfix_lst中
+    while(!stack.isEmpty()) {
+        postfix_lst.push(stack.pop())
+    }
+
+    return postfix_lst
+};
+
+
+// 12+3
+console.log(infix_exp_2_postfix_exp([&quot;12&quot;,&quot;+&quot;, &quot;3&quot;]))
+// 2-3+2
+console.log(infix_exp_2_postfix_exp([&quot;2&quot;,&quot;-&quot;, &quot;3&quot;, &quot;+&quot;, &quot;2&quot;]))
+// (1+(4+5+3)-3)+(9+8)
+var exp = [&quot;(&quot;,&quot;1&quot;,&quot;+&quot;,&quot;(&quot;,&quot;4&quot;,&quot;+&quot;,&quot;5&quot;,&quot;+&quot;,&quot;3&quot;,&quot;)&quot;,&quot;-&quot;,&quot;3&quot;,&quot;)&quot;,&quot;+&quot;,&quot;(&quot;,&quot;9&quot;,&quot;+&quot;,&quot;8&quot;,&quot;)&quot;];
+console.log(infix_exp_2_postfix_exp(exp))
+
+// (1+(4+5+3)/4-3)+(6+8)*3
+var exp = [&#39;(&#39;, &#39;1&#39;, &#39;+&#39;, &#39;(&#39;, &#39;4&#39;, &#39;+&#39;, &#39;5&#39;, &#39;+&#39;, &#39;3&#39;, &#39;)&#39;, &#39;/&#39;, &#39;4&#39;, &#39;-&#39;, &#39;3&#39;, &#39;)&#39;, &#39;+&#39;, &#39;(&#39;, &#39;6&#39;, &#39;+&#39;, &#39;8&#39;, &#39;)&#39;, &#39;*&#39;, &#39;3&#39;]
+console.log(infix_exp_2_postfix_exp(exp))
+
+console.log(infix_exp_2_postfix_exp([&quot;12&quot;,&quot;+&quot;, &quot;3&quot;,&quot;*&quot;, &quot;5&quot;]))
+console.log(infix_exp_2_postfix_exp([&quot;12&quot;,&quot;*&quot;, &quot;3&quot;,&quot;+&quot;, &quot;5&quot;]))
+</code></pre><ul>
+<li>算法思路推理过程</li>
+</ul>
+<p>推理的过程要从简入繁，先考虑最简单的情况</p>
+<ul>
+<li>只有一个运算符</li>
+</ul>
+<pre><code>中序: 1 + 2
+后序: 1 2 +
+</code></pre><p>后序表达式，数值在前，操作符在后，因此，遇到数值时直接放入到后序表达式中。将操作符放入栈中，等到中序表达式遍历结束后，将栈里的操作符弹出放入到后序表达式中</p>
+<ul>
+<li>多个运算符，栈顶操作符优先级和当前运算符相同</li>
+</ul>
+<p>多个运算符，似乎也可以像第一步推理中那样操作，但实际不行</p>
+<pre><code>中序: 1 + 2 - 3
+后序: 1 2 + 3 -
+</code></pre><p>每次遇到操作符时，如果栈里有操作符，说明前面有需要计算的数值，且计算的操作符就在栈顶，应该弹出放入到后缀表达式中，如果都等到中缀表达式结束再弹出，就会变成 1 2 3 + -</p>
+<p>就本示例而言，遇到减号时，后缀表达式里是 1 2 ，栈里是+，1和2需要计算，进行计算的操作符就在栈顶，因此需要弹出，放入到后缀表达式，之后减号入栈，中缀表达式遍历结束后，后缀表达式是 1 2 + 3， 栈里是-，将栈里的操作符去全部弹出，放入到后缀表达式，最终结果为 1 2 + 3 -。</p>
+<pre><code>中序: 1 * 2 + 3
+后序: 1 2 * 3 +
+</code></pre><p>栈顶运算符优先级高，和第2步的分析一致，前面有需要计算的数值，应该弹出放入到后缀表达式中</p>
+<ul>
+<li>多个运算符，栈顶操作符优先级大于当前运算符相同</li>
+</ul>
+<pre><code>中序: 1 + 2 * 3
+后序: 1 2 3 * +
+</code></pre><p>栈顶运算符优先级低，说明还不能进行计算，要继续压栈，压栈后，高优先级操作符在栈顶，出栈的时候先出，保证2*3先被计算</p>
+<ul>
+<li>多个运算符，栈顶操作符优先级小于当前运算符相同</li>
+</ul>
+<pre><code>中序: 1 + 2 * 3
+后序: 1 2 3 * +
+</code></pre><p>栈顶运算符优先级低，说明还不能进行计算，要继续压栈，压栈后，高优先级操作符在栈顶，出栈的时候先出，保证2*3先被计算</p>
+<ul>
+<li>有括号的情况</li>
+</ul>
+<p>括号里的的表达式可以视为一个独立的中缀表达式，因此，前面4步的分析都适用，但是括号里的中缀表达式在一个更大的表达式中，因此需要与其他部分分隔，分隔的方法就是遇到小括号后压栈，此后的操作遵循前面的推理逻辑，当遇到右括号时，说明括号内的表达式结束了，根据第一步的分析，应该把所有属于这个括号内表达式的操作符都弹出来放入到后缀表达式，最后一步弹出左括号。</p>
+<p><strong>还在学习ing…，学习后再补充</strong></p>
+<h1 id="数据结构之—-队列"><a href="#数据结构之—-队列" class="headerlink" title="数据结构之—-队列"></a>数据结构之—-队列</h1><h2 id="队列的定义"><a href="#队列的定义" class="headerlink" title="队列的定义"></a>队列的定义</h2><h2 id="队列的实现"><a href="#队列的实现" class="headerlink" title="队列的实现"></a>队列的实现</h2><h3 id="数据存储-1"><a href="#数据存储-1" class="headerlink" title="数据存储"></a>数据存储</h3><h3 id="队列的方法"><a href="#队列的方法" class="headerlink" title="队列的方法"></a>队列的方法</h3><ul>
+<li>enqueue方法</li>
+<li>dequeue方法</li>
+<li>head方法</li>
+<li>size方法</li>
+<li>clear方法</li>
+<li>isEmpty方法</li>
+<li>tail方法<h2 id="队列的应用练习"><a href="#队列的应用练习" class="headerlink" title="队列的应用练习"></a>队列的应用练习</h2><h3 id="约瑟夫环（普通模式）"><a href="#约瑟夫环（普通模式）" class="headerlink" title="约瑟夫环（普通模式）"></a>约瑟夫环（普通模式）</h3></li>
+<li>题目要求</li>
+<li>思路分析</li>
+<li>示例代码<h3 id="斐波那契数列（普通模式）"><a href="#斐波那契数列（普通模式）" class="headerlink" title="斐波那契数列（普通模式）"></a>斐波那契数列（普通模式）</h3></li>
+<li>题目要求</li>
+<li>思路分析</li>
+<li>示例代码</li>
+<li>小结<h3 id="用队列实现栈（困难模式）"><a href="#用队列实现栈（困难模式）" class="headerlink" title="用队列实现栈（困难模式）"></a>用队列实现栈（困难模式）</h3></li>
+<li>题目要求</li>
+<li>思路分析</li>
+<li>代码示例<h3 id="打印杨辉三角（困难模式）"><a href="#打印杨辉三角（困难模式）" class="headerlink" title="打印杨辉三角（困难模式）"></a>打印杨辉三角（困难模式）</h3></li>
+<li>题目要求</li>
+<li>思路分析</li>
+<li>示例代码<h2 id="课后作业"><a href="#课后作业" class="headerlink" title="课后作业"></a>课后作业</h2><h3 id="用两个栈实现一个队列（普通模式）"><a href="#用两个栈实现一个队列（普通模式）" class="headerlink" title="用两个栈实现一个队列（普通模式）"></a>用两个栈实现一个队列（普通模式）</h3></li>
+<li>思路分析</li>
+<li>思路分析<h3 id="迷宫问题（地狱模式）"><a href="#迷宫问题（地狱模式）" class="headerlink" title="迷宫问题（地狱模式）"></a>迷宫问题（地狱模式）</h3></li>
+<li>题目要求</li>
+<li>思路分析</li>
+<li>示例代码<h1 id="数据结构之—-链表"><a href="#数据结构之—-链表" class="headerlink" title="数据结构之—-链表"></a>数据结构之—-链表</h1><h2 id="链表的定义"><a href="#链表的定义" class="headerlink" title="链表的定义"></a>链表的定义</h2><h3 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h3><h3 id="首尾节点"><a href="#首尾节点" class="headerlink" title="首尾节点"></a>首尾节点</h3><h3 id="有头链表和无头链表"><a href="#有头链表和无头链表" class="headerlink" title="有头链表和无头链表"></a>有头链表和无头链表</h3><h3 id="猴子捞月"><a href="#猴子捞月" class="headerlink" title="猴子捞月"></a>猴子捞月</h3><h2 id="链表的实现"><a href="#链表的实现" class="headerlink" title="链表的实现"></a>链表的实现</h2><h3 id="定义链表类"><a href="#定义链表类" class="headerlink" title="定义链表类"></a>定义链表类</h3><h3 id="链表的方法"><a href="#链表的方法" class="headerlink" title="链表的方法"></a>链表的方法</h3></li>
+<li>append方法</li>
+<li>print方法</li>
+<li>insert方法</li>
+<li>remove方法</li>
+<li>get方法</li>
+<li>indexOf方法<h2 id="基于链表实现的Stack-和-Queue"><a href="#基于链表实现的Stack-和-Queue" class="headerlink" title="基于链表实现的Stack 和 Queue"></a>基于链表实现的Stack 和 Queue</h2><h2 id="链表常见面试题"><a href="#链表常见面试题" class="headerlink" title="链表常见面试题"></a>链表常见面试题</h2><h3 id="翻转链表（困难模式）"><a href="#翻转链表（困难模式）" class="headerlink" title="翻转链表（困难模式）"></a>翻转链表（困难模式）</h3></li>
+<li>题目要求</li>
+<li>迭代翻转思路分析</li>
+<li>递归翻转链表思路分析<h3 id="从尾到头打印链表（普通模式）"><a href="#从尾到头打印链表（普通模式）" class="headerlink" title="从尾到头打印链表（普通模式）"></a>从尾到头打印链表（普通模式）</h3></li>
+<li>题目要求</li>
+<li>思路分析</li>
+<li>示例代码<h3 id="合并两个两个有序链表-困难模式"><a href="#合并两个两个有序链表-困难模式" class="headerlink" title="合并两个两个有序链表(困难模式)"></a>合并两个两个有序链表(困难模式)</h3></li>
+<li>题目要求</li>
+<li>思路分析</li>
+<li>示例代码<h2 id="课后作业-1"><a href="#课后作业-1" class="headerlink" title="课后作业"></a>课后作业</h2><h3 id="查找单链表中的倒数第K个节点（k-gt-0）（普通模式）"><a href="#查找单链表中的倒数第K个节点（k-gt-0）（普通模式）" class="headerlink" title="查找单链表中的倒数第K个节点（k &gt; 0）（普通模式）"></a>查找单链表中的倒数第K个节点（k &gt; 0）（普通模式）</h3><h3 id="查找单链表的中间结点（普通模式）"><a href="#查找单链表的中间结点（普通模式）" class="headerlink" title="查找单链表的中间结点（普通模式）"></a>查找单链表的中间结点（普通模式）</h3><h3 id="实现双向链表（地狱模式）"><a href="#实现双向链表（地狱模式）" class="headerlink" title="实现双向链表（地狱模式）"></a>实现双向链表（地狱模式）</h3><h1 id="数据结构之—-BitMap"><a href="#数据结构之—-BitMap" class="headerlink" title="数据结构之—-BitMap"></a>数据结构之—-BitMap</h1><h2 id="一个简单的问题"><a href="#一个简单的问题" class="headerlink" title="一个简单的问题"></a>一个简单的问题</h2><h3 id="毫无难度的实现"><a href="#毫无难度的实现" class="headerlink" title="毫无难度的实现"></a>毫无难度的实现</h3><h3 id="更快的方法"><a href="#更快的方法" class="headerlink" title="更快的方法"></a>更快的方法</h3><h3 id="更节省空间的算法"><a href="#更节省空间的算法" class="headerlink" title="更节省空间的算法"></a>更节省空间的算法</h3><h2 id="街边的路灯"><a href="#街边的路灯" class="headerlink" title="街边的路灯"></a>街边的路灯</h2><h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><h3 id="按位与-amp"><a href="#按位与-amp" class="headerlink" title="按位与 &amp;"></a>按位与 &amp;</h3><h3 id="按位或"><a href="#按位或" class="headerlink" title="按位或 |"></a>按位或 |</h3><h3 id="左移-lt-lt"><a href="#左移-lt-lt" class="headerlink" title="左移 &lt;&lt;"></a>左移 &lt;&lt;</h3><h3 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h3><h2 id="bitmap"><a href="#bitmap" class="headerlink" title="bitmap"></a>bitmap</h2><h3 id="新的实现方式"><a href="#新的实现方式" class="headerlink" title="新的实现方式"></a>新的实现方式</h3><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h3 id="大数据排序"><a href="#大数据排序" class="headerlink" title="大数据排序"></a>大数据排序</h3><h2 id="布隆过滤器"><a href="#布隆过滤器" class="headerlink" title="布隆过滤器"></a>布隆过滤器</h2><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><h3 id="hash函数"><a href="#hash函数" class="headerlink" title="hash函数"></a>hash函数</h3><h3 id="BoolmFilter-类"><a href="#BoolmFilter-类" class="headerlink" title="BoolmFilter 类"></a>BoolmFilter 类</h3></li>
+<li>操作二进制位</li>
+<li>add方法</li>
+<li>isExist方法<h2 id="课后练习题-1"><a href="#课后练习题-1" class="headerlink" title="课后练习题"></a>课后练习题</h2><h3 id="两个集合取交集（普通模式）"><a href="#两个集合取交集（普通模式）" class="headerlink" title="两个集合取交集（普通模式）"></a>两个集合取交集（普通模式）</h3></li>
+<li>示例代码<h3 id="支持负数（困难模式）"><a href="#支持负数（困难模式）" class="headerlink" title="支持负数（困难模式）"></a>支持负数（困难模式）</h3></li>
+<li>思路分析</li>
+<li>示例代码<h3 id="查找不重复的数（地狱模式）"><a href="#查找不重复的数（地狱模式）" class="headerlink" title="查找不重复的数（地狱模式）"></a>查找不重复的数（地狱模式）</h3></li>
+<li>思路分析</li>
+<li>示例代码<h1 id="数据结构之—-树"><a href="#数据结构之—-树" class="headerlink" title="数据结构之—-树"></a>数据结构之—-树</h1><h2 id="概念介绍"><a href="#概念介绍" class="headerlink" title="概念介绍"></a>概念介绍</h2>###结构<br>###节点<br>###节点的度<br>###叶节点<br>###分支节点<br>###子女节点<h3 id="父节点"><a href="#父节点" class="headerlink" title="父节点"></a>父节点</h3><h3 id="兄弟节点"><a href="#兄弟节点" class="headerlink" title="兄弟节点"></a>兄弟节点</h3><h3 id="祖先节点"><a href="#祖先节点" class="headerlink" title="祖先节点"></a>祖先节点</h3><h3 id="子孙节点"><a href="#子孙节点" class="headerlink" title="子孙节点"></a>子孙节点</h3><h3 id="节点所在层次"><a href="#节点所在层次" class="headerlink" title="节点所在层次"></a>节点所在层次</h3><h3 id="树的深度"><a href="#树的深度" class="headerlink" title="树的深度"></a>树的深度</h3><h3 id="树的高度"><a href="#树的高度" class="headerlink" title="树的高度"></a>树的高度</h3><h3 id="树的度"><a href="#树的度" class="headerlink" title="树的度"></a>树的度</h3><h3 id="有序树"><a href="#有序树" class="headerlink" title="有序树"></a>有序树</h3><h3 id="无序树"><a href="#无序树" class="headerlink" title="无序树"></a>无序树</h3><h3 id="森林"><a href="#森林" class="headerlink" title="森林"></a>森林</h3><h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h3><h3 id="特殊二叉树"><a href="#特殊二叉树" class="headerlink" title="特殊二叉树"></a>特殊二叉树</h3></li>
+<li>满二叉树</li>
+<li>完全二叉树<h3 id="二叉树的类定义"><a href="#二叉树的类定义" class="headerlink" title="二叉树的类定义"></a>二叉树的类定义</h3></li>
+<li>定义节点</li>
+<li>定义二叉树类</li>
+<li>init_tree</li>
+<li>in_order 中序遍历算法</li>
+<li>pre_order 前序遍历算法</li>
+<li>post_order 后序遍历算法</li>
+<li>size 返回节点数量</li>
+<li>height 返回树的高度</li>
+<li>查找节点<h3 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h3></li>
+<li>求一棵树的镜像(普通模式)<ul>
+<li>思路分析</li>
+<li>示例代码</li>
+</ul>
+</li>
+<li>使用非递归方式实现前序遍历<ul>
+<li>思路分析</li>
+<li>示例代码<h3 id="课后练习题-2"><a href="#课后练习题-2" class="headerlink" title="课后练习题"></a>课后练习题</h3></li>
+</ul>
+</li>
+<li>使用非递归方式实现中，后两种遍历方法（普通模式+）</li>
+<li>寻找两个节点的最近公共祖先（困难模式）</li>
+<li>分层打印二叉树（困难模式+）</li>
+<li>输出指定层的节点个数（困难模式+）</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript-数据结构/" rel="tag"># JavaScript 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/15/你需要了解的几种种JavaScript设计模式/" rel="next" title="你需要了解的几种JavaScript设计模式">
+                <i class="fa fa-chevron-left"></i> 你需要了解的几种JavaScript设计模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/31/react优化/" rel="prev" title="react优化总结">
+                react优化总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要学习数据结构？"><span class="nav-number">1.</span> <span class="nav-text">为什么需要学习数据结构？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言是相通的"><span class="nav-number">1.1.</span> <span class="nav-text">语言是相通的?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一段亲身经历"><span class="nav-number">1.2.</span> <span class="nav-text">一段亲身经历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习数据结构的目标"><span class="nav-number">1.3.</span> <span class="nav-text">学习数据结构的目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习数据结构需要准备哪些知识"><span class="nav-number">1.4.</span> <span class="nav-text">学习数据结构需要准备哪些知识</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构之—-栈"><span class="nav-number">2.</span> <span class="nav-text">数据结构之—-栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的定义"><span class="nav-number">2.1.</span> <span class="nav-text">栈的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的实现"><span class="nav-number">2.2.</span> <span class="nav-text">栈的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储"><span class="nav-number">2.2.1.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的方法"><span class="nav-number">2.2.2.</span> <span class="nav-text">栈的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#被欺骗的错觉"><span class="nav-number">2.2.3.</span> <span class="nav-text">被欺骗的错觉</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的应用练习"><span class="nav-number">2.3.</span> <span class="nav-text">栈的应用练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#合法括号"><span class="nav-number">2.3.1.</span> <span class="nav-text">合法括号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#计算逆波兰表达式"><span class="nav-number">2.3.2.</span> <span class="nav-text">计算逆波兰表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习题"><span class="nav-number">2.3.3.</span> <span class="nav-text">课后练习题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用栈，完成中序表达式转后序表达式"><span class="nav-number">2.3.4.</span> <span class="nav-text">使用栈，完成中序表达式转后序表达式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构之—-队列"><span class="nav-number">3.</span> <span class="nav-text">数据结构之—-队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的定义"><span class="nav-number">3.1.</span> <span class="nav-text">队列的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的实现"><span class="nav-number">3.2.</span> <span class="nav-text">队列的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据存储-1"><span class="nav-number">3.2.1.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#队列的方法"><span class="nav-number">3.2.2.</span> <span class="nav-text">队列的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#队列的应用练习"><span class="nav-number">3.3.</span> <span class="nav-text">队列的应用练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#约瑟夫环（普通模式）"><span class="nav-number">3.3.1.</span> <span class="nav-text">约瑟夫环（普通模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斐波那契数列（普通模式）"><span class="nav-number">3.3.2.</span> <span class="nav-text">斐波那契数列（普通模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用队列实现栈（困难模式）"><span class="nav-number">3.3.3.</span> <span class="nav-text">用队列实现栈（困难模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打印杨辉三角（困难模式）"><span class="nav-number">3.3.4.</span> <span class="nav-text">打印杨辉三角（困难模式）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课后作业"><span class="nav-number">3.4.</span> <span class="nav-text">课后作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用两个栈实现一个队列（普通模式）"><span class="nav-number">3.4.1.</span> <span class="nav-text">用两个栈实现一个队列（普通模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迷宫问题（地狱模式）"><span class="nav-number">3.4.2.</span> <span class="nav-text">迷宫问题（地狱模式）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构之—-链表"><span class="nav-number">4.</span> <span class="nav-text">数据结构之—-链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的定义"><span class="nav-number">4.1.</span> <span class="nav-text">链表的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点"><span class="nav-number">4.1.1.</span> <span class="nav-text">节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#首尾节点"><span class="nav-number">4.1.2.</span> <span class="nav-text">首尾节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有头链表和无头链表"><span class="nav-number">4.1.3.</span> <span class="nav-text">有头链表和无头链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#猴子捞月"><span class="nav-number">4.1.4.</span> <span class="nav-text">猴子捞月</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表的实现"><span class="nav-number">4.2.</span> <span class="nav-text">链表的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义链表类"><span class="nav-number">4.2.1.</span> <span class="nav-text">定义链表类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表的方法"><span class="nav-number">4.2.2.</span> <span class="nav-text">链表的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于链表实现的Stack-和-Queue"><span class="nav-number">4.3.</span> <span class="nav-text">基于链表实现的Stack 和 Queue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表常见面试题"><span class="nav-number">4.4.</span> <span class="nav-text">链表常见面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#翻转链表（困难模式）"><span class="nav-number">4.4.1.</span> <span class="nav-text">翻转链表（困难模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从尾到头打印链表（普通模式）"><span class="nav-number">4.4.2.</span> <span class="nav-text">从尾到头打印链表（普通模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合并两个两个有序链表-困难模式"><span class="nav-number">4.4.3.</span> <span class="nav-text">合并两个两个有序链表(困难模式)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课后作业-1"><span class="nav-number">4.5.</span> <span class="nav-text">课后作业</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找单链表中的倒数第K个节点（k-gt-0）（普通模式）"><span class="nav-number">4.5.1.</span> <span class="nav-text">查找单链表中的倒数第K个节点（k &gt; 0）（普通模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找单链表的中间结点（普通模式）"><span class="nav-number">4.5.2.</span> <span class="nav-text">查找单链表的中间结点（普通模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现双向链表（地狱模式）"><span class="nav-number">4.5.3.</span> <span class="nav-text">实现双向链表（地狱模式）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构之—-BitMap"><span class="nav-number">5.</span> <span class="nav-text">数据结构之—-BitMap</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个简单的问题"><span class="nav-number">5.1.</span> <span class="nav-text">一个简单的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#毫无难度的实现"><span class="nav-number">5.1.1.</span> <span class="nav-text">毫无难度的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更快的方法"><span class="nav-number">5.1.2.</span> <span class="nav-text">更快的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更节省空间的算法"><span class="nav-number">5.1.3.</span> <span class="nav-text">更节省空间的算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#街边的路灯"><span class="nav-number">5.2.</span> <span class="nav-text">街边的路灯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位运算"><span class="nav-number">5.3.</span> <span class="nav-text">位运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按位与-amp"><span class="nav-number">5.3.1.</span> <span class="nav-text">按位与 &amp;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位或"><span class="nav-number">5.3.2.</span> <span class="nav-text">按位或 |</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左移-lt-lt"><span class="nav-number">5.3.3.</span> <span class="nav-text">左移 &lt;&lt;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小试牛刀"><span class="nav-number">5.3.4.</span> <span class="nav-text">小试牛刀</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bitmap"><span class="nav-number">5.4.</span> <span class="nav-text">bitmap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新的实现方式"><span class="nav-number">5.4.1.</span> <span class="nav-text">新的实现方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">5.4.2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大数据排序"><span class="nav-number">5.4.3.</span> <span class="nav-text">大数据排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布隆过滤器"><span class="nav-number">5.5.</span> <span class="nav-text">布隆过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念-1"><span class="nav-number">5.5.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hash函数"><span class="nav-number">5.5.2.</span> <span class="nav-text">hash函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BoolmFilter-类"><span class="nav-number">5.5.3.</span> <span class="nav-text">BoolmFilter 类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课后练习题-1"><span class="nav-number">5.6.</span> <span class="nav-text">课后练习题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两个集合取交集（普通模式）"><span class="nav-number">5.6.1.</span> <span class="nav-text">两个集合取交集（普通模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持负数（困难模式）"><span class="nav-number">5.6.2.</span> <span class="nav-text">支持负数（困难模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查找不重复的数（地狱模式）"><span class="nav-number">5.6.3.</span> <span class="nav-text">查找不重复的数（地狱模式）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构之—-树"><span class="nav-number">6.</span> <span class="nav-text">数据结构之—-树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念介绍"><span class="nav-number">6.1.</span> <span class="nav-text">概念介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#父节点"><span class="nav-number">6.1.1.</span> <span class="nav-text">父节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兄弟节点"><span class="nav-number">6.1.2.</span> <span class="nav-text">兄弟节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#祖先节点"><span class="nav-number">6.1.3.</span> <span class="nav-text">祖先节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子孙节点"><span class="nav-number">6.1.4.</span> <span class="nav-text">子孙节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#节点所在层次"><span class="nav-number">6.1.5.</span> <span class="nav-text">节点所在层次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树的深度"><span class="nav-number">6.1.6.</span> <span class="nav-text">树的深度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树的高度"><span class="nav-number">6.1.7.</span> <span class="nav-text">树的高度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树的度"><span class="nav-number">6.1.8.</span> <span class="nav-text">树的度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序树"><span class="nav-number">6.1.9.</span> <span class="nav-text">有序树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#无序树"><span class="nav-number">6.1.10.</span> <span class="nav-text">无序树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#森林"><span class="nav-number">6.1.11.</span> <span class="nav-text">森林</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树"><span class="nav-number">6.2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的性质"><span class="nav-number">6.2.1.</span> <span class="nav-text">二叉树的性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊二叉树"><span class="nav-number">6.2.2.</span> <span class="nav-text">特殊二叉树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二叉树的类定义"><span class="nav-number">6.2.3.</span> <span class="nav-text">二叉树的类定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习题"><span class="nav-number">6.2.4.</span> <span class="nav-text">练习题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#课后练习题-2"><span class="nav-number">6.2.5.</span> <span class="nav-text">课后练习题</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

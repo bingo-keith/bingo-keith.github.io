@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="以下所谈及的，就是为你定制的 React 学习路线。 为了能稳固基础，我们一定要逐步地来进行学习。 倘若你正在建造一间房子，那么为了能快点完成，你是否会跳过建造过程中的部分步骤？如在具体建设前先铺设好部分石头？或直接在一块裸露的土地上先建立起墙面？">
+<meta name="keywords" content="react react.js mvc 框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为你定制的 React 学习路线">
+<meta property="og:url" content="http://www.icrazyman.cn/2017/08/03/为你定制的 React 学习路线/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="以下所谈及的，就是为你定制的 React 学习路线。 为了能稳固基础，我们一定要逐步地来进行学习。 倘若你正在建造一间房子，那么为了能快点完成，你是否会跳过建造过程中的部分步骤？如在具体建设前先铺设好部分石头？或直接在一块裸露的土地上先建立起墙面？">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-06T11:49:24.929Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为你定制的 React 学习路线">
+<meta name="twitter:description" content="以下所谈及的，就是为你定制的 React 学习路线。 为了能稳固基础，我们一定要逐步地来进行学习。 倘若你正在建造一间房子，那么为了能快点完成，你是否会跳过建造过程中的部分步骤？如在具体建设前先铺设好部分石头？或直接在一块裸露的土地上先建立起墙面？">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2017/08/03/为你定制的 React 学习路线/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>为你定制的 React 学习路线 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2017/08/03/为你定制的 React 学习路线/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">为你定制的 React 学习路线
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-08-03 23:51:53" itemprop="dateCreated datePublished" datetime="2017-08-03T23:51:53+08:00">2017-08-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2017-08-06 19:49:24" itemprop="dateModified" datetime="2017-08-06T19:49:24+08:00">2017-08-06</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2017/08/03/为你定制的 React 学习路线/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2017/08/03/为你定制的 React 学习路线/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2017/08/03/为你定制的 React 学习路线/" class="leancloud_visitors" data-flag-title="为你定制的 React 学习路线">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以下所谈及的，就是为你定制的 React 学习路线。</p>
+<p>为了能稳固基础，我们一定要逐步地来进行学习。</p>
+<p>倘若你正在建造一间房子，那么为了能快点完成，你是否会跳过建造过程中的部分步骤？如在具体建设前先铺设好部分石头？或直接在一块裸露的土地上先建立起墙面？</p>
+<a id="more"></a>
+<p>又假如你是在堆砌一个结婚蛋糕：能因为上半部分装饰起来更有趣，而直接忽略了下半部分？</p>
+<p>不行吗？</p>
+<p>当然不行。众所周知，这些做法只会导致失败。</p>
+<p>因此，不要想着通过接触 React 来将 ES6 + Webpack + Babel + React + Routing + AJAX 这些知识一次性学好。因为想一下，就能明白这难道不正是导致学习失败的原因吗？</p>
+<p>既然我把该文章称作是一条学习路线，那么每一次都应该走好每一步。既不要尝试去跨越，也不要贪步。</p>
+<p>一步一脚印。若把其置身于每一天的那么一点时间，那么也许几周就能把整个学习完成。</p>
+<p>制定该路线的主要目的在于：使你在学习过程中避免头脑不堪重负。因此，请脚踏实地地去学习 React 吧。</p>
+<p>当然，你也可以为整个学习过程制定一个可打印的 PDF 文件，以便在学习过程中能够查记。</p>
+<h3 id="第零步：JavaScript"><a href="#第零步：JavaScript" class="headerlink" title="第零步：JavaScript"></a>第零步：JavaScript</h3><p>在学习之前的你，理应对 JavaScript 有所了解，或至少是 ES5 标准下的 JavaScript。可若了解甚少，那么，你就应该停下手头上的工作，学习好该基础部分后，才可迈步前行。</p>
+<p>可倘若早已熟知 ES6 所带来的新特性，那么请继续。因为如你所料，React 的 API 接口在 ES5 和 ES6 两标准间存在着较大的差异性。所以对于你来说，熟悉两种标准其特性的不同至关重要。尽管发生了异常，你也可以通过两种标准之间的转换，寻找出广泛有效的答案。</p>
+<h3 id="第半步：NPM"><a href="#第半步：NPM" class="headerlink" title="第半步：NPM"></a>第半步：NPM</h3><p>NPM 在 JavaScript 世界中，可谓是软件管理方的王者。然而，在这里你却并不需要学习太多关于 NPM 自身的东西。只要在安装好后 （连同 Node.js），学习如何使用其安装软件即可。（npm install <package name="">）</package></p>
+<h3 id="第一步：React"><a href="#第一步：React" class="headerlink" title="第一步：React"></a>第一步：React</h3><p>学习一个新的编程技术，我们往往会从熟悉的 Hello World 教程开始。首先，我们可以通过使用 React 官方教程所展示的原生 HTML 文件来实现，而该文件包含有一些 script 标签。其次，我们还可以通过使用像 React Heatpack 这样的工具来快速上手。</p>
+<p>尝试一下该三分钟运行起 Hello World 的教程。</p>
+<h3 id="第二步：构建后摒弃"><a href="#第二步：构建后摒弃" class="headerlink" title="第二步：构建后摒弃"></a>第二步：构建后摒弃</h3><p>由于这一步是一个棘手的中间过程，所以往往会有大量的人忽略了该步。</p>
+<p>谨记，请勿犯这样的错误。因为，倘若对 React 的概念没有一个稳固的掌握而擅自前行，那么，最后只会对自己的大脑搪塞过多的知识，以致遗忘。</p>
+<p>当然，该步需要一定时间的斟酌：该构建什么呢？是工作中的一个原型项目？还是能贴合于整个框架的一些 Facebook 克隆项目呢？</p>
+<p>其实，我们应该构建的都不是这些项目。因为，它们要不是包裹过甚，以致无甚可学；要不是过于庞大，以致成本过高。</p>
+<p>尤其是工作中的“原型项目”，它们更为糟糕。因为在你心目中，早已明白这些项目并不会占有一席之地。况且，该类项目往往会长期驻留在原型阶段，或变成线上的软件。最终，你将无法摒弃或重写。</p>
+<p>此外，把原型项目当作学习的项目将会为带来大量的烦恼。对于你来说，你可能会就未来的因素考虑一切可能发生的事情。而当你认为这不仅仅是一个原型的时候，你就会产生疑惑 —— 是否要测试一下呢？我应该要保证架构能延伸扩展……我需要延后重构的工作吗？还是不进行测试呢？</p>
+<p>为了解决该问题，我希望能用上我所写的一篇指引《为 Augular 开发者所准备的 React》：一旦你完成了 “Hello World” 的基础课程，你将如何去学习 ”think in React” 的课程。</p>
+<p>在这里，我有一些个人的提议给到大家：那就是，理想的项目是介乎于 “Hello World” 和 ”All of Twitter“ 之间。</p>
+<p>另外，请尝试去构建一些官方文档列表中所展示的项目（TODOs、beers、movies），然后，借此学会数据流（data flow）的工作原理。</p>
+<p>当然，你也可以把一些已有的大型 UI 项目（Twitter、Reddit、Hacker News等）分割成一小块来构建 —— 即把其瓜分成组件（components），并使用静态的数据去进行构建。</p>
+<p>总的来说，我们需要构建的，理应是一些小型且可被摒弃的应用程序项目。这些项目必须是可摒弃的。否则，你将深陷于一些不为重要的东西，如可维护性和代码结构等。</p>
+<p>值得提醒的是，如果你曾经订阅于我，那么当《为 Angular 开发者准备的 React》发布的时候，你将会第一时间收到通知。</p>
+<h3 id="第三步：Webpack"><a href="#第三步：Webpack" class="headerlink" title="第三步：Webpack"></a>第三步：Webpack</h3><p>构建工具是学习过程中的一个主要的难点。搭建 Webpack 的环境会让你感觉是一件繁杂的工作，而且，完全不同于 UI 代码的书写。这就是为什么我要将 Webpack 放在了整个学习路线的第三步，而不是第零步。</p>
+<p>在这里，我推荐一篇名为《Webpack —— 令人疑惑的地方》的文章，作为对 Webpack 的简介。此外，该文章还讲述了 Webpack 本身所具有的一些思考方式。</p>
+<p>一旦你清楚 Webpack 所负责的工作（打包生成各种的文件，而不仅仅是 JS 文件） —— 以及其中的工作原理（适用于各种文件类型的加载器），那么，Webpack 对于你来说将会是一个更为欣喜的部分。</p>
+<h3 id="第四步：ES6"><a href="#第四步：ES6" class="headerlink" title="第四步：ES6"></a>第四步：ES6</h3><p>如今，进入了整个路线的第四步。上述的所有将会作为下面的铺垫。之前，在学习 ES6 过程中，所学到的部分也将会让你写出更为利落简洁的代码 —— 以及性能更高的代码。回想起一开始那时候，某些问题本不应卡住在那 —— 但现在的你，已然清楚知道为啥 ES6 能完美地融合在其中。</p>
+<p>在 ES6 中，你应该学习一些常用的部分：箭头函数（arrow functions）、let/const、类（classes）、析构（destructuring）和 import</p>
+<h3 id="第五步：Routing"><a href="#第五步：Routing" class="headerlink" title="第五步：Routing"></a>第五步：Routing</h3><p>有些人会把 React Router 和 Redux 这两个概念混为一谈 —— 但是，它们之间并没有任何的关系或依赖。因此，你可以（也理应）在深入 Redux 之前学习如何去使用 React Router。</p>
+<p>由于在之前“think in React”的教程中，积累了坚实的基础。因此，相比于第一天学习 React Router，我们此时更能从基于组件（component-based）的构建方式中，领悟出更多的精髓。</p>
+<h3 id="第六步：Redux"><a href="#第六步：Redux" class="headerlink" title="第六步：Redux"></a>第六步：Redux</h3><p>Dan Abramov，作为 Redux 的创造人，他会告诉你们不要过早地接触 Redux。其实，这是有缘由的 —— Redux 其复杂度在早期的学习过程中，将会带来灾难性的影响。</p>
+<p>虽然，在 Redux 背后所隐藏着的原理相当简单，但想要从理解跃至实践，却是一个很大的跨度。</p>
+<p>因此，重复第二步所做的：构建一次性的应用程序。通过些许的 Redux 经验，去逐渐理解其背后的工作原理。</p>
+<h3 id="非步骤"><a href="#非步骤" class="headerlink" title="非步骤"></a>非步骤</h3><p>在前面列出的步骤中，你曾否看见过”选择一个模板项目“的字眼吗？并没有。</p>
+<p>若仅通过挑选大量模板项目中的其中一个，去深入学习 React。那么，后面将只会带来大量的疑惑。虽然这些项目会含有一切可能的库，且规定要求一定的目录结构 —— 但对于小型的应用程序，或开始入门的我们来说，并不需要。</p>
+<p>也许你会说，“Dave，我可并不是在构建一个小应用。我所构建的，是一个服务于上万用户级别的复杂应用！”……那么，请你重新阅读一下关于原型的理解</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react-react-js-mvc-框架/" rel="tag"># react react.js mvc 框架</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/29/用cssText批量修改样式/" rel="next" title="用cssText批量修改样式">
+                <i class="fa fa-chevron-left"></i> 用cssText批量修改样式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/05/JavaScript工具方法/" rel="prev" title="JavaScript工具方法">
+                JavaScript工具方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第零步：JavaScript"><span class="nav-number">1.</span> <span class="nav-text">第零步：JavaScript</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第半步：NPM"><span class="nav-number">2.</span> <span class="nav-text">第半步：NPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：React"><span class="nav-number">3.</span> <span class="nav-text">第一步：React</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步：构建后摒弃"><span class="nav-number">4.</span> <span class="nav-text">第二步：构建后摒弃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步：Webpack"><span class="nav-number">5.</span> <span class="nav-text">第三步：Webpack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步：ES6"><span class="nav-number">6.</span> <span class="nav-text">第四步：ES6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五步：Routing"><span class="nav-number">7.</span> <span class="nav-text">第五步：Routing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六步：Redux"><span class="nav-number">8.</span> <span class="nav-text">第六步：Redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非步骤"><span class="nav-number">9.</span> <span class="nav-text">非步骤</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

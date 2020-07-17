@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="true">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="原文地址：25个你不得不知道的数组reduce高级用法 介绍reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。    下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返">
+<meta name="keywords" content="JavaScript 代码  技巧 reduce">
+<meta property="og:type" content="article">
+<meta property="og:title" content="25个你不得不知道的数组reduce高级用法">
+<meta property="og:url" content="http://www.icrazyman.cn/2019/07/17/25个你不得不知道的数组reduce高级用法/index.html">
+<meta property="og:site_name" content="科瑞兹曼的博客">
+<meta property="og:description" content="原文地址：25个你不得不知道的数组reduce高级用法 介绍reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。    下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200309234456121.gif">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9jYW5pdXNlLXJlZHVjZS5wbmc?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9jYW5pdXNlLXJlZHVjZVJpZ2h0LnBuZw?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UteC5wbmc?x-oss-process=image/format,png">
+<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UtMS5wbmc?x-oss-process=image/format,png">
+<meta property="og:updated_time" content="2020-07-17T10:01:00.782Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="25个你不得不知道的数组reduce高级用法">
+<meta name="twitter:description" content="原文地址：25个你不得不知道的数组reduce高级用法 介绍reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。    下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。  定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200309234456121.gif">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://www.icrazyman.cn/2019/07/17/25个你不得不知道的数组reduce高级用法/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>25个你不得不知道的数组reduce高级用法 | 科瑞兹曼的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">科瑞兹曼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">专注于前端开发技术</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+    
+  
+  
+
+  
+
+  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2019/07/17/25个你不得不知道的数组reduce高级用法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">25个你不得不知道的数组reduce高级用法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-17 17:30:29" itemprop="dateCreated datePublished" datetime="2019-07-17T17:30:29+08:00">2019-07-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-07-17 18:01:00" itemprop="dateModified" datetime="2020-07-17T18:01:00+08:00">2020-07-17</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/07/17/25个你不得不知道的数组reduce高级用法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/07/17/25个你不得不知道的数组reduce高级用法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2019/07/17/25个你不得不知道的数组reduce高级用法/" class="leancloud_visitors" data-flag-title="25个你不得不知道的数组reduce高级用法">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol start="10">
+<li><p>原文地址：<a href="https://blog.csdn.net/JowayYoung/article/details/104293122" target="_blank" rel="noopener">25个你不得不知道的数组reduce高级用法</a></p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><code>reduce</code>作为ES5新增的常规数组方法之一，对比<code>forEach</code>、<code>filter</code>和<code>map</code>，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。 </p>
+</li>
+</ol>
+<p>下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。</p>
+<ul>
+<li><p>定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值</p>
+</li>
+<li><p>形式：array.reduce((t, v, i, a) =&gt; {}, initValue)</p>
+</li>
+<li><p>参数</p>
+<ul>
+<li>callback：回调函数(必选)</li>
+<li>initValue：初始值(可选)</li>
+</ul>
+</li>
+<li><p>回调函数的参数</p>
+<ul>
+<li>total(t)：累计器完成计算的返回值(必选)</li>
+<li>value(v)：当前元素(必选)</li>
+<li>index(i)：当前元素的索引(可选)</li>
+<li>array(a)：当前元素所属的数组对象(可选)</li>
+</ul>
+</li>
+<li><p>过程</p>
+<ul>
+<li>以t作为累计结果的初始值，不设置t则以数组第一个元素为初始值</li>
+<li>开始遍历，使用累计器处理v，将v的映射结果累计到t上，结束此次循环，返回t</li>
+<li>进入下一次循环，重复上述操作，直至数组最后一个元素</li>
+<li>结束遍历，返回最终的t</li>
+</ul>
+<p><code>reduce</code>的精华所在是将累计器逐个作用于数组成员上，<strong>把上一次输出的值作为下一次输入的值</strong>。下面举个简单的栗子，看看<code>reduce</code>的计算结果。 </p>
+<pre><code class="js">const arr = [3, 5, 1, 4, 2];
+const a = arr.reduce((t, v) =&gt; t + v);
+// 等同于
+const b = arr.reduce((t, v) =&gt; t + v, 0);
+</code></pre>
+<p> 代码不太明白没关系，贴一个<code>reduce</code>的作用动图应该就会明白了。 </p>
+</li>
+</ul>
+<a id="more"></a>
+<p> <img src="https://img-blog.csdnimg.cn/20200309234456121.gif" alt="reduce"> </p>
+<p> <code>reduce</code>实质上是一个累计器函数，通过用户自定义的累计器对数组成员进行自定义累计，得出一个由累计器生成的值。另外<code>reduce</code>还有一个胞弟<code>reduceRight</code>，两个方法的功能其实是一样的，只不过<code>reduce</code>是升序执行，<code>reduceRight</code>是降序执行。 </p>
+<pre><code class="js">对空数组调用reduce()和reduceRight()是不会执行其回调函数的，可认为reduce()对空数组无效
+</code></pre>
+<h1 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h1><p> 单凭以上一个简单栗子不足以说明<code>reduce</code>是个什么。为了展示<code>reduce</code>的魅力，我为大家提供25种场景来应用<code>reduce</code>的高级用法。有部分高级用法可能需要结合其他方法来实现，这样为<code>reduce</code>的多元化提供了更多的可能性。 </p>
+<pre><code class="js">部分示例代码的写法可能有些骚，看得不习惯可自行整理成自己的习惯写法
+</code></pre>
+<h2 id="累加累乘"><a href="#累加累乘" class="headerlink" title="累加累乘"></a>累加累乘</h2><pre><code class="js">function Accumulation(...vals) {
+    return vals.reduce((t, v) =&gt; t + v, 0);
+}
+
+function Multiplication(...vals) {
+    return vals.reduce((t, v) =&gt; t * v, 1);
+}
+</code></pre>
+<pre><code class="js">Accumulation(1, 2, 3, 4, 5); // 15
+Multiplication(1, 2, 3, 4, 5); // 120
+</code></pre>
+<h2 id="权重求和"><a href="#权重求和" class="headerlink" title="权重求和"></a>权重求和</h2><pre><code class="js">const scores = [
+    { score: 90, subject: &quot;chinese&quot;, weight: 0.5 },
+    { score: 95, subject: &quot;math&quot;, weight: 0.3 },
+    { score: 85, subject: &quot;english&quot;, weight: 0.2 }
+];
+const result = scores.reduce((t, v) =&gt; t + v.score * v.weight, 0); // 90.5
+</code></pre>
+<h2 id="代替reverse"><a href="#代替reverse" class="headerlink" title="代替reverse"></a>代替reverse</h2><pre><code class="js">function Reverse(arr = []) {
+    return arr.reduceRight((t, v) =&gt; (t.push(v), t), []);
+}
+</code></pre>
+<pre><code class="js">Reverse([1, 2, 3, 4, 5]); // [5, 4, 3, 2, 1]
+</code></pre>
+<h2 id="代替map和filter"><a href="#代替map和filter" class="headerlink" title="代替map和filter"></a>代替map和filter</h2><pre><code class="js">const arr = [0, 1, 2, 3];
+
+// 代替map：[0, 2, 4, 6]
+const a = arr.map(v =&gt; v * 2);
+const b = arr.reduce((t, v) =&gt; [...t, v * 2], []);
+
+// 代替filter：[2, 3]
+const c = arr.filter(v =&gt; v &gt; 1);
+const d = arr.reduce((t, v) =&gt; v &gt; 1 ? [...t, v] : t, []);
+
+// 代替map和filter：[4, 6]
+const e = arr.map(v =&gt; v * 2).filter(v =&gt; v &gt; 2);
+const f = arr.reduce((t, v) =&gt; v * 2 &gt; 2 ? [...t, v * 2] : t, []);
+</code></pre>
+<h2 id="代替some和every"><a href="#代替some和every" class="headerlink" title="代替some和every"></a>代替some和every</h2><pre><code class="js">const scores = [
+    { score: 45, subject: &quot;chinese&quot; },
+    { score: 90, subject: &quot;math&quot; },
+    { score: 60, subject: &quot;english&quot; }
+];
+
+// 代替some：至少一门合格
+const isAtLeastOneQualified = scores.reduce((t, v) =&gt; t || v.score &gt;= 60, false); // true
+
+// 代替every：全部合格
+const isAllQualified = scores.reduce((t, v) =&gt; t &amp;&amp; v.score &gt;= 60, true); // false
+</code></pre>
+<h2 id="数组分割"><a href="#数组分割" class="headerlink" title="数组分割"></a>数组分割</h2><pre><code class="js">function Chunk(arr = [], size = 1) {
+    return arr.length ? arr.reduce((t, v) =&gt; (t[t.length - 1].length === size ? t.push([v]) : t[t.length - 1].push(v), t), [[]]) : [];
+}
+</code></pre>
+<pre><code class="js">const arr = [1, 2, 3, 4, 5];
+Chunk(arr, 2); // [[1, 2], [3, 4], [5]]
+</code></pre>
+<h2 id="数组过滤"><a href="#数组过滤" class="headerlink" title="数组过滤"></a>数组过滤</h2><pre><code class="js">function Difference(arr = [], oarr = []) {
+    return arr.reduce((t, v) =&gt; (!oarr.includes(v) &amp;&amp; t.push(v), t), []);
+}
+</code></pre>
+<pre><code class="js">const arr1 = [1, 2, 3, 4, 5];
+const arr2 = [2, 3, 6]
+Difference(arr1, arr2); // [1, 4, 5]
+</code></pre>
+<h2 id="数组填充"><a href="#数组填充" class="headerlink" title="数组填充"></a>数组填充</h2><pre><code class="js">function Fill(arr = [], val = &quot;&quot;, start = 0, end = arr.length) {
+    if (start &lt; 0 || start &gt;= end || end &gt; arr.length) return arr;
+    return [
+        ...arr.slice(0, start),
+        ...arr.slice(start, end).reduce((t, v) =&gt; (t.push(val || v), t), []),
+        ...arr.slice(end, arr.length)
+    ];
+}
+</code></pre>
+<pre><code class="js">const arr = [0, 1, 2, 3, 4, 5, 6];
+Fill(arr, &quot;aaa&quot;, 2, 5); // [0, 1, &quot;aaa&quot;, &quot;aaa&quot;, &quot;aaa&quot;, 5, 6]
+</code></pre>
+<h2 id="数组扁平"><a href="#数组扁平" class="headerlink" title="数组扁平"></a>数组扁平</h2><pre><code class="js">function Flat(arr = []) {
+    return arr.reduce((t, v) =&gt; t.concat(Array.isArray(v) ? Flat(v) : v), [])
+}
+</code></pre>
+<pre><code class="js">const arr = [0, 1, [2, 3], [4, 5, [6, 7]], [8, [9, 10, [11, 12]]]];
+Flat(arr); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+</code></pre>
+<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><pre><code class="js">function Uniq(arr = []) {
+    return arr.reduce((t, v) =&gt; t.includes(v) ? t : [...t, v], []);
+}
+</code></pre>
+<pre><code class="js">const arr = [2, 1, 0, 3, 2, 1, 2];
+Uniq(arr); // [2, 1, 0, 3]
+</code></pre>
+<h2 id="数组最大最小值"><a href="#数组最大最小值" class="headerlink" title="数组最大最小值"></a>数组最大最小值</h2><pre><code class="js">function Max(arr = []) {
+    return arr.reduce((t, v) =&gt; t &gt; v ? t : v);
+}
+
+function Min(arr = []) {
+    return arr.reduce((t, v) =&gt; t &lt; v ? t : v);
+}
+</code></pre>
+<pre><code class="js">const arr = [12, 45, 21, 65, 38, 76, 108, 43];
+Max(arr); // 108
+Min(arr); // 12
+</code></pre>
+<h2 id="数组成员独立拆解"><a href="#数组成员独立拆解" class="headerlink" title="数组成员独立拆解"></a>数组成员独立拆解</h2><pre><code class="js">function Unzip(arr = []) {
+    return arr.reduce(
+        (t, v) =&gt; (v.forEach((w, i) =&gt; t[i].push(w)), t),
+        Array.from({ length: Math.max(...arr.map(v =&gt; v.length)) }).map(v =&gt; [])
+    );
+}
+</code></pre>
+<pre><code class="js">const arr = [[&quot;a&quot;, 1, true], [&quot;b&quot;, 2, false]];
+Unzip(arr); // [[&quot;a&quot;, &quot;b&quot;], [1, 2], [true, false]]
+</code></pre>
+<h2 id="数组成员个数统计"><a href="#数组成员个数统计" class="headerlink" title="数组成员个数统计"></a>数组成员个数统计</h2><pre><code class="js">function Count(arr = []) {
+    return arr.reduce((t, v) =&gt; (t[v] = (t[v] || 0) + 1, t), {});
+}
+</code></pre>
+<pre><code class="js">const arr = [0, 1, 1, 2, 2, 2];
+Count(arr); // { 0: 1, 1: 2, 2: 3 }
+</code></pre>
+<pre><code class="js">此方法是字符统计和单词统计的原理，入参时把字符串处理成数组即可
+</code></pre>
+<h2 id="数组成员位置记录"><a href="#数组成员位置记录" class="headerlink" title="数组成员位置记录"></a>数组成员位置记录</h2><pre><code class="js">function Position(arr = [], val) {
+    return arr.reduce((t, v, i) =&gt; (v === val &amp;&amp; t.push(i), t), []);
+}
+</code></pre>
+<pre><code class="js">const arr = [2, 1, 5, 4, 2, 1, 6, 6, 7];
+Position(arr, 2); // [0, 4]
+</code></pre>
+<h2 id="数组成员特性分组"><a href="#数组成员特性分组" class="headerlink" title="数组成员特性分组"></a>数组成员特性分组</h2><pre><code class="js">function Group(arr = [], key) {
+    return key ? arr.reduce((t, v) =&gt; (!t[v[key]] &amp;&amp; (t[v[key]] = []), t[v[key]].push(v), t), {}) : {};
+}
+</code></pre>
+<pre><code class="js">const arr = [
+    { area: &quot;GZ&quot;, name: &quot;YZW&quot;, age: 27 },
+    { area: &quot;GZ&quot;, name: &quot;TYJ&quot;, age: 25 },
+    { area: &quot;SZ&quot;, name: &quot;AAA&quot;, age: 23 },
+    { area: &quot;FS&quot;, name: &quot;BBB&quot;, age: 21 },
+    { area: &quot;SZ&quot;, name: &quot;CCC&quot;, age: 19 }
+]; // 以地区area作为分组依据
+Group(arr, &quot;area&quot;); // { GZ: Array(2), SZ: Array(2), FS: Array(1) }
+</code></pre>
+<h2 id="数组成员所含关键字统计"><a href="#数组成员所含关键字统计" class="headerlink" title="数组成员所含关键字统计"></a>数组成员所含关键字统计</h2><pre><code class="js">function Keyword(arr = [], keys = []) {
+    return keys.reduce((t, v) =&gt; (arr.some(w =&gt; w.includes(v)) &amp;&amp; t.push(v), t), []);
+}
+</code></pre>
+<pre><code class="js">const text = [
+    &quot;今天天气真好，我想出去钓鱼&quot;,
+    &quot;我一边看电视，一边写作业&quot;,
+    &quot;小明喜欢同桌的小红，又喜欢后桌的小君，真TM花心&quot;,
+    &quot;最近上班喜欢摸鱼的人实在太多了，代码不好好写，在想入非非&quot;
+];
+const keyword = [&quot;偷懒&quot;, &quot;喜欢&quot;, &quot;睡觉&quot;, &quot;摸鱼&quot;, &quot;真好&quot;, &quot;一边&quot;, &quot;明天&quot;];
+Keyword(text, keyword); // [&quot;喜欢&quot;, &quot;摸鱼&quot;, &quot;真好&quot;, &quot;一边&quot;]
+</code></pre>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><pre><code class="js">function ReverseStr(str = &quot;&quot;) {
+    return str.split(&quot;&quot;).reduceRight((t, v) =&gt; t + v);
+}
+</code></pre>
+<pre><code class="js">const str = &quot;reduce最牛逼&quot;;
+ReverseStr(str); // &quot;逼牛最ecuder&quot;
+</code></pre>
+<h2 id="数字千分化"><a href="#数字千分化" class="headerlink" title="数字千分化"></a>数字千分化</h2><pre><code class="js">function ThousandNum(num = 0) {
+    const str = (+num).toString().split(&quot;.&quot;);
+    const int = nums =&gt; nums.split(&quot;&quot;).reverse().reduceRight((t, v, i) =&gt; t + (i % 3 ? v : `${v},`), &quot;&quot;).replace(/^,|,$/g, &quot;&quot;);
+    const dec = nums =&gt; nums.split(&quot;&quot;).reduce((t, v, i) =&gt; t + ((i + 1) % 3 ? v : `${v},`), &quot;&quot;).replace(/^,|,$/g, &quot;&quot;);
+    return str.length &gt; 1 ? `${int(str[0])}.${dec(str[1])}` : int(str[0]);
+}
+</code></pre>
+<pre><code class="js">ThousandNum(1234); // &quot;1,234&quot;
+ThousandNum(1234.00); // &quot;1,234&quot;
+ThousandNum(0.1234); // &quot;0.123,4&quot;
+ThousandNum(1234.5678); // &quot;1,234.567,8&quot;
+</code></pre>
+<h2 id="异步累计"><a href="#异步累计" class="headerlink" title="异步累计"></a>异步累计</h2><pre><code class="js">async function AsyncTotal(arr = []) {
+    return arr.reduce(async(t, v) =&gt; {
+        const at = await t;
+        const todo = await Todo(v);
+        at[v] = todo;
+        return at;
+    }, Promise.resolve({}));
+}
+</code></pre>
+<pre><code class="js">const result = await AsyncTotal(); // 需要在async包围下使用
+</code></pre>
+<h2 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h2><pre><code class="js">function Fibonacci(len = 2) {
+    const arr = [...new Array(len).keys()];
+    return arr.reduce((t, v, i) =&gt; (i &gt; 1 &amp;&amp; t.push(t[i - 1] + t[i - 2]), t), [0, 1]);
+}
+</code></pre>
+<pre><code class="js">Fibonacci(10); // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+</code></pre>
+<h2 id="URL参数反序列化"><a href="#URL参数反序列化" class="headerlink" title="URL参数反序列化"></a>URL参数反序列化</h2><pre><code class="js">function ParseUrlSearch() {
+    return location.search.replace(/(^\?)|(&amp;$)/g, &quot;&quot;).split(&quot;&amp;&quot;).reduce((t, v) =&gt; {
+        const [key, val] = v.split(&quot;=&quot;);
+        t[key] = decodeURIComponent(val);
+        return t;
+    }, {});
+}
+</code></pre>
+<pre><code class="js">// 假设URL为：https://www.baidu.com?age=25&amp;name=TYJ
+ParseUrlSearch(); // { age: &quot;25&quot;, name: &quot;TYJ&quot; }
+</code></pre>
+<h2 id="URL参数序列化"><a href="#URL参数序列化" class="headerlink" title="URL参数序列化"></a>URL参数序列化</h2><pre><code class="js">function StringifyUrlSearch(search = {}) {
+    return Object.entries(search).reduce(
+        (t, v) =&gt; `${t}${v[0]}=${encodeURIComponent(v[1])}&amp;`,
+        Object.keys(search).length ? &quot;?&quot; : &quot;&quot;
+    ).replace(/&amp;$/, &quot;&quot;);
+}
+</code></pre>
+<pre><code class="js">StringifyUrlSearch({ age: 27, name: &quot;YZW&quot; }); // &quot;?age=27&amp;name=YZW&quot;
+</code></pre>
+<h2 id="返回对象指定键值"><a href="#返回对象指定键值" class="headerlink" title="返回对象指定键值"></a>返回对象指定键值</h2><pre><code class="js">function GetKeys(obj = {}, keys = []) {
+    return Object.keys(obj).reduce((t, v) =&gt; (keys.includes(v) &amp;&amp; (t[v] = obj[v]), t), {});
+}
+</code></pre>
+<pre><code class="js">const target = { a: 1, b: 2, c: 3, d: 4 };
+const keyword = [&quot;a&quot;, &quot;d&quot;];
+GetKeys(target, keyword); // { a: 1, d: 4 }
+</code></pre>
+<h2 id="数组转对象"><a href="#数组转对象" class="headerlink" title="数组转对象"></a>数组转对象</h2><pre><code class="js">const people = [
+    { area: &quot;GZ&quot;, name: &quot;YZW&quot;, age: 27 },
+    { area: &quot;SZ&quot;, name: &quot;TYJ&quot;, age: 25 }
+];
+const map = people.reduce((t, v) =&gt; {
+    const { name, ...rest } = v;
+    t[name] = rest;
+    return t;
+}, {}); // { YZW: {…}, TYJ: {…} }
+</code></pre>
+<h2 id="Redux-Compose函数原理"><a href="#Redux-Compose函数原理" class="headerlink" title="Redux Compose函数原理"></a>Redux Compose函数原理</h2><pre><code class="js">function Compose(...funs) {
+    if (funs.length === 0) {
+        return arg =&gt; arg;
+    }
+    if (funs.length === 1) {
+        return funs[0];
+    }
+    return funs.reduce((t, v) =&gt; (...arg) =&gt; t(v(...arg)));
+}
+</code></pre>
+<h1 id="兼容和性能"><a href="#兼容和性能" class="headerlink" title="兼容和性能"></a>兼容和性能</h1><p> 好用是挺好用的，但是兼容性如何呢？在<a href="https://caniuse.com/#search=reduce" target="_blank" rel="noopener">Caniuse</a>上搜索一番，兼容性绝对的好，可大胆在任何项目上使用。不要吝啬你的想象力，尽情发挥<code>reduce</code>的<code>compose</code>技能啦。对于时常做一些累计的功能，<code>reduce</code>绝对是首选方法。 </p>
+<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9jYW5pdXNlLXJlZHVjZS5wbmc?x-oss-process=image/format,png" alt="caniuse-reduce">  <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9jYW5pdXNlLXJlZHVjZVJpZ2h0LnBuZw?x-oss-process=image/format,png" alt="caniuse-reduceRight"></p>
+<p> 另外，有些同学可能会问，<code>reduce</code>的性能又如何呢？下面我们通过对<code>for</code>、<code>forEach</code>、<code>map</code>和<code>reduce</code>四个方法同时做<code>1~100000</code>的累加操作，看看四个方法各自的执行时间。 </p>
+<pre><code class="js">// 创建一个长度为100000的数组
+const list = [...new Array(100000).keys()];
+
+// for
+console.time(&quot;for&quot;);
+let result1 = 0;
+for (let i = 0; i &lt; list.length; i++) {
+    result1 += i + 1;
+}
+console.log(result1);
+console.timeEnd(&quot;for&quot;);
+
+// forEach
+console.time(&quot;forEach&quot;);
+let result2 = 0;
+list.forEach(v =&gt; (result2 += v + 1));
+console.log(result2);
+console.timeEnd(&quot;forEach&quot;);
+
+// map
+console.time(&quot;map&quot;);
+let result3 = 0;
+list.map(v =&gt; (result3 += v + 1, v));
+console.log(result3);
+console.timeEnd(&quot;map&quot;);
+
+// reduce
+console.time(&quot;reduce&quot;);
+const result4 = list.reduce((t, v) =&gt; t + v + 1, 0);
+console.log(result4);
+console.timeEnd(&quot;reduce&quot;);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>累加操作</th>
+<th>执行时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>for</strong></td>
+<td><code>6.719970703125ms</code></td>
+</tr>
+<tr>
+<td><strong>forEach</strong></td>
+<td><code>3.696044921875ms</code></td>
+</tr>
+<tr>
+<td><strong>map</strong></td>
+<td><code>3.554931640625ms</code></td>
+</tr>
+<tr>
+<td><strong>reduce</strong></td>
+<td><code>2.806884765625ms</code></td>
+</tr>
+</tbody>
+</table>
+<p>以上代码在MacBook Pro 2019 15寸 16G内存 512G闪存的Chrome 79下执行，不同的机器不同的环境下执行以上代码都有可能存在差异。</p>
+<p>我已同时测试过多台机器和多个浏览器，连续做了10次以上操作，发现reduce总体的平均执行时间还是会比其他三个方法稍微快一点，所以大家还是放心使用啦！本文更多是探讨reduce的使用技巧，如对reduce的兼容和性能存在疑问，可自行参考相关资料进行验证。</p>
+<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UteC5wbmc?x-oss-process=image/format,png" alt="乘法口诀表"> </p>
+<p> <img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly95YW5nencudmlwL3N0YXRpYy9hcnRpY2xlL3JlZHVjZS9yZWR1Y2UtMS5wbmc?x-oss-process=image/format,png" alt="乘法口诀表"> </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript-代码-技巧-reduce/" rel="tag"># JavaScript 代码  技巧 reduce</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/26/「译」编写更好的 JavaScript 条件式和匹配条件的技巧/" rel="next" title="「译」编写更好的 JavaScript 条件式和匹配条件的技巧">
+                <i class="fa fa-chevron-left"></i> 「译」编写更好的 JavaScript 条件式和匹配条件的技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/03/16/代码质量提升的思考与实践/" rel="prev" title="前端代码质量的思考与实践">
+                前端代码质量的思考与实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">科瑞兹曼</p>
+              <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/about/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/wordpress/" title="http://www.zhangxinxu.com/wordpress/" rel="noopener" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.ruanyifeng.com/blog/" title="http://www.ruanyifeng.com/blog/" rel="noopener" target="_blank">阮一峰</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://jstherightway.org/zh-cn/" title="http://jstherightway.org/zh-cn/" rel="noopener" target="_blank">JavaScript之路</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://standardjs.com/readme-zhcn.html" title="https://standardjs.com/readme-zhcn.html" rel="noopener" target="_blank">前端代码规范</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高级用法"><span class="nav-number">2.</span> <span class="nav-text">高级用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#累加累乘"><span class="nav-number">2.1.</span> <span class="nav-text">累加累乘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权重求和"><span class="nav-number">2.2.</span> <span class="nav-text">权重求和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代替reverse"><span class="nav-number">2.3.</span> <span class="nav-text">代替reverse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代替map和filter"><span class="nav-number">2.4.</span> <span class="nav-text">代替map和filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代替some和every"><span class="nav-number">2.5.</span> <span class="nav-text">代替some和every</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组分割"><span class="nav-number">2.6.</span> <span class="nav-text">数组分割</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组过滤"><span class="nav-number">2.7.</span> <span class="nav-text">数组过滤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组填充"><span class="nav-number">2.8.</span> <span class="nav-text">数组填充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组扁平"><span class="nav-number">2.9.</span> <span class="nav-text">数组扁平</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组去重"><span class="nav-number">2.10.</span> <span class="nav-text">数组去重</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组最大最小值"><span class="nav-number">2.11.</span> <span class="nav-text">数组最大最小值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员独立拆解"><span class="nav-number">2.12.</span> <span class="nav-text">数组成员独立拆解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员个数统计"><span class="nav-number">2.13.</span> <span class="nav-text">数组成员个数统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员位置记录"><span class="nav-number">2.14.</span> <span class="nav-text">数组成员位置记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员特性分组"><span class="nav-number">2.15.</span> <span class="nav-text">数组成员特性分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员所含关键字统计"><span class="nav-number">2.16.</span> <span class="nav-text">数组成员所含关键字统计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串翻转"><span class="nav-number">2.17.</span> <span class="nav-text">字符串翻转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字千分化"><span class="nav-number">2.18.</span> <span class="nav-text">数字千分化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步累计"><span class="nav-number">2.19.</span> <span class="nav-text">异步累计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斐波那契数列"><span class="nav-number">2.20.</span> <span class="nav-text">斐波那契数列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL参数反序列化"><span class="nav-number">2.21.</span> <span class="nav-text">URL参数反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL参数序列化"><span class="nav-number">2.22.</span> <span class="nav-text">URL参数序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回对象指定键值"><span class="nav-number">2.23.</span> <span class="nav-text">返回对象指定键值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组转对象"><span class="nav-number">2.24.</span> <span class="nav-text">数组转对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-Compose函数原理"><span class="nav-number">2.25.</span> <span class="nav-text">Redux Compose函数原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#兼容和性能"><span class="nav-number">3.</span> <span class="nav-text">兼容和性能</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">科瑞兹曼</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
+    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
+    placeholder: '我来说两句',
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
+      }
+      else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
