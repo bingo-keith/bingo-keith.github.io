@@ -104,7 +104,7 @@
 <meta name="keywords" content="前端 javaScript node.js eventloop">
 <meta property="og:type" content="article">
 <meta property="og:title" content="setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop">
-<meta property="og:url" content="http://www.icrazyman.cn/2021/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/index.html">
+<meta property="og:url" content="http://www.icrazyman.cn/2020/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/index.html">
 <meta property="og:site_name" content="科瑞兹曼的博客">
 <meta property="og:description" content="介绍 笔者以前面试的时候经常遇到写一堆setTimeout`setImmediatesetImmediatesetTimeout(fn, 0)setTimeout(fn, 0)setImmediatesetTimeoutsetImmediatePromiseprocess.nextTick`">
 <meta property="og:locale" content="zh-CN">
@@ -121,7 +121,7 @@
 <meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1Knto8HLB8.x.9zbvrEitK8PVoxyEegwTP6*evRNDF..Dx08M*IQheZ2GjttEMm15kcpqPq7m5gYa9lyhCqYhQriW8!/b&bo=gQI.AIECPgADGTw!&rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntltJ0p4en.Ek.HQf.ZDFXuqm941HK.M.Fh53KPAYDuWDoKItlYnlkYEQ.JddoTaVuUHVai1f..2Ubmb.PksmYXk!/b&bo=fgJLAH4CSwADGTw!&rf=viewer_4">
 <meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntkJShUaiRUbKt0YBM53Re6VQzzBeZxeji4V6Mp7hT2WfRhwLkIoBHSxPYkgrL95sbxwDWA3bVnJ8qVuqbDACYZ4!/b&bo=fAI.AHwCPgADGTw!&rf=viewer_4">
-<meta property="og:updated_time" content="2020-07-21T15:31:25.498Z">
+<meta property="og:updated_time" content="2020-07-21T15:36:30.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop">
 <meta name="twitter:description" content="介绍 笔者以前面试的时候经常遇到写一堆setTimeout`setImmediatesetImmediatesetTimeout(fn, 0)setTimeout(fn, 0)setImmediatesetTimeoutsetImmediatePromiseprocess.nextTick`">
@@ -134,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://www.icrazyman.cn/2021/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/">
+  <link rel="canonical" href="http://www.icrazyman.cn/2020/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/">
 
 
 
@@ -345,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2021/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
@@ -388,24 +388,12 @@
                 
               
 
-              <time title="创建时间：2021-07-21 23:31:29" itemprop="dateCreated datePublished" datetime="2021-07-21T23:31:29+08:00">2021-07-21</time>
+              <time title="创建时间：2020-07-21 23:31:29 / 修改时间：23:36:30" itemprop="dateCreated datePublished" datetime="2020-07-21T23:31:29+08:00">2020-07-21</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2020-07-21 23:31:25" itemprop="dateModified" datetime="2020-07-21T23:31:25+08:00">2020-07-21</time>
               
             
           </span>
@@ -423,8 +411,8 @@
                 </span>
             
                 <span class="post-meta-item-text">评论数：</span>
-                <a href="/2021/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/" itemprop="commentCount"></span>
+                <a href="/2020/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -432,7 +420,7 @@
 
           
           
-            <span id="/2021/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/" class="leancloud_visitors" data-flag-title="setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop">
+            <span id="/2020/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/" class="leancloud_visitors" data-flag-title="setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop">
               <span class="post-meta-divider">|</span>
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
@@ -823,7 +811,7 @@ process.nextTick(()=&gt;{
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/07/21/优秀技术人，如何做到高效沟通？/" rel="next" title="优秀技术人，如何做到高效沟通？">
+              <a href="/2020/07/21/优秀技术人，如何做到高效沟通？/" rel="next" title="优秀技术人，如何做到高效沟通？">
                 <i class="fa fa-chevron-left"></i> 优秀技术人，如何做到高效沟通？
               </a>
             
@@ -917,7 +905,7 @@ process.nextTick(()=&gt;{
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/about/index.html">
                     
                     
                       
