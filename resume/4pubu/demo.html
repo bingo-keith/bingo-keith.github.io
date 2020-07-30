@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            float: left;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+    <!--    <script>
+            window.onload = function () {
+                var container = document.getElementById("container");
+                var boxes = container.children;
+                var pageWidth = window.innerWidth;
+                var boxWidth = boxes[0].offsetWidth;
+                var colunm = Math.floor(pageWidth / boxWidth);
+                var arrHeight = [];
+                function waterFall() {
+                    for (var i = 0; i < boxes.length; i++) {
+                        if (i < colunm) {
+                            arrHeight[i] = boxes[i].offsetHeight;
+                        } else {
+                            var minHeightIndex = getMin(arrHeight).index;
+                            var minHeight = getMin(arrHeight).value;
+                            boxes[i].style.position = "absolute";
+                            boxes[i].style.left = boxes[minHeightIndex].offsetLeft + "px";
+                            boxes[i].style.top = minHeight + "px";
+                            arrHeight[minHeightIndex] = minHeight + boxes[i].offsetHeight;
+                        }
+                    }
+                }
+                waterFall();
+                console.log(arrHeight);
+                window.onscroll = function () {
+                    if (bottomed()) {
+                        var json = [
+                            {"src": "images/P_000.jpg"},
+                            {"src": "images/P_001.jpg"},
+                            {"src": "images/P_002.jpg"},
+                            {"src": "images/P_003.jpg"},
+                            {"src": "images/P_004.jpg"},
+                            {"src": "images/P_005.jpg"},
+                            {"src": "images/P_006.jpg"},
+                            {"src": "images/P_007.jpg"},
+                            {"src": "images/P_008.jpg"},
+                            {"src": "images/P_009.jpg"},
+                        ]
+                        for (var i = 0; i < json.length; i++) {
+                            var div = document.createElement("div");
+                            div.className = "box";
+                            var img = document.createElement("img");
+                            img.src = json[i].src;
+                            div.appendChild(img);
+                            container.appendChild(div);
+                        }
+                        waterFall();
+                    }
+                }
+                function bottomed() {
+                    var scrollTop = window.pageYOffset;
+                    var clientHeight = window.innerHeight;
+                    var lastBox = boxes[boxes.length - 1];
+                    var lastBoxTop = lastBox.offsetTop;
+                    if (scrollTop + clientHeight > lastBoxTop) {
+                        return true;
+                    }
+                }
+            }
+            function getMin(arr) {
+                var min = {};
+                min.index = 0;
+                min.value = arr[min.index];
+                for (var i = 0; i < arr.length; i++) {
+                    if (min.value > arr[i]) {
+                        min.value = arr[i];
+                        min.index = i;
+                    }
+                }
+                return min;
+            }
+        </script>-->
+</head>
+<body>
+<div id="container">
+    <!--(.box>img[src="images/P_00$.jpg"])*9-->
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+
+</div>
+<script>
+    /*    //因为涉及到了图片宽高，所以要放在window.onload里面
+     //第一行是通过左浮动
+     //后面是通过JS计算 高度最小的那一行 然后把图片放到那个位置
+     var container = document.getElementById("container");
+     var boxes = container.children;//所有的盒子
+     //1.找出谁是第一行 计算第一行有多少张或者页面上有多少列
+     //一行有多少张实际上就是页面的宽度/盒子的宽度
+     window.onload = function () {
+     var pageWidth = window.innerWidth;
+     //盒子的宽度
+     var boxWidth = boxes[0].offsetWidth;
+     var column = Math.floor(pageWidth / boxWidth);//向下取整
+     //2.用一个数组保存每一列的高度 找出最小值和最小值的索引
+     var arrHeight = [];
+     //把每一列的初始高度保存到数组中
+     //找出所有的盒子并处理
+     for (var i = 0; i < boxes.length; i++) {
+     //先只找出第一行的所有的盒子
+     if (i < column) {
+     arrHeight[i] = boxes[i].offsetHeight;
+     } else {
+     //第一行盒子之后的盒子
+     //根据保存每行高度的数组中 最小值摆放
+     var minHeight = getMin(arrHeight).value;
+     var minHeightIndex = getMin(arrHeight).index;
+     //摆放盒子其实就是设置盒子的top和left
+     //要想设置位置 先要加定位
+     boxes[i].style.position = "absolute";
+     //设置top值,就是高度最小的那一列现在的高度
+     boxes[i].style.top = minHeight + "px";
+     //设置left值 就是高度最小的那一列所有图片的offsetLeft
+     //其中第一行的最好找
+     boxes[i].style.left = boxes[minHeightIndex].offsetLeft + "px";
+     //放置图片后，当前列的高度发生了变化 我们要对数组的值进行更新
+     //然后 后续的循环才能根据新的数组 来重新寻找最小值
+     //给数组中之前数值最小的那一项 加上当前这个图片的高度
+     arrHeight[minHeightIndex] = minHeight + boxes[i].offsetHeight;
+
+     }
+     }
+     //console.log(arrHeight);
+     //console.log(minHeight);
+     //console.log(minHeightIndex);
+     //5.判断触底
+     window.onscroll = function () {
+     if (bottomed()) {
+     //加载图片
+     //alert("触底了，要加载图片了");
+
+     }
+     }
+     }*/
+    /*    window.onload = function () {
+     var container = document.getElementById("container");
+     var boxes = container.children;
+     var boxWidth = boxes[0].offsetWidth;
+     var pageWidth = window.innerWidth;
+     var column = Math.floor(pageWidth / boxWidth);
+     var arrHeight = [];
+
+     function waterfall() {
+     for (var i = 0; i < boxes.length; i++) {
+     if (i < column) {
+     /!*arrHeight[arrHeight.length] = boxes[i].offsetHeight;*!/
+     //上面的问题代码arrHeight.length出问题是因为函数要多次调用
+     // 所以for循环不止执行一次，那么arrHeight.length的值会持续递加
+     arrHeight[i] = boxes[i].offsetHeight;
+     } else {
+     var minHeight = getMin(arrHeight).value;
+     var minHeightIndex = getMin(arrHeight).index;
+     boxes[i].style.position = "absolute";
+     boxes[i].style.top = minHeight + "px";
+     boxes[i].style.left = boxes[minHeightIndex].offsetLeft + "px";
+     arrHeight[minHeightIndex] = minHeight + boxes[i].offsetHeight;
+     }
+     }
+     }
+
+     waterfall();
+     window.onscroll = function () {
+     if (bottomed()) {
+     var json = [
+     {"src": "images/P_000.jpg"},
+     {"src": "images/P_001.jpg"},
+     {"src": "images/P_002.jpg"},
+     {"src": "images/P_003.jpg"},
+     {"src": "images/P_004.jpg"},
+     {"src": "images/P_005.jpg"},
+     {"src": "images/P_006.jpg"},
+     {"src": "images/P_007.jpg"},
+     {"src": "images/P_008.jpg"},
+     {"src": "images/P_009.jpg"},
+     ];
+     for (var i = 0; i < json.length; i++) {
+     var div = document.createElement("div");
+     div.className = "box";
+     container.appendChild(div);
+     var img = document.createElement("img");
+     img.src = json[i].src;
+     div.appendChild(img);
+     waterfall();
+     }
+     }
+     }
+     function bottomed() {
+     var clientHeight = window.innerHeight;
+     var scrollTop = window.pageYOffset;
+     var lastBox = boxes[boxes.length - 1];
+     var lastBoxTop = lastBox.offsetTop;
+     if (clientHeight + scrollTop > lastBoxTop) {
+     return true;
+     } else {
+     return false;
+     }
+     }
+     }*/
+    window.onload = function () {
+        var container = document.getElementById("container");
+        var boxes = container.children;
+        var boxWidth = boxes[0].offsetWidth;//获取盒子的宽度（盒子宽度都是一样的）
+        var pageWidth = window.innerWidth;//窗口页面的宽度
+        var column = Math.floor(pageWidth / boxWidth);//每一行最多能放几张图片
+        var arrHeight = [];//用一个数组保存 每一列的高度 找出最小值 和最小值的索引
+        console.log(pageWidth);
+        console.log(boxWidth);
+        console.log(column);
+        function waterfall() {
+            for (var i = 0; i < boxes.length; i++) {
+                if (i < column) {//判断第一行的图片
+                    arrHeight[i] = boxes[i].offsetHeight;//获取第一行的高度赋给新数组
+                    /*arrHeight[arrHeight.length] = boxes[i].offsetHeight;*/
+                    //上面的问题代码arrHeight.length出问题是因为函数要多次调用
+                    // 所以for循环不止执行一次，那么arrHeight.length的值会持续递加
+                } else {//第二行开始
+                    var minHeight = getMin(arrHeight).value;//获取第一行最小高度的值
+                    var minHeightIndex = getMin(arrHeight).index;//获取第一行最小高度的索引
+                    boxes[i].style.position = "absolute";//给当前盒子加绝对定位
+                    boxes[i].style.top = minHeight + "px";//新盒子的top值就是之前盒子最小高度值
+                    boxes[i].style.left = boxes[minHeightIndex].offsetLeft + "px";//新盒子left值是最矮盒子的offsetLeft值
+                    arrHeight[minHeightIndex] = minHeight + boxes[i].offsetHeight;//盒子更新后最小高度值为当前最小高度值加上当前盒子本身的高度值
+                }
+            }
+        }
+
+        waterfall();
+        window.onscroll = function () {
+            if (bottomed()) {
+                console.log(("触底了，要加载图片了"));
+                var json = [
+                    {"src": "images/P_000.jpg"},
+                    {"src": "images/P_001.jpg"},
+                    {"src": "images/P_002.jpg"},
+                    {"src": "images/P_003.jpg"},
+                    {"src": "images/P_004.jpg"},
+                    {"src": "images/P_005.jpg"},
+                    {"src": "images/P_006.jpg"},
+                    {"src": "images/P_007.jpg"},
+                    {"src": "images/P_008.jpg"},
+                    {"src": "images/P_009.jpg"},
+                ];
+                for (var i = 0; i < json.length; i++) {
+                    var div = document.createElement("div");
+                    div.className = "box";
+                    container.appendChild(div);
+                    var img = document.createElement("img");
+                    img.src = json[i].src;
+                    div.appendChild(img);
+                    waterfall();
+                }
+            }
+        }
+        function bottomed() {
+            //窗口的高度+页面被卷去的头部>最后一个盒子的offsetTop
+            var clientHeight = window.innerHeight;//窗口的高度
+            var scrollTop = window.pageYOffset;//卷去部分的高度值
+            var lastBox = boxes[boxes.length - 1];//最后一个盒子
+            var lastBoxTop = lastBox.offsetTop;//最后一个盒子的top值
+            if (clientHeight + scrollTop > lastBoxTop) {
+                //当窗口的高度+卷去部分的高度>最后一个盒子的top值
+                return true;//表示触底了
+            } else {
+                return false;//没有触底
+            }
+        }
+    }
+
+    function getMin(arr) {
+        var min = {};
+        min.index = 0;//最小值的索引
+        min.value = arr[min.index];//最小值的值
+        //遍历数组一个一个比较
+        for (var i = 0; i < arr.length; i++) {
+            if (min.value > arr[i]) {
+                min.value = arr[i];
+                min.index = i;
+            }
+        }
+        return min;
+    }
+</script>
+</body>
+</html>
