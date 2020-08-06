@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -190,7 +190,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -200,7 +200,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -332,20 +332,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2017/09/09/Javascript设计模式详解/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -613,7 +613,7 @@ var childClass = new BicycleChild(&quot;龙恩&quot;);
 console.log(childClass);
 </code></pre>
 <p>　　实例化子类，然后打印出该实例, 如下截图所示：</p>
-<p><img src="http://images2015.cnblogs.com/blog/561794/201602/561794-20160218145257206-1612447294.png" alt=""></p>
+<p><img src="http://images2015.cnblogs.com/blog/561794/201602/561794-20160218145257206-1612447294.png" alt></p>
 <pre><code class="javascript">console.log(childClass.name);  // 龙恩
 
 // 下面是实例化后 执行父类中的sellBicycle这个方法后会依次调用父类中的A
@@ -870,7 +870,7 @@ var application = (function(){
 </code></pre>
 <p>下面我们来打印下application该对象；如下：</p>
 <p>console.log(application);</p>
-<p><img src="http://images2015.cnblogs.com/blog/561794/201602/561794-20160218150032331-250843296.png" alt=""></p>
+<p><img src="http://images2015.cnblogs.com/blog/561794/201602/561794-20160218150032331-250843296.png" alt></p>
 <p>继续打印该公有属性和方法如下：</p>
 <p><code>console.log(application.A);// aa</code></p>
 <p><code>console.log(application.B()); // aa</code></p>
@@ -2157,7 +2157,7 @@ shoeObj.trigger(&quot;红色&quot;,40);
 shoeObj.trigger(&quot;黑色&quot;,42);
 
 </code></pre>
-<p><img src="http://images0.cnblogs.com/blog2015/561794/201507/300026322675388.png" alt=""></p>
+<p><img src="http://images0.cnblogs.com/blog2015/561794/201507/300026322675388.png" alt></p>
 <p>　　打印如上截图，我们看到订阅者接收到发布者的每个消息，但是呢，对于小红来说，她只想接收颜色为红色的消息，不想接收颜色为黑色的消息，为此我们需要对代码进行如下改造下，我们可以先增加一个key，使订阅者只订阅自己感兴趣的消息。代码如下：</p>
 <pre><code class="javascript">
 var shoeObj = {}; // 定义发布者
@@ -2200,7 +2200,7 @@ shoeObj.trigger(&quot;block&quot;,42);
 
 </code></pre>
 <p>　　上面的代码，我们再来运行打印下 如下：</p>
-<p><img src="http://images0.cnblogs.com/blog2015/561794/201507/300027129237602.png" alt=""></p>
+<p><img src="http://images0.cnblogs.com/blog2015/561794/201507/300027129237602.png" alt></p>
 <p>　　可以看到，订阅者只订阅自己感兴趣的消息了；</p>
 <p>　　<strong>3. 发布—订阅模式的代码封装</strong></p>
 <p>　　我们知道，对于上面的代码，小红去买鞋这么一个对象shoeObj 进行订阅，但是如果以后我们需要对买房子或者其他的对象进行订阅呢，我们需要复制上面的代码，再重新改下里面的对象代码；为此我们需要进行代码封装；</p>
@@ -2298,7 +2298,7 @@ shoeObj.trigger(&quot;red&quot;,42);
 
 </code></pre>
 <p>　　运行结果如下：</p>
-<p><img src="http://images0.cnblogs.com/blog2015/561794/201507/300029313607541.png" alt=""></p>
+<p><img src="http://images0.cnblogs.com/blog2015/561794/201507/300029313607541.png" alt></p>
 <p>　　<strong>5. 全局–发布订阅对象代码封装</strong></p>
 <p>　　我们再来看看我们传统的ajax请求吧，比如我们传统的ajax请求，请求成功后需要做如下事情：</p>
 <p>　　1. 渲染数据。</p>
@@ -2964,7 +2964,7 @@ function select(){
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -2977,7 +2977,7 @@ function select(){
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2989,7 +2989,7 @@ function select(){
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -3112,7 +3112,9 @@ function select(){
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

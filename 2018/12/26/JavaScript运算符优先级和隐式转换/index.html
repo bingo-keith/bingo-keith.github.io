@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -189,7 +189,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -199,7 +199,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -331,20 +331,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2018/12/26/JavaScript运算符优先级和隐式转换/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -458,15 +458,15 @@
 <p>各位童鞋，你算出来了吗？点击后将揭晓答案哦！当然，等不及的童鞋肯定自己在控制台复制粘贴得出结果了吧，呵呵！</p>
 <a id="more"></a>
 <p>答案就是：</p>
-<p><img src="https://i.imgur.com/8IpzJoy.png" alt=""></p>
+<p><img src="https://i.imgur.com/8IpzJoy.png" alt></p>
 <p>哈哈，是不是被骂了还在问人这段代码是什么意思呢？</p>
 <p>我来告诉你：</p>
 <p>这段代码为什么会输出sb呢？其实这段代码考的是js的类型转化的一些基本原理。</p>
 <p>首先要运用到的第一个知识就是js运算符的优先级，因为这么长一段运算看的人眼花，我们必须得先根据优先级分成n小段，然后再各个击破。</p>
 <h1 id="js运算符的优先级"><a href="#js运算符的优先级" class="headerlink" title="js运算符的优先级"></a>js运算符的优先级</h1><p>优先级的排列如下表，优先级从高到低：</p>
-<p><img src="https://i.imgur.com/b834A7c.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/b834A7c.jpg" alt></p>
 <p>根据此规则，我们把这一串运算分为以下表达式：</p>
-<p><img src="https://i.imgur.com/cdDv5jr.png" alt=""></p>
+<p><img src="https://i.imgur.com/cdDv5jr.png" alt></p>
 <p>其实中括号[]也是一个运算符，用来通过索引访问数组项，另外也可以访问字符串的子字符，有点类似charAt方法，如：’abcd’[1] // 返回’b’。而且中括号的优先级还是最高的哦。</p>
 <p>接下来需要运用的就是JavaScript的类型转化知识了，我们先说说什么情况下需要进行类型转化。当操作符两边的操作数类型不一致或者不是基本类型（也叫原始类型）时，需要进行类型转化。</p>
 <p>让我们快速的复习一下，在JavaScript中，一共有两种类型的值：原始值(primitives)和对象值(objects)。</p>
@@ -494,7 +494,7 @@
 <h2 id="通过ToNumber-将值转换为数字"><a href="#通过ToNumber-将值转换为数字" class="headerlink" title="通过ToNumber()将值转换为数字"></a>通过ToNumber()将值转换为数字</h2><p>通过ToNumber()把值转换成Number，直接看ECMA 9.3的表格：</p>
 <p>如果输入的值是一个对象，则会首先会调用ToPrimitive(obj,Number)将该对象转换为原始值，然后在调用ToNumber()将这个原始值转换为数字。</p>
 <h2 id="通过ToString-将值转换为字符串"><a href="#通过ToString-将值转换为字符串" class="headerlink" title="通过ToString()将值转换为字符串"></a>通过ToString()将值转换为字符串</h2><p>通过ToString()把值转化成字符串， 直接看ECMA 9.8的表格</p>
-<p><img src="https://i.imgur.com/9hKHPCu.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/9hKHPCu.jpg" alt></p>
 <p>如果输入的值是一个对象，则会首先会调用ToPrimitive(obj,String)将该对象转换为原始值，然后再调用ToString()将这个原始值转换为字符串.规则就这么多，接下来实践一下，根据我们上面划分出的子表达式，一步一步将这个神奇的代码给执行出来。开工~</p>
 <p>先看最简单的子表达式：</p>
 <p><code>+[]</code></p>
@@ -684,7 +684,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -697,7 +697,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -709,7 +709,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -832,7 +832,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

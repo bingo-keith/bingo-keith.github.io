@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -182,7 +182,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -193,7 +193,7 @@
   page-home">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -323,20 +323,398 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/08/06/图解 Vue 响应式原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/08/06/图解 Vue 响应式原理/" class="post-title-link" itemprop="url">图解 Vue 响应式原理</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-08-06 16:30:29 / 修改时间：16:37:00" itemprop="dateCreated datePublished" datetime="2020-08-06T16:30:29+08:00">2020-08-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2020/08/06/图解 Vue 响应式原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/06/图解 Vue 响应式原理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2020/08/06/图解 Vue 响应式原理/" class="leancloud_visitors" data-flag-title="图解 Vue 响应式原理">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <ul>
+<li><p>最近部门分享，有同学提到了 Vue 响应式原理，大家在讨论时，发现一些同学对这一知识理解还不够深入，不能形成一个闭环，为了帮助大家理解这个问题，我重新过了一下 Vue 源码，并整理了多张流程图，便于大家理解。</p>
+<ul>
+<li>Vue 初始化</li>
+<li>模板渲染</li>
+<li>组件渲染</li>
+</ul>
+<blockquote>
+<p>本文 Vue 源码版本：2.6.11，为了便于理解，均有所删减。</p>
+</blockquote>
+<p>本文将从以下两个方面进行探索：</p>
+<ul>
+<li>从 Vue 初始化，到首次渲染生成 DOM 的流程。</li>
+<li>从 Vue 数据修改，到页面更新 DOM 的流程。</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/08/06/图解 Vue 响应式原理/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/07/30/vue学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/30/vue学习笔记/" class="post-title-link" itemprop="url">vue学习笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-07-30 17:39:50" itemprop="dateCreated datePublished" datetime="2020-07-30T17:39:50+08:00">2020-07-30</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 15:51:55" itemprop="dateModified" datetime="2019-04-18T15:51:55+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2020/07/30/vue学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/07/30/vue学习笔记/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2020/07/30/vue学习笔记/" class="leancloud_visitors" data-flag-title="vue学习笔记">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近因为换工作，忙着找下家的缘故，好久没做一些学习总结了，趁着新东家的项目都做完的比较空闲的缘故，把最近新学习的技术归纳整理一下吧！之前在学习react的时候就对比了解过vue和react的优势和区别了，虽然react在大型项目上比vue有优势，社区也更强大，但在武汉这个市场绝大部分还是已vue为主，之前工作中用的是react，所以一直都在学的react，同时vue比较简单，学习曲线比较平缓，所以当时也没急着去研究vue了。这次换了新东家，项目是用的vue+vuex+axios+vux框架+webpack搭的项目，正好也跟着项目仔细地研究了vue技术栈，确实没有react那么复杂，现把一些学习和工作中的学习笔记记录下来，以便以后可以复习。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/07/30/vue学习笔记/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/07/30/快速了解 React Hooks 原理/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -501,20 +879,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/07/21/setTimeout和setImmediate到底谁先执行，本文让你彻底理解Event Loop/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -678,20 +1056,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/07/21/优秀技术人，如何做到高效沟通？/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -856,20 +1234,20 @@
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/07/17/25个你不得不知道的数组reduce高级用法/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -1067,20 +1445,20 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -1242,20 +1620,20 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/04/08/Web前端开发标准规范/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -1436,20 +1814,20 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/03/16/代码质量提升的思考与实践/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -1624,20 +2002,20 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
 
   
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2019/06/26/「译」编写更好的 JavaScript 条件式和匹配条件的技巧/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -1797,373 +2175,11 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2019/06/12/新手使用vue-router传参时注意事项/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="科瑞兹曼">
-      <meta itemprop="description" content="交流、学习、提升">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="科瑞兹曼的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/06/12/新手使用vue-router传参时注意事项/" class="post-title-link" itemprop="url">新手使用vue-router传参时注意事项</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-06-12 22:03:27" itemprop="dateCreated datePublished" datetime="2019-06-12T22:03:27+08:00">2019-06-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-06-18 19:22:41" itemprop="dateModified" datetime="2019-06-18T19:22:41+08:00">2019-06-18</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/06/12/新手使用vue-router传参时注意事项/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/12/新手使用vue-router传参时注意事项/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-            <span id="/2019/06/12/新手使用vue-router传参时注意事项/" class="leancloud_visitors" data-flag-title="新手使用vue-router传参时注意事项">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="新手使用vue-router传参时注意事项"><a href="#新手使用vue-router传参时注意事项" class="headerlink" title="新手使用vue-router传参时注意事项"></a>新手使用vue-router传参时注意事项</h1><p>vue-router里路由传参推荐用path和query的组合，或者是name和params的组合。其中name+params传参在刷新页面后路由参数会丢失，可以在路由配置时把参数配在url上，path+query的传参刷新页面后不会丢失，但是传参会拼接到url后，有长度的限制。具体用哪一种传参方式取决于业务的需要和实际的应用场景。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/06/12/新手使用vue-router传参时注意事项/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2019/04/18/vue学习笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="科瑞兹曼">
-      <meta itemprop="description" content="交流、学习、提升">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="科瑞兹曼的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/18/vue学习笔记/" class="post-title-link" itemprop="url">vue学习笔记</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-18 15:21:44 / 修改时间：15:51:55" itemprop="dateCreated datePublished" datetime="2019-04-18T15:21:44+08:00">2019-04-18</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/04/18/vue学习笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/04/18/vue学习笔记/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-            <span id="/2019/04/18/vue学习笔记/" class="leancloud_visitors" data-flag-title="vue学习笔记">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>最近因为换工作，忙着找下家的缘故，好久没做一些学习总结了，趁着新东家的项目都做完的比较空闲的缘故，把最近新学习的技术归纳整理一下吧！之前在学习react的时候就对比了解过vue和react的优势和区别了，虽然react在大型项目上比vue有优势，社区也更强大，但在武汉这个市场绝大部分还是已vue为主，之前工作中用的是react，所以一直都在学的react，同时vue比较简单，学习曲线比较平缓，所以当时也没急着去研究vue了。这次换了新东家，项目是用的vue+vuex+axios+vux框架+webpack搭的项目，正好也跟着项目仔细地研究了vue技术栈，确实没有react那么复杂，现把一些学习和工作中的学习笔记记录下来，以便以后可以复习。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/04/18/vue学习笔记/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2193,7 +2209,7 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
 
       <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -2206,7 +2222,7 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2218,7 +2234,7 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -2341,7 +2357,9 @@ const b = arr.reduce((t, v) =&gt; t + v, 0);
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

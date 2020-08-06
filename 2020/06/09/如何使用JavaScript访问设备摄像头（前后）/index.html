@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -189,7 +189,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -199,7 +199,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -331,20 +331,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -468,11 +468,11 @@
 
 </code></pre>
 <p>此调用将询问用户是否允许访问摄像机。如果用户拒绝，它将引发异常并且不返回流。因此，必须在 <code>try/catch</code> 块内完成处理这种情况。</p>
-<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/2.png" alt=""></p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/2.png" alt></p>
 <p>请注意，它返回一个Promise，因此您必须使用 <code>async/await</code> 或 <code>then</code> 块。在Mac OS系统上还会弹出授权</p>
-<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/3.png" alt=""></p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/3.png" alt></p>
 <p>点击“好”，就可以访问电脑摄像头了，控制台输出的 <code>videoStream</code> 对象如下</p>
-<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/4.png" alt=""></p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/4.png" alt></p>
 <h2 id="视频规格（requirements）"><a href="#视频规格（requirements）" class="headerlink" title="视频规格（requirements）"></a>视频规格（requirements）</h2><p>我们可以通过传递有关所需分辨率以及最小和最大限制的信息来改善视频的要求：</p>
 <pre><code class="js">const constraints = {
   video: {
@@ -500,7 +500,7 @@ const videoStream = await navigator.mediaDevices.getUserMedia(constraints);
 video.srcObject = videoStream;
 </code></pre>
 <p>请注意 <code>video</code> 标签中的自动播放属性 <code>autoplay</code>，没有它，你需要调用 <code>video.play()</code> 才能真正开始显示图像。</p>
-<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/5.png" alt=""></p>
+<p><img src="http://myimgcloud.oss-cn-hangzhou.aliyuncs.com/202006/cameras-with-javascript/5.png" alt></p>
 <h2 id="访问手机的前后摄像头"><a href="#访问手机的前后摄像头" class="headerlink" title="访问手机的前后摄像头"></a>访问手机的前后摄像头</h2><p>默认情况下，<code>getUserMedia</code> 将使用系统默认的视频录制设备。如果是有两个摄像头的手机，它使用前置摄像头。</p>
 <p>要访问后置摄像头，我们必须在视频规格中包括 <code>faceModeMode:&quot;environment&quot;</code>：</p>
 <pre><code class="js">const constraints = {
@@ -788,7 +788,7 @@ window.onload = async function () {
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -801,7 +801,7 @@ window.onload = async function () {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -813,7 +813,7 @@ window.onload = async function () {
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -936,7 +936,9 @@ window.onload = async function () {
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

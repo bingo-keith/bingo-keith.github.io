@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -192,7 +192,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -202,7 +202,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -334,20 +334,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2017/12/06/我所认识的javascript正则表达式/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -530,7 +530,7 @@ do {
 }
 while (ans !== null)
 </code></pre><p>结果如下：</p>
-<p><img src="https://i.imgur.com/RW3N6d1.png" alt=""></p>
+<p><img src="https://i.imgur.com/RW3N6d1.png" alt></p>
 <p>应该还容易理解，当第三次循环时，找不到“you”了，于是返回null，lastIndex值也变成0了。</p>
 <p>如果在一个字符串中完成了一次模式匹配之后要开始检索新的字符串（仍然使用旧的pattern），就必须手动地把 lastIndex 属性重置为 0。</p>
 <ul>
@@ -578,7 +578,7 @@ console.log(s.replace(&#39;you&#39;, &#39;zichi&#39;)); // zichi love me and I l
 console.log(s.replace(/you/, &#39;zichi&#39;)); // zichi love me and I love you
 console.log(s.replace(/you/g, &#39;zichi&#39;));    // zichi love me and I love zichi
 </code></pre><p>如果需要替代的内容不是指定的字符串，而是跟匹配模式或者原字符串有关，那么就要用到$了（记住这些和$符号有关的东东只和replace有关哦）。</p>
-<p><img src="https://i.imgur.com/Cg10dYD.png" alt=""></p>
+<p><img src="https://i.imgur.com/Cg10dYD.png" alt></p>
 <p>怎么用？看个例子就明白了。</p>
 <pre><code>var s = &#39;I love you&#39;;
 var pattern = /love/;
@@ -586,7 +586,7 @@ var ans = s.replace(pattern, &#39;$`&#39; + &#39;$&amp;&#39; + &quot;$&#39;&quot
 console.log(ans); // I I love you you
 </code></pre><p>没错，’$`’ + ‘$&amp;’ + “$’”其实就相当于原串了！</p>
 <p>replace的第二个参数还能是函数，看具体例子前先看一段介绍：</p>
-<p><img src="https://i.imgur.com/yi8KVpp.png" alt=""></p>
+<p><img src="https://i.imgur.com/yi8KVpp.png" alt></p>
 <p>第一个参数是匹配到的子串，接下去是子表达式匹配的值，如果要用子表达式参数，则必须要有第一个参数（表示匹配到的串），也就是说，如果要用第n个参数代表的值，则左边参数都必须写出来。最后两个参数跟exec后返回的数组的两个属性差不多。</p>
 <pre><code>var s = &#39;I love you&#39;;
 var pattern = /love/;
@@ -608,9 +608,9 @@ console.log(ans);   // [&quot;you love me &quot;, &quot; I love you&quot;]
 var pattern = /and/;
 var ans = s.split(pattern, 1);
 console.log(ans);   // [&quot;you love me &quot;]
-</code></pre><h1 id="RegExp-字符"><a href="#RegExp-字符" class="headerlink" title="RegExp 字符"></a>RegExp 字符</h1><p><img src="https://i.imgur.com/ibdT2yl.png" alt=""></p>
-<p><img src="https://i.imgur.com/iqspn9n.png" alt=""></p>
-<p><img src="https://i.imgur.com/h5ifofy.png" alt=""></p>
+</code></pre><h1 id="RegExp-字符"><a href="#RegExp-字符" class="headerlink" title="RegExp 字符"></a>RegExp 字符</h1><p><img src="https://i.imgur.com/ibdT2yl.png" alt></p>
+<p><img src="https://i.imgur.com/iqspn9n.png" alt></p>
+<p><img src="https://i.imgur.com/h5ifofy.png" alt></p>
 <ul>
 <li>\s 任意空白字符 \S相反 空白字符可以是： 空格符 (space character) 制表符 (tab character) 回车符 (carriage return character) 换行符 (new line character) 垂直换行符 (vertical tab character) 换页符 (form feed character)</li>
 <li>\b是正则表达式规定的一个特殊代码，代表着单词的开头或结尾，也就是单词的分界处。虽然通常英文的单词是由空格，标点符号或者换行来分隔的，但是\b并不匹配这些单词分隔字符中的任何一个，它只匹配一个位置。（和^ $ 以及零宽断言类似）</li>
@@ -628,7 +628,7 @@ var pattern = /hello.*?world/;
 var ans = pattern.exec(s);
 console.log(ans)  // [&quot;hello world&quot;, index: 0, input: &quot;hello world welcome to my world&quot;]
 </code></pre><p><strong>懒惰限定符（？）添加的场景如下：</strong></p>
-<p><img src="https://i.imgur.com/TEWYdz8.png" alt=""></p>
+<p><img src="https://i.imgur.com/TEWYdz8.png" alt></p>
 <h1 id="子表达式"><a href="#子表达式" class="headerlink" title="子表达式"></a>子表达式</h1><ul>
 <li>表示方式</li>
 </ul>
@@ -929,7 +929,7 @@ var ans = escapeHtml(&#39;&lt;&gt;&quot;&amp;&#39;);
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -942,7 +942,7 @@ var ans = escapeHtml(&#39;&lt;&gt;&quot;&amp;&#39;);
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -954,7 +954,7 @@ var ans = escapeHtml(&#39;&lt;&gt;&quot;&amp;&#39;);
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -1077,7 +1077,9 @@ var ans = escapeHtml(&#39;&lt;&gt;&quot;&amp;&#39;);
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

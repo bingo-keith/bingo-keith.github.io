@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -186,7 +186,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -196,7 +196,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -328,20 +328,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2018/04/27/React从入门到精通系列/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -2871,7 +2871,7 @@ new webpack.optimize.UglifyJSPlugin();
 </code></pre>
 <p>如果你知道在某些情况下你的组件不需要更新，你可以从<code>shouldComponentUpdate</code>中返回<code>false</code>，而不是跳过整个渲染过程，其中包括调用当前组件和下面的<code>render()</code>。</p>
 <h2 id="shouldComponentUpdate的应用"><a href="#shouldComponentUpdate的应用" class="headerlink" title="shouldComponentUpdate的应用"></a>shouldComponentUpdate的应用</h2><p>这里是一个组件的子树。对于其中每一个子树来说，<code>SCU</code>指示<code>shouldComponentUpdate</code>返回什么，<code>vDOMEq</code>指示渲染的React元素是否相等。 最后，圆圈的颜色表示组件是否必须重新处理。</p>
-<p><img src="https://segmentfault.com/img/bVGXZA?w=977&amp;h=692" alt=""></p>
+<p><img src="https://segmentfault.com/img/bVGXZA?w=977&amp;h=692" alt></p>
 <p>因为<code>shouldComponentUpdate</code>对于以C2为根的子树返回了<code>false</code>，所以React没有尝试渲染C2，因此甚至不必在C4和C5上调用<code>shouldComponentUpdate</code>。</p>
 <p>对于C1和C3，<code>shouldComponentUpdate</code>返回true，因此React必须下到子树中并检查它们。对于C6子树<code>shouldComponentUpdate</code>返回<code>true</code>，并且因为渲染的元素不是相同的，React不得不更新DOM。</p>
 <p>最后一个有趣的例子是C8。React不得不渲染这个组件，不过由于React元素返回的元素等于之前渲染的元素，所以它不必更新DOM。</p>
@@ -4076,7 +4076,7 @@ function ComponentWithTransition() {
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -4089,7 +4089,7 @@ function ComponentWithTransition() {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -4101,7 +4101,7 @@ function ComponentWithTransition() {
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -4224,7 +4224,9 @@ function ComponentWithTransition() {
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

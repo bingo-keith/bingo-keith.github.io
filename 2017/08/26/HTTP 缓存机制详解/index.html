@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -191,7 +191,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -201,7 +201,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -333,20 +333,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2017/08/26/HTTP 缓存机制详解/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -461,9 +461,9 @@
 <h1 id="缓存规则解析"><a href="#缓存规则解析" class="headerlink" title="缓存规则解析"></a>缓存规则解析</h1><p>HTTP缓存有多种规则，根据是否需要重新向服务器发起请求来分类，我将其分为两大类(强制缓存，对比缓存)</p>
 <p>在详细介绍这两种规则之前，先通过时序图的方式，让大家对这两种规则有个简单了解。</p>
 <p>已存在缓存数据时，仅基于强制缓存，请求数据的流程如下：</p>
-<p><img src="http://i.imgur.com/kc1QZ7U.png" alt=""></p>
+<p><img src="http://i.imgur.com/kc1QZ7U.png" alt></p>
 <p>已存在缓存数据时，仅基于对比缓存，请求数据的流程如下：</p>
-<p><img src="http://i.imgur.com/16l6wfk.png" alt=""></p>
+<p><img src="http://i.imgur.com/16l6wfk.png" alt></p>
 <p>对缓存机制不太了解的同学可能会问，基于对比缓存的流程下，不管是否使用缓存，都需要向服务器发送请求，那么还用缓存干什么？</p>
 <p>这个问题，我们暂且放下，后文在详细介绍每种缓存规则的时候，会带给大家答案。</p>
 <p>我们可以看到两类缓存规则的不同，强制缓存如果生效，不需要再和服务器发生交互，而对比缓存不管是否生效，都需要与服务端发生交互。</p>
@@ -484,7 +484,7 @@ no-store:           所有内容都不会缓存，强制缓存，对比缓存都
 </code></pre>
 <p>（对于前端开发来说，缓存越多越好，so…基本上和它说886）</p>
 <p>举个例子：</p>
-<p><img src="http://i.imgur.com/FQ9UTEr.png" alt=""></p>
+<p><img src="http://i.imgur.com/FQ9UTEr.png" alt></p>
 <p>图中Cache-Control仅指定了max-age，所以默认为private，缓存时间为31536000秒（365天）也就是说，在365天内再次请求这条数据，都会直接获取缓存数据库中的数据，直接使用。</p>
 <p>没懂的话，我们换通俗一点的话来说一遍。当客户端第一次访问资源的时候，服务端在返回资源内容的同时也返回了Expires: Sun, 16 Oct 2016 05:43:02 GMT。</p>
 <p>服务端告诉浏览器： 你Y的先把这个文件给我缓存起来，在这个过期时间之前，这个文件都不会变化了，你下次需要这个文件的时候，你就不要过来找我要了，你就去缓存中拿就好了，又快又好。</p>
@@ -497,15 +497,15 @@ no-store:           所有内容都不会缓存，强制缓存，对比缓存都
 <p>再次请求数据时，客户端将备份的缓存标识发送给服务器，服务器根据缓存标识进行判断，判断成功后，返回304状态码，通知客户端比较成功，可以使用缓存数据。</p>
 <p>对于对比缓存来说，缓存标识的传递是我们着重需要理解的，它在请求header和响应header间进行传递，一共分为两种标识传递，接下来，我们分开介绍。</p>
 <h2 id="Last-Modified-If-Modified-Since"><a href="#Last-Modified-If-Modified-Since" class="headerlink" title="Last-Modified / If-Modified-Since"></a>Last-Modified / If-Modified-Since</h2><p>Last-Modified：服务器在响应请求时，告诉浏览器资源的最后修改时间。</p>
-<p><img src="http://i.imgur.com/Tw97Ba7.png" alt=""></p>
+<p><img src="http://i.imgur.com/Tw97Ba7.png" alt></p>
 <p>If-Modified-Since：</p>
 <p>再次请求服务器时，通过此字段通知服务器上次请求时，服务器返回的资源最后修改时间。</p>
 <p>服务器收到请求后发现有头If-Modified-Since 则与被请求资源的最后修改时间进行比对。</p>
 <p>若资源的最后修改时间大于If-Modified-Since，说明资源又被改动过，则响应整片资源内容，返回状态码200；若资源的最后修改时间小于或等于If-Modified-Since，说明资源无新修改，则响应HTTP 304，告知浏览器继续使用所保存的cache。</p>
-<p><img src="http://i.imgur.com/EMlUqCI.png" alt=""></p>
+<p><img src="http://i.imgur.com/EMlUqCI.png" alt></p>
 <h2 id="Etag-If-None-Match（优先级高于Last-Modified-If-Modified-Since）"><a href="#Etag-If-None-Match（优先级高于Last-Modified-If-Modified-Since）" class="headerlink" title="Etag / If-None-Match（优先级高于Last-Modified / If-Modified-Since）"></a>Etag / If-None-Match（优先级高于Last-Modified / If-Modified-Since）</h2><p>第一次客户端访问资源的时候，服务端返回资源内容的同时返回了ETag：1234，告诉客户端：这个文件的标签是1234，我如果修改了我这边的资源的话，这个标签就会不一样了。</p>
 <p>第二次客户端访问资源的时候，由于缓存中已经有了Etag为1234的资源，客户端要去服务端查询的是这个资源有木有过期呢？所以带上了If-None-Match: 1234。告诉服务端：如果你那边的资源还是1234标签的资源，你就返回304告诉我，不需要返回资源内容了。如果不是的话，你再返回资源内容给我就行了。服务端就比较下Etag来看是返回304还是200。</p>
-<p><img src="http://i.imgur.com/Udgon6i.png" alt=""></p>
+<p><img src="http://i.imgur.com/Udgon6i.png" alt></p>
 <h1 id="各种刷新"><a href="#各种刷新" class="headerlink" title="各种刷新"></a>各种刷新</h1><p>理解了上面的缓存标签之后就很好理解各种刷新了。</p>
 <p>刷新有三种</p>
 <pre><code>浏览器中写地址，回车
@@ -630,7 +630,7 @@ Ctrl+F5
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -643,7 +643,7 @@ Ctrl+F5
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -655,7 +655,7 @@ Ctrl+F5
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -778,7 +778,9 @@ Ctrl+F5
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

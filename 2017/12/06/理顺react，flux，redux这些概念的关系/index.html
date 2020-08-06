@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -197,7 +197,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -207,7 +207,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -339,20 +339,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2017/12/06/理顺react，flux，redux这些概念的关系/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -466,22 +466,22 @@
 <h1 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h1><p>这是关于一把玄铁重剑，一本经书，和一套轻功步法的故事。</p>
 <p>让我们先从普通程序猿们的日常工作内容说起，</p>
 <p>一般来说，程序猿们大部分时间关注的可能不是研发某个具体算法，这是算法工程师／数学家们擅长的东东。程序猿的工作主要是通过调用编程环境中现成的工具函数或接口来实现具体的应用功能，将各个底层接口或算法模块用代码有秩序地拼装联接起来，实现酷炫好用的产品功能，如同组装一件乐高玩具一样。</p>
-<p><img src="https://i.imgur.com/fQVKEkr.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/fQVKEkr.jpg" alt></p>
 <p>也就是说程序猿的很多工作往往不是围绕某个高大上的具体算法（“我们不生产算法，我们只是算法的搬运工”），而是像代码界的城管、或者清洁工一样，关注怎样组织文件结构，怎样理清编程思路，怎样命名变量，怎样降低代码耦合度，怎样提高代码的复用性和一致性，提高代码的可读性和健壮性，怎样优化分工协作、减少沟通成本等等。不管是OOP、FP等编程思想，还是MVC等设计模式、或是各种编程语言下的应用开发框架，很多都是为了帮助程序猿完成这些脏活、累活儿。</p>
 <p>具体到web应用开发而言，react以及他的好基友redux都是程序猿们出色的好帮手，因此让众多前端开发者一见倾心，俺也不例外。</p>
-<p><img src="https://i.imgur.com/q92eyWh.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/q92eyWh.jpg" alt></p>
 <p>和一般前端框架相比，react有两个显著特点：</p>
 <ol>
 <li>react的性能很好，可以满足实际生产环境下的绝大部分性能需求。</li>
 <li>react从使用的角度来说非常轻量级，因此很容易和其他顺手常用的工具搭配使用，而没有任何违和感。（如果你发现react可以和backbone、angular等框架很轻松地放到一起使用，请保持高冷，无需惊讶～）</li>
 </ol>
 <p>事实上，react和redux从使用的角度来说，是如此轻量舒适，以至于我们可以不把它们当作“开发框架”，而是一种编程模式，或是编程的“脚手架”，用起来非常“小清新”。这一点和angularjs这类“重口味”框架有很大区别（我不推荐使用angularjs，当然每个人口味不同，最好自己上手体验再做取舍）。其实本人接触react比较晚，但一试用就有种血槽猛涨的感觉，强烈建议还没上手react的前端程序猿们试用一下！</p>
-<p><img src="https://i.imgur.com/WJw7XZA.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/WJw7XZA.jpg" alt></p>
 <p>其实，关于react的具体开发实践，知乎上已有很多优秀的文章，例如[react 有哪些最佳实践? - 前端开发]，不再赘述。这里只想分享一下我在学习react过程中的一点体会，捋一下react以及flux背后思想的来龙去脉，从而能够让大家更加自然地接受react开发模式。</p>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>我们首先举两个栗子：</p>
 <h2 id="江湖旧事1"><a href="#江湖旧事1" class="headerlink" title="江湖旧事1"></a>江湖旧事1</h2><p>在web1.0的纯网页时代，前端开发其实是比较happy的，这是因为网页上几乎不需要什么交互，前端开发者基本上只需要根据后台提供的数据将网页内容排版呈现出来即可。用户的交互行为一般仅限于填写一个表单，然后把数据提交到服务器，提交成功后，<strong>直接刷新整个页面</strong>。</p>
 <p>我们以常见的todoList为例，当需要添加一条todo任务的时候，用web1.0的思路，典型的流程是这样的：</p>
-<p><img src="https://i.imgur.com/IANGtbc.png" alt=""></p>
+<p><img src="https://i.imgur.com/IANGtbc.png" alt></p>
 <p>通过这张图，我们再仔细揣摩一下为什么web1.0条件下前端开发是比较轻松的：这是因为所有和数据（大体上等价于state）相关的操作，都已经由服务器完成了，前端开发只需要根据state来决定view（页面）。也就是说，这个时候前端开发者的思维是一个从state到view的<strong>“单向流”</strong>。（当state变化时，只要简单粗暴地整体刷新页面就OK了。）</p>
 <p>然而，当页面交互变得丰富细腻、内容变得庞大复杂之后，这种基于服务器维护state，然后页面整体刷新的web1.0方式存在两个严重的缺陷：</p>
 <ol>
@@ -499,7 +499,7 @@
 </li>
 </ol>
 <h2 id="江湖旧事2"><a href="#江湖旧事2" class="headerlink" title="江湖旧事2"></a>江湖旧事2</h2><p>其实，通过改变state，来让view自动更新，这个想法一点也不新鲜。css中各种基于className的样式声明，就是典型代表（改变div的className相当于改变它对应的state， 尤其是css3引入transition和animation之后，这种用css来偷懒的做法越来越常见），我们再举个例子，比如说我们要做一个菜单：</p>
-<p><img src="https://i.imgur.com/0AzxrRq.png" alt=""></p>
+<p><img src="https://i.imgur.com/0AzxrRq.png" alt></p>
 <p>生手碰到这个问题，也许会这样做：<br>当用户点击按钮的时候，先改变菜单名的色值，再改变按钮的背景图（由向下箭头，改成向上箭头），最后改变下拉列表的显示状态，有必要的话，还需要做个列表下拉的动画。当用户再次点击按钮的时候，把所有操作倒着来一遍，恢复菜单收起的状态，ok？</p>
 <p>然而，对于好逸恶劳的前端老司机们来说，一般会这样做：对整个菜单的容器定义两个className，比如一个是”menu-close”，一个是“menu-open”。在menu-close的状态下，菜单名的色值为黑色，按钮背景图为向下箭头，下拉列表是隐藏状态；在menu-open的状态下，菜单名的色值为白色，按钮背景图是向上箭头，下拉列表是显示状态；需要的话，再用css3 transition给下拉列表加个动画过渡效果。当用户点击按钮的时候，只需要改变整个菜单容器的className即可。所有的交互效果都用css“平铺”的方式声明出来，这样做不仅节省了多个手工步骤，而且更改整个容器的className是个单点操作，因此也方便维护和修改。这也是bootstrap框架里惯用的一招，非常好使。</p>
 <p><strong>通过这个例子，我们看到“改变state，让view自动更新”的开发思想在纯粹的前端领域也由来已久。它可以让开发者思维更加清晰，代码更好维护，幸福指数飙升！</strong></p>
@@ -514,7 +514,7 @@
 <p>前面我们提到，由于React的“state-view”模式可以让开发者的大脑得到一种<strong>“单向流</strong>”的舒适体验。那为什么单向流的思维状态更加舒适呢？</p>
 <p>这是因为在单向流状态下，要解决的问题如同一个函数映射，已知什么（比如state）是固定不变的，要得到什么（比如view）是定义明确，而人的思维非常习惯于这种定义明确的、没有“分叉”和“环路”的函数式问题。</p>
 <p>也就是说，让人抓狂崩溃的往往是那些包含“分叉”或“环路”的非函数式问题，这个时候大脑不得不思前想后，谋划全局，进入一种“多线程”工作状态，而“单线程”作业对于大脑来说一般才是更加轻松高效。所谓“单线程”，就是每时每刻只专注于一个问题 —— one at a time! React的”state-view”模式帮助我们在开发view的时候，只需要专注于view（即关注页面布局样式。view上的交互行为怎样对state产生反馈作用，我们稍后再来讨论），而React简便的“模块化”机制（即只需要写很少量的boilerplate代码，就可以定义或引用一个新模块），让我们可以根据需要，将整个页面的布局样式工作进一步拆分成各个小模块（view component），或者将各个小模块组装成大模块，从而进一步深入贯彻“one at a time”的原则，给大脑减负，因此这时程序猿很容易进入一种舒适高效的状态（心理学中甚至有个<strong>“心流”</strong>的概念用来描述这种状态）。决定页面呈现的state可以通过模块属性（props）从父模块传递到子模块。这种”树状”分流机制，有点像植物将养分（state）从根部不断运输到细枝末叶的过程，如图所示：</p>
-<p><img src="https://i.imgur.com/1EYvCHx.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/1EYvCHx.jpg" alt></p>
 <p>简便的“模块化”机制客观上鼓励了迅速上手、边走边看的敏捷开发方式。也就是说，前端开发者在做页面布局样式工作的时候，可以根据自己的经验或视角，随意挑选一块比较“容易上手”的区域作为一个模块的出发点，迅速开工，而无需事先瞻前顾后、谋划全局。当挑选的区域中，有某一块内容需要仔细打磨、细化功能的时候，我们可以迅速将这块内容拆分为一个子模块，然后专注于这个子模块的开发，当若干模块开发完毕后，我们也可以将各个模块组装成大模块，最终形成整个页面。这种开发体验，有点像拼乐高或者创作雕塑：比如说我们要做一个人物雕塑群，我们可以先从单个人物开始。当我们在做单个人物的时候，我们可以先粗线条地捏出整体形态，在需要的时候，我们可以换用更称手的工具来雕琢细节，比如人物的五官表情或者衣服的褶皱，如果一上来我们需要谋划雕塑群中每一个人物的每一个表情细节才能开工，显然这个任务是很难完成的。</p>
 <p>好，到目前为止，我们看到react已经几乎完美地帮我们理顺了从state到view的开发流程。但是前面的讨论过程中，似乎还有一朵“小乌云”没清理，那就是怎样实现从view到state的反馈流程。也就是说，用户在view上的交互行为（比如点击提交按钮等）应当引起state改变的时候，这个流程该怎么处理？这是我们要聊的下一话题。</p>
 <h2 id="易筋经（flux思想）"><a href="#易筋经（flux思想）" class="headerlink" title="易筋经（flux思想）"></a>易筋经（flux思想）</h2><ol>
@@ -537,13 +537,13 @@
 <p>当然, 前端controller的概念是个大杂烩，比如angularjs中的controller被定义为一个作用域（$scope）的闭包, 参考AngularJS文档，这个闭包可以和一段html模版绑定在一起，最终将数据渲染到模版中形成页面。大约正是因为这种将数据和模版绑定的功能，非常类似于后台应用中的controller，因此很多框架包括angular将这种功能模块称为controller。为避免混淆，强调一下：后面我们用controller指代<strong>“凡是和交互事件handler相关的代码单元”</strong></p>
 </blockquote>
 <p>backbonejs 是一个广受欢迎的轻量级MVC前端框架，我们先来看一个 Backbone.js Todo Example，下面是其View组件的代码片断：</p>
-<p><img src="https://i.imgur.com/IaByf5C.png" alt=""></p>
+<p><img src="https://i.imgur.com/IaByf5C.png" alt></p>
 <p>注意到这里createOnEnter是对键盘输入事件的响应，因此可视为一小段controller代码（即controller是“内嵌”在View组件中的），并且这段代码中对Todos （Model）进行了直接操作，<strong>即View直接对Model产生修改</strong></p>
 <p>（这是个危险的信号！因为前面我们在讨论“state-view单向流”的时候提到：一旦改变state和改变view的代码纠缠在一起，程序猿的内心就比较容易崩溃…）。也就是说backbone框架的MVC模式可以用下图表示：</p>
-<p><img src="https://i.imgur.com/NC0JHui.png" alt=""></p>
+<p><img src="https://i.imgur.com/NC0JHui.png" alt></p>
 <p>我们再来看angularjs的todoList实例 (AngularJS Example:)，可以发现其MVC模式（也有人称angular的模式为MVVM，这么细腻的区分感觉没太大必要）也完全符合上面的图示。</p>
 <p>虽然这种View对Model直接修改的方式非常直截了当，适合小型web应用，然而一但web应用中存在多个Model，多个View，那么Model和View之间的决定关系就可能变得混乱，难以驾驭，如下图所示：</p>
-<p><img src="https://i.imgur.com/wtAgnbW.png" alt=""></p>
+<p><img src="https://i.imgur.com/wtAgnbW.png" alt></p>
 <p>也就是说类似于上述代码片断中常见的MVC模式，阻碍了Model和View的组件化拆分（只有Model和View个数较少的时候，依赖关系才比较清晰）。因此，facebook团队总结说：MVC模式难以scale up！ <a href="Facebook: MVC Does Not Scale, Use Flux Instead [Updated]" target="_blank" rel="noopener">参考链接</a></p>
 <p>怎么破？？</p>
 <p>c. Flux模式</p>
@@ -552,7 +552,7 @@
 <p>对比之下，我们立刻发现上述代码片断中前端MVC模式的“痛点”所在：不是MVC模式错了，而是我们压根缺少了一个和用户交互行为有关的action抽象！因此，对model的具体操作才没法从各个view组件中被剥离出来，放到一处。</p>
 <p>参考http请求，我们将要定义的action，需要一个typeName用来表示对model操作的意图（类似于http请求的url路径），还可能需要其他字段，用来描述怎样具体操作model（类似于http请求的参数）。</p>
 <p>也就是说，当用户在view上的交互行为（例如点击提交按钮）应当引起Model发生变化时，我们不直接修改model，而是简单地dispatch一个action（其实跟常见的event机制没有什么区别）以表达修改model的意图，这些action将被集中转移给数据端（models），然后数据端会根据这些action做出需要的自我更新。同时，我们考虑到react中view组件的树状分流结构，所以有如下图所示：</p>
-<p><img src="https://i.imgur.com/p5V0BXU.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/p5V0BXU.jpg" alt></p>
 <p>图中A表示Action，V表示View组件，Models部分的结构会进一步讨论。稍微总结一下：从代码层面而言，flux无非就是一个常见的event dispatcher，其目的是要将以往MVC中各个View组件内的controller代码片断提取出来放到更加恰当的地方进行集中化管理，并从开发体验上实现了舒适清爽、容易驾驭的“单向流”模式。 所以我觉得，Flux与其说是对前端MVC模式的颠覆，倒不如说是对前端MVC思想的补充和优化。</p>
 <p>但为了区分于以往的MVC模式，并向facebook的贡献表达敬意，后面我们将把这种优化后的 Model-View-Controller 开发模式在React背景下正式称为Flux模式</p>
 <p>好，易筋经Flux练到这里，打完收工。到目前为止，我们看到React的独孤九剑可以通过View Component把页面呈现进行<strong>“原子化”拆分</strong>（即上图中兰色区域的树状分流结构）；Flux打通了State-View的任督二脉（绿色区域），并通过action抽象把用户交互行为进行了<strong>“原子化”拆分</strong>；那么联系上面的图示，我们自然要问数据端（紫色区域）的处理，可否同样被<strong>“原子化”拆分</strong>？这是我们要聊的下一门武林绝学。</p>
@@ -563,7 +563,7 @@
 <p>即，reducer作为一个函数，可以根据web应用之前的状态（previousState）和交互行为（通过flux中提到的action来表征），决定web应用的下一状态（newState），从而实现state端的数据更新处理。这个函数行为和大名鼎鼎的“Map-Reduce”概念中的Reduce操作非常类似，因而称这个函数为“Reducer”。</p>
 <p><strong>“shut up and show me the code”</strong></p>
 <p>ok，我们还是以todoList应用为例, 此处有<a href="Example: Todo List" target="_blank" rel="noopener">完整代码</a>。这里不打算详细讲解Redux的具体使用，而只想通过一个Redux对state数据进行操作的代码片断，管窥一下reducer机制对数据进行拆分和组装的简洁过程。代码片断如下：</p>
-<p><img src="https://i.imgur.com/vaqtYWy.png" alt=""></p>
+<p><img src="https://i.imgur.com/vaqtYWy.png" alt></p>
 <p>其中的todos是和任务列表数据相关的reducer，todo是和单条任务数据有关的reducer。注意：在todos的函数体内调用了todo，并将action作为参数原样传递给了todo，这种干净利落地通过函数调用将action由 “parent reducer” 传递给 “child reducer”，是redux实现数据处理拆分的普遍方式。回味一下，<strong>我们应该可以体会到，这种数据处理“原子化”拆分的方式和react中view组件的拆分有异曲同工之妙，二者都会形成一种“树状”分流结构</strong>（在react的view hierarchy中，数据通过props的直接赋值实现单向流；在redux的reducer hierarchy中，数据通过action的函数传参实现单向流）。</p>
 <p>visibilityFilter是和列表显示状态相关的另一个reducer；combineReducers将visibilityFilter和todos合并为整个应用的reducer，也就是todoApp。这个过程，从感觉上也和react中view组件的合并过程非常相像。</p>
 <p>createStore是一个工厂函数。通过它，todoApp（相当于一个数据处理的引擎）被装配到整个应用的state容器，也就是store中。可以通过store的getState方法获取整个应用的state；同时，store也是一个event dispatcher，可以通过其dispatch和subscribe方法，分别实现触发action事件和注册对action事件的响应函数。总言之，从概念上来说 <strong>Redux ＝ Reducer ＋ Flux</strong></p>
@@ -582,7 +582,7 @@
 </li>
 </ol>
 <p>用图示的方式来表达，即，</p>
-<p><img src="https://i.imgur.com/kf6IIAP.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/kf6IIAP.jpg" alt></p>
 <p>图中A表示Action，V表示View组件，R表示Reducer。为了确保我们比较容易理解程序的全局行为，或者说提高程序行为的确定性（predictable），我们一般期望具有类似职能的代码片断被“平铺”着摆放在一。因此图示中相同颜色区域的代码通常会被放到同一个文件夹／文件中。另外，同样出于提高程序的确定性，redux所遵循的函数式编程鼓励我们使用pure function和immutable。（函数式编程是另一个漫长的故事，这里就不再展开）</p>
 <p>要你命三千</p>
 <p>当然实际的react－redux开发步骤中也有不少变通，例如为了能在适当条件下节省些参数传递的代码，redux中提供了provider机制，它像《星际迷航》中的瞬间传送机一样，可以绕过view组件的hierarchy把state一步到位地传递到末端view组件；再比如redux虽然鼓励使用pure function（即不含side effect的函数）, 但我们一般还是会通过side effect实现store和服务器端的通信。这些变通，觉得是好事。毕竟再严格的框架，也经不起胡乱使用；再完美的框架，也很难说能包治百病，倒不如提供一些台阶，让程序猿们去自由发挥吧。</p>
@@ -696,7 +696,7 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -709,7 +709,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -721,7 +721,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -844,7 +844,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

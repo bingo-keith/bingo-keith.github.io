@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -193,7 +193,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -203,7 +203,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -335,20 +335,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2018/01/07/深入了解React的子组件/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -463,7 +463,7 @@
   &lt;Row /&gt;
   &lt;Row /&gt;
 &lt;/Grid&gt;
-</code></pre><p><img src="https://i.imgur.com/skCYXj1.png" alt=""></p>
+</code></pre><p><img src="https://i.imgur.com/skCYXj1.png" alt></p>
 <p>通过<code>props.children</code>，<code>Grid</code>组件可以获得这三个<code>Row</code>组件。父组件通过一个表现容器来渲染这些子组件：</p>
 <pre><code>class Grid extends React.Component {
   render() {
@@ -484,7 +484,7 @@ class Fullstop extends React.Component {
 </blockquote>
 <p>一切都可以是子组件</p>
 <p>在React中，子组件没有必要必须是一个组件，他们可以是任意内容。比方说，我们可以给上面的<code>Grid</code>组件传递文本作为子组件且结果很完美。</p>
-<p><img src="https://i.imgur.com/K4EdUB3.png" alt=""></p>
+<p><img src="https://i.imgur.com/K4EdUB3.png" alt></p>
 <p>JSX会自动清除每行开始和结束处的空格以及空白的行。它还将字符串文字中间的空行浓缩成一个空格。</p>
 <p>这意味着下面这些示例都会渲染成相同的内容：</p>
 <pre><code>&lt;Grid&gt;Hello world!&lt;/Grid&gt;
@@ -509,7 +509,7 @@ class Fullstop extends React.Component {
   Here is another row:
   &lt;Row /&gt;
 &lt;/Grid&gt;
-</code></pre><p><img src="https://i.imgur.com/0AIrxKD.png" alt=""></p>
+</code></pre><p><img src="https://i.imgur.com/0AIrxKD.png" alt></p>
 <h1 id="函数子组件"><a href="#函数子组件" class="headerlink" title="函数子组件"></a>函数子组件</h1><p>我们可以传递任何JavaScript表达式作为子组件，当然包括函数。</p>
 <p>为了说明它看起来是什么样子，下面的组件渲染的就是一个传递给它的函数子组件：</p>
 <pre><code>class Executioner extends React.Component {
@@ -550,9 +550,9 @@ class Fullstop extends React.Component {
   &lt;h1&gt;First&lt;/h1&gt;
   &lt;h1&gt;Second&lt;/h1&gt; // &lt;- 只有这个被渲染
 &lt;/IgnoreFirstChild&gt;
-</code></pre><p><img src="https://i.imgur.com/0iVe7O6.png" alt=""></p>
+</code></pre><p><img src="https://i.imgur.com/0iVe7O6.png" alt></p>
 <p>在这种情况下，我们也可以使用<code>this.props.children.map</code>。但是，如果有人传进来一个函数子组件会发生什么？<code>this.props.children</code>将会是一个函数而不是数组，我们会看到一个报错！ 😱</p>
-<p><img src="https://i.imgur.com/ovt61Qu.png" alt=""></p>
+<p><img src="https://i.imgur.com/ovt61Qu.png" alt></p>
 <p>然而使用<code>React.Children.map</code>函数，就不会发生这种问题：</p>
 <pre><code>&lt;IgnoreFirstChild&gt;
   {() =&gt; &lt;h1&gt;First&lt;/h1&gt;} // &lt;- 忽略掉 💪
@@ -596,7 +596,7 @@ class Fullstop extends React.Component {
   {&#39;bananas&#39;}{&#39;oranges&#39;}{&#39;apples&#39;}
 &lt;/Sort&gt;
 </code></pre><p>上面的例子渲染出字符串，但是是排序后的：</p>
-<p><img src="https://i.imgur.com/CvXLz2D.png" alt=""></p>
+<p><img src="https://i.imgur.com/CvXLz2D.png" alt></p>
 <h1 id="限制单一子组件"><a href="#限制单一子组件" class="headerlink" title="限制单一子组件"></a>限制单一子组件</h1><p>回想我们上面的<code>Executioner</code>组件，它只希望传递过来一个子组件，并且还必须是一个函数子组件。</p>
 <pre><code>class Executioner extends React.Component {
   render() {
@@ -626,7 +626,7 @@ class Fullstop extends React.Component {
   )
 }
 </code></pre><p>但是这里的代码有一个问题。这些<code>input</code>组件并没有被组合起来，这将会导致下面的结果：</p>
-<p><img src="https://i.imgur.com/gwRdNAx.png" alt=""></p>
+<p><img src="https://i.imgur.com/gwRdNAx.png" alt></p>
 <p>要将<code>input</code>标签组合在一起，它们都需要具有相同的<code>name</code>属性。我们当然可以为每一个<code>RadioButton</code>组件指定一个<code>name</code>属性。</p>
 <pre><code>&lt;RadioGroup&gt;
   &lt;RadioButton name=&quot;g1&quot; value=&quot;first&quot;&gt;First&lt;/RadioButton&gt;
@@ -682,7 +682,7 @@ class Fullstop extends React.Component {
   &lt;RadioButton value=&quot;second&quot;&gt;Second&lt;/RadioButton&gt;
   &lt;RadioButton value=&quot;third&quot;&gt;Third&lt;/RadioButton&gt;
 &lt;/RadioGroup&gt;
-</code></pre><p><img src="https://i.imgur.com/AwAip0N.png" alt=""></p>
+</code></pre><p><img src="https://i.imgur.com/AwAip0N.png" alt></p>
 <p>成功了！🎉 取代手动地去设置每一个<code>RadioButton</code>组件的<code>name</code>属性，我们只需要告诉<code>RadioGroup</code>组件我们想要的<code>name</code>属性值，它就会自动地去做好了。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>子组件使React组件看起来就像一系列的标记，而不是分割的个体。使用JavaScript和React的帮助类函数，我们可以创建声明类的API，让我们的开发更轻松。</p>
 
@@ -794,7 +794,7 @@ class Fullstop extends React.Component {
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -807,7 +807,7 @@ class Fullstop extends React.Component {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -819,7 +819,7 @@ class Fullstop extends React.Component {
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -942,7 +942,9 @@ class Fullstop extends React.Component {
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

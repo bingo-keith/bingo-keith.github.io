@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -190,7 +190,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
@@ -200,7 +200,7 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta">
     
@@ -332,20 +332,20 @@
 
   
 
-  <article class="post post-type-normal true" itemscope="" itemtype="http://schema.org/Article">
+  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2019/06/12/新手使用vue-router传参时注意事项/">
 
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
       <meta itemprop="description" content="交流、学习、提升">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="科瑞兹曼的博客">
     </span>
 
@@ -496,9 +496,9 @@ export default new Router({
 <p>第一次是预期结果 // 234</p>
 <pre><code class="javascript">console.log(this.$route.params.id + 1)
 </code></pre>
-<p><img src="https://segmentfault.com/img/bVbtyon?w=1290&amp;h=1016" alt=""></p>
+<p><img src="https://segmentfault.com/img/bVbtyon?w=1290&amp;h=1016" alt></p>
 <p>刷新页面后直接字符串拼接了 // 2331</p>
-<p><img src="https://segmentfault.com/img/bVbtyoo?w=1006&amp;h=1050" alt=""></p>
+<p><img src="https://segmentfault.com/img/bVbtyoo?w=1006&amp;h=1050" alt></p>
 <h2 id="参数丢失解决方案"><a href="#参数丢失解决方案" class="headerlink" title="参数丢失解决方案"></a>参数丢失解决方案</h2><pre><code class="javascript">routes: [
     {
         path: &#39;/details/:id&#39;, // 这里配置的要和你传递的参数名保持一致
@@ -510,7 +510,7 @@ export default new Router({
 <h1 id="path和query组合传参"><a href="#path和query组合传参" class="headerlink" title="path和query组合传参"></a>path和query组合传参</h1><pre><code class="javascript">this.$router.push({path: &#39;/details&#39;, query: {id: 666}})
 this.$route.query.id // 666
 </code></pre>
-<p><img src="https://segmentfault.com/img/bVbtyqO?w=1150&amp;h=1046" alt=""></p>
+<p><img src="https://segmentfault.com/img/bVbtyqO?w=1150&amp;h=1046" alt></p>
 <p>此方法参数会跟在问号后面 例如：/details?id=666，该方法刷新页面不会丢失参数</p>
 <p>最后：根据自己的项目选择合适的传参方式</p>
 
@@ -549,8 +549,8 @@ this.$route.query.id // 666
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/18/vue学习笔记/" rel="next" title="vue学习笔记">
-                <i class="fa fa-chevron-left"></i> vue学习笔记
+              <a href="/2019/02/14/手写一个简单版本的Promise/" rel="next" title="手写一个简单版本的Promise">
+                <i class="fa fa-chevron-left"></i> 手写一个简单版本的Promise
               </a>
             
           </div>
@@ -622,7 +622,7 @@ this.$route.query.id // 666
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">科瑞兹曼</p>
               <p class="site-description motion-element" itemprop="description">交流、学习、提升</p>
@@ -635,7 +635,7 @@ this.$route.query.id // 666
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -647,7 +647,7 @@ this.$route.query.id // 666
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/categories/index.html">
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -770,7 +770,9 @@ this.$route.query.id // 666
                     
                       
                     
-                    <span class="site-state-item-count">60</span>
+                      
+                    
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
