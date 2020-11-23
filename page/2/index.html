@@ -328,6 +328,217 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/07/17/25个你不得不知道的数组reduce高级用法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="科瑞兹曼">
+      <meta itemprop="description" content="交流、学习、提升">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="科瑞兹曼的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/07/17/25个你不得不知道的数组reduce高级用法/" class="post-title-link" itemprop="url">25个你不得不知道的数组reduce高级用法</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-07-17 17:30:29 / 修改时间：22:52:14" itemprop="dateCreated datePublished" datetime="2020-07-17T17:30:29+08:00">2020-07-17</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2020/07/17/25个你不得不知道的数组reduce高级用法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/07/17/25个你不得不知道的数组reduce高级用法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+            <span id="/2020/07/17/25个你不得不知道的数组reduce高级用法/" class="leancloud_visitors" data-flag-title="25个你不得不知道的数组reduce高级用法">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p> <code>reduce</code>作为ES5新增的常规数组方法之一，对比<code>forEach</code>、<code>filter</code>和<code>map</code>，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。 </p>
+<p>下面对reduce的语法进行简单说明，详情可查看MDN的reduce()的相关说明。</p>
+<ul>
+<li><p>定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值</p>
+</li>
+<li><p>形式：array.reduce((t, v, i, a) =&gt; {}, initValue)</p>
+</li>
+<li><p>参数</p>
+<ul>
+<li>callback：回调函数(必选)</li>
+<li>initValue：初始值(可选)</li>
+</ul>
+</li>
+<li><p>回调函数的参数</p>
+<ul>
+<li>total(t)：累计器完成计算的返回值(必选)</li>
+<li>value(v)：当前元素(必选)</li>
+<li>index(i)：当前元素的索引(可选)</li>
+<li>array(a)：当前元素所属的数组对象(可选)</li>
+</ul>
+</li>
+<li><p>过程</p>
+<ul>
+<li>以t作为累计结果的初始值，不设置t则以数组第一个元素为初始值</li>
+<li>开始遍历，使用累计器处理v，将v的映射结果累计到t上，结束此次循环，返回t</li>
+<li>进入下一次循环，重复上述操作，直至数组最后一个元素</li>
+<li>结束遍历，返回最终的t</li>
+</ul>
+<p><code>reduce</code>的精华所在是将累计器逐个作用于数组成员上，<strong>把上一次输出的值作为下一次输入的值</strong>。下面举个简单的栗子，看看<code>reduce</code>的计算结果。 </p>
+<pre><code class="js">const arr = [3, 5, 1, 4, 2];
+const a = arr.reduce((t, v) =&gt; t + v);
+// 等同于
+const b = arr.reduce((t, v) =&gt; t + v, 0);
+</code></pre>
+<p> 代码不太明白没关系，贴一个<code>reduce</code>的作用动图应该就会明白了。 </p>
+</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/07/17/25个你不得不知道的数组reduce高级用法/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/06/09/如何使用JavaScript访问设备摄像头（前后）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2004,205 +2215,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2019/01/08/JavaScript 代码简洁之道/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="科瑞兹曼">
-      <meta itemprop="description" content="交流、学习、提升">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="科瑞兹曼的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/01/08/JavaScript 代码简洁之道/" class="post-title-link" itemprop="url">JavaScript 代码简洁之道</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-01-08 21:54:29 / 修改时间：22:58:59" itemprop="dateCreated datePublished" datetime="2019-01-08T21:54:29+08:00">2019-01-08</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/01/08/JavaScript 代码简洁之道/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/01/08/JavaScript 代码简洁之道/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-            <span id="/2019/01/08/JavaScript 代码简洁之道/" class="leancloud_visitors" data-flag-title="JavaScript 代码简洁之道">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="测试代码质量的唯一方式：别人看你代码时说-f-k-的次数。"><a href="#测试代码质量的唯一方式：别人看你代码时说-f-k-的次数。" class="headerlink" title="测试代码质量的唯一方式：别人看你代码时说 f * k 的次数。"></a>测试代码质量的唯一方式：别人看你代码时说 f * k 的次数。</h1><p>代码质量与其整洁度成正比。干净的代码，既在质量上较为可靠，也为后期维护、升级奠定了良好基础。</p>
-<p>本文并不是代码风格指南，而是关于代码的可读性、复用性、扩展性探讨。</p>
-<p>我们将从几个方面展开讨论：</p>
-<ol>
-<li><p>变量</p>
-</li>
-<li><p>函数</p>
-</li>
-<li><p>对象和数据结构</p>
-</li>
-<li><p>类</p>
-</li>
-<li><p>SOLID</p>
-</li>
-<li><p>测试</p>
-</li>
-<li><p>异步</p>
-</li>
-<li><p>错误处理</p>
-</li>
-<li><p>代码风格</p>
-</li>
-<li><p>注释</p>
-</li>
-</ol>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/01/08/JavaScript 代码简洁之道/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2250,7 +2262,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2395,7 +2407,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">65</span>
+                      
+                    
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
