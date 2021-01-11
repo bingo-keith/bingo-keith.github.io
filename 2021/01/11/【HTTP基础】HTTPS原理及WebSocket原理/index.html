@@ -108,12 +108,12 @@
 <meta property="og:site_name" content="科瑞兹曼的博客">
 <meta property="og:description" content="由于HTTP没有加密机制，其传输的内容很容易泄漏，并且HTTP协议没法确认通信方，也无法保证接收到的报文在传输过程中是否被篡改，因此HTTPS是在HTTP协议的基础上提供了加密、认证和完整性保护的功能。HTTPS并非是应用层的一种新协议，只是HTTP通信接口部分用SSL和TLS协议代替而已，通常HTTP直接和传输层的TCP协议通信，当使用了SSL后，HTTP先和SSL协议通信，SSL再和TCP协议">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://segmentfault.com/img/bV6eL9?w=700&h=251">
-<meta property="og:updated_time" content="2021-01-11T02:47:08.777Z">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/2AvJO8FgMWn3qYz.png">
+<meta property="og:updated_time" content="2021-01-11T03:10:29.586Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【HTTP基础】HTTPS原理及WebSocket原理">
 <meta name="twitter:description" content="由于HTTP没有加密机制，其传输的内容很容易泄漏，并且HTTP协议没法确认通信方，也无法保证接收到的报文在传输过程中是否被篡改，因此HTTPS是在HTTP协议的基础上提供了加密、认证和完整性保护的功能。HTTPS并非是应用层的一种新协议，只是HTTP通信接口部分用SSL和TLS协议代替而已，通常HTTP直接和传输层的TCP协议通信，当使用了SSL后，HTTP先和SSL协议通信，SSL再和TCP协议">
-<meta name="twitter:image" content="https://segmentfault.com/img/bV6eL9?w=700&h=251">
+<meta name="twitter:image" content="https://i.loli.net/2021/01/11/2AvJO8FgMWn3qYz.png">
 
 
 
@@ -376,7 +376,7 @@
                 
               
 
-              <time title="创建时间：2021-01-11 10:30:14 / 修改时间：10:47:08" itemprop="dateCreated datePublished" datetime="2021-01-11T10:30:14+08:00">2021-01-11</time>
+              <time title="创建时间：2021-01-11 10:30:14 / 修改时间：11:10:29" itemprop="dateCreated datePublished" datetime="2021-01-11T10:30:14+08:00">2021-01-11</time>
             
 
             
@@ -553,7 +553,8 @@ Sec-WebSocket-Accept: Oy4NRAQ13jhfONC7bP8dTKb4PTU=
 &lt;/html&gt;
 </code></pre>
 <p>webSocket.bufferAmount属性表示已在WebSocket上发送但尚未写入网络的字节数，一般用于调节发送速率。WebSocket API支持以二进制发送Blob和ArrayBuffer实例。当然也可以设置接收Blob和ArrayBuffer对象。</p>
-<h3 id="Nodejs中的webSocket"><a href="#Nodejs中的webSocket" class="headerlink" title="Nodejs中的webSocket"></a>Nodejs中的webSocket</h3><p>webSocket的数据帧格式为以下部分：<br><img src="https://segmentfault.com/img/bV6eL9?w=700&amp;h=251" alt="图片描述"><br>FIN：1位，表示是否结束, 1:结束<br>RSV[1-3]：用于协商扩展<br>opcode: 4位，0，1，2属于数据帧，8，9，10属于控制帧<br>mask:掩码，0表示不使用亚掩码，一般服务器回消息不会使用掩码，接收消息需要掩码<br>payloadLen 0-125 直接表示 数据长度</p>
+<h3 id="Nodejs中的webSocket"><a href="#Nodejs中的webSocket" class="headerlink" title="Nodejs中的webSocket"></a>Nodejs中的webSocket</h3><p>webSocket的数据帧格式为以下部分：</p>
+<p><img src="https://i.loli.net/2021/01/11/2AvJO8FgMWn3qYz.png" alt="图片描述"><br>FIN：1位，表示是否结束, 1:结束<br>RSV[1-3]：用于协商扩展<br>opcode: 4位，0，1，2属于数据帧，8，9，10属于控制帧<br>mask:掩码，0表示不使用亚掩码，一般服务器回消息不会使用掩码，接收消息需要掩码<br>payloadLen 0-125 直接表示 数据长度</p>
 <pre><code>        126，后面16位对应数据长度
         127，后面64位对应数据长度
 </code></pre><p>masking-key：如果mask为1，后面32位作为masking-key，mask为0，则缺省<br>payload Data: 负载的数据<br>其连接的代码为：</p>
