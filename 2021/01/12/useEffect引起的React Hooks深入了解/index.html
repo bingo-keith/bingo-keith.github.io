@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,15 +30,11 @@
 
 
 
-  <meta name="google-site-verification" content="true">
 
 
 
 
 
-
-
-  <meta name="baidu-site-verification" content="true">
 
 
 
@@ -76,7 +72,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Muse',
     version: '7.0.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
@@ -104,11 +100,11 @@
 <meta name="keywords" content="JavaScript react hooks 函数式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="useEffect引起的React Hooks深入了解">
-<meta property="og:url" content="http://www.icrazyman.cn/2020/01/12/useEffect引起的React Hooks深入了解/index.html">
+<meta property="og:url" content="http://www.icrazyman.cn/2021/01/12/useEffect引起的React Hooks深入了解/index.html">
 <meta property="og:site_name" content="科瑞兹曼的博客">
 <meta property="og:description" content="前言 参考文章 react源码，useEffect 完整指南，呕心沥血，一文看懂 react hooks，react官网  在进入正式阅读之前，最好先思考一下下面的问题：  React Hooks真的有生命周期吗？ React Hooks的函数里面定义的函数或者变量会被缓存吗，这样下次再调用组件的时候就可以不用重新声明了。 为什么我的useEffect有时候拿到了之前的值。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-12T08:50:17.612Z">
+<meta property="og:updated_time" content="2021-01-12T08:57:46.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="useEffect引起的React Hooks深入了解">
 <meta name="twitter:description" content="前言 参考文章 react源码，useEffect 完整指南，呕心沥血，一文看懂 react hooks，react官网  在进入正式阅读之前，最好先思考一下下面的问题：  React Hooks真的有生命周期吗？ React Hooks的函数里面定义的函数或者变量会被缓存吗，这样下次再调用组件的时候就可以不用重新声明了。 为什么我的useEffect有时候拿到了之前的值。">
@@ -120,7 +116,7 @@
 
 
 
-  <link rel="canonical" href="http://www.icrazyman.cn/2020/01/12/useEffect引起的React Hooks深入了解/">
+  <link rel="canonical" href="http://www.icrazyman.cn/2021/01/12/useEffect引起的React Hooks深入了解/">
 
 
 
@@ -170,20 +166,7 @@
 </noscript>
 
 </head>
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
@@ -250,23 +233,6 @@
         
         
           
-          <li class="menu-item menu-item-tags">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
-
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-archives">
 
     
@@ -285,6 +251,9 @@
       
     </ul>
   
+
+  
+    
 
   
 
@@ -307,9 +276,6 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-            
-
-          
           <div id="content" class="content">
             
 
@@ -320,18 +286,16 @@
 
   
   
-    
-  
   
 
   
 
-  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2020/01/12/useEffect引起的React Hooks深入了解/">
+    <link itemprop="mainEntityOfPage" href="http://www.icrazyman.cn/2021/01/12/useEffect引起的React Hooks深入了解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="科瑞兹曼">
@@ -374,24 +338,12 @@
                 
               
 
-              <time title="创建时间：2020-01-12 16:50:51" itemprop="dateCreated datePublished" datetime="2020-01-12T16:50:51+08:00">2020-01-12</time>
+              <time title="创建时间：2021-01-12 16:50:51 / 修改时间：16:57:46" itemprop="dateCreated datePublished" datetime="2021-01-12T16:50:51+08:00">2021-01-12</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-01-12 16:50:17" itemprop="dateModified" datetime="2021-01-12T16:50:17+08:00">2021-01-12</time>
               
             
           </span>
@@ -401,42 +353,9 @@
           
             
             
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2020/01/12/useEffect引起的React Hooks深入了解/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/01/12/useEffect引起的React Hooks深入了解/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
-          
-            <span id="/2020/01/12/useEffect引起的React Hooks深入了解/" class="leancloud_visitors" data-flag-title="useEffect引起的React Hooks深入了解">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
           
 
           
@@ -665,8 +584,8 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/26/「译」编写更好的 JavaScript 条件式和匹配条件的技巧/" rel="next" title="「译」编写更好的 JavaScript 条件式和匹配条件的技巧">
-                <i class="fa fa-chevron-left"></i> 「译」编写更好的 JavaScript 条件式和匹配条件的技巧
+              <a href="/2021/01/11/【HTTP基础】HTTPS原理及WebSocket原理/" rel="next" title="【HTTP基础】HTTPS原理及WebSocket原理">
+                <i class="fa fa-chevron-left"></i> 【HTTP基础】HTTPS原理及WebSocket原理
               </a>
             
           </div>
@@ -674,10 +593,6 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/03/16/代码质量提升的思考与实践/" rel="prev" title="前端代码质量的思考与实践">
-                前端代码质量的思考与实践 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -698,10 +613,6 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-    </div>
 
   
 
@@ -763,7 +674,7 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/about/index.html">
+                  <a href="/categories/index.html">
                     
                     
                       
@@ -1005,40 +916,20 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
 </div>
 
 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
-    </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
-    <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
-    </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
-</div>
-
 
 
 
@@ -1121,9 +1012,7 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
   
 
 
-  <script src="/js/src/affix.js?v=7.0.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
 
 
 
@@ -1141,35 +1030,6 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
 
 
   
-  
-
-<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
-
-
-
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-<script>
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#comments',
-    verify: true,
-    notify: true,
-    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
-    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
-    placeholder: '我来说两句',
-    avatar: 'mm',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: true
-  });
-</script>
-
-
 
 
   
@@ -1189,21 +1049,6 @@ useEffect(updateTitle)     // 🔴 3 （之前为 4）。替换更新标题的 e
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
-      }
-      else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-      }
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 
