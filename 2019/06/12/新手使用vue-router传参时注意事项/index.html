@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,15 +30,11 @@
 
 
 
-  <meta name="google-site-verification" content="true">
 
 
 
 
 
-
-
-  <meta name="baidu-site-verification" content="true">
 
 
 
@@ -76,7 +72,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Muse',
     version: '7.0.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
@@ -108,16 +104,15 @@
 <meta property="og:site_name" content="科瑞兹曼的博客">
 <meta property="og:description" content="新手使用vue-router传参时注意事项vue-router里路由传参推荐用path和query的组合，或者是name和params的组合。其中name+params传参在刷新页面后路由参数会丢失，可以在路由配置时把参数配在url上，path+query的传参刷新页面后不会丢失，但是传参会拼接到url后，有长度的限制。具体用哪一种传参方式取决于业务的需要和实际的应用场景。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="c:/Users/Administrator/Desktop/1.png">
-<meta property="og:image" content="https://segmentfault.com/img/bVbtyj2?w=1414&h=1022">
-<meta property="og:image" content="https://segmentfault.com/img/bVbtyon?w=1290&h=1016">
-<meta property="og:image" content="https://segmentfault.com/img/bVbtyoo?w=1006&h=1050">
-<meta property="og:image" content="https://segmentfault.com/img/bVbtyqO?w=1150&h=1046">
-<meta property="og:updated_time" content="2019-06-18T11:22:41.168Z">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/mAXipSQHL8gsvJl.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/vzsmtpFRihWk4Vd.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/cvyWGVn2UJICtLe.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/M9nGWtrxAuq27IE.png">
+<meta property="og:updated_time" content="2021-01-11T06:23:03.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="新手使用vue-router传参时注意事项">
 <meta name="twitter:description" content="新手使用vue-router传参时注意事项vue-router里路由传参推荐用path和query的组合，或者是name和params的组合。其中name+params传参在刷新页面后路由参数会丢失，可以在路由配置时把参数配在url上，path+query的传参刷新页面后不会丢失，但是传参会拼接到url后，有长度的限制。具体用哪一种传参方式取决于业务的需要和实际的应用场景。">
-<meta name="twitter:image" content="c:/Users/Administrator/Desktop/1.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/01/11/mAXipSQHL8gsvJl.png">
 
 
 
@@ -176,20 +171,7 @@
 </noscript>
 
 </head>
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
@@ -256,23 +238,6 @@
         
         
           
-          <li class="menu-item menu-item-tags">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
-
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-archives">
 
     
@@ -291,6 +256,9 @@
       
     </ul>
   
+
+  
+    
 
   
 
@@ -313,9 +281,6 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-            
-
-          
           <div id="content" class="content">
             
 
@@ -326,13 +291,11 @@
 
   
   
-    
-  
   
 
   
 
-  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -397,7 +360,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-06-18 19:22:41" itemprop="dateModified" datetime="2019-06-18T19:22:41+08:00">2019-06-18</time>
+                <time title="修改时间：2021-01-11 14:23:03" itemprop="dateModified" datetime="2021-01-11T14:23:03+08:00">2021-01-11</time>
               
             
           </span>
@@ -407,42 +370,9 @@
           
             
             
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2019/06/12/新手使用vue-router传参时注意事项/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2019/06/12/新手使用vue-router传参时注意事项/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
-          
-            <span id="/2019/06/12/新手使用vue-router传参时注意事项/" class="leancloud_visitors" data-flag-title="新手使用vue-router传参时注意事项">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
           
 
           
@@ -488,17 +418,16 @@ export default new Router({
 </code></pre>
 <h2 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h2><pre><code class="javascript">this.$route.params.id // 233
 </code></pre>
-<p><img src="C:\Users\Administrator\Desktop\1.png" alt="1"></p>
 <h2 id="刷新参数丢失-显示-undefined"><a href="#刷新参数丢失-显示-undefined" class="headerlink" title="刷新参数丢失 显示 undefined"></a>刷新参数丢失 显示 undefined</h2><pre><code class="javascript">this.$route.params.id // undefined
 </code></pre>
-<p><img src="https://segmentfault.com/img/bVbtyj2?w=1414&amp;h=1022" alt="图片"></p>
+<p><img src="https://i.loli.net/2021/01/11/mAXipSQHL8gsvJl.png" alt="图片"></p>
 <p>注意：此方法第一次跳转是没有问题的，参数也可以传过去，但是刷新页面后，参数就没了 (ps: 这个地方其实还有一个问题，当你传递的参数是number类型，第一次是没有问题的，获取的时候也是number类型，但是当你刷新页面后，number变成string类型，如果涉及计算的建议先类型转换一下)</p>
 <p>第一次是预期结果 // 234</p>
 <pre><code class="javascript">console.log(this.$route.params.id + 1)
 </code></pre>
-<p><img src="https://segmentfault.com/img/bVbtyon?w=1290&amp;h=1016" alt></p>
+<p><img src="https://i.loli.net/2021/01/11/vzsmtpFRihWk4Vd.png" alt></p>
 <p>刷新页面后直接字符串拼接了 // 2331</p>
-<p><img src="https://segmentfault.com/img/bVbtyoo?w=1006&amp;h=1050" alt></p>
+<p><img src="https://i.loli.net/2021/01/11/cvyWGVn2UJICtLe.png" alt></p>
 <h2 id="参数丢失解决方案"><a href="#参数丢失解决方案" class="headerlink" title="参数丢失解决方案"></a>参数丢失解决方案</h2><pre><code class="javascript">routes: [
     {
         path: &#39;/details/:id&#39;, // 这里配置的要和你传递的参数名保持一致
@@ -510,7 +439,7 @@ export default new Router({
 <h1 id="path和query组合传参"><a href="#path和query组合传参" class="headerlink" title="path和query组合传参"></a>path和query组合传参</h1><pre><code class="javascript">this.$router.push({path: &#39;/details&#39;, query: {id: 666}})
 this.$route.query.id // 666
 </code></pre>
-<p><img src="https://segmentfault.com/img/bVbtyqO?w=1150&amp;h=1046" alt></p>
+<p><img src="https://i.loli.net/2021/01/11/M9nGWtrxAuq27IE.png" alt></p>
 <p>此方法参数会跟在问号后面 例如：/details?id=666，该方法刷新页面不会丢失参数</p>
 <p>最后：根据自己的项目选择合适的传参方式</p>
 
@@ -584,10 +513,6 @@ this.$route.query.id // 666
           
 
   
-    <div class="comments" id="comments">
-    </div>
-
-  
 
 
 
@@ -635,7 +560,7 @@ this.$route.query.id // 666
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -647,7 +572,7 @@ this.$route.query.id // 666
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/about/index.html">
+                  <a href="/categories/index.html">
                     
                     
                       
@@ -784,7 +709,11 @@ this.$route.query.id // 666
                     
                       
                     
-                    <span class="site-state-item-count">67</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -873,7 +802,7 @@ this.$route.query.id // 666
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -885,40 +814,20 @@ this.$route.query.id // 666
 </div>
 
 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
-    </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
-    <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
-    </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
-</div>
-
 
 
 
@@ -1001,9 +910,7 @@ this.$route.query.id // 666
   
 
 
-  <script src="/js/src/affix.js?v=7.0.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
 
 
 
@@ -1021,35 +928,6 @@ this.$route.query.id // 666
 
 
   
-  
-
-<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
-
-
-
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-<script>
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#comments',
-    verify: true,
-    notify: true,
-    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
-    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
-    placeholder: '我来说两句',
-    avatar: 'mm',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: true
-  });
-</script>
-
-
 
 
   
@@ -1069,21 +947,6 @@ this.$route.query.id // 666
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
-      }
-      else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-      }
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

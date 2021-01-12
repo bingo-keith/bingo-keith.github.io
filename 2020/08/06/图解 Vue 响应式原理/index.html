@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,15 +30,11 @@
 
 
 
-  <meta name="google-site-verification" content="true">
 
 
 
 
 
-
-
-  <meta name="baidu-site-verification" content="true">
 
 
 
@@ -76,7 +72,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Muse',
     version: '7.0.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
@@ -108,20 +104,20 @@
 <meta property="og:site_name" content="科瑞兹曼的博客">
 <meta property="og:description" content="最近部门分享，有同学提到了 Vue 响应式原理，大家在讨论时，发现一些同学对这一知识理解还不够深入，不能形成一个闭环，为了帮助大家理解这个问题，我重新过了一下 Vue 源码，并整理了多张流程图，便于大家理解。  Vue 初始化 模板渲染 组件渲染   本文 Vue 源码版本：2.6.11，为了便于理解，均有所删减。  本文将从以下两个方面进行探索：  从 Vue 初始化，到首次渲染生成 DOM">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/r5r.jW0JZFmFKdRYe5qoxh5HQWOvBBxH5mSi8VntoCiJXmU47uqnC7mbaf7pX4G9UhLkz2DhcDXESEVa7Lxhld2nIYNjl2mwb.92WD5OsE0!/b&bo=RQOAAUUDgAEDCSw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1Kntkti3VUUBcWgqEp66.TIg*LIsIl5KRp*Gn6ThshprhRUgAMQvVx5ZMYiafSqjpTha3qMVVFtWVqjQF5M5LNXnac!/b&bo=wgJRAcICUQEDGTw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntrRkKEBoZiO31D7u5kacc2r1tqvgH4TD198FEaiVZVG7jM.Px7hmSwJShq8MfJAQUxFZEX.zsERhbQenW0FPdgA!/b&bo=4wJdAeMCXQEDGTw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntkVkfhTmbq1sfzEMJVG1pWRR5cdesB3FkY2X6g3pZ.XXYVlSXae7Cyjl1I7pM0BSG2xbYx75ASIe6U.PK0oFdQo!/b&bo=cAPVAXAD1QEDGTw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntrCQDlFKxeh5YPod0702yedqvGPeVeo*bH50wVt8TZ71LLWYjvC.oFOXZGGjs.puZZsFxa6IR9yZxrInsi3twVQ!/b&bo=AwO7AQMDuwEDGTw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntpNNi.XgkHoubvtgEquc1Deo97*v5lpHiKRf.aP4ldNTYyX3rS2wT.1nRMR*3Z5DupLn2WBXSN2M*pyKnl43QYI!/b&bo=hwMLAocDCwIDGTw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntiGxZ9p*6dw2qfZPiQncuubE8EJ67HoYDhCRmbgqrXIbEXJ2Sfv1hJU*agfPcRCgMsmEWT.KXU3Sl.KL1GldmcI!/b&bo=ZwMQAmcDEAIDGTw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntuKcMnsQ3kmY5bOYwvC7.7aT08nRmrqQMMWz020JYGQ81u5mxsxBdWauLQn3IJN3X9wjiVvtCOnWNaAh4j*fLTw!/b&bo=IQMnAiEDJwIDGTw!&rf=viewer_4">
-<meta property="og:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntlTDI19a0hcIKwcYBXZIMrqzC*8Qpq.7VL*Kn*JGPg5w3qFcCsyM53tlrOqnV.Lz*4RWvbiQapJuMNFjEMflejU!/b&bo=dQMZAnUDGQIDGTw!&rf=viewer_4">
-<meta property="og:updated_time" content="2020-08-06T09:11:38.332Z">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/49KdpFaOBTHmGuX.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/xGwDBUTZri13C4d.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/a9cI5fHDEgQ3t2w.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/T4VZberJnC2zG78.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/WVOeow1XDBIjH6d.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/S4FLiUV1YoKs9Jp.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/PFcKShgqH5x3kWT.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/WGcHyvUJTqDYEba.png">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/sud8jT57Aay4vOU.png">
+<meta property="og:updated_time" content="2021-01-11T03:21:07.857Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解 Vue 响应式原理">
 <meta name="twitter:description" content="最近部门分享，有同学提到了 Vue 响应式原理，大家在讨论时，发现一些同学对这一知识理解还不够深入，不能形成一个闭环，为了帮助大家理解这个问题，我重新过了一下 Vue 源码，并整理了多张流程图，便于大家理解。  Vue 初始化 模板渲染 组件渲染   本文 Vue 源码版本：2.6.11，为了便于理解，均有所删减。  本文将从以下两个方面进行探索：  从 Vue 初始化，到首次渲染生成 DOM">
-<meta name="twitter:image" content="http://m.qpic.cn/psc?/V113wYm11CpCjy/r5r.jW0JZFmFKdRYe5qoxh5HQWOvBBxH5mSi8VntoCiJXmU47uqnC7mbaf7pX4G9UhLkz2DhcDXESEVa7Lxhld2nIYNjl2mwb.92WD5OsE0!/b&bo=RQOAAUUDgAEDCSw!&rf=viewer_4">
+<meta name="twitter:image" content="https://i.loli.net/2021/01/11/49KdpFaOBTHmGuX.png">
 
 
 
@@ -180,20 +176,7 @@
 </noscript>
 
 </head>
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
@@ -260,23 +243,6 @@
         
         
           
-          <li class="menu-item menu-item-tags">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
-
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-archives">
 
     
@@ -295,6 +261,9 @@
       
     </ul>
   
+
+  
+    
 
   
 
@@ -317,9 +286,6 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-            
-
-          
           <div id="content" class="content">
             
 
@@ -330,13 +296,11 @@
 
   
   
-    
-  
   
 
   
 
-  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -384,12 +348,24 @@
                 
               
 
-              <time title="创建时间：2020-08-06 16:30:29 / 修改时间：17:11:38" itemprop="dateCreated datePublished" datetime="2020-08-06T16:30:29+08:00">2020-08-06</time>
+              <time title="创建时间：2020-08-06 16:30:29" itemprop="dateCreated datePublished" datetime="2020-08-06T16:30:29+08:00">2020-08-06</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-01-11 11:21:07" itemprop="dateModified" datetime="2021-01-11T11:21:07+08:00">2021-01-11</time>
               
             
           </span>
@@ -399,42 +375,9 @@
           
             
             
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2020/08/06/图解 Vue 响应式原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/06/图解 Vue 响应式原理/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
-          
-            <span id="/2020/08/06/图解 Vue 响应式原理/" class="leancloud_visitors" data-flag-title="图解 Vue 响应式原理">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
           
 
           
@@ -527,7 +470,7 @@ function defineReactive(obj, key, val) {
   });
 }
 </code></pre><p>数据描述符绑定完成后，我们就能得到以下的流程图：</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/r5r.jW0JZFmFKdRYe5qoxh5HQWOvBBxH5mSi8VntoCiJXmU47uqnC7mbaf7pX4G9UhLkz2DhcDXESEVa7Lxhld2nIYNjl2mwb.92WD5OsE0!/b&amp;bo=RQOAAUUDgAEDCSw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/49KdpFaOBTHmGuX.png" alt="img"></p>
 <p>图中我们可以看到，Vue 初始化时，进行了数据的 get、set 绑定，并创建了一个 Dep 对象。</p>
 <p>对于数据的 get、set 绑定我们并不陌生，但是 Dep 对象什么呢？</p>
 <p>Dep 对象用于依赖收集，它实现了一个发布订阅模式，完成了数据 Data 和渲染视图 Watcher 的订阅，我们一起来剖析一下。</p>
@@ -558,7 +501,7 @@ function defineReactive(obj, key, val) {
   }
 }
 </code></pre><p>根据对 Dep 的源码分析，我们得到了下面这张逻辑图：</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1Kntkti3VUUBcWgqEp66.TIg*LIsIl5KRp*Gn6ThshprhRUgAMQvVx5ZMYiafSqjpTha3qMVVFtWVqjQF5M5LNXnac!/b&amp;bo=wgJRAcICUQEDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/xGwDBUTZri13C4d.png" alt="img"></p>
 <p>了解 Data 和 Dep 之后，我们来继续揭开 Watcher 的面纱。</p>
 <pre><code>class Watcher {
   constructor(vm: Component, expOrFn: string | Function) {
@@ -589,10 +532,10 @@ function defineReactive(obj, key, val) {
   }
 }
 </code></pre><p>源码中我们看到，Watcher 实现了渲染方法 <code>_render</code> 和 Dep 的关联， 初始化 Watcher 的时候，打上 Dep.target 标识，然后调用 get 方法进行页面渲染。加上上文的 Data，目前 Data、Dep、Watcher 三者的关系如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntrRkKEBoZiO31D7u5kacc2r1tqvgH4TD198FEaiVZVG7jM.Px7hmSwJShq8MfJAQUxFZEX.zsERhbQenW0FPdgA!/b&amp;bo=4wJdAeMCXQEDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/a9cI5fHDEgQ3t2w.png" alt="img"></p>
 <p>我们再拉通串一下整个流程：Vue 通过 <code>defineProperty</code> 完成了 Data 中所有数据的代理，当数据触发 get 查询时，会将当前的 Watcher 对象加入到依赖收集池 Dep 中，当数据 Data 变化时，会触发 set 通知所有使用到这个 Data 的 Watcher 对象去 update 视图。</p>
 <p>目前的整体流程如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntkVkfhTmbq1sfzEMJVG1pWRR5cdesB3FkY2X6g3pZ.XXYVlSXae7Cyjl1I7pM0BSG2xbYx75ASIe6U.PK0oFdQo!/b&amp;bo=cAPVAXAD1QEDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/T4VZberJnC2zG78.png" alt="img"></p>
 <p>上图的流程中 Data 和 Dep 都是 Vue 初始化时创建的，但现在我们并不知道 Wacher 是从哪里创建的，带着这个问题，我们接着往下探索。</p>
 <h2 id="模板渲染"><a href="#模板渲染" class="headerlink" title="模板渲染"></a>模板渲染</h2><p>上文中，我们分析了初始化 Vue 过程中处理数据的部分，接下来，我们分析一下数据渲染的部分。</p>
 <p>其实 new Vue 执行到最后，会调用 mount 方法，将 Vue 实例渲染成 dom 。</p>
@@ -634,14 +577,14 @@ Vue.prototype._update = function (vnode: VNode) {
 };
 // 12. vm.__patch__ 方法就是做的 dom diff 比较，然后更新 dom，这里就不展开了。
 </code></pre><p>看完 Vue 模板渲染的过程，我们可以得到如下的流程图：</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntrCQDlFKxeh5YPod0702yedqvGPeVeo*bH50wVt8TZ71LLWYjvC.oFOXZGGjs.puZZsFxa6IR9yZxrInsi3twVQ!/b&amp;bo=AwO7AQMDuwEDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/WVOeow1XDBIjH6d.png" alt="img"></p>
 <p>到这里，我们就知道了 Watcher 其实是在 Vue 初始化的阶段创建的，属于生命周期中 beforeMount 的位置创建的，创建 Watcher 时会执行 render 方法，最终将 Vue 代码渲染成真实的 DOM。</p>
 <p>我们再将之前的流程整合一下，就能得到以下的流程：</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntpNNi.XgkHoubvtgEquc1Deo97*v5lpHiKRf.aP4ldNTYyX3rS2wT.1nRMR*3Z5DupLn2WBXSN2M*pyKnl43QYI!/b&amp;bo=hwMLAocDCwIDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/S4FLiUV1YoKs9Jp.png" alt="img"></p>
 <p>上图分析了 Vue 初始化到渲染 DOM 的整个过程，最后我们再分析一下，当数据变化时，Vue 又是怎么进行更新的？</p>
 <p>其实，在上图也能看出，在 Data 变化时，会调用 Dep.notify 方法，随即调用 Watcher 内部的 update 方法，此方法会将所有使用到这个 Data 的 Watcher 加入一个队列，并开启一个异步队列进行更新，最终执行 <code>_render</code> 方法完成页面更新。</p>
 <p>整体的流程如下：</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntiGxZ9p*6dw2qfZPiQncuubE8EJ67HoYDhCRmbgqrXIbEXJ2Sfv1hJU*agfPcRCgMsmEWT.KXU3Sl.KL1GldmcI!/b&amp;bo=ZwMQAmcDEAIDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/PFcKShgqH5x3kWT.png" alt="img"></p>
 <p>好了，探索到这里，Vue 的响应式原理，已经被我们分析透彻了，如果你还没有明白，不妨再细品一下上图。</p>
 <h2 id="组件渲染"><a href="#组件渲染" class="headerlink" title="组件渲染"></a>组件渲染</h2><p>本来探索到上面的流程图就结束了，但好奇的我又想到了一个问题 😂。</p>
 <blockquote>
@@ -688,11 +631,11 @@ Vue.extend = function (extendOptions: Object): Function {
   return Sub;
 };
 </code></pre><p>看完组件渲染的源码后，结合上文，重新整理了一张流程图，图中的蓝色部分就是渲染组件的过程。</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntuKcMnsQ3kmY5bOYwvC7.7aT08nRmrqQMMWz020JYGQ81u5mxsxBdWauLQn3IJN3X9wjiVvtCOnWNaAh4j*fLTw!/b&amp;bo=IQMnAiEDJwIDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/WGcHyvUJTqDYEba.png" alt="img"></p>
 <p>好了，现在是真的结束了，最终的流程图就是上面的这一张图。</p>
 <p>问个问题，现在你理解 Vue 响应式原理了吗？</p>
 <p>如果仍觉得不好理解，我这里还准备了一张带标注的简图 😂</p>
-<p><img src="http://m.qpic.cn/psc?/V113wYm11CpCjy/heyUv10nwEJXJa0yD1KntlTDI19a0hcIKwcYBXZIMrqzC*8Qpq.7VL*Kn*JGPg5w3qFcCsyM53tlrOqnV.Lz*4RWvbiQapJuMNFjEMflejU!/b&amp;bo=dQMZAnUDGQIDGTw!&amp;rf=viewer_4" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/sud8jT57Aay4vOU.png" alt="img"></p>
 <h2 id="思考与总结"><a href="#思考与总结" class="headerlink" title="思考与总结"></a>思考与总结</h2><p>本文从源码的角度，介绍了 Vue 响应式原理，来简单回顾一下吧。</p>
 <ol>
 <li>从 new Vue 开始，首先通过 get、set 监听 Data 中的数据变化，同时创建 Dep 用来搜集使用该 Data 的 Watcher。</li>
@@ -771,10 +714,6 @@ Vue.extend = function (extendOptions: Object): Function {
           
 
   
-    <div class="comments" id="comments">
-    </div>
-
-  
 
 
 
@@ -822,7 +761,7 @@ Vue.extend = function (extendOptions: Object): Function {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -834,7 +773,7 @@ Vue.extend = function (extendOptions: Object): Function {
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/about/index.html">
+                  <a href="/categories/index.html">
                     
                     
                       
@@ -971,7 +910,11 @@ Vue.extend = function (extendOptions: Object): Function {
                     
                       
                     
-                    <span class="site-state-item-count">67</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1060,7 +1003,7 @@ Vue.extend = function (extendOptions: Object): Function {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1072,40 +1015,20 @@ Vue.extend = function (extendOptions: Object): Function {
 </div>
 
 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
-    </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
-    <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
-    </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
-</div>
-
 
 
 
@@ -1188,9 +1111,7 @@ Vue.extend = function (extendOptions: Object): Function {
   
 
 
-  <script src="/js/src/affix.js?v=7.0.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
 
 
 
@@ -1208,35 +1129,6 @@ Vue.extend = function (extendOptions: Object): Function {
 
 
   
-  
-
-<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
-
-
-
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-<script>
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#comments',
-    verify: true,
-    notify: true,
-    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
-    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
-    placeholder: '我来说两句',
-    avatar: 'mm',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: true
-  });
-</script>
-
-
 
 
   
@@ -1256,21 +1148,6 @@ Vue.extend = function (extendOptions: Object): Function {
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
-      }
-      else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-      }
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

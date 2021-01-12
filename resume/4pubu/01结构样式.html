@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            float: left;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <!--(.box>img[src="images/P_00$.jpg"])*9-->
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+</div>
+<script>
+    //第一行是通过左浮动 自然摆放
+    //后面是通过JS计算 高度最小的那一行 然后把图片放到那个位置
+    window.onload = function () {
+        var container = document.getElementById("container");
+        var boxes = container.children;
+        var boxWidth = boxes[0].offsetWidth;
+        var pageWidth = window.innerWidth;
+        var column = Math.floor(pageWidth / boxWidth);
+        console.log(pageWidth);
+        console.log(boxWidth);
+        console.log(column);
+        var newArr = [];
+        function waterfall() {
+            for (var i = 0; i < boxes.length; i++) {
+                if (i < column) {
+                    newArr[i] = boxes[i].offsetHeight;
+                } else {
+                    var minHeight = getMin(newArr).value;
+                    var minHeightIndex = getMin(newArr).index;
+                    boxes[i].style.position = "absolute";
+                    boxes[i].style.top = minHeight + "px";
+                    boxes[i].style.left = boxes[minHeightIndex].offsetLeft + "px";
+                    newArr[minHeightIndex] = minHeight + boxes[i].offsetHeight;
+                }
+            }
+        }
+        waterfall();
+        window.onscroll = function () {
+            if (bottomed()) {
+                var json = [
+                    {"src": "images/P_000.jpg"},
+                    {"src": "images/P_001.jpg"},
+                    {"src": "images/P_002.jpg"},
+                    {"src": "images/P_003.jpg"},
+                    {"src": "images/P_004.jpg"},
+                    {"src": "images/P_005.jpg"},
+                    {"src": "images/P_006.jpg"},
+                    {"src": "images/P_007.jpg"},
+                    {"src": "images/P_008.jpg"},
+                    {"src": "images/P_009.jpg"},
+                ];
+                for (var i = 0; i < json.length; i++) {
+                    var div = document.createElement("div");
+                    div.className = "box";
+                    container.appendChild(div);
+                    var img = document.createElement("img");
+                    img.src = json[i].src;
+                    div.appendChild(img);
+                    waterfall();
+                }
+            }
+        }
+        function bottomed() {
+            var clientHeight = window.innerHeight;
+            var scrollTop = window.pageYOffset;
+            var lastBox = boxes[boxes.length - 1];
+            var lastBoxTop = lastBox.offsetTop;
+            if (clientHeight + scrollTop > lastBoxTop) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    /*function getMin(arr) {
+        var min = {};
+        min.index = 0;//最小值的索引
+        min.value = arr[min.index];//最小值的值
+        //遍历数组一个一个比较
+        for (var i = 0; i < arr.length; i++) {
+            if (min.value > arr[i]) {
+                min.value = arr[i];
+                min.index = i;
+            }
+        }
+        return min;
+    }*/
+    function getMin(arr) {
+        var min = {};
+        min.index = 0;//最小值的索引
+        min.value = arr[min.index];//最小值的值
+        //遍历数组一个一个比较
+        for (var i = 0; i < arr.length; i++) {
+            if (min.value > arr[i]) {
+                min.value = arr[i];
+                min.index = i;
+            }
+        }
+        return min;
+    }
+</script>
+</body>
+</html>

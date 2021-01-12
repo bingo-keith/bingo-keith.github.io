@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,15 +30,11 @@
 
 
 
-  <meta name="google-site-verification" content="true">
 
 
 
 
 
-
-
-  <meta name="baidu-site-verification" content="true">
 
 
 
@@ -76,7 +72,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Muse',
     version: '7.0.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
@@ -108,12 +104,12 @@
 <meta property="og:site_name" content="科瑞兹曼的博客">
 <meta property="og:description" content="先放个测试题，压压惊   const interval = setInterval(()=&amp;gt;{   console.log(&amp;#39;setInterval&amp;#39;); },0);  setTimeout(()=&amp;gt;{   console.log(&amp;#39;setTimeout 1&amp;#39;);   Promise.resolve()     .then(()=&amp;gt;{">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.imgur.com/Vvg8kzp.png">
-<meta property="og:updated_time" content="2019-02-14T13:53:14.015Z">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/XhrE7PtlaZGpVd3.jpg">
+<meta property="og:updated_time" content="2021-01-11T06:28:48.518Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js 事件循环（Event Loop）机制">
 <meta name="twitter:description" content="先放个测试题，压压惊   const interval = setInterval(()=&amp;gt;{   console.log(&amp;#39;setInterval&amp;#39;); },0);  setTimeout(()=&amp;gt;{   console.log(&amp;#39;setTimeout 1&amp;#39;);   Promise.resolve()     .then(()=&amp;gt;{">
-<meta name="twitter:image" content="https://i.imgur.com/Vvg8kzp.png">
+<meta name="twitter:image" content="https://i.loli.net/2021/01/11/XhrE7PtlaZGpVd3.jpg">
 
 
 
@@ -172,20 +168,7 @@
 </noscript>
 
 </head>
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
@@ -252,23 +235,6 @@
         
         
           
-          <li class="menu-item menu-item-tags">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
-
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-archives">
 
     
@@ -287,6 +253,9 @@
       
     </ul>
   
+
+  
+    
 
   
 
@@ -309,9 +278,6 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-            
-
-          
           <div id="content" class="content">
             
 
@@ -322,13 +288,11 @@
 
   
   
-    
-  
   
 
   
 
-  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -393,7 +357,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-14 21:53:14" itemprop="dateModified" datetime="2019-02-14T21:53:14+08:00">2019-02-14</time>
+                <time title="修改时间：2021-01-11 14:28:48" itemprop="dateModified" datetime="2021-01-11T14:28:48+08:00">2021-01-11</time>
               
             
           </span>
@@ -403,42 +367,9 @@
           
             
             
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2018/12/22/js 事件循环（Event Loop）机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/12/22/js 事件循环（Event Loop）机制/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
-          
-            <span id="/2018/12/22/js 事件循环（Event Loop）机制/" class="leancloud_visitors" data-flag-title="js 事件循环（Event Loop）机制">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
           
 
           
@@ -536,7 +467,7 @@ while (true){
   }
 </code></pre><p>这当然是一段极度简化的伪代码，只用来说明概念。不过它应该足以用来帮助大家有更好的理解。</p>
 <p>再贴张流程图</p>
-<p><img src="https://i.imgur.com/Vvg8kzp.png" alt="流程图"></p>
+<p><img src="https://i.loli.net/2021/01/11/XhrE7PtlaZGpVd3.jpg" alt="img"></p>
 <p>事件循环的具体步骤</p>
 <ol>
 <li><p>同步任务直接放入到主线程执行，异步任务（点击事件，定时器，ajax等）挂在后台执行，等待I/O事件完成或行为事件被触发。</p>
@@ -667,10 +598,6 @@ console.log(&#39;C&#39;+new Date());
           
 
   
-    <div class="comments" id="comments">
-    </div>
-
-  
 
 
 
@@ -718,7 +645,7 @@ console.log(&#39;C&#39;+new Date());
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -730,7 +657,7 @@ console.log(&#39;C&#39;+new Date());
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/about/index.html">
+                  <a href="/categories/index.html">
                     
                     
                       
@@ -867,7 +794,11 @@ console.log(&#39;C&#39;+new Date());
                     
                       
                     
-                    <span class="site-state-item-count">67</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -956,7 +887,7 @@ console.log(&#39;C&#39;+new Date());
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -968,40 +899,20 @@ console.log(&#39;C&#39;+new Date());
 </div>
 
 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
-    </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
-    <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
-    </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
-</div>
-
 
 
 
@@ -1084,9 +995,7 @@ console.log(&#39;C&#39;+new Date());
   
 
 
-  <script src="/js/src/affix.js?v=7.0.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
 
 
 
@@ -1104,35 +1013,6 @@ console.log(&#39;C&#39;+new Date());
 
 
   
-  
-
-<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
-
-
-
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-<script>
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#comments',
-    verify: true,
-    notify: true,
-    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
-    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
-    placeholder: '我来说两句',
-    avatar: 'mm',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: true
-  });
-</script>
-
-
 
 
   
@@ -1152,21 +1032,6 @@ console.log(&#39;C&#39;+new Date());
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
-      }
-      else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-      }
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

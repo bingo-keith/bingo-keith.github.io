@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="zh-CN">
+<html class="theme-next muse use-motion" lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -30,15 +30,11 @@
 
 
 
-  <meta name="google-site-verification" content="true">
 
 
 
 
 
-
-
-  <meta name="baidu-site-verification" content="true">
 
 
 
@@ -76,7 +72,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
+    scheme: 'Muse',
     version: '7.0.0',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: false,
@@ -108,17 +104,17 @@
 <meta property="og:site_name" content="科瑞兹曼的博客">
 <meta property="og:description" content="在 JavaScript 中，函数为一等公民（First Class），所谓的 “一等公民”，指的是函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或作为其它函数的返回值。  接下来阿宝哥将介绍与函数相关的一些技术，阅读完本文，你将了解高阶函数、函数组合、柯里化、偏函数、惰性函数和缓存函数的相关知识。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000038178117">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000038178118">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000038178120">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000038178119">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000037780781">
-<meta property="og:image" content="https://segmentfault.com/img/remote/1460000038178121">
-<meta property="og:updated_time" content="2020-12-02T13:48:12.900Z">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/XCID9RSUMHpf1gb.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/VqJ4xpiZL6tzITh.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/nkDmPMZKs8RrbBj.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/1l9vUHITjZEBoAM.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/JuqL1vnwhHXm7Of.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/01/11/vLcfQSoWJ1BpehD.jpg">
+<meta property="og:updated_time" content="2021-01-11T03:06:18.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="这些高阶的函数技术，你掌握了么">
 <meta name="twitter:description" content="在 JavaScript 中，函数为一等公民（First Class），所谓的 “一等公民”，指的是函数与其他数据类型一样，处于平等地位，可以赋值给其他变量，也可以作为参数，传入另一个函数，或作为其它函数的返回值。  接下来阿宝哥将介绍与函数相关的一些技术，阅读完本文，你将了解高阶函数、函数组合、柯里化、偏函数、惰性函数和缓存函数的相关知识。">
-<meta name="twitter:image" content="https://segmentfault.com/img/remote/1460000038178117">
+<meta name="twitter:image" content="https://i.loli.net/2021/01/11/XCID9RSUMHpf1gb.jpg">
 
 
 
@@ -177,20 +173,7 @@
 </noscript>
 
 </head>
-<script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
+
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
@@ -257,23 +240,6 @@
         
         
           
-          <li class="menu-item menu-item-tags">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
-
-  </li>
-        
-        
-        
-          
           <li class="menu-item menu-item-archives">
 
     
@@ -292,6 +258,9 @@
       
     </ul>
   
+
+  
+    
 
   
 
@@ -314,9 +283,6 @@
       <div class="main-inner">
         <div class="content-wrap">
           
-            
-
-          
           <div id="content" class="content">
             
 
@@ -327,13 +293,11 @@
 
   
   
-    
-  
   
 
   
 
-  <article class="post post-type-normal true" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -398,7 +362,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-12-02 21:48:12" itemprop="dateModified" datetime="2020-12-02T21:48:12+08:00">2020-12-02</time>
+                <time title="修改时间：2021-01-11 11:06:18" itemprop="dateModified" datetime="2021-01-11T11:06:18+08:00">2021-01-11</time>
               
             
           </span>
@@ -408,42 +372,9 @@
           
             
             
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">评论数：</span>
-                <a href="/2020/11/23/这些高阶的函数技术，你掌握了么/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/11/23/这些高阶的函数技术，你掌握了么/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
-          
-            <span id="/2020/11/23/这些高阶的函数技术，你掌握了么/" class="leancloud_visitors" data-flag-title="这些高阶的函数技术，你掌握了么">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              
-                <span class="post-meta-item-text">阅读次数：</span>
-              
-                <span class="leancloud-visitors-count"></span>
-            </span>
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="post-meta-item-icon">
-            <i class="fa fa-eye"></i>
-             阅读次数： 
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
-            </span>
           
 
           
@@ -466,7 +397,7 @@
 
       
         <p>在 JavaScript 中，函数为一等公民（First Class），所谓的 “一等公民”，指的是函数与其他数据类型一样，处于平等地位，<strong>可以赋值给其他变量，也可以作为参数，传入另一个函数，或作为其它函数的返回值</strong>。</p>
-<p><img src="https://segmentfault.com/img/remote/1460000038178117" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/XCID9RSUMHpf1gb.jpg" alt></p>
 <p>接下来阿宝哥将介绍与函数相关的一些技术，阅读完本文，你将了解高阶函数、函数组合、柯里化、偏函数、惰性函数和缓存函数的相关知识。</p>
 <a id="more"></a>
 <h3 id="一、高阶函数"><a href="#一、高阶函数" class="headerlink" title="一、高阶函数"></a>一、高阶函数</h3><p>在数学和计算机科学中，高阶函数是至少满足下列一个条件的函数：</p>
@@ -483,10 +414,7 @@ const map = array.map(x =&gt; x * 2); // [2, 4, 6, 8]
 const words = [&#39;semlinker&#39;, &#39;kakuqo&#39;, &#39;lolo&#39;, &#39;abao&#39;];
 const result = words.filter(word =&gt; word.length &gt; 5); // [&quot;semlinker&quot;, &quot;kakuqo&quot;]
 </code></pre><p>而输出一个函数，即调用高阶函数之后，会返回一个新的函数。我们日常工作中，常见的 <code>debounce</code> 和 <code>throttle</code> 函数就满足这个条件，因此它们也可以被称为高阶函数。</p>
-<p><img src="https://segmentfault.com/img/remote/1460000038178118" alt="img"></p>
-<blockquote>
-<p>关注「全栈修仙之路」阅读阿宝哥原创的 3 本免费电子书及 50 几篇 “重学TS” 教程。</p>
-</blockquote>
+<p><img src="https://i.loli.net/2021/01/11/VqJ4xpiZL6tzITh.jpg" alt="3293037746-a910317f8e79a938_articlex"></p>
 <h3 id="二、函数组合"><a href="#二、函数组合" class="headerlink" title="二、函数组合"></a>二、函数组合</h3><p>函数组合就是将两个或两个以上的函数组合生成一个新函数的过程：</p>
 <pre><code>const compose = function (f, g) {
   return function (x) {
@@ -495,7 +423,7 @@ const result = words.filter(word =&gt; word.length &gt; 5); // [&quot;semlinker&
 };
 </code></pre><p>在以上代码中，<code>f</code> 和 <code>g</code> 都是函数，而 <code>x</code> 是组合生成新函数的参数。</p>
 <h4 id="2-1-函数组合的作用"><a href="#2-1-函数组合的作用" class="headerlink" title="2.1 函数组合的作用"></a>2.1 函数组合的作用</h4><p>在项目开发过程中，为了实现函数的复用，我们通常会尽量保证函数的职责单一，比如我们定义了以下功能函数：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000038178120" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/nkDmPMZKs8RrbBj.jpg" alt="2154399478-b67021012a25e8a8_articlex"></p>
 <p>在拥有以上功能函数的基础上，我们就可以自由地对函数进行组合，来实现特定的功能：</p>
 <pre><code>function lowerCase(input) {
   return input &amp;&amp; typeof input === &quot;string&quot; ? input.toLowerCase() : input;
@@ -524,7 +452,7 @@ trimLowerCaseAndSplit(&quot; a,B,C &quot;); // [&quot;a&quot;, &quot;b&quot;, &q
   };
 }
 </code></pre><p>在以上的代码中，我们通过 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">Array.prototype.reduce</a> 方法来实现组合函数的调度，对应的执行顺序是从左到右。这个执行顺序与 Linux 管道或过滤器的执行顺序是一致的。</p>
-<p><img src="https://segmentfault.com/img/remote/1460000038178119" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/1l9vUHITjZEBoAM.jpg" alt="3124264727-3218e147ff39e19c_articlex"></p>
 <p>不过如果你想从右往左开始执行的话，这时你就可以使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/ReduceRight" target="_blank" rel="noopener">Array.prototype.reduceRight</a> 方法来实现。</p>
 <p>其实每当看到 <code>compose</code> 函数，阿宝哥就情不自禁想到 <a href="https://mp.weixin.qq.com/s/wA2REzDU1R4tDs-N2REjZA" target="_blank" rel="noopener">“如何更好地理解中间件和洋葱模型”</a> 这篇文章中介绍的 <code>compose</code> 函数：</p>
 <pre><code>function compose(middleware) {
@@ -548,7 +476,7 @@ trimLowerCaseAndSplit(&quot; a,B,C &quot;); // [&quot;a&quot;, &quot;b&quot;, &q
   };
 }
 </code></pre><p>利用上述的 <code>compose</code> 函数，我们就可以实现以下通用的任务处理流程：</p>
-<p><img src="https://segmentfault.com/img/remote/1460000037780781" alt="img"></p>
+<p><img src="https://i.loli.net/2021/01/11/JuqL1vnwhHXm7Of.jpg" alt="1123279384-19a89c5072b65d3c_articlex"></p>
 <h3 id="三、柯里化"><a href="#三、柯里化" class="headerlink" title="三、柯里化"></a>三、柯里化</h3><p>柯里化（Currying）是一种处理函数中含有多个参数的方法，并在只允许单一参数的框架中使用这些函数。这种转变是现在被称为 “柯里化” 的过程，在这个过程中我们能把一个带有多个参数的函数转换成一系列的嵌套函数。它返回一个新函数，这个新函数期望传入下一个参数。当接收足够的参数后，会自动执行原函数。</p>
 <p><strong>在理论计算机科学中，柯里化提供了简单的理论模型，比如：在只接受一个单一参数的 lambda 演算中，研究带有多个参数的函数的方式</strong>。与柯里化相反的是 Uncurrying，一种使用匿名单参数函数来实现多参数函数的方法。比如：</p>
 <pre><code>const func = function(a) {
@@ -634,7 +562,7 @@ const awesomeTsPath = myGithubPath(&quot;semlinker/awesome-typescript&quot;);
     return fn.apply(this, newArgs);
   };
 }
-</code></pre><h4 id="4-3-偏函数实现-vs-柯里化实现"><a href="#4-3-偏函数实现-vs-柯里化实现" class="headerlink" title="4.3 偏函数实现 vs 柯里化实现"></a>4.3 偏函数实现 vs 柯里化实现</h4><p><img src="https://segmentfault.com/img/remote/1460000038178121" alt="img"></p>
+</code></pre><h4 id="4-3-偏函数实现-vs-柯里化实现"><a href="#4-3-偏函数实现-vs-柯里化实现" class="headerlink" title="4.3 偏函数实现 vs 柯里化实现"></a>4.3 偏函数实现 vs 柯里化实现</h4><p><img src="https://i.loli.net/2021/01/11/vLcfQSoWJ1BpehD.jpg" alt="4208752765-1bb57ade66c2c444_articlex"></p>
 <h3 id="五、惰性函数"><a href="#五、惰性函数" class="headerlink" title="五、惰性函数"></a>五、惰性函数</h3><p>由于不同浏览器之间存在一些兼容性问题，这导致了我们在使用一些 Web API 时，需要进行判断，比如：</p>
 <pre><code>function addHandler(element, type, handler) {
   if (element.addEventListener) {
@@ -749,6 +677,10 @@ memoCalc(666, 888); // 从缓存中获取
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/01/11/【HTTP基础】HTTPS原理及WebSocket原理/" rel="prev" title="【HTTP基础】HTTPS原理及WebSocket原理">
+                【HTTP基础】HTTPS原理及WebSocket原理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -768,10 +700,6 @@ memoCalc(666, 888); // 从缓存中获取
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-    </div>
 
   
 
@@ -821,7 +749,7 @@ memoCalc(666, 888); // 从缓存中获取
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -833,7 +761,7 @@ memoCalc(666, 888); // 从缓存中获取
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/about/index.html">
+                  <a href="/categories/index.html">
                     
                     
                       
@@ -970,7 +898,11 @@ memoCalc(666, 888); // 从缓存中获取
                     
                       
                     
-                    <span class="site-state-item-count">67</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1059,7 +991,7 @@ memoCalc(666, 888); // 从缓存中获取
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1071,40 +1003,20 @@ memoCalc(666, 888); // 从缓存中获取
 </div>
 
 
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
 
 
 
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.0.0</div>
 
 
 
 
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-user"></i>
-    </span>
-    <span class="site-uv" title="总访客量">
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-    </span>
-  
-
-  
-    <span class="post-meta-divider">|</span>
-  
-
-  
-    <span class="post-meta-item-icon">
-      <i class="fa fa-eye"></i>
-    </span>
-    <span class="site-pv" title="总访问量">
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-    </span>
-  
-</div>
-
 
 
 
@@ -1187,9 +1099,7 @@ memoCalc(666, 888); // 从缓存中获取
   
 
 
-  <script src="/js/src/affix.js?v=7.0.0"></script>
-
-  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+  <script src="/js/src/schemes/muse.js?v=7.0.0"></script>
 
 
 
@@ -1207,35 +1117,6 @@ memoCalc(666, 888); // 从缓存中获取
 
 
   
-  
-
-<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
-
-
-
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-
-<script>
-  var GUEST = ['nick', 'mail', 'link'];
-  var guest = 'nick,mail,link';
-  guest = guest.split(',').filter(function(item) {
-    return GUEST.indexOf(item) > -1;
-  });
-  new Valine({
-    el: '#comments',
-    verify: true,
-    notify: true,
-    appId: 'hXTDTSGSHRts2UhvBgMMCgbT-gzGzoHsz',
-    appKey: 'VtFW2O1nWA3hNCVyr56QqvyG',
-    placeholder: '我来说两句',
-    avatar: 'mm',
-    meta: guest,
-    pageSize: '10' || 10,
-    visitor: true
-  });
-</script>
-
-
 
 
   
@@ -1255,21 +1136,6 @@ memoCalc(666, 888); // 从缓存中获取
   
 
   
-  <script>
-    (function(){
-      var bp = document.createElement('script');
-      var curProtocol = window.location.protocol.split(':')[0];
-      if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'; 
-      }
-      else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-      }
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(bp, s);
-    })();
-  </script>
-
 
   
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var arr = [1, 2, -1, 4, 5];
+    //返回数组的最小值和最小值的索引
+    var min = {};
+    min.index = 0;
+    min.value = arr[min.index];
+    for (var i = 0; i < arr.length; i++) {
+        if (min.value > arr[i]) {
+            min.value = arr[i];
+            min.index = i;
+        }
+    }
+    console.log(min.value);
+    console.log(min.index);
+
+
+    /*function getMin(arr) {
+     var min = {};
+     min.index = 0;//最小值的索引
+     min.value = arr[min.index];//最小值的值
+     //遍历数组 一个一个比较
+     for (var i = 0; i < arr.length; i++) {
+     if (min.value > arr[i]) {
+     min.value = arr[i];
+     min.index = i;
+     }
+     }
+     return min;
+     }*/
+    //    console.log(getMin(arr));
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            float: left;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var container = document.getElementById("container");
+            var boxes = container.children;
+            var pageWidth = window.innerWidth;
+            var boxWidth = boxes[0].offsetWidth;
+            var colunm = Math.floor(pageWidth / boxWidth);
+            var arrHeight = [];
+            for (var i = 0; i < boxes.length; i++) {
+                if (i < colunm) {//把第一行所有盒子的高度 放到数组里
+                    //存储每一列的高度
+                    arrHeight[i] = boxes[i].offsetHeight;
+                } else {//后面的盒子 需要被JS设置位置的盒子
+                    var minHeightIndex = getMin(arrHeight).index;
+                    var minHeight = getMin(arrHeight).value;
+                    //用JS设置盒子位置
+                    //也就是用JS 设置left 和 top
+                    //要想left和top生效先要加定位
+                    boxes[i].style.position = "absolute";
+                    //left 和 高度最小的那一列的索引对应的盒子 的 left是一样的
+                    //boxes[minHeightIndex].offsetLeft
+                    boxes[i].style.left = boxes[minHeightIndex].offsetLeft + "px";
+                    //top 数组里的最小值
+                    boxes[i].style.top = minHeight + "px";
+                    //放完盒子之后要记得对记录高度的数组的数值进行改变
+                    arrHeight[minHeightIndex] = minHeight + boxes[i].offsetHeight;
+                    //后面的盒子根据新的数组的数值进行放置
+                }
+            }
+            console.log(arrHeight);
+        }
+        function getMin(arr) {
+            var min = {};
+            min.index = 0;//假设的最小值的索引
+            min.value = arr[min.index];//假设的最小值 的数值
+            for (var i = 0; i < arr.length; i++) {
+                //假设的最小值和每一个数值进行比较
+                if (min.value > arr[i]) {
+                    min.value = arr[i];//把真正的最小值给min.value
+                    min.index = i;//最小值的索引也要改变
+                }
+            }
+            return min;
+        }
+
+    </script>
+</head>
+<body>
+<div id="container">
+    <!--(.box>img[src="images/P_00$.jpg"])*9-->
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+</div>
+</body>
+</html>

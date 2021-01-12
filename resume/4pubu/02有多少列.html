@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            float: left;
+            border: 1px solid #ccc;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <!--(.box>img[src="images/P_00$.jpg"])*9-->
+    <div class="box"><img src="images/P_000.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_001.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_002.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_003.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_004.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_005.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_006.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_007.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_008.jpg" alt=""/></div>
+    <div class="box"><img src="images/P_009.jpg" alt=""/></div>
+</div>
+<script>
+    //因为涉及到了图片宽高 所以要写在window.onload里面
+
+    //第一行是通过左浮动 自然摆放
+    //后面是通过JS计算 高度最小的那一行 然后把图片放到那个位置
+    window.onload = function () {
+        //找人
+        var container = document.getElementById("container");
+        var boxes = container.children;//所有的盒子
+        //1.找出谁是第一行
+        //计算第一行有多少张 或者也就是 页面上有多少列
+        //一行有多少张实际上 就是    页面的宽度 / 盒子的宽度
+        //页面宽度
+        //var pageWidth = window.innerWidth;
+        var pageWidth = document.body.clientWidth;
+        //盒子的宽度
+        var boxWidth = boxes[0].offsetWidth;
+        var column = Math.floor(pageWidth / boxWidth);//都是整数 所以要向下取整
+        console.log(pageWidth / boxWidth);
+
+
+    };
+
+
+</script>
+</body>
+</html>

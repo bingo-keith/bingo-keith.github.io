@@ -1,0 +1,31 @@
+.skill-bar-wrap {
+  position: relative;
+  width: 160px;
+  overflow: hidden;
+}
+.skill-bar-wrap span {
+  position: absolute;
+  top: -5%;
+  left: 65%;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 10px;
+  font-family: 'microsoft yahei';
+}
+.someRight dd span {
+  color: #00796b;
+}
+.someRight dd p {
+  width: 680px;
+  text-align: justify;
+}
+img.niwo {
+  width: 400px;
+}
+img.niwo2 {
+  width: 113px;
+}
+.exp li h4 a {
+  border: none;
+}
