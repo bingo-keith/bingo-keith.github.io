@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    聊一聊ES5数组（Array）新增的那些方法 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-聊一聊ES5数组（Array）新增的那些方法"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  聊一聊ES5数组（Array）新增的那些方法
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2017/08/14/%E8%81%8A%E4%B8%80%E8%81%8AES5%E6%95%B0%E7%BB%84%EF%BC%88Array%EF%BC%89%E6%96%B0%E5%A2%9E%E7%9A%84%E9%82%A3%E4%BA%9B%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2017-08-14T14:40:58.000Z" itemprop="datePublished">2017-08-14</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">5 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>今天把ES5新增的一些数组的方法学习了一下，这个对于处理数据还是非常有用的。现在把自己的理解和心得记录下来，方便以后查阅。</p>
+<p>ES5新增数组方法大致可以分为几类：</p>
+<ul>
+<li>索引方法：<code>indexOf()</code>和<code>lastIndexOf</code>；</li>
+<li>迭代方法：<code>forEach()</code>、<code>map()</code>、<code>filter()</code>、<code>some()</code>、<code>every()</code>；</li>
+<li>归并方法：<code>reduce()</code>和<code>reduceRight()</code>；</li>
+</ul>
+<p>↓↓↓↓↓↓↓↓↓↓↓↓该上代码啦↓↓↓↓↓↓↓↓↓↓↓↓</p>
+<a id="more"></a>
+
+<h1 id="索引方法"><a href="#索引方法" class="headerlink" title="索引方法"></a>索引方法</h1><p>索引方法包含indexOf()和lastIndexOf()两个方法，这两个方法都接收两个参数，第一个参数是要查找的项，第二个参数是查找起点位置的索引，该参数可选，如果缺省或是格式不正确，那么默认为0。两个方法都返回查找项在数组中的位置，如果没有找到，那么返回-1。<code>区别就是一个从前往后找，一个从后往前找。</code></p>
+<p>先来看demo吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [2, 3, 1, 4, 7, 6, 4];</span><br><span class="line">console.log(arr.indexOf(7));  &#x2F;&#x2F;4</span><br><span class="line">console.log(arr.indexOf(4, 3)); &#x2F;&#x2F;3</span><br><span class="line">console.log(arr.lastIndexOf(6)); &#x2F;&#x2F;5</span><br><span class="line">console.log(arr.lastIndexOf(&#39;6&#39;)); &#x2F;&#x2F;-1</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个demo纠结了半天，原因在于错认为<code>lastIndexOf方法</code>是从后往前找，所以理所当然的认为打印出来的索引也应该是从后往前的，后来查了资料才明白<code>indexOf()方法</code>和<code>lastIndexOf()方法</code>返回的位置都是从前开始计算索引的。<code>lastIndexOf()方法</code>第二个参数是起始位置，从后往前数的，但是在计算索引值的时候还是从前往后计算的。。算是踩了个坑，不过及时填上了。^-^</p>
+</blockquote>
+<h1 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h1><p>迭代方法包含<code>some()</code>、<code>every()</code>、<code>filter()</code>、<code>map()</code>和<code>forEach()</code>五个方法，这些方法都接收两个参数，第一个参数是一个函数，他接收三个参数，数组当前项的值、当前项在数组中的索引、数组对象本身。第二个参数是执行第一个函数参数的作用域对象，也就是上面说的函数中this所指向的值。<code>注意，这几种方法都不会改变原数组。</code></p>
+<blockquote>
+<p>every()方法和some()方法有些类似，前者是对数组中每一项执行指定方法，如果返回值都为真则返回true，有一个假就返回false；后者也是对数组中每一项执行指定方法，区别在于如果返回值有一个真就返回true，否则返回false。这让我想到了短路操作中的逻辑运算符&amp;&amp;和||了，有点那个意思吧。</p>
+</blockquote>
+<p>下面上demo了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [2, 3, 1, 4, 7, 6, 4];</span><br><span class="line">var res &#x3D; arr.every(function(v, i, arr) &#123;&#x2F;&#x2F;v当前项，i当前索引，arr原数组</span><br><span class="line">  return v &gt; 0 &amp;&amp; v &lt; 7;</span><br><span class="line">&#125;)</span><br><span class="line">var res2 &#x3D; arr.some(function(v, i, arr) &#123;</span><br><span class="line">  return v &gt; 6;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(res);  &#x2F;&#x2F;false</span><br><span class="line">console.log(res2);  &#x2F;true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>而且值得注意的是，some方法会在数组中任一项执行函数返回true之后，不在进行循环。</li>
+</ul>
+<hr>
+<blockquote>
+<p>filter()方法对数组中每一项执行指定方法，生成返回值为true的新数组。利用这个方法可以对数组元素进行过滤筛选。</p>
+</blockquote>
+<ul>
+<li>不过值得注意的是该方法支持的是弱等（==），而不是全等（===）。该上demo了。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [2, 3, 1, 4, 7, 6, 4];</span><br><span class="line">var res3 &#x3D; arr.filter(function(v, i, arr) &#123;</span><br><span class="line">  return v &gt; &#39;3&#39;;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(res3);  &#x2F;&#x2F;[4, 7, 6, 4]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>map()方法对数组中的每一项执行指定方法，生成该方法返回值组成的新数组。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [2, 3, 1, 4, 7, 6, 4];</span><br><span class="line">var res4 &#x3D; arr.map(function(v, i, arr) &#123;</span><br><span class="line">  return v * i;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(res4);  &#x2F;&#x2F;[0, 3, 2, 12, 28, 30, 24]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>forEach()方法对数组中的每一项执行指定方法，这个方法没有返回值。这个方法和for循环、jQuery中的each()方法一样。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [2, 3, 1, 4, 7, 6, 4];</span><br><span class="line">var res5 &#x3D; arr.forEach(function(v, i, arr) &#123;</span><br><span class="line">  console.log(v);  &#x2F;&#x2F;把原数组中每一项打印出来</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h1><p>归并方法包含reduce()和reduceRight()两个方法，这两个方法都会遍历数组中的每一项，然后生成一个最终的返回值。他们都接收两个参数，第一个参数的每一项调用的函数，<code>该函数接收4个参数：初始值，当前值，索引值和当前的数组</code>，函数的返回值会在下一次迭代中作为第一个参数也就是初始值。<code>第二个参数是迭代的初始值，参数可选</code>，如果缺省那么初始值为数组的第一项，缺省参数要比正常传值少一次运算。</p>
+<blockquote>
+<p>reduce()方法从数组的第一项开始，逐个遍历到最后一项，其中一个应用场景是数组求和或乘积。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [2, 3, 1, 4, 7, 6, 4];</span><br><span class="line">var res6 &#x3D; arr.reduce(function(prev, cur, index, arr) &#123;&#x2F;&#x2F;1.初始值，2.当前值，3.当前索引，4.原数组</span><br><span class="line">  return prev + cur;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(res6);  &#x2F;&#x2F;27</span><br><span class="line">var res7 &#x3D; arr.reduce(function(prev, cur, index, arr) &#123;&#x2F;&#x2F;1.初始值，2.当前值，3.当前索引，4.原数组</span><br><span class="line">  return prev + cur;</span><br><span class="line">&#125;,5)</span><br><span class="line">console.log(res7);  &#x2F;&#x2F;32</span><br></pre></td></tr></table></figure>
+<ul>
+<li>我们可以看出，当设置了第二个参数。会把第二个参数作为初始值，参与方法的运算，这样会多执行一次。</li>
+<li>利用这种方法可以快速的把二维数组转化为一维数组</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var arr &#x3D; [[1,2],[3,4]];</span><br><span class="line">var newArr &#x3D; arr.reduce(function(prev, cur, index, arr)&#123;</span><br><span class="line">  return prev.concat(cur);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(newArr);  &#x2F;&#x2F;[1,2,3,4]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>refuceRight()方法就是从右到左，其他的和reduce()方法一样。</p>
+</blockquote>
+<h1 id="兼容性问题"><a href="#兼容性问题" class="headerlink" title="兼容性问题"></a>兼容性问题</h1><blockquote>
+<p>ES5处理</p>
+</blockquote>
+<p>ES5里这些处理数组的新方法，在IE6-IE8浏览器还未得到支持，所以我们需要在IE这些低版本浏览器中引入这个es5-shim补丁，这样我们就可以使用它了。<a target="_blank" rel="noopener" href="https://github.com/bingo-keith/es5-shim" title="补丁地址">https://github.com/bingo-keith/es5-shim</a></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2017/08/14/%E8%81%8A%E4%B8%80%E8%81%8AES5%E6%95%B0%E7%BB%84%EF%BC%88Array%EF%BC%89%E6%96%B0%E5%A2%9E%E7%9A%84%E9%82%A3%E4%BA%9B%E6%96%B9%E6%B3%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ES5-ECMAScript5-%E6%95%B0%E7%BB%84-Array-%E6%96%B9%E6%B3%95/" rel="tag">ES5 ECMAScript5 数组 Array 方法</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2017/08/15/JavaScript%E8%AF%AD%E6%B3%95%E7%B3%96%EF%BC%88%E7%B1%BB%EF%BC%89/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            JavaScript的语法糖（类）
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2017/08/13/ES6%E5%85%A5%E9%97%A8%E4%B9%8Bset%E5%92%8Cmap/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">ES6入门之set和map</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

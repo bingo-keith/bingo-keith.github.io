@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    前端 api 请求缓存的 5 种方案 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-前端 api 请求缓存的 5 种方案"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  前端 api 请求缓存的 5 种方案
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/23/%E5%89%8D%E7%AB%AF%20api%20%E8%AF%B7%E6%B1%82%E7%BC%93%E5%AD%98%E7%9A%84%205%20%E7%A7%8D%E6%96%B9%E6%A1%88/" class="article-date">
+  <time datetime="2020-11-23T06:30:14.000Z" itemprop="datePublished">2020-11-23</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>在开发 web 应用程序时，性能都是必不可少的话题。对于webpack打包的单页面应用程序而言，我们可以采用很多方式来对性能进行优化，比方说 tree-shaking、模块懒加载、利用 extrens 网络cdn 加速这些常规的优化。甚至在vue-cli 项目中我们可以使用 –modern 指令生成新旧两份浏览器代码来对程序进行优化。</p>
+<p>而事实上，缓存一定是提升web应用程序有效方法之一，尤其是用户受限于网速的情况下。提升系统的响应能力，降低网络的消耗。当然，内容越接近于用户，则缓存的速度就会越快，缓存的有效性则会越高。</p>
+<p>以客户端而言，我们有很多缓存数据与资源的方法，例如 标准的浏览器缓存 以及 目前火热的 Service worker。但是，他们更适合静态内容的缓存。例如 html，js，css以及图片等文件。而缓存系统数据，我采用另外的方案。</p>
+<p>那我现在就对我应用到项目中的各种 api 请求缓存方案，从简单到复杂依次介绍一下。</p>
+<a id="more"></a>
+
+<hr>
+<h2 id="方案一-数据缓存"><a href="#方案一-数据缓存" class="headerlink" title="方案一 数据缓存"></a>方案一 数据缓存</h2><p>简单的 数据 缓存，第一次请求时候获取数据，之后便使用数据，不再请求后端api。<br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">const dataCache &#x3D; new Map()</span><br><span class="line"></span><br><span class="line">async getWares() &#123;</span><br><span class="line">    let key &#x3D; &#39;wares&#39;</span><br><span class="line">    &#x2F;&#x2F; 从data 缓存中获取 数据</span><br><span class="line">    let data &#x3D; dataCache.get(key)</span><br><span class="line">    if (!data) &#123;</span><br><span class="line">        &#x2F;&#x2F; 没有数据请求服务器</span><br><span class="line">        const res &#x3D; await request.get(&#39;&#x2F;getWares&#39;)</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; 其他操作</span><br><span class="line">        ...</span><br><span class="line">        data &#x3D; ...</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 设置数据缓存</span><br><span class="line">        dataCache.set(key, data)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    return data</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>第一行代码 使用了 es6以上的 Map，如果对map不是很理解的情况下，你可以参考<br><a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/set-map">ECMAScript 6 入门 Set 和 Map</a> 或者 <a target="_blank" rel="noopener" href="http://exploringjs.com/es6/ch_maps-sets.html">Exploring ES6</a> 关于 map 和 set的介绍，此处可以理解为一个键值对存储结构。</p>
+<p>之后 代码 使用 了 async 函数，可以将异步操作变得更为方便。 你可以参考<a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/async">ECMAScript 6 入门 async函数</a>来进行学习或者巩固知识。</p>
+<p>代码本身很容易理解，是利用 Map 对象对数据进行缓存，之后调用从 Map 对象来取数据。对于及其简单的业务场景，直接利用此代码即可。</p>
+<p>调用方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getWares().then( ... )</span><br><span class="line">&#x2F;&#x2F; 第二次调用 取得先前的data</span><br><span class="line">getWares().then( ... )</span><br></pre></td></tr></table></figure>
+<h2 id="方案二-promise缓存"><a href="#方案二-promise缓存" class="headerlink" title="方案二 promise缓存"></a>方案二 promise缓存</h2><p>方案一本身是不足的。因为如果考虑同时两个以上的调用此 api，会因为请求未返回而进行第二次请求api。当然，如果你在系统中添加类似于 vuex、redux这样的单一数据源框架，这样的问题不太会遇到，但是有时候我们想在各个复杂组件分别调用api，而不想对组件进行组件通信数据时候，便会遇到此场景。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const promiseCache &#x3D; new Map()</span><br><span class="line"></span><br><span class="line">getWares() &#123;</span><br><span class="line">    const key &#x3D; &#39;wares&#39;</span><br><span class="line">    let promise &#x3D; promiseCache.get(key);</span><br><span class="line">    &#x2F;&#x2F; 当前promise缓存中没有 该promise</span><br><span class="line">    if (!promise) &#123;</span><br><span class="line">        promise &#x3D; request.get(&#39;&#x2F;getWares&#39;).then(res &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; 对res 进行操作</span><br><span class="line">            ...</span><br><span class="line">        &#125;).catch(error &#x3D;&gt; &#123;</span><br><span class="line">            &#x2F;&#x2F; 在请求回来后，如果出现问题，把promise从cache中删除 以避免第二次请求继续出错S</span><br><span class="line">            promiseCache.delete(key)</span><br><span class="line">            return Promise.reject(error)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 返回promise</span><br><span class="line">    return promise</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该代码避免了方案一的同一时间多次请求的问题。同时也在后端出错的情况下对promise进行了删除，不会出现缓存了错误的promise就一直出错的问题。</p>
+<p>调用方式:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getWares().then( ... )</span><br><span class="line">&#x2F;&#x2F; 第二次调用 取得先前的promise</span><br><span class="line">getWares().then( ... )</span><br></pre></td></tr></table></figure>
+<h2 id="方案三-多promise-缓存"><a href="#方案三-多promise-缓存" class="headerlink" title="方案三 多promise 缓存"></a>方案三 多promise 缓存</h2><p>该方案是同时需要 一个以上 的api请求的情况下，对数据同时返回，如果某一个api发生错误的情况下。均不返回正确数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">const querys &#x3D;&#123;</span><br><span class="line">    wares: &#39;getWares&#39;,</span><br><span class="line">    skus: &#39;getSku&#39;</span><br><span class="line">&#125;</span><br><span class="line">const promiseCache &#x3D; new Map()</span><br><span class="line"></span><br><span class="line">async queryAll(queryApiName) &#123;</span><br><span class="line">    &#x2F;&#x2F; 判断传入的数据是否是数组</span><br><span class="line">    const queryIsArray &#x3D; Array.isArray(queryApiName)</span><br><span class="line">    &#x2F;&#x2F; 统一化处理数据，无论是字符串还是数组均视为数组</span><br><span class="line">    const apis &#x3D; queryIsArray ? queryApiName : [queryApiName]</span><br><span class="line">    </span><br><span class="line">    &#x2F;&#x2F; 获取所有的 请求服务</span><br><span class="line">    const promiseApi &#x3D; []</span><br><span class="line"></span><br><span class="line">    apis.forEach(api &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; 利用promise </span><br><span class="line">        let promise &#x3D; promiseCache.get(api)</span><br><span class="line"></span><br><span class="line">        if (promise) &#123;</span><br><span class="line">            &#x2F;&#x2F; 如果 缓存中有，直接push</span><br><span class="line">            promise.push(promise)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">             promise &#x3D; request.get(querys[api]).then(res &#x3D;&gt; &#123;</span><br><span class="line">                &#x2F;&#x2F; 对res 进行操作</span><br><span class="line">                ...</span><br><span class="line">                &#125;).catch(error &#x3D;&gt; &#123;</span><br><span class="line">                &#x2F;&#x2F; 在请求回来后，如果出现问题，把promise从cache中删除</span><br><span class="line">                promiseCache.delete(api)</span><br><span class="line">                return Promise.reject(error)</span><br><span class="line">            &#125;)</span><br><span class="line">            promiseCache.set(api, promise)</span><br><span class="line">            promiseCache.push(promise)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return Promise.all(promiseApi).then(res &#x3D;&gt; &#123;</span><br><span class="line">        &#x2F;&#x2F; 根据传入的 是字符串还是数组来返回数据，因为本身都是数组操作</span><br><span class="line">        &#x2F;&#x2F; 如果传入的是字符串，则需要取出操作</span><br><span class="line">        return queryIsArray ? res : res[0]</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方案是同时获取多个服务器数据的方式。可以同时获得多个数据进行操作，不会因为单个数据出现问题而发生错误。</p>
+<p>调用方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">queryAll(&#39;wares&#39;).then( ... )</span><br><span class="line">&#x2F;&#x2F; 第二次调用 不会去取 wares，只会去skus</span><br><span class="line">queryAll([&#39;wares&#39;, &#39;skus&#39;]).then( ... )</span><br></pre></td></tr></table></figure>
+<h2 id="方案四-添加时间有关的缓存"><a href="#方案四-添加时间有关的缓存" class="headerlink" title="方案四 添加时间有关的缓存"></a>方案四 添加时间有关的缓存</h2><p>往往缓存是有危害的，如果我们在知道修改了数据的情况下，直接把 cache 删除即可，此时我们调用方法就可以向服务器进行请求。这样我们规避了前端显示旧的的数据。但是我们可能一段时间没有对数据进行操作，那么此时旧的数据就一直存在，那么我们最好规定个时间来去除数据。<br>该方案是采用了 类 持久化数据来做数据缓存，同时添加了过期时长数据以及参数化。<br>代码如下：<br>首先定义持久化类,该类可以存储 promise 或者 data</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class ItemCache() &#123;</span><br><span class="line">    construct(data, timeout) &#123;</span><br><span class="line">        this.data &#x3D; data</span><br><span class="line">        &#x2F;&#x2F; 设定超时时间，设定为多少秒</span><br><span class="line">        this.timeout &#x3D; timeout</span><br><span class="line">        &#x2F;&#x2F; 创建对象时候的时间，大约设定为数据获得的时间</span><br><span class="line">        this.cacheTime &#x3D; (new Date()).getTime</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后我们定义该数据缓存。我们采用Map 基本相同的api</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">class ExpriesCache &#123;</span><br><span class="line">    &#x2F;&#x2F; 定义静态数据map来作为缓存池</span><br><span class="line">    static cacheMap &#x3D;  new Map()</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 数据是否超时</span><br><span class="line">    static isOverTime(name) &#123;</span><br><span class="line">        const data &#x3D; ExpriesCache.cacheMap.get(name)</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; 没有数据 一定超时</span><br><span class="line">        if (!data) return true</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 获取系统当前时间戳</span><br><span class="line">        const currentTime &#x3D; (new Date()).getTime()        </span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; 获取当前时间与存储时间的过去的秒数</span><br><span class="line">        const overTime &#x3D; (currentTime - data.cacheTime) &#x2F; 1000</span><br><span class="line">        </span><br><span class="line">        &#x2F;&#x2F; 如果过去的秒数大于当前的超时时间，也返回null让其去服务端取数据</span><br><span class="line">        if (Math.abs(overTime) &gt; data.timeout) &#123;</span><br><span class="line">            &#x2F;&#x2F; 此代码可以没有，不会出现问题，但是如果有此代码，再次进入该方法就可以减少判断。</span><br><span class="line">            ExpriesCache.cacheMap.delete(name)</span><br><span class="line">            return true</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 不超时</span><br><span class="line">        return false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 当前data在 cache 中是否超时</span><br><span class="line">    static has(name) &#123;</span><br><span class="line">        return !ExpriesCache.isOverTime(name)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 删除 cache 中的 data</span><br><span class="line">    static delete(name) &#123;</span><br><span class="line">        return ExpriesCache.cacheMap.delete(name) </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 获取</span><br><span class="line">    static get(name) &#123;</span><br><span class="line">        const isDataOverTiem &#x3D; ExpriesCache.isOverTime(name)</span><br><span class="line">        &#x2F;&#x2F;如果 数据超时，返回null，但是没有超时，返回数据，而不是 ItemCache 对象</span><br><span class="line">        return isDataOverTiem ? null : ExpriesCache.cacheMap.get(name).data</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 默认存储20分钟</span><br><span class="line">    static set(name, data, timeout &#x3D; 1200) &#123;</span><br><span class="line">        &#x2F;&#x2F; 设置 itemCache</span><br><span class="line">        const itemCache &#x3D; mew ItemCache(data, timeout)</span><br><span class="line">        &#x2F;&#x2F;缓存</span><br><span class="line">        ExpriesCache.cacheMap.set(name, itemCache)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时数据类以及操作类 都已经定义好,我们可以在api层这样定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 生成key值错误</span><br><span class="line">const generateKeyError &#x3D; new Error(&quot;Can&#39;t generate key from name and argument&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 生成key值</span><br><span class="line">function generateKey(name, argument) &#123;</span><br><span class="line">    &#x2F;&#x2F; 从arguments 中取得数据然后变为数组</span><br><span class="line">    const params &#x3D; Array.from(argument).join(&#39;,&#39;)</span><br><span class="line">    </span><br><span class="line">    try&#123;</span><br><span class="line">        &#x2F;&#x2F; 返回 字符串，函数名 + 函数参数</span><br><span class="line">        return &#96;$&#123;name&#125;:$&#123;params&#125;&#96;</span><br><span class="line">    &#125;catch(_) &#123;</span><br><span class="line">        &#x2F;&#x2F; 返回生成key错误</span><br><span class="line">        return generateKeyError</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async getWare(params1, params2) &#123;</span><br><span class="line">    &#x2F;&#x2F; 生成key</span><br><span class="line">    const key &#x3D; generateKey(&#39;getWare&#39;, [params1, params2]) </span><br><span class="line">    &#x2F;&#x2F; 获得数据</span><br><span class="line">    let data &#x3D; ExpriesCache.get(key)</span><br><span class="line">    if (!data) &#123;</span><br><span class="line">        const res &#x3D; await request(&#39;&#x2F;getWares&#39;, &#123;params1, params2&#125;)</span><br><span class="line">        &#x2F;&#x2F; 使用 10s 缓存，10s之后再次get就会 获取null 而从服务端继续请求</span><br><span class="line">        ExpriesCache.set(key, res, 10)</span><br><span class="line">    &#125;</span><br><span class="line">    return data</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该方案使用了 过期时间 和 api 参数不同而进行 缓存的方式。已经可以满足绝大部分的业务场景。</p>
+<p>调用方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getWares(1,2).then( ... )</span><br><span class="line">&#x2F;&#x2F; 第二次调用 取得先前的promise</span><br><span class="line">getWares(1,2).then( ... )</span><br><span class="line">&#x2F;&#x2F; 不同的参数，不取先前promise</span><br><span class="line">getWares(1,3).then( ... )</span><br></pre></td></tr></table></figure>
+<h2 id="方案五-基于修饰器的方案四"><a href="#方案五-基于修饰器的方案四" class="headerlink" title="方案五 基于修饰器的方案四"></a>方案五 基于修饰器的方案四</h2><p>和方案四是的解法一致的，但是是基于修饰器来做。<br>代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 生成key值错误</span><br><span class="line">const generateKeyError &#x3D; new Error(&quot;Can&#39;t generate key from name and argument&quot;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 生成key值</span><br><span class="line">function generateKey(name, argument) &#123;</span><br><span class="line">    &#x2F;&#x2F; 从arguments 中取得数据然后变为数组</span><br><span class="line">    const params &#x3D; Array.from(argument).join(&#39;,&#39;)</span><br><span class="line">    try&#123;</span><br><span class="line">        &#x2F;&#x2F; 返回 字符串</span><br><span class="line">        return &#96;$&#123;name&#125;:$&#123;params&#125;&#96;</span><br><span class="line">    &#125;catch(_) &#123;</span><br><span class="line">        return generateKeyError</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function decorate(handleDescription, entryArgs) &#123;</span><br><span class="line">    &#x2F;&#x2F; 判断 当前 最后数据是否是descriptor，如果是descriptor,直接 使用</span><br><span class="line">    &#x2F;&#x2F; 例如 log 这样的修饰器</span><br><span class="line">    if (isDescriptor(entryArgs[entryArgs.length - 1])) &#123;</span><br><span class="line">        return handleDescription(...entryArgs, [])</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        &#x2F;&#x2F; 如果不是</span><br><span class="line">        &#x2F;&#x2F; 例如 add(1) plus(20) 这样的修饰器</span><br><span class="line">        return function() &#123;</span><br><span class="line">            return handleDescription(...Array.protptype.slice.call(arguments), entryArgs)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function handleApiCache(target, name, descriptor, ...config) &#123;</span><br><span class="line">    &#x2F;&#x2F; 拿到函数体并保存</span><br><span class="line">    const fn &#x3D; descriptor.value</span><br><span class="line">    &#x2F;&#x2F; 修改函数体</span><br><span class="line">    descriptor.value &#x3D; function () &#123; </span><br><span class="line">        const key &#x3D;  generateKey(name, arguments)</span><br><span class="line">        &#x2F;&#x2F; key无法生成，直接请求 服务端数据</span><br><span class="line">        if (key &#x3D;&#x3D;&#x3D; generateKeyError)  &#123;</span><br><span class="line">            &#x2F;&#x2F; 利用刚才保存的函数体进行请求</span><br><span class="line">            return fn.apply(null, arguments)</span><br><span class="line">        &#125;</span><br><span class="line">        let promise &#x3D; ExpriesCache.get(key)</span><br><span class="line">        if (!promise) &#123;</span><br><span class="line">            &#x2F;&#x2F; 设定promise</span><br><span class="line">            promise &#x3D; fn.apply(null, arguments).catch(error &#x3D;&gt; &#123;</span><br><span class="line">                 &#x2F;&#x2F; 在请求回来后，如果出现问题，把promise从cache中删除</span><br><span class="line">                ExpriesCache.delete(key)</span><br><span class="line">                &#x2F;&#x2F; 返回错误</span><br><span class="line">                return Promise.reject(error)</span><br><span class="line">            &#125;)</span><br><span class="line">            &#x2F;&#x2F; 使用 10s 缓存，10s之后再次get就会 获取null 而从服务端继续请求</span><br><span class="line">            ExpriesCache.set(key, promise, config[0])</span><br><span class="line">        &#125;</span><br><span class="line">        return promise </span><br><span class="line">    &#125;</span><br><span class="line">    return descriptor;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 制定 修饰器</span><br><span class="line">function ApiCache(...args) &#123;</span><br><span class="line">    return decorate(handleApiCache, args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时 我们就会使用 类来对api进行缓存</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Api &#123;</span><br><span class="line">    &#x2F;&#x2F; 缓存10s</span><br><span class="line">    @ApiCache(10)</span><br><span class="line">    &#x2F;&#x2F; 此时不要使用默认值，因为当前 修饰器 取不到</span><br><span class="line">    getWare(params1, params2) &#123;</span><br><span class="line">        return request.get(&#39;&#x2F;getWares&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为函数存在函数提升，所以没有办法利用函数来做 修饰器<br>例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var counter &#x3D; 0;</span><br><span class="line"></span><br><span class="line">var add &#x3D; function () &#123;</span><br><span class="line">  counter++;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">@add</span><br><span class="line">function foo() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该代码意图是执行后counter等于 1，但是实际上结果是counter等于 0。因为函数提升，使得实际执行的代码是下面这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@add</span><br><span class="line">function foo() &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var counter;</span><br><span class="line">var add;</span><br><span class="line"></span><br><span class="line">counter &#x3D; 0;</span><br><span class="line"></span><br><span class="line">add &#x3D; function () &#123;</span><br><span class="line">  counter++;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>所以没有 办法在函数上用修饰器。具体参考<a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/decorator">ECMAScript 6 入门 Decorator</a><br>此方式写法简单且对业务层没有太多影响。但是不可以动态修改 缓存时间</p>
+<p>调用方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getWares(1,2).then( ... )</span><br><span class="line">&#x2F;&#x2F; 第二次调用 取得先前的promise</span><br><span class="line">getWares(1,2).then( ... )</span><br><span class="line">&#x2F;&#x2F; 不同的参数，不取先前promise</span><br><span class="line">getWares(1,3).then( ... )</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>api的缓存机制与场景在这里也基本上介绍了，基本上能够完成绝大多数的数据业务缓存，在这里我也想请教教大家，有没有什么更好的解决方案，或者这篇博客中有什么不对的地方，欢迎指正，在这里感谢各位了。<br>同时这里也有很多没有做完的工作，可能会在后面的博客中继续完善。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2020/11/23/%E5%89%8D%E7%AB%AF%20api%20%E8%AF%B7%E6%B1%82%E7%BC%93%E5%AD%98%E7%9A%84%205%20%E7%A7%8D%E6%96%B9%E6%A1%88/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-%E5%89%8D%E7%AB%AF-%E7%BC%93%E5%AD%98-api-%E6%80%A7%E8%83%BD/" rel="tag">JavaScript 前端 缓存 api 性能</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/01/11/%E3%80%90HTTP%E5%9F%BA%E7%A1%80%E3%80%91HTTPS%E5%8E%9F%E7%90%86%E5%8F%8AWebSocket%E5%8E%9F%E7%90%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【HTTP基础】HTTPS原理及WebSocket原理
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/11/23/%E8%BF%99%E4%BA%9B%E9%AB%98%E9%98%B6%E7%9A%84%E5%87%BD%E6%95%B0%E6%8A%80%E6%9C%AF%EF%BC%8C%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E4%B9%88/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">这些高阶的函数技术，你掌握了么</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

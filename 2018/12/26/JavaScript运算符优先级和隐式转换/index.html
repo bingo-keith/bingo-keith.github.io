@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    JavaScript运算符优先级和隐式转换 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-JavaScript运算符优先级和隐式转换"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  JavaScript运算符优先级和隐式转换
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/12/26/JavaScript%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/" class="article-date">
+  <time datetime="2018-12-26T12:40:51.000Z" itemprop="datePublished">2018-12-26</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">9 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>昨天圣诞节，本应该是一个开心的日子，但对有些程序猿来说，是非常糟糕的一天。在很多技术开发群里，在技术论坛以及github社区都炸天了。我想说的是，使用开源的人，得有感激之心，但是贡献开源的人更应该要有敬畏之心。我们要感谢每一个开源的人，他们为这个世界贡献了自己的力量，为这个社会提高了效率，而开源的人也应该怀有敬畏之心，尊重每一个使用者，更好地回馈使用者，使用者和开源这相互成就。</p>
+<p>好了，话说回来，今天看了一篇文章，其中有一个题目感觉非常有趣，我也给大家送一个彩蛋吧，其中也引发了我对JavaScript运算符和隐式转换的思考了，所以还是坐下来静下心把JavaScript的运算符和隐式转换学习总结了一下，但其中难免会有些错误，不喜勿喷啊！</p>
+<p>先贴个彩蛋：</p>
+<p><code>(&#123;&#125;+[])[[~!+[]]*~+[]]+(!(~+[])+&#123;&#125;)[--[~+&quot;&quot;][+[]]*[~+[]] + ~~!+[]]</code></p>
+<p>各位童鞋，你算出来了吗？点击后将揭晓答案哦！当然，等不及的童鞋肯定自己在控制台复制粘贴得出结果了吧，呵呵！</p>
+<a id="more"></a>
+
+<p>答案就是：</p>
+<p><img src="https://i.loli.net/2021/01/11/R1FUlkQwyqS4ZDH.png" alt="img"></p>
+<p>哈哈，是不是被骂了还在问人这段代码是什么意思呢？</p>
+<p>我来告诉你：</p>
+<p>这段代码为什么会输出sb呢？其实这段代码考的是js的类型转化的一些基本原理。</p>
+<p>首先要运用到的第一个知识就是js运算符的优先级，因为这么长一段运算看的人眼花，我们必须得先根据优先级分成n小段，然后再各个击破。</p>
+<h1 id="js运算符的优先级"><a href="#js运算符的优先级" class="headerlink" title="js运算符的优先级"></a>js运算符的优先级</h1><p>优先级的排列如下表，优先级从高到低：</p>
+<p><img src="https://i.imgur.com/b834A7c.jpg"></p>
+<p>根据此规则，我们把这一串运算分为以下表达式：</p>
+<p><img src="https://i.imgur.com/cdDv5jr.png"></p>
+<p>其实中括号[]也是一个运算符，用来通过索引访问数组项，另外也可以访问字符串的子字符，有点类似charAt方法，如：’abcd’[1] // 返回’b’。而且中括号的优先级还是最高的哦。</p>
+<p>接下来需要运用的就是JavaScript的类型转化知识了，我们先说说什么情况下需要进行类型转化。当操作符两边的操作数类型不一致或者不是基本类型（也叫原始类型）时，需要进行类型转化。</p>
+<p>让我们快速的复习一下，在JavaScript中，一共有两种类型的值：原始值(primitives)和对象值(objects)。</p>
+<p>原始值有：undefined、null、布尔值(booleans)、数字(numbers)、还有字符串(strings)。</p>
+<p>其他的所有值都是对象类型的值，包括数组(arrays)和函数(functions)。</p>
+<h1 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h1><p>先按运算符来分一下类：</p>
+<p>减号-，乘号*，肯定是进行数学运算，所以操作数需转化为number类型。</p>
+<p>加号+，可能是字符串拼接，也可能是数学运算，所以可能会转化为number或string。</p>
+<p>一元运算，如+[]，只有一个操作数的，转化为number类型。</p>
+<p>下面来看一下转化规则。</p>
+<h2 id="对于非原始类型的，通过ToPrimitive-将值转换成原始类型"><a href="#对于非原始类型的，通过ToPrimitive-将值转换成原始类型" class="headerlink" title="对于非原始类型的，通过ToPrimitive()将值转换成原始类型"></a>对于非原始类型的，通过ToPrimitive()将值转换成原始类型</h2><p><code>ToPrimitive(input, PreferredType?)</code></p>
+<p>可选参数PreferredType是Number或者是String。返回值为任何原始值。</p>
+<p>如果PreferredType是Number，执行顺序如下：</p>
+<ol>
+<li><p>如果input为primitive，返回；</p>
+</li>
+<li><p>如果input为Object。调用obj.valueOf()，如果结果是primitive，返回；</p>
+</li>
+<li><p>否则，调用obj.toString()，如果结果是primitive，返回；</p>
+</li>
+<li><p>否则，抛出TypeError。</p>
+</li>
+</ol>
+<p>如果 PreferredType是String，步骤2跟3互换，如果PreferredType没有，Date实例被设置成String，其他都是Number。</p>
+<h2 id="通过ToNumber-将值转换为数字"><a href="#通过ToNumber-将值转换为数字" class="headerlink" title="通过ToNumber()将值转换为数字"></a>通过ToNumber()将值转换为数字</h2><p>通过ToNumber()把值转换成Number，直接看ECMA 9.3的表格：</p>
+<p>如果输入的值是一个对象，则会首先会调用ToPrimitive(obj,Number)将该对象转换为原始值，然后在调用ToNumber()将这个原始值转换为数字。</p>
+<h2 id="通过ToString-将值转换为字符串"><a href="#通过ToString-将值转换为字符串" class="headerlink" title="通过ToString()将值转换为字符串"></a>通过ToString()将值转换为字符串</h2><p>通过ToString()把值转化成字符串， 直接看ECMA 9.8的表格</p>
+<p><img src="https://i.imgur.com/9hKHPCu.jpg"></p>
+<p>如果输入的值是一个对象，则会首先会调用ToPrimitive(obj,String)将该对象转换为原始值，然后再调用ToString()将这个原始值转换为字符串.规则就这么多，接下来实践一下，根据我们上面划分出的子表达式，一步一步将这个神奇的代码给执行出来。开工~</p>
+<p>先看最简单的子表达式：</p>
+<p><code>+[]</code></p>
+<p>只有一个操作数[]，肯定是转化为number了，根据上面的规则2，[]是个数组，object类型，即对象。所以得先调用toPrimitive转化为原始类型，并且PreferredType为number，这个参数表示更“倾向于”转化的类型，这里肯定是number了。然后首先调用数组的valueOf方法，数组调用valueOf会返回自身，</p>
+<p>这个时候，我们得到一个空串“”，还没有结束，看上面的规则2描述，继续调用toNumber，转化为number类型，大功告成！子表达式16转化完毕，+[]，最终得到0。</p>
+<p>来看子表达式：</p>
+<p><code>[~+&quot;&quot;]</code></p>
+<p>空串””前面有两个一元操作符，但是操作数还是只有一个，所以，最终要转化为的类型是number。看规则2吧，空串调用toNumber得到0。接下来是<del>，这是个什么东东呢？它是位运算符，作用可以记为把数字取负然后减一，所以</del>0就是-1 。</p>
+<p>别忘了，这个子表达式外头还包着中括号，所以最终的值为[-1]，即一个数组，里面只有一个元素-1.</p>
+<p>接下来看子表达式就简单了</p>
+<p>把以上求出来的填进去，就变成了这样：–[-1][0]，取数组的第0个元素，然后自减，结果为-2，是不so easy!</p>
+<p>继续往后走，子表达式：</p>
+<p><code>[~+[]]</code></p>
+<p>其实把上面的原理用上就非常明显了，答案[-1]。</p>
+<p>继续，此刻它已变成：-2*[-1]，有稍许不一样，不过没关系，我们还是按照规则来，运算符是乘号*，当然是做数学运算，那后面的[-1]就得转化为number，过程如下：</p>
+<ol>
+<li><p>调用toPrimitive，发现是object类型</p>
+</li>
+<li><p>调用valueOf，返回自身[-1]</p>
+</li>
+<li><p>因为不是原始类型，继续调用toString，返回”-1”</p>
+</li>
+<li><p>“-1”是原始类型了，然后调用toNumber，返回-1</p>
+</li>
+<li><p>与-2相乘，返回2</p>
+</li>
+</ol>
+<p>子表达式：</p>
+<p><code>~~!+[]</code></p>
+<p>不多说了，答案1。就是从右往左依次一元计算。</p>
+<p>此刻它已经长这样了：2+1， 好，我不多说了。</p>
+<p>继续看表达式：</p>
+<p><code>!(~+[])，~+[]=-1</code></p>
+<p>这个根据上面已经知道了，那!-1是什么呢？这里要说一下这个感叹号，它是逻辑取非的意思，会把表达式转化为布尔类型，转化规则和js的Truthy和Falsy原则是一样的，后面跟数字的，除0以外都为false，后面跟字符串的，除空串以外都为false。这里的!-1当然就是false了。</p>
+<p>接下来这个表达式3：false+{}有点关键</p>
+<p>一个布尔加一个对象，那这个{}应该先转化为原始类型，流程如下：</p>
+<ol>
+<li><p>调用toPrimitive，发现是object类型</p>
+</li>
+<li><p>调用valueOf，返回自身{}，</p>
+</li>
+<li><p>不是原始类型，调用toString，返回</p>
+</li>
+<li><p>[objectObject]</p>
+</li>
+<li><p>false与[objectObject]相加，false先转化为字符串”false”</p>
+</li>
+</ol>
+<p>相加得结果false[objectObject] 此时它是这样的：false[objectObject][3]，因为这个[]可以取字符串的子字符，像charAt一样，所以得到了结果”s”</p>
+<p>经过上面艰难的流程，我们拿到了字符”s”，也就是那张图的左半边，剩下的那个”b”，相同的原理可以搞出来，我这里就不一一演示了，留给你练练吧~</p>
+<p>回顾一下这个过程其实也不复杂，只是有一些需要重复劳动的，只要你掌握了运算的优先级，能把大串分解成一个个小串，然后运用类型转化的知识挨个处理就搞定了。怎么样，看到这里你还觉得神奇吗？</p>
+<p>同样的，中文字符也是由这样组成的，跟英文同样的道理。</p>
+<h1 id="操作符也会影响数据的类型转换"><a href="#操作符也会影响数据的类型转换" class="headerlink" title="操作符也会影响数据的类型转换"></a>操作符也会影响数据的类型转换</h1><ol>
+<li><p>当+号作为一元操作符操作单操作数的时候，他就会将这个数转换为数字类型</p>
+</li>
+<li><p>当+号作为二元操作符时，如果两个操作数中存在一个字符类型的话，那么另外一个操作数也会无条件地转换为字符串</p>
+</li>
+<li><p>当+号作为二元操作符时，如果两个操作数一个都不是字符串的话，两个操作数会隐式转换成数字类型(如果无法成功转换成数字，则变成NaN，再往下操作)，再进行加法算数操作</p>
+</li>
+<li><p>当算数运算的操作符是+号以外的其他操作数时，两个操作数都会转成数字类型进行数字运算。</p>
+</li>
+</ol>
+<h1 id="引用对象如何转换为简单值"><a href="#引用对象如何转换为简单值" class="headerlink" title="引用对象如何转换为简单值"></a>引用对象如何转换为简单值</h1><ol>
+<li><p>一个复杂对象在转为基础类型的时候会调用ToPrimitive(hint)方法来指定其目标类型</p>
+</li>
+<li><p>如果传入的hint值为number,那么就先调用对象的valueOf()方法，调用完valueOf()方法后，如果返回的是原始值，则结束ToPrimitive操作</p>
+</li>
+<li><p>如果返回的不是原始值，则继续调用对象的toString()方法，调用完toString()方法之后如果返回的是一个原始值，则结束ToPrimitive操作</p>
+</li>
+<li><p>如果返回的还是复杂值，则抛出异常。如果传入的hint值为string，则先调用toString()方法，再调用valueOf()方法，其余的过程一样。</p>
+</li>
+</ol>
+<h1 id="那么复杂对象是以什么标准来判断ToPrimitive-hint-操作传入的hint值到底是number还是string呢？"><a href="#那么复杂对象是以什么标准来判断ToPrimitive-hint-操作传入的hint值到底是number还是string呢？" class="headerlink" title="那么复杂对象是以什么标准来判断ToPrimitive(hint)操作传入的hint值到底是number还是string呢？"></a>那么复杂对象是以什么标准来判断ToPrimitive(hint)操作传入的hint值到底是number还是string呢？</h1><ol>
+<li><p>如果运行环境非常明确的需要将一个复杂对象转换为数字则传入number如 Number(value) 和 +value 则传入number</p>
+</li>
+<li><p>如果运行环境非常明确的需要将一个复杂对象转换为字符串则传入string如String(value) 和 alert(value) 则传入string</p>
+</li>
+<li><p>如果是用+号连接两个操作数，操作数在确定确定其中只要有一个为字符串的时候另外一个操作数会转为字符串，ToPrimitive()会传入string，但是如果两个操作数都不能确定是字符串的时候则默认传入number(Date对象是一个例外，它会默认传入string)进行数据类型转换。</p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2018/12/26/JavaScript%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E5%92%8C%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-%E8%BF%90%E7%AE%97%E7%AC%A6-%E4%BC%98%E5%85%88%E7%BA%A7-%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2/" rel="tag">JavaScript 运算符 优先级 隐式转换</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2019/01/08/JavaScript%20%E4%BB%A3%E7%A0%81%E7%AE%80%E6%B4%81%E4%B9%8B%E9%81%93/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            JavaScript 代码简洁之道
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/12/22/js%20%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%EF%BC%88Event%20Loop%EF%BC%89%E6%9C%BA%E5%88%B6/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">js 事件循环（Event Loop）机制</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

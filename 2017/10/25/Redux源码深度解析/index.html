@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Redux源码深度解析 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Redux源码深度解析"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Redux源码深度解析
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2017/10/25/Redux%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" class="article-date">
+  <time datetime="2017-10-25T15:31:55.000Z" itemprop="datePublished">2017-10-25</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">9 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>一般情况下我们用js设置元素对象的样式会使用这样的形式：</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="1、什么是redux，这里就不做介绍，如想了解可以移步-ReadMe-redux，整体redux的代码只有800行，src下面分为一下几个部分。"><a href="#1、什么是redux，这里就不做介绍，如想了解可以移步-ReadMe-redux，整体redux的代码只有800行，src下面分为一下几个部分。" class="headerlink" title="1、什么是redux，这里就不做介绍，如想了解可以移步 ReadMe.redux，整体redux的代码只有800行，src下面分为一下几个部分。"></a>1、什么是redux，这里就不做介绍，如想了解可以移步 ReadMe.redux，整体redux的代码只有800行，src下面分为一下几个部分。</h2><ul>
+<li><p>applyMiddleware.js</p>
+</li>
+<li><p>bindActionCreators.js</p>
+</li>
+<li><p>combineReducers.js</p>
+</li>
+<li><p>compose.js</p>
+</li>
+<li><p>createStore.js</p>
+</li>
+<li><p>index.js</p>
+</li>
+</ul>
+<p>首先我们来看index.js主js的内容，很简单，就是引入和模块和抛出模块，这里有一句提醒内容，如果是production生产环境并且js已经被压缩，会输出warning信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function isCrushed() &#123;&#125;</span><br><span class="line"></span><br><span class="line">if (</span><br><span class="line">  process.env.NODE_ENV !&#x3D;&#x3D; &#39;production&#39; &amp;&amp;</span><br><span class="line">  typeof isCrushed.name &#x3D;&#x3D;&#x3D; &#39;string&#39; &amp;&amp;</span><br><span class="line">  isCrushed.name !&#x3D;&#x3D; &#39;isCrushed&#39;</span><br><span class="line">) &#123;</span><br><span class="line">  warning(</span><br><span class="line">    &#39;You are currently using minified code outside of NODE_ENV &#x3D;&#x3D;&#x3D; \&#39;production\&#39;. &#39; +</span><br><span class="line">    &#39;This means that you are running a slower development build of Redux. &#39; +</span><br><span class="line">    &#39;You can use loose-envify (https:&#x2F;&#x2F;github.com&#x2F;zertosh&#x2F;loose-envify) for browserify &#39; +</span><br><span class="line">    &#39;or DefinePlugin for webpack (http:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;30030031) &#39; +</span><br><span class="line">    &#39;to ensure you have the correct code for your production build.&#39;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注: isCrushed.name 函数名.name是一个es6的属性，返回函数的名称。<br>除了index.js外，我们接下去从redux实现的接口，来深度分析一下Redux的源码。</p>
+<h2 id="2、compose-js"><a href="#2、compose-js" class="headerlink" title="2、compose.js"></a>2、compose.js</h2><p>我们首先从compose.js入手，首先redux贯穿始终的是函数式变成的思想，个人对于函数式编程的理解为：</p>
+<p>–首先是纯函数（相同的输入产生相同的输出）</p>
+<p>–在范畴论理，状态或者输出表示点，函数表示边，从点到点的转移可以看成运算符，函数也是一种运算符，因为运算符是纯净的，因此函数式编程中的函数也是纯净的</p>
+<p>–函数式编程中的函数，与变量等价，可以作为参数传递或者成为其他函数函数体里的一部分</p>
+<p>–因为是函数式编程，便于函数的组合，这里有一个curry和compose的组合过程</p>
+<p>基础了解函数式编程之后，下面我们来看compose.js的源码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export default function compose(...funcs) &#123;</span><br><span class="line">  if (funcs.length &#x3D;&#x3D;&#x3D; 0) &#123;</span><br><span class="line">    return arg &#x3D;&gt; arg</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (funcs.length &#x3D;&#x3D;&#x3D; 1) &#123;</span><br><span class="line">    return funcs[0]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return funcs.reduce((a, b) &#x3D;&gt; (...args) &#x3D;&gt; a(b(...args)))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个compose其实很简单，传入的参数为函数数组，返回的为reduce从左到右合并后的新的函数。是一个类似于链式调用的过程。</p>
+<p>来看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">funcs.reduce((a, b) &#x3D;&gt; (...args) &#x3D;&gt; a(b(...args)))</span><br></pre></td></tr></table></figure>
+<p>这句特别重要，组合函数的这部非常重要，我们发现…args参数会依次的从右到左执行，比如将b（…args）的执行结果，传入a中作为参数继续执行。</p>
+<h2 id="3、applyMiddleware-js"><a href="#3、applyMiddleware-js" class="headerlink" title="3、applyMiddleware.js"></a>3、applyMiddleware.js</h2><p>applyMiddleware.js其实是基于compose.js来实现的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">export default function applyMiddleware(...middlewares) &#123;</span><br><span class="line">  return (createStore) &#x3D;&gt; (reducer, preloadedState, enhancer) &#x3D;&gt; &#123;</span><br><span class="line">    const store &#x3D; createStore(reducer, preloadedState, enhancer)</span><br><span class="line">    let dispatch &#x3D; store.dispatch</span><br><span class="line">    let chain &#x3D; []</span><br><span class="line"></span><br><span class="line">    const middlewareAPI &#x3D; &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: (action) &#x3D;&gt; dispatch(action)</span><br><span class="line">    &#125;</span><br><span class="line">    chain &#x3D; middlewares.map(middleware &#x3D;&gt; middleware(middlewareAPI))</span><br><span class="line">    dispatch &#x3D; compose(...chain)(store.dispatch)</span><br><span class="line"></span><br><span class="line">    return &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码如果applyMiddleware(…Middleware)(createStore)这样调用，会生成一个新的createStore函数，用于创建新的createStore，新在哪里呢？就是链式的调用了所有的middleware：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let chain &#x3D; []</span><br><span class="line"></span><br><span class="line">const middlewareAPI &#x3D; &#123;</span><br><span class="line">   getState: store.getState,</span><br><span class="line">   dispatch: (action) &#x3D;&gt; dispatch(action)</span><br><span class="line">&#125;</span><br><span class="line">chain &#x3D; middlewares.map(middleware &#x3D;&gt; middleware(middlewareAPI))</span><br><span class="line">dispatch &#x3D; compose(...chain)(store.dispatch)</span><br></pre></td></tr></table></figure>
+<p>来看上述的代码，chain是一个函数数组，是middleware({})执行后的返回函数的数组，compose(…chain)是链式的组合函数，这里的…args是初始时候的store.dispatch，当最右边的函数以store.dispatch为参数，执行后生成一个新的store.dispatch，又向外传递，因此middleware是从右到左执行的。</p>
+<p>从上述的描述中，我们知道了middle的书写形式，如果以纯函数的形式，首先第一个参数应该是{getState:”,dispatch:”}，第二个参数是store.dispatch，第三个参数应该是action，因此最基本形式的middleware应该是：</p>
+<p>return ({ dispatch, getState }) =&gt; next =&gt; action =&gt; {</p>
+<p>}</p>
+<p>我们以redux-thunk为例，redux-thunk中间件是严格按照上述的形式，</p>
+<p>代码只有13行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function createThunkMiddleware(extraArgument) &#123;</span><br><span class="line">  return (&#123; dispatch, getState &#125;) &#x3D;&gt; next &#x3D;&gt; action &#x3D;&gt; &#123;</span><br><span class="line">    if (typeof action &#x3D;&#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">      return action(dispatch, getState, extraArgument);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const thunk &#x3D; createThunkMiddleware();</span><br><span class="line">thunk.withExtraArgument &#x3D; createThunkMiddleware;</span><br><span class="line"></span><br><span class="line">export default thunk;</span><br></pre></td></tr></table></figure>
+<p>这个中间件的功能其实很简单，也就是action如果是一个函数就选择执行这个函数，并且action函数执行的时候，会传入dispatch和getState.</p>
+<h2 id="4、createStore-js"><a href="#4、createStore-js" class="headerlink" title="4、createStore.js"></a>4、createStore.js</h2><p>createStore相对而言会较为的复杂，我们还是从接口出发。</p>
+<p>（1）首先看,createStore()函数的返回值store有哪些接口：</p>
+<p>–getState()：返回当前的state树</p>
+<p>–dispatch(action)：分发action，是改变state的唯一方法</p>
+<p>–subscribe(listener)：添加一个监听器，当state变化的时候，执行监听器里面的函数。</p>
+<p>–unsubscribe(listener)：subscribe的返回值，用于移除监听器</p>
+<p>–replaceReducer(nextReducer)：替换store中当前的reducer</p>
+<p>（2）下面根据代码，依次来看，各个接口的实现情况。</p>
+<p>首先明确createStore的形参，形参有3个，分别是reducer(处理函数)，preloadedState（初始化state），enhancer（一个高阶函数，可以改变store的接口）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export default function createStore(reducer, preloadedState, enhancer) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>getState函数：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let currentState &#x3D; preloadedState</span><br><span class="line">function getState() &#123;</span><br><span class="line">	return currentState</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>getState函数比较简单，类似于一个get的方法，返回currentState的值</p>
+<ul>
+<li>dispatch函数：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">function dispatch(action) &#123;</span><br><span class="line">    if (!isPlainObject(action)) &#123;</span><br><span class="line">      throw new Error(</span><br><span class="line">        &#39;Actions must be plain objects. &#39; +</span><br><span class="line">        &#39;Use custom middleware for async actions.&#39;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (typeof action.type &#x3D;&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">      throw new Error(</span><br><span class="line">        &#39;Actions may not have an undefined &quot;type&quot; property. &#39; +</span><br><span class="line">        &#39;Have you misspelled a constant?&#39;</span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (isDispatching) &#123;</span><br><span class="line">      throw new Error(&#39;Reducers may not dispatch actions.&#39;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">      isDispatching &#x3D; true</span><br><span class="line">      currentState &#x3D; currentReducer(currentState, action)</span><br><span class="line">    &#125; finally &#123;</span><br><span class="line">      isDispatching &#x3D; false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    const listeners &#x3D; currentListeners &#x3D; nextListeners</span><br><span class="line">    for (let i &#x3D; 0; i &lt; listeners.length; i++) &#123;</span><br><span class="line">      const listener &#x3D; listeners[i]</span><br><span class="line">      listener()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return action</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>dispatch也不复杂，去掉判断类型（因为action必须是对象）的部分，其实只有2步：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> try &#123;</span><br><span class="line">  isDispatching &#x3D; true</span><br><span class="line">  currentState &#x3D; currentReducer(currentState, action)</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">  isDispatching &#x3D; false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const listeners &#x3D; currentListeners &#x3D; nextListeners</span><br><span class="line">for (let i &#x3D; 0; i &lt; listeners.length; i++) &#123;</span><br><span class="line">  const listener &#x3D; listeners[i]</span><br><span class="line">  listener()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就很显然易见了，就是执行currentReducer()传入当前的currentState和action，返回新的state，并且执行监听函数数组里面的所有函数。</p>
+<ul>
+<li>subscribe：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function subscribe(listener) &#123;</span><br><span class="line">  if (typeof listener !&#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">    throw new Error(&#39;Expected listener to be a function.&#39;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  let isSubscribed &#x3D; true</span><br><span class="line"></span><br><span class="line">  ensureCanMutateNextListeners()</span><br><span class="line">  nextListeners.push(listener)</span><br><span class="line"></span><br><span class="line">  return function unsubscribe() &#123;</span><br><span class="line">    if (!isSubscribed) &#123;</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    isSubscribed &#x3D; false</span><br><span class="line"></span><br><span class="line">    ensureCanMutateNextListeners()</span><br><span class="line">    const index &#x3D; nextListeners.indexOf(listener)</span><br><span class="line">    nextListeners.splice(index, 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>监听函数也挺简单，就是一个简单的移入和移出，这是一个底层 API。多数情况下，你不会直接使用它，会使用一些 React（或其它库）的绑定。比如react-redux中的容器组件中的props改变会自动的更新（也算一个监听过程）。</p>
+<ul>
+<li>replaceReducer：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function replaceReducer(nextReducer) &#123;</span><br><span class="line">    if (typeof nextReducer !&#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">      throw new Error(&#39;Expected the nextReducer to be a function.&#39;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    currentReducer &#x3D; nextReducer</span><br><span class="line">    dispatch(&#123; type: ActionTypes.INIT &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数就更加的简单了，replaceReducer是为了改变当前的reducer，因此只要将currentReducer赋值为形参即可。</p>
+<h2 id="5、combineReducers-js"><a href="#5、combineReducers-js" class="headerlink" title="5、combineReducers.js"></a>5、combineReducers.js</h2><p>最复杂的部分就是combineReducer.js了</p>
+<ul>
+<li>combineReducer（reducer）接受一个reducer对象,recuder是key表示属性名，value是一个小的reduce函数：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export default function combineReducers(reducers) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>遍历reducer中的对象，取出其中的value值（reduce函数），生成一个新的对象：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const reducerKeys &#x3D; Object.keys(reducers)</span><br><span class="line">const finalReducers &#x3D; &#123;&#125;</span><br><span class="line">for (let i &#x3D; 0; i &lt; reducerKeys.length; i++) &#123;</span><br><span class="line">  const key &#x3D; reducerKeys[i]</span><br><span class="line">  finalReducers[key] &#x3D; reducers[key]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>因为reduce函数有一个初始执行过程，即会自动执行一次 type: ActionTypes.INIT,因此有以下过程：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">assertReducerShape(finalReducers);</span><br><span class="line">function assertReducerShape(reducers) &#123;</span><br><span class="line">  Object.keys(reducers).forEach(key &#x3D;&gt; &#123;</span><br><span class="line">    const reducer &#x3D; reducers[key]</span><br><span class="line">    const initialState &#x3D; reducer(undefined, &#123; type: ActionTypes.INIT &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最后就是最终要的返回的combine函数：</li>
+</ul>
+<p>其原理也很简单，state的属性名和reducer对象的key是相对的，因此也就是在所有的小的reduce函数中，传入相对的state[key]，action,依次执行后得到一个新的newState，然后与state做比较，选择性返回。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">return function combination(state &#x3D; &#123;&#125;, action) &#123;</span><br><span class="line"></span><br><span class="line">    let hasChanged &#x3D; false</span><br><span class="line">    const nextState &#x3D; &#123;&#125;</span><br><span class="line">    for (let i &#x3D; 0; i &lt; finalReducerKeys.length; i++) &#123;</span><br><span class="line">      const key &#x3D; finalReducerKeys[i]</span><br><span class="line">      const reducer &#x3D; finalReducers[key]</span><br><span class="line">      const previousStateForKey &#x3D; state[key]</span><br><span class="line">      const nextStateForKey &#x3D; reducer(previousStateForKey, action)</span><br><span class="line">      if (typeof nextStateForKey &#x3D;&#x3D;&#x3D; &#39;undefined&#39;) &#123;</span><br><span class="line">        const errorMessage &#x3D; getUndefinedStateErrorMessage(key, action)</span><br><span class="line">        throw new Error(errorMessage)</span><br><span class="line">      &#125;</span><br><span class="line">      nextState[key] &#x3D; nextStateForKey</span><br><span class="line">      hasChanged &#x3D; hasChanged || nextStateForKey !&#x3D;&#x3D; previousStateForKey</span><br><span class="line">    &#125;</span><br><span class="line">    return hasChanged ? nextState : state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6、bindActionCreators-js"><a href="#6、bindActionCreators-js" class="headerlink" title="6、bindActionCreators.js"></a>6、bindActionCreators.js</h2><p>这个一般比较少用，这里就不分析源码了，只简单的阐述功能，</p>
+<p>bindActionCreators（）把 action creators 转成拥有同名 keys 的对象，但使用 dispatch 把每个 action creator 包围起来，这样可以直接调用它们。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2017/10/25/Redux%E6%BA%90%E7%A0%81%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redux-react-%E6%9F%AF%E9%87%8C%E5%8C%96-%E7%BA%AF%E5%87%BD%E6%95%B0-%E7%8A%B6%E6%80%81-%E6%A1%86%E6%9E%B6/" rel="tag">redux react 柯里化 纯函数 状态 框架</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2017/12/04/%E6%95%B0%E7%BB%84reduce%E6%96%B9%E6%B3%95%E7%9A%84%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            数组reduce方法的高级技巧
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2017/10/25/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%AF%E5%87%BD%E6%95%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">函数式编程之纯函数</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

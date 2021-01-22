@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    观察者模式和订阅发布模式是一样的吗？ |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-观察者模式和订阅发布模式是一样的吗？ - 副本"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  观察者模式和订阅发布模式是一样的吗？
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/12/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%E5%90%97%EF%BC%9F%20-%20%E5%89%AF%E6%9C%AC/" class="article-date">
+  <time datetime="2021-01-12T14:36:29.000Z" itemprop="datePublished">2021-01-12</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">12 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="观察者模式和订阅发布模式是一样的吗？"><a href="#观察者模式和订阅发布模式是一样的吗？" class="headerlink" title="观察者模式和订阅发布模式是一样的吗？"></a>观察者模式和订阅发布模式是一样的吗？</h2><p>看到一篇介绍关于观察者模式和订阅发布模式的区别的文章，看完后依然认为它们在概念和思想上是统一的，只是根据实现方式和使用场景的不同，叫法不一样，不过既然有区别，就来探究一番，加深理解。</p>
+<a id="more"></a>
+
+<p>先看图感受下两者表现出来的区别：</p>
+<p><img src="https://i.loli.net/2021/01/12/BhV4MIkioQv7RGj.png" alt="watcher.png"></p>
+<h3 id="两种模型概念"><a href="#两种模型概念" class="headerlink" title="两种模型概念"></a>两种模型概念</h3><p><strong>观察者模式</strong>的定义是在对象之间定义一个一对多的依赖，当对象自身状态改变的时候，会自动通知给关心该状态的观察者。</p>
+<p>解决了主体对象与观察者之间功能的耦合，即一个对象状态改变给其他对象通知的问题。</p>
+<p>这种对象与对象，有点像 <strong>商家-顾客</strong> 的关系，顾客对商家的某个商品感兴趣，就被商家记住，等有新品发布，便会直接通知顾客，相信加过微商微信会深有体会。</p>
+<p>来张图直观感受：</p>
+<p><img src="https://i.loli.net/2021/01/12/o6zbHi27aWTuEdp.png" alt="watcher2.png"></p>
+<p>可以从图中看出来，这种模式是商家直接管理顾客。</p>
+<p><strong>订阅发布模式</strong></p>
+<p>该模式理解起来和观察者模式一样，也是定义一对多的依赖关系，对象状态改变后，通知给所有关心这个状态的订阅者。</p>
+<p>订阅发布模式有订阅的动作，可以不和商家直接产生联系，只要能订阅上关心的状态即可，通常利用第三方媒介来做，而发布者也会利用三方媒介来通知订阅者。</p>
+<p>这有点像 <strong>商家-APP-顾客</strong> 的关系，某个产品断货，顾客可以在APP上订阅上货通知，待上新，商家通过APP通知订阅的顾客。</p>
+<p>在程序实现中，第三方媒介称之为 EventBus(事件总线)，可以理解为订阅事件的集合，它提供订阅、发布、取消等功能。订阅者订阅事件，和发布者发布事件，都通过事件总线进行交互。</p>
+<p><img src="https://i.loli.net/2021/01/12/EVqbMzsGZxLImXD.png" alt="eventBus.png"></p>
+<p><strong>两种模式的异同</strong></p>
+<p>从概念上理解，两者没什么不同，都在解决对象之间解耦，通过事件的方式在某个时间点进行触发，监听这个事件的订阅者可以进行相应的操作。</p>
+<p>在实现上有所不同，观察者模式对订阅事件的订阅者通过发布者自身来维护，后续的一些列操作都要通过发布者完成；订阅发布模式是订阅者和发布者中间会有一个事件总线，操作都要经过事件总线完成。</p>
+<p>观察者模式的事件名称，通常由发布者指定发布的事件，当然也可以自定义，这样看是否提供自定义的功能。</p>
+<p>在 <strong>DOM</strong> 中绑定事件，<strong>click、mouseover</strong> 这些，都是内置规定好的事件名称。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.addEventListener(&#39;click&#39;,()&#x3D;&gt;&#123;&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>addEventListener</strong> 第一个参数就是绑定的时间名称；第二参数是一个函数，就是订阅者。</p>
+<p>订阅发布模式的事件名称就比较随意，在事件总线中会维护一个事件对应的订阅者列表，当该事件触发时，会遍历列表通知所有的订阅者。</p>
+<p>伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 订阅</span><br><span class="line">EventBus.on(&#39;custom&#39;, () &#x3D;&gt; &#123;&#125;)</span><br><span class="line">&#x2F;&#x2F; 发布</span><br><span class="line">EventBus.emit(&#39;custom&#39;)</span><br></pre></td></tr></table></figure>
+<p>事件名称为开发者自定义，当使用频繁时维护起来较为麻烦，尤其是改名字，多个对象或组件都要替换，通常会把事件名称在一个配置中统一管理。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h4><p>在 <strong>Javascript</strong> 中函数就是对象，订阅者对象可以直接由函数来充当，就跟绑定 <strong>DOM</strong> 使用的 <strong>addEventListener</strong> 方法，第二个参数就是订阅者，是一个函数。</p>
+<p>我们从上面描述的概念中去实现 <strong>商家-顾客</strong>，这样可以更好的理解（或者迷糊）。</p>
+<p>定义一个顾客类，需要有个方法，这个方法用来接收商家通知的消息，就跟顾客都留有手机号码一样，发布的消息都由手机来接收，顾客收消息的方式是统一的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 顾客</span><br><span class="line">class Customer &#123;</span><br><span class="line">  update(data)&#123;</span><br><span class="line">    console.log(&#39;拿到了数据&#39;, data);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义商家，商家提供订阅、取消订阅、发布功能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 商家</span><br><span class="line">class Merchant &#123;</span><br><span class="line">  constructor()&#123;</span><br><span class="line">    this.listeners &#x3D; &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  addListener(name, listener)&#123;</span><br><span class="line">    &#x2F;&#x2F; 事件没有，定义一个队列</span><br><span class="line">    if(this.listeners[name] &#x3D;&#x3D;&#x3D; undefined) &#123;</span><br><span class="line">      this.listeners[name] &#x3D; []</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 放在队列中</span><br><span class="line">    this.listeners[name].push(listener)</span><br><span class="line">  &#125;</span><br><span class="line">  removeListener(name, listener)&#123;</span><br><span class="line">    &#x2F;&#x2F; 事件没有队列，则不处理</span><br><span class="line">    if(this.listeners[name] &#x3D;&#x3D;&#x3D; undefined) return</span><br><span class="line">    &#x2F;&#x2F; 遍历队列，找到要移除的函数</span><br><span class="line">    const listeners &#x3D; this.listeners[name]</span><br><span class="line">    for(let i &#x3D; 0; i &lt; listeners.length; i++)&#123;</span><br><span class="line">      if(listeners[i] &#x3D;&#x3D;&#x3D; listener)&#123;</span><br><span class="line">        listeners.splice(i, 1)</span><br><span class="line">        i--</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  notifyListener(name, data)&#123;</span><br><span class="line">    &#x2F;&#x2F; 事件没有队列，则不处理</span><br><span class="line">    if(this.listeners[name] &#x3D;&#x3D;&#x3D; undefined) return</span><br><span class="line">    &#x2F;&#x2F; 遍历队列，依次执行函数</span><br><span class="line">    const listeners &#x3D; this.listeners[name]</span><br><span class="line">    for(let i &#x3D; 0; i &lt; listeners.length; i++)&#123;</span><br><span class="line">      if(typeof listeners[i] &#x3D;&#x3D;&#x3D; &#39;object&#39;)&#123;</span><br><span class="line">        listeners[i].update(data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 多名顾客</span><br><span class="line">const c1 &#x3D; new Customer()</span><br><span class="line">const c2 &#x3D; new Customer()</span><br><span class="line">const c3 &#x3D; new Customer()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 商家</span><br><span class="line">const m &#x3D; new Merchant()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 顾客订阅商家商品</span><br><span class="line">m.addListener(&#39;shoes&#39;, c1)</span><br><span class="line">m.addListener(&#39;shoes&#39;, c2)</span><br><span class="line">m.addListener(&#39;skirt&#39;, c3)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 过了一天没来，取消订阅</span><br><span class="line">setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">  m.removeListener(&#39;shoes&#39;, c2)</span><br><span class="line">&#125;, 1000)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 过了几天</span><br><span class="line">setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">  m.notifyListener(&#39;shoes&#39;, &#39;来啊，购买啊&#39;)</span><br><span class="line">  m.notifyListener(&#39;skirt&#39;, &#39;降价了&#39;)</span><br><span class="line">&#125;, 2000)</span><br></pre></td></tr></table></figure>
+<h4 id="订阅发布模式"><a href="#订阅发布模式" class="headerlink" title="订阅发布模式"></a>订阅发布模式</h4><p>订阅和发布的功能都在事件总线中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">class Observe &#123;</span><br><span class="line">  constructor()&#123;</span><br><span class="line">    this.listeners &#x3D; &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  on(name, fn)&#123;</span><br><span class="line">    &#x2F;&#x2F; 事件没有，定义一个队列</span><br><span class="line">    if(this.listeners[name] &#x3D;&#x3D;&#x3D; undefined) &#123;</span><br><span class="line">      this.listeners[name] &#x3D; []</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; 放在队列中</span><br><span class="line">    this.listeners[name].push(fn)</span><br><span class="line">  &#125;</span><br><span class="line">  off(name, fn)&#123;</span><br><span class="line">    &#x2F;&#x2F; 事件没有队列，则不处理</span><br><span class="line">    if(this.listeners[name] &#x3D;&#x3D;&#x3D; undefined) return</span><br><span class="line">    &#x2F;&#x2F; 遍历队列，找到要移除的函数</span><br><span class="line">    const listeners &#x3D; this.listeners[name]</span><br><span class="line">    for(let i &#x3D; 0; i &lt; this.listeners.length; i++)&#123;</span><br><span class="line">      if(this.listeners[i] &#x3D;&#x3D;&#x3D; fn)&#123;</span><br><span class="line">        this.listeners.splice(i, 1)</span><br><span class="line">        i--</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  emit(name, data)&#123;</span><br><span class="line">    &#x2F;&#x2F; 事件没有队列，则不处理</span><br><span class="line">    if(this.listeners[name] &#x3D;&#x3D;&#x3D; undefined) return</span><br><span class="line">    &#x2F;&#x2F; 遍历队列，依次执行函数</span><br><span class="line">    const listenersEvent &#x3D; this.listeners[name]</span><br><span class="line">    for(let i &#x3D; 0; i &lt; listenersEvent.length; i++)&#123;</span><br><span class="line">      if(typeof listenersEvent[i] &#x3D;&#x3D;&#x3D; &#39;function&#39;)&#123;</span><br><span class="line">        listenersEvent[i](data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const observe &#x3D; new Observe()</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 进行订阅</span><br><span class="line">observe.on(&#39;say&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;监听,拿到数据&#39;, data);</span><br><span class="line">&#125;)</span><br><span class="line">observe.on(&#39;say&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;监听2,拿到数据&#39;, data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 发布</span><br><span class="line">setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">  observe.emit(&#39;say&#39;, &#39;传过去数据啦&#39;)</span><br><span class="line">&#125;, 2000)</span><br></pre></td></tr></table></figure>
+<p><strong>通过以上两种模式的实现上来看，观察者模式进一步抽象，能抽出公共代码就是事件总线，反过来说，如果一个对象要有观察者模式的功能，只需要继承事件总线。</strong></p>
+<p><strong>node</strong> 中提供能了 <strong>events</strong> 模块可供我们灵活使用。</p>
+<p>继承使用，都通过发布者调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const EventEmitter &#x3D; require(&#39;events&#39;)</span><br><span class="line"></span><br><span class="line">class MyEmitter extends EventEmitter &#123;&#125;</span><br><span class="line"></span><br><span class="line">const myEmitter &#x3D; new MyEmitter()</span><br><span class="line"></span><br><span class="line">myEmitter.on(&#39;event&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;触发事件&#39;, data);</span><br><span class="line">&#125;);</span><br><span class="line">myEmitter.emit(&#39;event&#39;, 1);</span><br></pre></td></tr></table></figure>
+<p>直接使用，当做事件总线：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const EventEmitter &#x3D; require(&#39;events&#39;)</span><br><span class="line"></span><br><span class="line">const emitter &#x3D; new EventEmitter()</span><br><span class="line"></span><br><span class="line">emitter.on(&#39;custom&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">  console.log(&#39;接收数据&#39;, data);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">emitter.emit(&#39;custom&#39;, 2)</span><br></pre></td></tr></table></figure>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p><strong>观察者模式</strong>在很多场景中都在使用，除了上述中在 <strong>DOM</strong> 上监听事件外，还有最常用的是 <strong>Vue</strong> 组件中父子之间的通信。</p>
+<p>父级代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;父级&lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;Child @custom&#x3D;&quot;customHandler&quot;&gt;&lt;&#x2F;Child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">      customHandler(data)&#123;</span><br><span class="line">        console.log(&#39;拿到数据，我要干点事&#39;, data);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>子级代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;子级&lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;clickHandler&quot;&gt;改变了&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">      clickHandler()&#123;</span><br><span class="line">        this.$emit(&#39;custome&#39;, 123)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>子组件是一个通用的组件，内部不做业务逻辑处理，仅仅在点击时会发布一个自定义的事件 <strong>custom</strong>。子组件被使用在页面的任意地方，在不同的使用场景里，当点击按钮后子组件所在的场景会做相应的业务处理。如果关心子组件内部按钮点击这个状态的改变，只需要监听 <strong>custom</strong> 自定义事件。</p>
+<p><strong>订阅发布模式</strong>在用 <strong>Vue</strong> 写业务也会使用到，应用场景是在跨多层组件通信时，如果利用父子组件通信一层层订阅发布，可维护性和灵活性很差，一旦中间某个环节出问题，整个传播链路就会瘫痪。这时采用独立出来的 <strong>EventBus</strong> 解决这类问题，只要能访问到 <strong>EventBus</strong> 对象，便可通过该对象订阅和发布事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; EventBus.js</span><br><span class="line">import Vue from &#39;vue&#39;</span><br><span class="line">export default const EventBus &#x3D; new Vue()</span><br></pre></td></tr></table></figure>
+<p>父级代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;父级&lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;Child&gt;&lt;&#x2F;Child&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  import EventBus from &#39;.&#x2F;EventBus&#39;</span><br><span class="line">  export default &#123;</span><br><span class="line">    &#x2F;&#x2F; 加载完就要监控</span><br><span class="line">    moutend()&#123;</span><br><span class="line">      EventBus.on(&#39;custom&#39;, (data) &#x3D;&gt; &#123;</span><br><span class="line">        console.log(&#39;拿到数据&#39;, data);</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;h2&gt;嵌套很深的子级&lt;&#x2F;h2&gt;</span><br><span class="line">    &lt;button @click&#x3D;&quot;clickHandler&quot;&gt;改变了&lt;&#x2F;button&gt;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  import EventBus from &#39;.&#x2F;EventBus&#39;</span><br><span class="line">  export default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">      clickHandler()&#123;</span><br><span class="line">        EventBus.emit(&#39;custom&#39;, 123)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>通过上述代码可以看出来订阅发布模式完全解耦两个组件，互相可以不知道对方的存在，只需要在恰当的时机订阅或发布自定义事件。</p>
+<h4 id="订阅发布模式在-Vue2-源码中的使用"><a href="#订阅发布模式在-Vue2-源码中的使用" class="headerlink" title="订阅发布模式在 Vue2 源码中的使用"></a>订阅发布模式在 Vue2 源码中的使用</h4><p><strong>Vue2</strong> 中会通过拦截数据的获取进行依赖收集，收集的是一个个 <strong>Watcher</strong>。等待对数据进行变更时，要通知依赖的 <strong>Watcher</strong> 进行组件更新。可以通过一张图看到这个收集和通知过程。</p>
+<p><img src="https://i.loli.net/2021/01/12/zr9OU6MV5WlgICn.png" alt="vue.png"></p>
+<p>这些依赖存在了定义的 <strong>Dep</strong> 中，在这个类中实现了简单的订阅和发布功能，可以看做是一个 <strong>EventBus</strong>，源码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">export default class Dep &#123;</span><br><span class="line">  static target: ?Watcher;</span><br><span class="line">  id: number;</span><br><span class="line">  subs: Array&lt;Watcher&gt;;</span><br><span class="line"></span><br><span class="line">  constructor () &#123;</span><br><span class="line">    this.id &#x3D; uid++</span><br><span class="line">    this.subs &#x3D; []</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  addSub (sub: Watcher) &#123;</span><br><span class="line">    this.subs.push(sub)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  removeSub (sub: Watcher) &#123;</span><br><span class="line">    remove(this.subs, sub)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  depend () &#123;</span><br><span class="line">    if (Dep.target) &#123;</span><br><span class="line">      Dep.target.addDep(this)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  notify () &#123;</span><br><span class="line">    &#x2F;&#x2F; stabilize the subscriber list first</span><br><span class="line">    const subs &#x3D; this.subs.slice()</span><br><span class="line">    for (let i &#x3D; 0, l &#x3D; subs.length; i &lt; l; i++) &#123;</span><br><span class="line">      subs[i].update()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每个 <strong>Wather</strong> 就是订阅者，这些订阅者都实现一个叫做 <strong>update</strong> 的方法，当数据更改时便会遍历所有的 <strong>Wather</strong> 调用 <strong>update</strong> 方法。</p>
+<p><strong>总结</strong></p>
+<p>通过上述的表述，相信你对观察者模式和订阅发布模式有了重新的认识，可以说二者是相同的，它们的概念和解决的问题是一样的，致力于让两个对象解耦，只是叫法不一样；也可以说二者不一样，在使用方式和场景中不一样。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2021/01/12/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%E5%90%97%EF%BC%9F%20-%20%E5%89%AF%E6%9C%AC/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85-%E8%AE%A2%E9%98%85-%E5%8F%91%E5%B8%83-javascript/" rel="tag">设计模式 观察者 订阅 发布 javascript</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/01/14/%E5%89%8D%E7%AB%AF%E7%9A%84Nginx%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前端的Nginx知识梳理
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/01/12/useEffect%E5%BC%95%E8%B5%B7%E7%9A%84React%20Hooks%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">useEffect引起的React Hooks深入了解</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

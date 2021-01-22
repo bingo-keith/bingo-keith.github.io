@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    javascript 代码规范 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-javascript 代码规范"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  javascript 代码规范
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/04/11/javascript%20%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" class="article-date">
+  <time datetime="2018-04-10T16:06:56.000Z" itemprop="datePublished">2018-04-11</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">3.8k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">14 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="为什要遵守代码规范"><a href="#为什要遵守代码规范" class="headerlink" title="为什要遵守代码规范"></a>为什要遵守代码规范</h1><p>软件bug的修复是昂贵的，并且随着时间的推移，这些bug的成本也会增加，尤其当这些bug潜伏并慢慢出现在已经发布的软件中时。当你发现bug 的时候就立即修复它是最好的，此时你代码要解决的问题在你脑中还是很清晰的。否则，你转移到其他任务，忘了那个特定的代码，一段时间后再去查看这些代码就 需要：</p>
+<ul>
+<li><p>花时间学习和理解这个问题</p>
+</li>
+<li><p>花时间是了解应该解决的问题代码</p>
+</li>
+<li><p>还有问题，特别对于大的项目或是公司，修复bug的这位伙计不是写代码的那个人（且发现bug和修复bug的不是同一个人）。因此，必须降低理解代 码花费的时间，无论是一段时间前你自己写的代码还是团队中的其他成员写的代码。这关系到底线（营业收入）和开发人员的幸福，因为我们更应该去开发新的激动 人心的事物而不是花几小时几天的时间去维护遗留代码。</p>
+</li>
+</ul>
+<a id="more"></a>
+
+<p><strong>另一个相关软件开发生命的事实是，读代码花费的时间要比写来得多。有时候，当你专注并深入思考某个问题的时候，你可以坐下来，一个下午写大量的代码。</strong></p>
+<p>你的代码很能很快就工作了，但是，随着应用的成熟，还会有很多其他的事情发生，这就要求你的进行进行审查，修改，和调整。例如：</p>
+<ul>
+<li><p>bug是暴露的</p>
+</li>
+<li><p>新功能被添加到应用程序</p>
+</li>
+<li><p>程序在新的环境下工作（例如，市场上出现新想浏览器）</p>
+</li>
+<li><p>代码改变用途</p>
+</li>
+<li><p>代码得完全从头重新，或移植到另一个架构上或者甚至使用另一种语言</p>
+</li>
+</ul>
+<p><strong>由于这些变化，很少人力数小时写的代码最终演变成花数周来阅读这些代码。这就是为什么创建可维护的代码对应用程序的成功至关重要。</strong></p>
+<blockquote>
+<p>可维护的代码意味着：</p>
+</blockquote>
+<ul>
+<li><p>可读的</p>
+</li>
+<li><p>一致的</p>
+</li>
+<li><p>可预测的</p>
+</li>
+<li><p>看上去就像是同一个人写的</p>
+</li>
+<li><p>已记录</p>
+</li>
+</ul>
+<h1 id="编写代码需遵守的几个原则"><a href="#编写代码需遵守的几个原则" class="headerlink" title="编写代码需遵守的几个原则"></a>编写代码需遵守的几个原则</h1><p>提示： 不遵守这些原则代码也能运行起来。只是可能出现难以维护的现象。规范就像一种模式，大家按照一种模式来，那么阅读其他人的代码，成本就降低了。</p>
+<p><strong>编写代码注意事项：</strong></p>
+<h2 id="尽量减少声明全局变量"><a href="#尽量减少声明全局变量" class="headerlink" title="尽量减少声明全局变量"></a>尽量减少声明全局变量</h2><h2 id="定义变量是，尽量放到顶部"><a href="#定义变量是，尽量放到顶部" class="headerlink" title="定义变量是，尽量放到顶部"></a>定义变量是，尽量放到顶部</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function func() &#123;</span><br><span class="line">    var a &#x3D; 1,</span><br><span class="line">        b &#x3D; 2,</span><br><span class="line">        sum &#x3D; a + b,</span><br><span class="line">        myobject &#x3D; &#123;&#125;,</span><br><span class="line">        i,</span><br><span class="line">        j;</span><br><span class="line">    &#x2F;&#x2F; function body...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：在es6中，使用let 定义，可能出现’暂时性死区’, 具体想知道什么叫做’暂时性死区’ , 请查看阮一峰<a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/let">ECMAScript 6 入门</a></p>
+<h2 id="for循环-for-Loops"><a href="#for循环-for-Loops" class="headerlink" title="for循环(for Loops)"></a>for循环(for Loops)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 次佳的循环</span><br><span class="line">for (var i &#x3D; 0; i &lt; myarray.length; i++) &#123;</span><br><span class="line">&#x2F;&#x2F; 使用myarray[i]做点什么</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F;更好的方式</span><br><span class="line">for (var i &#x3D; 0, max &#x3D; myarray.length; i &lt; max; i++) &#123;</span><br><span class="line">&#x2F;&#x2F; 使用myarray[i]做点什么</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>JSLint提示您这样做，原因是++和–-促进了“过分棘手(excessive trickiness)”。//zxx:这里比较难翻译，我想本意应该是让代码变得更加的棘手，如果你直接无视它，JSLint的plusplus选项会是false（默认是default）。</strong></p>
+<p>还有两种变化的形式，其又有了些微改进，因为：</p>
+<ul>
+<li><p>少了一个变量(无max)</p>
+</li>
+<li><p>向下数到0，通常更快，因为和0做比较要比和数组长度或是其他不是0的东西作比较更有效率 //第一种变化的形式：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var i, myarray &#x3D; [];</span><br><span class="line">for (i &#x3D; myarray.length; i–-;) &#123;</span><br><span class="line">	&#x2F;&#x2F; 使用myarray[i]做点什么</span><br><span class="line">&#125; </span><br><span class="line">&#x2F;&#x2F;第二种使用while循环： </span><br><span class="line">var myarray &#x3D; [],</span><br><span class="line">i &#x3D; myarray.length;</span><br><span class="line">while (i–-) &#123;</span><br><span class="line">	&#x2F;&#x2F; 使用myarray[i]做点什么</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="for-in循环-for-in-Loops"><a href="#for-in循环-for-in-Loops" class="headerlink" title="for-in循环(for-in Loops)"></a>for-in循环(for-in Loops)</h2><p>for-in循环应该用在非数组对象的遍历上，使用for-in进行循环也被称为“枚举”。</p>
+<blockquote>
+<p>从技术上将，你可以使用for-in循环数组（因为JavaScript中数组也是对象），但这是不推荐的。因为如果数组对象已被自定义的功能增强，就可能发生逻辑错误。另外，在for-in中，属性列表的顺序（序列）是不能保证的。所以最好数组使用正常的for循环，对象使用for-in循环。</p>
+</blockquote>
+<p>有个很重要的hasOwnProperty()方法，当遍历对象属性的时候可以过滤掉从原型链上下来的属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 对象</span><br><span class="line">var man &#x3D; &#123;</span><br><span class="line">    hands: 2,</span><br><span class="line">    legs: 2,</span><br><span class="line">    heads: 1</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 在代码的某个地方</span><br><span class="line">&#x2F;&#x2F; 一个方法添加给了所有对象</span><br><span class="line">if (typeof Object.prototype.clone &#x3D;&#x3D;&#x3D; &quot;undefined&quot;) &#123;</span><br><span class="line">    Object.prototype.clone &#x3D; function () &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">&#x2F;&#x2F; for-in 循环</span><br><span class="line">for (var i in man) &#123;</span><br><span class="line">if (man.hasOwnProperty(i)) &#123; &#x2F;&#x2F; 过滤</span><br><span class="line">    console.log(i, &quot;:&quot;, man[i]);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;* 控制台显示结果</span><br><span class="line">hands : 2</span><br><span class="line">legs : 2</span><br><span class="line">heads : 1</span><br><span class="line">*&#x2F;</span><br><span class="line">&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line">&#x2F;&#x2F; 反面例子:</span><br><span class="line">&#x2F;&#x2F; for-in loop without checking hasOwnProperty()</span><br><span class="line">for (var i in man) &#123;</span><br><span class="line">	console.log(i, &quot;:&quot;, man[i]);</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;*</span><br><span class="line">控制台显示结果</span><br><span class="line">hands : 2</span><br><span class="line">legs : 2</span><br><span class="line">heads : 1</span><br><span class="line">clone: function()</span><br><span class="line">*&#x2F;</span><br></pre></td></tr></table></figure>
+<h2 id="（不）扩展内置原型-Not-Augmenting-Built-in-Prototypes"><a href="#（不）扩展内置原型-Not-Augmenting-Built-in-Prototypes" class="headerlink" title="（不）扩展内置原型((Not) Augmenting Built-in Prototypes)"></a>（不）扩展内置原型((Not) Augmenting Built-in Prototypes)</h2><p>增加内置的构造函数原型（如Object(), Array(), 或Function()）挺诱人的，但是这严重降低了可维护性，因为它让你的代码变得难以预测。使用你代码的其他开发人员很可能更期望使用内置的 JavaScript方法来持续不断地工作，而不是你另加的方法。</p>
+<p><strong>因此，不增加内置原型是最好的。你可以指定一个规则，仅当下面的条件均满足时例外：</strong></p>
+<ul>
+<li><p>可以预期将来的ECMAScript版本或是JavaScript实现将一直将此功能当作内置方法来实现。例如，- 你可以添加ECMAScript 5中描述的方法，一直到各个浏览器都迎头赶上。这种情况下，你只是提前定义了有用的方法。</p>
+</li>
+<li><p>如果您检查您的自定义属性或方法已不存在——也许已经在代码的其他地方实现或已经是你支持的浏览器JavaScript引擎部分。</p>
+</li>
+<li><p>你清楚地文档记录并和团队交流了变化。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (typeof Object.protoype.myMethod !&#x3D;&#x3D; &quot;function&quot;) &#123;</span><br><span class="line">   Object.protoype.myMethod &#x3D; function () &#123;</span><br><span class="line">       &#x2F;&#x2F; 实现...</span><br><span class="line">   &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般情况下，强烈不建议使用</p>
+<h2 id="避免隐式类型转换-Avoiding-Implied-Typecasting"><a href="#避免隐式类型转换-Avoiding-Implied-Typecasting" class="headerlink" title="避免隐式类型转换(Avoiding Implied Typecasting )"></a>避免隐式类型转换(Avoiding Implied Typecasting )</h2><p>JavaScript的变量在比较的时候会隐式类型转换。这就是为什么一些诸如：false == 0 或 “” == 0 返回的结果是true。为避免引起混乱的隐含类型转换，在你比较值和表达式类型的时候始终使用===和!==操作符。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var zero &#x3D; 0;</span><br><span class="line">if (zero &#x3D;&#x3D;&#x3D; false) &#123;</span><br><span class="line">	&#x2F;&#x2F; 不执行，因为zero为0, 而不是false</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 反面示例</span><br><span class="line">if (zero &#x3D;&#x3D; false) &#123;</span><br><span class="line">	&#x2F;&#x2F; 执行了...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="避免-Avoiding-eval"><a href="#避免-Avoiding-eval" class="headerlink" title="避免(Avoiding) eval()"></a>避免(Avoiding) eval()</h2><p>如果你现在的代码中使用了eval()，记住该咒语“eval()是魔鬼”。此方法接受任意的字符串，并当作JavaScript代码来处理。当有 问题的代码是事先知道的（不是运行时确定的），没有理由使用eval()。如果代码是在运行时动态生成，有一个更好的方式不使用eval而达到同样的目 标。例如，用方括号表示法来访问动态属性会更好更简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 反面示例</span><br><span class="line">var property &#x3D; &quot;name&quot;;</span><br><span class="line">alert(eval(&quot;obj.&quot; + property));</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 更好的</span><br><span class="line">var property &#x3D; &quot;name&quot;;</span><br><span class="line">alert(obj[property]);</span><br></pre></td></tr></table></figure>
+<h1 id="编码规范"><a href="#编码规范" class="headerlink" title="编码规范"></a>编码规范</h1><h2 id="缩进-Indentation"><a href="#缩进-Indentation" class="headerlink" title="缩进(Indentation)"></a>缩进(Indentation)</h2><p>代码没有缩进基本上就不能读了。唯一糟糕的事情就是不一致的缩进，因为它看上去像是遵循了规范，但是可能一路上伴随着混乱和惊奇。重要的是规范地使用缩进。</p>
+<p>一些开发人员更喜欢用tab制表符缩进，因为任何人都可以调整他们的编辑器以自己喜欢的空格数来显示Tab。有些人喜欢空格——通常四个，这都无所谓，只要团队每个人都遵循同一个规范就好了。这本书，例如，<strong>使用四个空格缩进，这也是JSLint中默认的缩进。</strong></p>
+<p>什么应该缩进呢？规则很简单——花括号里面的东西。这就意味着函数体，循环 (do, while, for, for-in)，if，switch，以及对象字面量中的对象属性。下面的代码就是使用缩进的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function outer(a, b) &#123;</span><br><span class="line">    var c &#x3D; 1,</span><br><span class="line">        d &#x3D; 2,</span><br><span class="line">        inner;</span><br><span class="line">    if (a &gt; b) &#123;</span><br><span class="line">        inner &#x3D; function () &#123;</span><br><span class="line">            return &#123;</span><br><span class="line">                r: c - d</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        inner &#x3D; function () &#123;</span><br><span class="line">            return &#123;</span><br><span class="line">                r: c + d</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    return inner;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="花括号-Curly-Braces"><a href="#花括号-Curly-Braces" class="headerlink" title="花括号{}(Curly Braces)"></a>花括号{}(Curly Braces)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 糟糕的实例</span><br><span class="line">for (var i &#x3D; 0; i &lt; 10; i +&#x3D; 1)</span><br><span class="line">alert(i);</span><br><span class="line">&#x2F;&#x2F; 好的实例</span><br><span class="line">for (var i &#x3D; 0; i &lt; 10; i +&#x3D; 1) &#123;</span><br><span class="line">	alert(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="左花括号的位置-Opening-Brace-Location"><a href="#左花括号的位置-Opening-Brace-Location" class="headerlink" title="左花括号的位置(Opening Brace Location)"></a>左花括号的位置(Opening Brace Location)</h2><p>这个实例中，仁者见仁智者见智，但也有个案，括号位置不同会有不同的行为表现。这是因为分号插入机制(semicolon insertion mechanism)——JavaScript是不挑剔的，当你选择不使用分号结束一行代码时JavaScript会自己帮你补上。这种行为可能会导致麻 烦，如当你返回对象字面量，而左括号却在下一行的时候</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 警告： 意外的返回值</span><br><span class="line">function func() &#123;</span><br><span class="line">    return</span><br><span class="line">    &#x2F;&#x2F; 下面代码不执行</span><br><span class="line">    &#123;</span><br><span class="line">        name : &quot;Batman&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 警告： 意外的返回值</span><br><span class="line">function func() &#123;</span><br><span class="line">    return undefined;</span><br><span class="line">    &#x2F;&#x2F; 下面代码不执行</span><br><span class="line">    &#123;</span><br><span class="line">        name : &quot;Batman&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="空格-White-Space"><a href="#空格-White-Space" class="headerlink" title="空格(White Space)"></a>空格(White Space)</h2><p>空格的使用同样有助于改善代码的可读性和一致性。在写英文句子的时候，在逗号和句号后面会使用间隔。在JavaScript中，你可以按照同样的逻辑在列表模样表达式（相当于逗号）和结束语句（相对于完成了“想法”）后面添加间隔。</p>
+<blockquote>
+<p>适合使用空格的地方包括：</p>
+</blockquote>
+<ul>
+<li><p>for循环分号分开后的的部分：如for (var i = 0; i &lt; 10; i += 1) {…}</p>
+</li>
+<li><p>for循环中初始化的多变量(i和max)：for (var i = 0, max = 10; i &lt; max; i += 1) {…}</p>
+</li>
+<li><p>分隔数组项的逗号的后面：var a = [1, 2, 3];</p>
+</li>
+<li><p>对象属性逗号的后面以及分隔属性名和属性值的冒号的后面：var o = {a: 1, b: 2};</p>
+</li>
+<li><p>限定函数参数：myFunc(a, b, c)</p>
+</li>
+<li><p>函数声明的花括号的前面：function myFunc() {}</p>
+</li>
+<li><p>匿名函数表达式function的后面：var myFunc = function () {};</p>
+</li>
+</ul>
+<p>使用空格分开所有的操作符和操作对象是另一个不错的使用，这意味着在+, -, *, =, &lt;, &gt;, &lt;=, &gt;=, ===, !==, &amp;&amp;, ||, +=等前后都需要空格。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 宽松一致的间距</span><br><span class="line">&#x2F;&#x2F; 使代码更易读</span><br><span class="line">&#x2F;&#x2F; 使得更加“透气”</span><br><span class="line">var d &#x3D; 0,</span><br><span class="line">    a &#x3D; b + 1;</span><br><span class="line">if (a &amp;&amp; b &amp;&amp; c) &#123;</span><br><span class="line">    d &#x3D; a % c;</span><br><span class="line">    a +&#x3D; d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 反面例子</span><br><span class="line">&#x2F;&#x2F; 缺失或间距不一</span><br><span class="line">&#x2F;&#x2F; 使代码变得疑惑</span><br><span class="line">var d &#x3D; 0,</span><br><span class="line">    a &#x3D; b + 1;</span><br><span class="line">if (a&amp;&amp;b&amp;&amp;c) &#123;</span><br><span class="line">    d&#x3D;a % c;</span><br><span class="line">    a+&#x3D; d;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>最后需要注意的一个空格——花括号间距。最好使用空格：</strong></p>
+<ul>
+<li><p>函数、if-else语句、循环、对象字面量的左花括号的前面({)</p>
+</li>
+<li><p>else或while之间的右花括号(}) //{} 空格</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (4) &#123;</span><br><span class="line">	console.log(1)</span><br><span class="line">&#125; else if (3) &#123;</span><br><span class="line">	console.log(1)</span><br><span class="line">&#125;</span><br><span class="line">var a &#x3D; &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="命名规范"><a href="#命名规范" class="headerlink" title="命名规范"></a>命名规范</h1><ul>
+<li><p>另一种方法让你的代码更具可预测性和可维护性是采用命名规范。这就意味着你需要用同一种形式给你的变量和函数命名。</p>
+</li>
+<li><p>下面是建议的一些命名规范，你可以原样采用，也可以根据自己的喜好作调整。同样，遵循规范要比规范是什么更重要。</p>
+</li>
+</ul>
+<h2 id="以大写字母写构造函数-Capitalizing-Constructors"><a href="#以大写字母写构造函数-Capitalizing-Constructors" class="headerlink" title="以大写字母写构造函数(Capitalizing Constructors)"></a>以大写字母写构造函数(Capitalizing Constructors)</h2><p>JavaScript并没有类，但有new调用的构造函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var adam &#x3D; new Person();  </span><br></pre></td></tr></table></figure>
+<p>因为构造函数仍仅仅是函数，仅看函数名就可以帮助告诉你这应该是一个构造函数还是一个正常的函数。<br>命名构造函数时首字母大写具有暗示作用，使用小写命名的函数和方法不应该使用new调用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function MyConstructor() &#123;...&#125;</span><br><span class="line">function myFunction() &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="分隔单词-Separating-Words"><a href="#分隔单词-Separating-Words" class="headerlink" title="分隔单词(Separating Words)"></a>分隔单词(Separating Words)</h2><p>当你的变量或是函数名有多个单词的时候，最好单词的分离遵循统一的规范，有一个常见的做法被称作“驼峰(Camel)命名法”，就是单词小写，每个单词的首字母大写。</p>
+<ul>
+<li><p>对于构造函数，可以使用大驼峰式命名法(upper camel case)，如MyConstructor()。</p>
+</li>
+<li><p>对于函数和方法名称，你可以使用小驼峰式命名法(lower camel case)，像是myFunction(), calculateArea()和getFirstName()。</p>
+</li>
+</ul>
+<h2 id="注释-Writing-Comments"><a href="#注释-Writing-Comments" class="headerlink" title="注释(Writing Comments)"></a>注释(Writing Comments)</h2><blockquote>
+<p>你必须注释你的代码，即使不会有其他人向你一样接触它。通常，当你深入研究一个问题，你会很清楚的知道这个代码是干嘛用的，但是，当你一周之后再回来看的时候，想必也要耗掉不少脑细胞去搞明白到底怎么工作的。</p>
+</blockquote>
+<blockquote>
+<p>很显然，注释不能走极端：每个单独变量或是单独一行。但是，你通常应该记录所有的函数，它们的参数和返回值，或是任何不寻常的技术和方法。要想到注 释可以给你代码未来的阅读者以诸多提示；阅读者需要的是（不要读太多的东西）仅注释和函数属性名来理解你的代码。例如，当你有五六行程序执行特定的任务， 如果你提供了一行代码目的以及为什么在这里的描述的话，阅读者就可以直接跳过这段细节。没有硬性规定注释代码比，代码的某些部分（如正则表达式）可能注释 要比代码多。</p>
+</blockquote>
+<h1 id="css代码规范"><a href="#css代码规范" class="headerlink" title="css代码规范"></a>css代码规范</h1><p>css规范我们伟大的张旭鑫老师，讲的很清楚。<a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2010/09/%E7%B2%BE%E7%AE%80%E9%AB%98%E6%95%88%E7%9A%84css%E5%91%BD%E5%90%8D%E5%87%86%E5%88%99%E6%96%B9%E6%B3%95/">面向属性的命名</a></p>
+<p>这是比较好的命名规范。简介来说，就是我们先定义好一些常用基础类样式。组件则使用less,或者sass进行组装，形成即可。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2018/04/11/javascript%20%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript-%E7%BC%96%E7%A8%8B-%E5%BC%80%E5%8F%91-%E8%A7%84%E8%8C%83-%E5%8F%AF%E8%AF%BB%E6%80%A7/" rel="tag">javascript 编程 开发 规范 可读性</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2018/04/27/React%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E7%B2%BE%E9%80%9A%E7%B3%BB%E5%88%97/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            React从入门到精通系列
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2018/03/26/JavaScript%20%E4%BA%94%E5%A4%A7%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">JavaScript 五大常见函数</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

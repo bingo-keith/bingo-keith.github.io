@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">科瑞兹曼的博客</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的代码。', '优秀的代码是它自己最好的文档。当你考虑要添加一个注释时，问问自己，“如何能改进这段代码，以让它不需要注释？”', '程序首先必须能让人读懂，计算机执行只是附带。'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  
+  <!--
+ * @Author: your name
+ * @Date: 2021-01-19 16:37:13
+ * @LastEditTime: 2021-01-19 17:25:46
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \bingo-keith.github.io\themes\ayer\layout\_partial\broadcast.ejs
+-->
+
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
+</div>
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
+
+<style>
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
+    }
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
+    }
+</style>
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-JavaScript 五大常见函数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/03/26/JavaScript%20%E4%BA%94%E5%A4%A7%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/"
+    >JavaScript 五大常见函数</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/03/26/JavaScript%20%E4%BA%94%E5%A4%A7%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2018-03-26T14:40:50.000Z" itemprop="datePublished">2018-03-26</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>　　在 JavaScript 中有一些问题会被拿出来经常讨论，这些问题每个人都有不同的思路，想要理解这些问题，最好的方法就是自己实现一遍，话不多说，开始正题。</p>
+</blockquote> 
+      <a class="article-more-link" href="/2018/03/26/JavaScript%20%E4%BA%94%E5%A4%A7%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javscript-%E5%87%BD%E6%95%B0-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-%E6%96%B9%E6%B3%95-%E9%80%92%E5%BD%92-%E6%95%B0%E7%BB%84%E6%89%81%E5%B9%B3%E5%8C%96-%E6%9F%AF%E9%87%8C%E5%8C%96/" rel="tag">javscript 函数 高阶函数 方法 递归 数组扁平化 柯里化</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-JavaScript难点笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/03/22/JavaScript%E9%9A%BE%E7%82%B9%E7%AC%94%E8%AE%B0/"
+    >JavaScript难点笔记</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/03/22/JavaScript%E9%9A%BE%E7%82%B9%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2018-03-22T13:37:08.000Z" itemprop="datePublished">2018-03-22</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>今天重新回顾了一下JavaScript，以下内容是我平时的学习笔记和其它参考资料整理完善后的内容，都是常用的，使用频率比较高，自己必须得精通的知识点的总结，便于以后再复习参考。</p> 
+      <a class="article-more-link" href="/2018/03/22/JavaScript%E9%9A%BE%E7%82%B9%E7%AC%94%E8%AE%B0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript-JS-ES6-%E5%B9%B2%E8%B4%A7/" rel="tag">Javascript JS ES6 干货</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-jQuery核心源码详细解析"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/02/20/jQuery%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/"
+    >jquery核心代码详细解析</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/02/20/jQuery%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/" class="article-date">
+  <time datetime="2018-02-20T13:10:08.000Z" itemprop="datePublished">2018-02-20</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>一直以来，工作中用到的工具就是jquery，之前也看过源码，但是没有对jquery系统地学习、总结过，虽然现在前端新的技术层出不穷，但jquery里的设计思想和编码技巧还是需要学习、借鉴的，这次趁着过年的时间抽空把jquery源码系统地学习了一遍，由于时间不是很充裕，所以只是把核心源码分析了一下：</p> 
+      <a class="article-more-link" href="/2018/02/20/jQuery%E6%A0%B8%E5%BF%83%E6%BA%90%E7%A0%81%E8%AF%A6%E7%BB%86%E8%A7%A3%E6%9E%90/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jquery-%E6%BA%90%E7%A0%81-%E6%A1%86%E6%9E%B6-%E5%BA%93-%E6%BA%90%E4%BB%A3%E7%A0%81-%E5%AD%A6%E4%B9%A0/" rel="tag">jquery 源码 框架 库 源代码 学习</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-写一手漂亮的js(react篇)"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/01/20/%E5%86%99%E4%B8%80%E6%89%8B%E6%BC%82%E4%BA%AE%E7%9A%84js(react%E7%AF%87)/"
+    >写一手漂亮的js(react篇)</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/01/20/%E5%86%99%E4%B8%80%E6%89%8B%E6%BC%82%E4%BA%AE%E7%9A%84js(react%E7%AF%87)/" class="article-date">
+  <time datetime="2018-01-20T13:38:16.000Z" itemprop="datePublished">2018-01-20</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>　　近来有空一直在学习react的技术栈，虽说学习的深度没那么深，但总归初窥门径了，今天把在编码中的一些好方法好习惯记录一下。</p>
+</blockquote> 
+      <a class="article-more-link" href="/2018/01/20/%E5%86%99%E4%B8%80%E6%89%8B%E6%BC%82%E4%BA%AE%E7%9A%84js(react%E7%AF%87)/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javscript-react-%E4%BB%A3%E7%A0%81-%E4%BC%98%E5%8C%96-%E4%B9%A0%E6%83%AF/" rel="tag">javscript react 代码 优化 习惯</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-JavaScript 可能为 true 吗？"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/01/19/JavaScript%20%E5%8F%AF%E8%83%BD%E4%B8%BA%20true%20%E5%90%97%EF%BC%9F/"
+    >JavaScript 可能为 true 吗？</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/01/19/JavaScript%20%E5%8F%AF%E8%83%BD%E4%B8%BA%20true%20%E5%90%97%EF%BC%9F/" class="article-date">
+  <time datetime="2018-01-19T15:25:20.000Z" itemprop="datePublished">2018-01-19</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>　　今天看到一篇文章，觉得挺有意思，就好奇地点开看了下。这篇文章提到了一个面试题：在javascript中(a==1&amp;&amp;a==2&amp;a==3)可能为true吗？起初看到这个题目的时候觉得很懵逼，在同一个条件分支里a可能同时等于1、2和3吗？毫无头绪，但既然有人出了这道题目，肯定是事出有妖了，所以苦思冥想了两三个小时，还是感觉没什么头绪，唯一可以肯定的是应该与底层的东西有关，后来带着好奇的心理接着往下看了，不看不知道，一看才知道，原来与javascript底层的类型转换有关，javascript高程三里有过相关细致的讲解，在两个数据类型不同的值比较时会先让其中一个值调用valueOf方法转换后进行比较，如果类型还是不同的话会继续调用toString方法转换比较。当时看高程的时候其实对这个底层概念印象比较深的，但可能由于真正用到的地方不多，导致遗忘了，现在看到这道题的解法才恍然大悟，相信以后对这个概念记忆深刻， 今天把这个概念和这道题记下来！</p>
+</blockquote> 
+      <a class="article-more-link" href="/2018/01/19/JavaScript%20%E5%8F%AF%E8%83%BD%E4%B8%BA%20true%20%E5%90%97%EF%BC%9F/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javscript-valueOf-%E5%AF%B9%E8%B1%A1/" rel="tag">javscript valueOf 对象</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-SeaJS学习笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/01/14/SeaJS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+    >SeaJS学习笔记</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/01/14/SeaJS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2018-01-14T12:51:27.000Z" itemprop="datePublished">2018-01-14</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>今天专题把seaJs模块化开发了解学习了下，算是把seaJS的基本用法弄清楚了，其他的跟着项目慢慢再深入！现在把自己整理出来的资料保存一下，也方便以后遗忘了可以快速地回顾。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1. 先引seaJS - demo.html</span><br><span class="line">	&lt;script src&#x3D;&quot;http:&#x2F;&#x2F;apps.bdimg.com&#x2F;libs&#x2F;seajs&#x2F;2.3.0&#x2F;sea.js&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line">2.1 定义模块app.js</span><br><span class="line">	define(function(require, exports, module)&#123;</span><br><span class="line">		var jquery &#x3D; require(&#39;.&#x2F;jquery.js&#39;);</span><br><span class="line">		var demo &#x3D; &#123;</span><br><span class="line">			&#39;jquery&#39;: jquery</span><br><span class="line">		&#125;</span><br><span class="line">		module.exports &#x3D; demo;</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line">2.2 修改jQuery.js为支持CMD模块(3.2.1版本，10308行)</span><br><span class="line">	if (typeof define &#x3D;&#x3D;&#x3D; &quot;function&quot; &amp;&amp; define.cmd) &#123;</span><br><span class="line">	  &#x2F;&#x2F; 有 Sea.js 等 CMD 模块加载器存在</span><br><span class="line">	  define(function (require, exports, module) &#123;</span><br><span class="line">	    &#x2F;&#x2F; 使用 module.exports 向外暴露接口对象</span><br><span class="line">	    module.exports &#x3D; jQuery;</span><br><span class="line">	  &#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">3. 启用模块 - demo.html</span><br><span class="line">	seajs.use(&#39;.&#x2F;app.js&#39;,function(v)&#123;</span><br><span class="line">		v.$(&#39;html, body&#39;).animate(&#123;&#39;scrollTop&#39;:v.$(&#39;input&#39;).offset().top&#125;,200).find(&#39;input&#39;).focus();</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure> 
+      <a class="article-more-link" href="/2018/01/14/SeaJS%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/seaJS-%E6%A8%A1%E5%9D%97-CMD/" rel="tag">seaJS 模块 CMD</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-深入了解React的子组件"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2018/01/07/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3React%E7%9A%84%E5%AD%90%E7%BB%84%E4%BB%B6/"
+    >深入了解React的子组件</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2018/01/07/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3React%E7%9A%84%E5%AD%90%E7%BB%84%E4%BB%B6/" class="article-date">
+  <time datetime="2018-01-07T06:16:12.000Z" itemprop="datePublished">2018-01-07</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>React的核心是组件。你可以像嵌套HTML标签一样来嵌套这些组件，这使得写JSX变得容易，因为他和标记语言很像。 当刚开始学习React的时候，我认为“会用<code>props.children</code>，我就知道了关于子组件的一切”。难道，我有错吗？ 因为我们在使用JavaScript，我们可以改变子组件。我们可以向他们发送特定的属性，决定我们是否希望它们显示，并且可以按照我们的意愿操作它们。让我们探究一下React中的子组件。</p> 
+      <a class="article-more-link" href="/2018/01/07/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3React%E7%9A%84%E5%AD%90%E7%BB%84%E4%BB%B6/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react-%E7%BB%84%E4%BB%B6-%E6%A8%A1%E5%9D%97-javascript-%E6%A1%86%E6%9E%B6-%E5%BA%93/" rel="tag">react 组件 模块 javascript 框架 库</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-入门Webpack，看这篇就够了"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2017/12/17/%E5%85%A5%E9%97%A8Webpack%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/"
+    >入门Webpack，看这篇就够了</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2017/12/17/%E5%85%A5%E9%97%A8Webpack%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="article-date">
+  <time datetime="2017-12-17T14:47:22.000Z" itemprop="datePublished">2017-12-17</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h1><blockquote>
+<p>阅读本文之前，先看下面这个webpack的配置文件，如果每一项你都懂，那本文能带给你的收获也许就比较有限，你可以快速浏览或直接跳过；如果你和十天前的我一样，对很多选项存在着疑惑，那花一段时间慢慢阅读本文，你的疑惑一定一个一个都会消失；如果你以前没怎么接触过Webpack，而你又你对webpack感兴趣，那么动手跟着本文中那个贯穿始终的例子写一次，写完以后你会发现你已明明白白的走进了Webpack的大门。</p>
+</blockquote> 
+      <a class="article-more-link" href="/2017/12/17/%E5%85%A5%E9%97%A8Webpack%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack-%E6%A8%A1%E5%9D%97-%E6%89%93%E5%8C%85-CommonJS/" rel="tag">webpack 模块 打包 CommonJS</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-JavaScript权威面试指南"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2017/12/11/JavaScript%E6%9D%83%E5%A8%81%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"
+    >JavaScript概念整理</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2017/12/11/JavaScript%E6%9D%83%E5%A8%81%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/" class="article-date">
+  <time datetime="2017-12-11T14:44:18.000Z" itemprop="datePublished">2017-12-11</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>这篇文章的目的是汇集 JavaScript 相关概念。有了这篇文章，你就可以在一个地方温故一下你需要了解的关于 JavaScript 的所有知识点。</p>
+</blockquote> 
+      <a class="article-more-link" href="/2017/12/11/JavaScript%E6%9D%83%E5%A8%81%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript-%E6%A6%82%E5%BF%B5-%E7%90%86%E8%AE%BA/" rel="tag">Javascript 概念 理论</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-理顺react，flux，redux这些概念的关系"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2017/12/06/%E7%90%86%E9%A1%BAreact%EF%BC%8Cflux%EF%BC%8Credux%E8%BF%99%E4%BA%9B%E6%A6%82%E5%BF%B5%E7%9A%84%E5%85%B3%E7%B3%BB/"
+    >理顺react，flux，redux这些概念的关系</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2017/12/06/%E7%90%86%E9%A1%BAreact%EF%BC%8Cflux%EF%BC%8Credux%E8%BF%99%E4%BA%9B%E6%A6%82%E5%BF%B5%E7%9A%84%E5%85%B3%E7%B3%BB/" class="article-date">
+  <time datetime="2017-12-06T15:14:16.000Z" itemprop="datePublished">2017-12-06</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>该文以浅显、通俗易懂的语言解释了react、flux、redux的概念以及它们的关系，对充分理解这些概念并灵活运用有很大的帮助。</p>
+</blockquote> 
+      <a class="article-more-link" href="/2017/12/06/%E7%90%86%E9%A1%BAreact%EF%BC%8Cflux%EF%BC%8Credux%E8%BF%99%E4%BA%9B%E6%A6%82%E5%BF%B5%E7%9A%84%E5%85%B3%E7%B3%BB/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript-js-react-flux-redux-%E6%A6%82%E5%BF%B5-MVC/" rel="tag">javascript js react flux redux 概念 MVC</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

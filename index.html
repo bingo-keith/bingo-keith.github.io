@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover1.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">科瑞兹曼的博客</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的代码。', '优秀的代码是它自己最好的文档。当你考虑要添加一个注释时，问问自己，“如何能改进这段代码，以让它不需要注释？”', '程序首先必须能让人读懂，计算机执行只是附带。'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  
+  <!--
+ * @Author: your name
+ * @Date: 2021-01-19 16:37:13
+ * @LastEditTime: 2021-01-19 17:25:46
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \bingo-keith.github.io\themes\ayer\layout\_partial\broadcast.ejs
+-->
+
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
+</div>
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
+
+<style>
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
+    }
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
+    }
+</style>
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-如何做好技术 Team Leader？"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/22/%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E6%8A%80%E6%9C%AF%20Team%20Leader%EF%BC%9F/"
+    >如何做好技术 Team Leader？</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/22/%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E6%8A%80%E6%9C%AF%20Team%20Leader%EF%BC%9F/" class="article-date">
+  <time datetime="2021-01-22T03:09:29.000Z" itemprop="datePublished">2021-01-22</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p> 作为一个技术TL（Team Leader），除了自身技能，还会面临诸多团队管理上的困难和挑战。如何定义和明确团队的目标？怎样建立优秀的工程文化？让团队长期发挥战斗力和创新能力的核心是什么？本文作者基于四年的团队管理经验，分享他在招聘、目标管理、团队沟通和工程文化等方面的思考与总结，介绍相关的经验方法，并推荐几本关于体验、思考的书籍。希望对同学们有所启发。</p> 
+      <a class="article-more-link" href="/2021/01/22/%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E6%8A%80%E6%9C%AF%20Team%20Leader%EF%BC%9F/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF-%E7%BC%96%E7%A8%8B-%E5%9B%A2%E9%98%9F-%E7%AE%A1%E7%90%86/" rel="tag">技术 编程 团队 管理</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-如何制定企业级代码规范与静态检查"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/19/%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E4%B8%8E%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5/"
+    >如何制定企业级代码规范与静态检查</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/19/%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E4%B8%8E%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5/" class="article-date">
+  <time datetime="2021-01-19T07:37:29.000Z" itemprop="datePublished">2021-01-19</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>如何作出项目的亮点？</p>
+<ol>
+<li>项目中遇到了什么问题？</li>
+<li>解决问题的过程并且如何思考？</li>
+<li>思考之后通过什么方式解决</li>
+<li>最后这一个任务你学到了什么，给团队带来了什么价值，解决了哪些痛点。</li>
+</ol>
+<p>就从我的题目说起，本篇文章告诉你针对定制代码规范和检查这个小需求如何做出亮点？看完本文后回顾上面提到的 4 点，感觉下。</p>
+<h2 id="本文目标"><a href="#本文目标" class="headerlink" title="本文目标"></a>本文目标</h2><p>目标不是一次全部定出来的，在实践和调研过程中会添加一些</p>
+<ol>
+<li>去掉项目中原有的 <code>TSLint</code> ，统一使用 <code>ESLint</code>，但是在 <code>ESLint</code> 中加入 <code>TSLint</code> 检测插件</li>
+<li><code>Prettier</code> 支持的格式化规则全部使用 <code>Prettier</code>，不提供的使用 <code>ESLint</code>，以免冲突（个人认为 <code>Prettier</code> 提供的格式化规则可以满足开发者）。</li>
+<li>代码保存时，支持自动 <code>fix</code>，只对自己控制范围内的 <code>fix</code>，范围外的内容依靠开发者配置或 <code>vscode</code> 自动配置。</li>
+<li>格式化和 <code>ESLint</code> 纳入项目级 <code>git</code> 跟踪，所有开发者统一。</li>
+<li>除了上面的规范与检查实现，了解一些原理，比如 <code>rules</code> 原理？为什么 <code>Prettier</code> 和 <code>ESLint</code> 冲突？<code>Prettier</code> 原理？</li>
+</ol> 
+      <a class="article-more-link" href="/2021/01/19/%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E4%B8%8E%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81-%E8%A7%84%E8%8C%83-%E4%BC%81%E4%B8%9A-eslint-tslint-prettier/" rel="tag">代码 规范 企业 eslint tslint prettier</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-前端的Nginx知识梳理"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/14/%E5%89%8D%E7%AB%AF%E7%9A%84Nginx%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"
+    >前端的Nginx知识梳理</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/14/%E5%89%8D%E7%AB%AF%E7%9A%84Nginx%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" class="article-date">
+  <time datetime="2021-01-14T07:39:29.000Z" itemprop="datePublished">2021-01-14</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>因为开发中有很多环境，开发环境，测试环境，预生产环境等，所以会经常会用到nginx来配置代理。但是我也只是会用，想仔细梳理一下nginx的知识。</p> 
+      <a class="article-more-link" href="/2021/01/14/%E5%89%8D%E7%AB%AF%E7%9A%84Nginx%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86-%E6%9C%8D%E5%8A%A1/" rel="tag">Nginx 负载均衡 反向代理 服务</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-观察者模式和订阅发布模式是一样的吗？ - 副本"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/12/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%E5%90%97%EF%BC%9F%20-%20%E5%89%AF%E6%9C%AC/"
+    >观察者模式和订阅发布模式是一样的吗？</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/12/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%E5%90%97%EF%BC%9F%20-%20%E5%89%AF%E6%9C%AC/" class="article-date">
+  <time datetime="2021-01-12T14:36:29.000Z" itemprop="datePublished">2021-01-12</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="观察者模式和订阅发布模式是一样的吗？"><a href="#观察者模式和订阅发布模式是一样的吗？" class="headerlink" title="观察者模式和订阅发布模式是一样的吗？"></a>观察者模式和订阅发布模式是一样的吗？</h2><p>看到一篇介绍关于观察者模式和订阅发布模式的区别的文章，看完后依然认为它们在概念和思想上是统一的，只是根据实现方式和使用场景的不同，叫法不一样，不过既然有区别，就来探究一番，加深理解。</p> 
+      <a class="article-more-link" href="/2021/01/12/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8C%E8%AE%A2%E9%98%85%E5%8F%91%E5%B8%83%E6%A8%A1%E5%BC%8F%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%E5%90%97%EF%BC%9F%20-%20%E5%89%AF%E6%9C%AC/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E8%A7%82%E5%AF%9F%E8%80%85-%E8%AE%A2%E9%98%85-%E5%8F%91%E5%B8%83-javascript/" rel="tag">设计模式 观察者 订阅 发布 javascript</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-useEffect引起的React Hooks深入了解"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/12/useEffect%E5%BC%95%E8%B5%B7%E7%9A%84React%20Hooks%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3/"
+    >useEffect引起的React Hooks深入了解</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/12/useEffect%E5%BC%95%E8%B5%B7%E7%9A%84React%20Hooks%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3/" class="article-date">
+  <time datetime="2021-01-12T08:50:51.000Z" itemprop="datePublished">2021-01-12</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>参考文章 <strong>react源码</strong>，<a target="_blank" rel="noopener" href="https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/">useEffect 完整指南</a>，<a target="_blank" rel="noopener" href="https://juejin.im/post/5d985deae51d4577f9285c2f">呕心沥血，一文看懂 react hooks</a>，<a target="_blank" rel="noopener" href="https://react.docschina.org/docs/hooks-intro.html">react官网</a></p>
+</blockquote>
+<p>在进入正式阅读之前，最好先思考一下下面的问题：</p>
+<ol>
+<li>React Hooks真的有生命周期吗？</li>
+<li>React Hooks的函数里面定义的函数或者变量会被缓存吗，这样下次再调用组件的时候就可以不用重新声明了。</li>
+<li>为什么我的useEffect有时候拿到了之前的值。</li>
+</ol> 
+      <a class="article-more-link" href="/2021/01/12/useEffect%E5%BC%95%E8%B5%B7%E7%9A%84React%20Hooks%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-react-hooks-%E5%87%BD%E6%95%B0%E5%BC%8F/" rel="tag">JavaScript react hooks 函数式</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-【HTTP基础】HTTPS原理及WebSocket原理"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/11/%E3%80%90HTTP%E5%9F%BA%E7%A1%80%E3%80%91HTTPS%E5%8E%9F%E7%90%86%E5%8F%8AWebSocket%E5%8E%9F%E7%90%86/"
+    >【HTTP基础】HTTPS原理及WebSocket原理</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/11/%E3%80%90HTTP%E5%9F%BA%E7%A1%80%E3%80%91HTTPS%E5%8E%9F%E7%90%86%E5%8F%8AWebSocket%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2021-01-11T02:30:14.000Z" itemprop="datePublished">2021-01-11</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>由于HTTP没有加密机制，其传输的内容很容易泄漏，并且HTTP协议没法确认通信方，也无法保证接收到的报文在传输过程中是否被篡改，因此HTTPS是在HTTP协议的基础上提供了加密、认证和完整性保护的功能。HTTPS并非是应用层的一种新协议，只是HTTP通信接口部分用SSL和TLS协议代替而已，通常HTTP直接和传输层的TCP协议通信，当使用了SSL后，HTTP先和SSL协议通信，SSL再和TCP协议通信。</p> 
+      <a class="article-more-link" href="/2021/01/11/%E3%80%90HTTP%E5%9F%BA%E7%A1%80%E3%80%91HTTPS%E5%8E%9F%E7%90%86%E5%8F%8AWebSocket%E5%8E%9F%E7%90%86/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP-WebSoket-%E5%89%8D%E7%AB%AF-%E7%BD%91%E7%BB%9C-%E5%8D%8F%E8%AE%AE-%E8%81%8A%E5%A4%A9/" rel="tag">HTTP WebSoket 前端 网络 协议 聊天</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-前端 api 请求缓存的 5 种方案"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/23/%E5%89%8D%E7%AB%AF%20api%20%E8%AF%B7%E6%B1%82%E7%BC%93%E5%AD%98%E7%9A%84%205%20%E7%A7%8D%E6%96%B9%E6%A1%88/"
+    >前端 api 请求缓存的 5 种方案</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/23/%E5%89%8D%E7%AB%AF%20api%20%E8%AF%B7%E6%B1%82%E7%BC%93%E5%AD%98%E7%9A%84%205%20%E7%A7%8D%E6%96%B9%E6%A1%88/" class="article-date">
+  <time datetime="2020-11-23T06:30:14.000Z" itemprop="datePublished">2020-11-23</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>在开发 web 应用程序时，性能都是必不可少的话题。对于webpack打包的单页面应用程序而言，我们可以采用很多方式来对性能进行优化，比方说 tree-shaking、模块懒加载、利用 extrens 网络cdn 加速这些常规的优化。甚至在vue-cli 项目中我们可以使用 –modern 指令生成新旧两份浏览器代码来对程序进行优化。</p>
+<p>而事实上，缓存一定是提升web应用程序有效方法之一，尤其是用户受限于网速的情况下。提升系统的响应能力，降低网络的消耗。当然，内容越接近于用户，则缓存的速度就会越快，缓存的有效性则会越高。</p>
+<p>以客户端而言，我们有很多缓存数据与资源的方法，例如 标准的浏览器缓存 以及 目前火热的 Service worker。但是，他们更适合静态内容的缓存。例如 html，js，css以及图片等文件。而缓存系统数据，我采用另外的方案。</p>
+<p>那我现在就对我应用到项目中的各种 api 请求缓存方案，从简单到复杂依次介绍一下。</p> 
+      <a class="article-more-link" href="/2020/11/23/%E5%89%8D%E7%AB%AF%20api%20%E8%AF%B7%E6%B1%82%E7%BC%93%E5%AD%98%E7%9A%84%205%20%E7%A7%8D%E6%96%B9%E6%A1%88/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-%E5%89%8D%E7%AB%AF-%E7%BC%93%E5%AD%98-api-%E6%80%A7%E8%83%BD/" rel="tag">JavaScript 前端 缓存 api 性能</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-这些高阶的函数技术，你掌握了么"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/23/%E8%BF%99%E4%BA%9B%E9%AB%98%E9%98%B6%E7%9A%84%E5%87%BD%E6%95%B0%E6%8A%80%E6%9C%AF%EF%BC%8C%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E4%B9%88/"
+    >这些高阶的函数技术，你掌握了么</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/23/%E8%BF%99%E4%BA%9B%E9%AB%98%E9%98%B6%E7%9A%84%E5%87%BD%E6%95%B0%E6%8A%80%E6%9C%AF%EF%BC%8C%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E4%B9%88/" class="article-date">
+  <time datetime="2020-11-23T06:30:14.000Z" itemprop="datePublished">2020-11-23</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>在 JavaScript 中，函数为一等公民（First Class），所谓的 “一等公民”，指的是函数与其他数据类型一样，处于平等地位，<strong>可以赋值给其他变量，也可以作为参数，传入另一个函数，或作为其它函数的返回值</strong>。</p>
+<p><img src="https://i.loli.net/2021/01/11/XCID9RSUMHpf1gb.jpg"></p>
+<p>接下来阿宝哥将介绍与函数相关的一些技术，阅读完本文，你将了解高阶函数、函数组合、柯里化、偏函数、惰性函数和缓存函数的相关知识。</p> 
+      <a class="article-more-link" href="/2020/11/23/%E8%BF%99%E4%BA%9B%E9%AB%98%E9%98%B6%E7%9A%84%E5%87%BD%E6%95%B0%E6%8A%80%E6%9C%AF%EF%BC%8C%E4%BD%A0%E6%8E%8C%E6%8F%A1%E4%BA%86%E4%B9%88/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-%E5%87%BD%E6%95%B0-%E9%AB%98%E9%98%B6/" rel="tag">JavaScript 函数 高阶</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-高质量的缺陷分析：让自己少写 bug"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/11/%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E7%BC%BA%E9%99%B7%E5%88%86%E6%9E%90%EF%BC%9A%E8%AE%A9%E8%87%AA%E5%B7%B1%E5%B0%91%E5%86%99%20bug/"
+    >高质量的缺陷分析：让自己少写 bug</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/11/%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E7%BC%BA%E9%99%B7%E5%88%86%E6%9E%90%EF%BC%9A%E8%AE%A9%E8%87%AA%E5%B7%B1%E5%B0%91%E5%86%99%20bug/" class="article-date">
+  <time datetime="2020-11-11T06:58:14.000Z" itemprop="datePublished">2020-11-11</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><strong>简介：</strong> 缺陷分析做得好，bug 写得少。阿里资深技术专家和你分享如何进行高质量的缺陷分析，总结了 5 个要点，通过缺陷分析消除开发中的各种盲点，打造一个学习型的团队。</p>
+<p>作者 | 嵩华</p>
+<blockquote>
+<p><strong>导读</strong>：缺陷分析做得好，bug 写得少。阿里资深技术专家和你分享如何进行高质量的缺陷分析，总结了 5 个要点，通过缺陷分析消除开发中的各种盲点，打造一个学习型的团队。</p>
+</blockquote> 
+      <a class="article-more-link" href="/2020/11/11/%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E7%BC%BA%E9%99%B7%E5%88%86%E6%9E%90%EF%BC%9A%E8%AE%A9%E8%87%AA%E5%B7%B1%E5%B0%91%E5%86%99%20bug/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-%E8%B4%A8%E9%87%8F-%E5%89%8D%E7%AB%AF-%E7%BC%96%E7%A0%81-%E7%BC%BA%E9%99%B7-bug/" rel="tag">JavaScript 质量 前端 编码 缺陷 bug</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+    <article
+  id="post-前端安全编码规范"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/01/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+    >前端安全编码规范</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/01/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="article-date">
+  <time datetime="2020-11-01T06:14:14.000Z" itemprop="datePublished">2020-11-01</time>
+</a>    
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>随着互联网高速的发展，信息安全已经成为企业重点关注焦点之一，而前端又是引发安全问题的高危据点，所以，作为一个前端开发人员，需要了解前端的安全问题，以及如何去预防、修复安全漏洞。<br>下面就以前端可能受到的攻击方式为起点，讲解web中可能存在的安全漏洞以及如何去检测这些安全漏洞，如何去防范潜在的恶意攻击。</p> 
+      <a class="article-more-link" href="/2020/11/01/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+        >阅读更多...</a
+      >
+       
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript-%E7%BD%91%E7%BB%9C-%E5%89%8D%E7%AB%AF-%E5%AE%89%E5%85%A8-%E7%BC%96%E7%A0%81-%E8%A7%84%E8%8C%83/" rel="tag">JavaScript 网络 前端 安全 编码 规范</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+    
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

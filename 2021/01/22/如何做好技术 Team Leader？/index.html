@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    如何做好技术 Team Leader？ |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-如何做好技术 Team Leader？"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  如何做好技术 Team Leader？
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/22/%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E6%8A%80%E6%9C%AF%20Team%20Leader%EF%BC%9F/" class="article-date">
+  <time datetime="2021-01-22T03:09:29.000Z" itemprop="datePublished">2021-01-22</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">4.3k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">14 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p> 作为一个技术TL（Team Leader），除了自身技能，还会面临诸多团队管理上的困难和挑战。如何定义和明确团队的目标？怎样建立优秀的工程文化？让团队长期发挥战斗力和创新能力的核心是什么？本文作者基于四年的团队管理经验，分享他在招聘、目标管理、团队沟通和工程文化等方面的思考与总结，介绍相关的经验方法，并推荐几本关于体验、思考的书籍。希望对同学们有所启发。</p>
+<a id="more"></a>
+
+<p>曾子曰：吾日三省吾身，反思是人类进化出来的一项异常宝贵的能力。我在阿里带团队也有四年多的时间，有必要总结一下此间得失；另外，前几天和一个刚开始带团队的同学聊天，他觉得角色转变对于他有不小的挑战，因此我想做一点不算成熟的总结并分享出来。当然，此文第一不代表我必然是一个多么成熟的管理者；第二不代表我的总结放之四海而皆准（事实上很多人的管理方式和我推崇的方法是反的，但是如果从某些角度评价，这些人更成功）；第三我并无雄心壮志解答所有问题。总结仅仅是期望通过反思，帮助自己成为更好的管理者，而分享是希望能够多多少少帮助到其他的管理者。</p>
+<p>本文会重点讲述我对招聘、目标管理、团队沟通和工程文化的理解。挑选这几个主题讲述，主要是因为在带团队的这一段时间内，我认为这几个要素是团队长期发挥战斗力和创新能力的核心。得到这个认识对我来说并不容易，市面上有纷繁复杂的书籍（机场书店尤其多）尝试告诉你什么叫领导力，公司也有相关的培训介绍，周围也有很多 TL 用每日的言行告诉你他们是怎么做的。但是我认为这些来自周围的知识，很多是无效的，有更多是错误的。例如有 TL 每天在办公室坐到半夜下班，给团队巨大的加班压力，表面看起来是奋斗，实际上会让大家趋向于更多关注工作时长，从而降低对了对工作价值的思考；又有一些例子是，当团队同学犯错后，把故障和绩效强关联，在我看来这不仅无助于大家深入思考系统健壮性，更是鼓励推责，扼杀创新；更常见的例子可能是 TL 积极向上汇报，承诺超出团队负责的交付能力，导致团队完全无视工程师文化，久而久之优秀的人才逐渐流失，团队整体研发能力实则越来越弱。</p>
+<p>很多事情是知易行难的，技术 TL 实践更是这样，之后不断学习，执行，反思，才能慢慢做得更好。如果我团队的同学在离开这个团队五年或者十年后，回想起这段时间，会感慨：“我们当时的团队多好啊，大家一起做了很多有意思的事情。” 那我这个技术 TL 的工作，就算做的出色了。</p>
+<h1 id="一-招聘"><a href="#一-招聘" class="headerlink" title="一 招聘"></a>一 招聘</h1><p>招聘的第一原则是宁缺毋滥。这么说出来大家都会认同，但是实际执行往往会因为短期压力而变形，尤其是招聘越来越难，好不容易面到一个看起来差不多的同学，难免会内心有点小倾斜，算了，先招进来了。这其实是非常危险的，因为一旦招聘了错误的人，对于 TL 需要耗费的管理时间会成倍增加，这些时间本来可以用来做更重要的时间。更危险的是，错误的人可能会对团队整体产生负面的影响，例如需要其他人不断地补位，或者和人不断争吵，消耗大家的精力。</p>
+<p>因此招聘一定是要严格要求的，如何面试我就不详细讲了，通常我会关注以下一些方面，基本上是缺一不可：</p>
+<ol>
+<li>coding 能力</li>
+<li>对技术的热情</li>
+<li>能简明扼要地沟通</li>
+<li>积极乐观</li>
+<li>对团队目标的认同</li>
+</ol>
+<p>招聘是个长期的事情，如果仅仅是在有名额的窗口去找人，通常是非常困难的。遇到合适的人，我会长期和他保持沟通，了解对方工作的状态，这其实也是一个不断建立信任的关系。当机会合适的时候，对方肯定会优先考虑你。</p>
+<p>当候选人选择机会的时候，团队的 TL 是个怎样的人肯定是他重点考虑的因素之一。因此 TL 一定要做技术发声，不论是开源项目的参与，撰写技术文章，还是在技术大会做演讲，都是充分体现 TL 个人技术能力，技术思考，以及个人特质的重要机会。</p>
+<h1 id="二-目标"><a href="#二-目标" class="headerlink" title="二 目标"></a>二 目标</h1><p>团队之所以为团队，是因为这些人有共同的目标，如果没有共同目标，这些人就是散兵游勇，不可能相互协同，无法成就巨大价值。而团队的目标，主要还是由 TL 去负责定义和明确的。</p>
+<p>近期比较流行谈 OKR（Objectives and Key Results，目标与关键成果法），我认为这就是一种协同团队聚焦目标的方法。定方向 O（Objective），定数字目标 KR（Key Result），就是期望团队能够凝聚在一起，朝共同的方向努力，相互理解和支持。量化的指标（KR）用来指导方向，暴露问题。我比较反对用 KR 或者其他量化指标来简单粗暴地考核工程师，数字指标如果用来考核，很容易导致大家舍本逐末。例如有人 KR 完成了 200%，却挖了一堆坑；而有人 KR 完成 50%，但的确解决了棘手问题，代码扎扎实实。我必然会把好的绩效给后者，差的绩效给前者。</p>
+<p>定义团队目标实际上是个非常困难的事情，因为这个目标的定义要求你回答：</p>
+<ul>
+<li>是否和你的用户/客户做了充分沟通，是否理解他们真正需要什么，你能给他们解决什么问题，他们的工作因为有了你团队会发生怎样的改变。</li>
+<li>和上下游协作方能够做好协同，要兑现你给客户承诺的价值，你会依赖于谁做什么事情？需要谁和你一起参与？这些依赖和协作方，是否认同你的目标？</li>
+<li>你定义的目标和价值，和你自己的的 TL 的目标，或者自己部门的目标，是否是一致的？</li>
+<li>在技术团队，你的目标定义中有没有考虑技术竞争力？持续建设技术竞争力不仅能帮助团队长期发展得更好，也能帮助吸引更多优秀的人才。</li>
+</ul>
+<p>当然，如果这个目标有那么点理想主义，那就更好了。工程师骨子都有那么点容易被理想主义吸引。有了清晰的团队目标后，就是要和团队不断的沟通了，让每个人都清晰地理解目标，不要怕重复，不要怕啰嗦。</p>
+<p>下一步是把团队目标分解为每个人的目标，这件事本质上是产品架构或者技术架构。为什么这么说呢？在做软件设计的时候，我们都会说高内聚，低耦合；会说面向契约设计。人与人协作的时候，我们也希望每个人的目标足够清晰（对比软件交付功能的定义，或者非功能性指标的度量），以及人和人之间的协作边界清晰（对比软件系统之间的契约）。因此我们要不断去思考团队负责产品的架构，和团队同学不断讨论细化，直至架构及目标足够清晰。当然还有一些横向的目标，或者项目管理的工作目标，需要有同学去承担，这没什么问题，但我非常不建议在研发团队中，让一个同学有超过一半的时间在做横向，因为技术没有深度是谈不上广度的。</p>
+<h1 id="三-沟通"><a href="#三-沟通" class="headerlink" title="三 沟通"></a>三 沟通</h1><p>如果团队同学找你，那就要尽可能立即响应。立即响应的意思是，如果你当下有时间，就立刻和他沟通；如果你白天时间排满了，那就晚上和他沟通；如果你实在晚上的时间也被占了，那就立刻安排明天一个时间，发出会议邀约。同学如果没有他认为重要的事情，一般是不会主动找主管沟通的，立即响应是和同学建立信任的重要方式。如果同学找你一次两次都没得到响应，或者响应比较慢（给人不重视的感觉），那慢慢的很多事情就不会找你了。最差的情况，同学下次找你的时候可能是提转岗了。</p>
+<p>要尽量和同学做 1-on-1，国外专职做管理岗位的，把 1-on-1 作为一个非常正经的日常工作在做，频率也很高，例如两周一次。在阿里巴巴，技术 TL 通常没有这么多的时间，因为身上承担的职责除了管理外，还要带技术，带项目等等。但还是应该做好日常的 1-on-1 沟通，而不仅仅是绩效季。比较理想的频率是一个月一次。在 1-on-1 的时候，一方面要给到非常具体的反馈，例如：</p>
+<ul>
+<li>你做的 x 方案，在设计上非常好，考虑到了和隔壁团队的协作。</li>
+<li>你近期的代码，在 UT 覆盖上做的不够。</li>
+<li>我看到你推进的 y 项目，进展不及理想，是遇到了什么问题吗？需要我提供什么帮助？</li>
+</ul>
+<p>除了反馈 1-on-1 更重要的是倾听，同学在表述自己工作的时候，状态好不好？在什么地方遇到了问题，作为 TL 能提供什么帮助？_其实很多时候，即使你暂时帮不了什么，但是用认真的态度去听一下同学的心情，无论这个心情是充满热情，还是沮丧，还是迷茫，对于同学来说都是非常重要的。我在做 1-on-1 的时候，都会做个简单的记录，留着下次 1-on-1 的时候 review，做好追踪。</p>
+<h1 id="四-工程文化"><a href="#四-工程文化" class="headerlink" title="四 工程文化"></a>四 工程文化</h1><p>要建设一支有战斗力的团队，优秀的工程文化是必不可少的。什么是优秀的工程文化？那就是对自己写代码，写的测试，写的设计，做的产品，所有这些工程师的产出物，对其质量和细节有足够的尊重。为什么说，优秀的工程师文化必不可少，我通过以下几点解释下：</p>
+<ul>
+<li>从团队产品的长期发展来看，只有保证优秀的质量，才能保证产品可以长期，高效率的，持续的迭代。如果设计凌乱，代码质量差，无测试覆盖，那么渐渐所有人的精力都会被消耗在各种”安全生产“问题上。渐渐的，一个需求的上线实现，从数小时演变成了数天，甚至数周。</li>
+<li>只有拥有优秀工程文化的团队，才能吸引优秀的工程师。优秀的工程师，真心把编程当作一门手艺，以自己的手艺为傲。如果团队 TL 不认为这是一门应当引以为傲的手艺，大家渐渐的大家都把事情看成和搬砖无异的性质，区别只是工资高低。这样的氛围下，团队的人才构成必然是二流甚至是三流的。</li>
+</ul>
+<p>建设工程文化，就是要鼓励大家做 Code Review，写 UT，做好 CI，做知识分享。这些事情听起来很容易，难的是，如何在项目压力很大的时候，依旧坚持住。另外，就是要承认技术债的存在，产品上线一段时间后，必然会有很多“临时方案”存在，作为 TL 要给团队创造空间，鼓励他们花时间去偿还技术债。</p>
+<p>工程文化是技术团队的根基，可以让所有人有一个正确的参照，什么是对的，什么是应该学习的，什么是需要遵守的。我们可以看到很多丢失了工程文化的团队，演变成一个什么样的状态，写看起来都差不多的 PPT，天天拉会推动这个推动那个，遇到问题自己不去查根究底弄清楚原理，而是拉群，组会，沟通…… 渐渐的这样的团队的技术人才会逐渐流失，剩下的人继续用他们擅长的非技术技能生存。</p>
+<h1 id="五-TL-对自己说"><a href="#五-TL-对自己说" class="headerlink" title="五 TL 对自己说"></a>五 TL 对自己说</h1><p>除了对外，我还经常对自己说：</p>
+<ul>
+<li>做真实的自己</li>
+<li>Don’t Panic！</li>
+<li>耐心点</li>
+</ul>
+<p>做真实的自己。每个人都有自己的性格特质，虽然因为人生经历，人的个性会发生变化，但在短时间内一个人最本质的东西是不会变化的。或温文儒雅，或狭义豪情，或积极勤奋…… “真实不装”是阿里价值观中我最喜欢的一条。伪装一时是很容易做到了，常年累月把自己伪装成一种人设，一来自己会非常累，二来团队同学也不是傻子，早晚会看出这其中虚伪的一面。而一旦一个 TL 让人感到虚伪，那就无从谈起信任的建立了。当然，对自我分析，认识自己也并不是一件简单的事情，心理学分析的书浩如烟海，我喜欢夜深人静的时候读一些。</p>
+<p>Don’t Panic！TL 会面临各种各样的压力，目标变化，目标难以达成，绩效考核，人和人之间的冲突，团队很团队之间的冲突，这个时候大家都在看着你怎么处理。在这么多压力下，人的自然反应就是焦虑，甚至惊慌失措。我们知道，在运动的时候，演讲的时候，过度的焦虑会导致动作变形，乃至连自己的正常水平都无法发挥。而 TL 在这种状态下，更容易做出错误的判断，而且严重焦虑的情绪很容易传导给整个团队。越是这种时刻，越好稳住自己，在有限的条件下，努力做出最合理的判断，我们必须要承认自己再怎么聪明勤奋，也只是普通人而已，并不是漫威中的超级英雄。</p>
+<p>耐心点。程序员可能是最没耐心的一批人，代码写下去，首先期望机器必然给反馈，其次期望机器立刻给出反馈，对了，还是出错了，一切都要清清楚楚，明明白白。可当程序员的角色转变成管理者的时候，一切就发生了巨大的变化。你给团队宣导的目标，可能有人记住了，有人没记住；你给同学指出的问题，可能他几个月半年都改不了，或者他根本不想改；你想在团队建立的工程文化，好像进展非常慢，和预期相差太远。其实这一切都很正常，人脑接受和转化信息，除非是性命攸关的信息，否则效率都是很低的，一个人自身积累几十年的行为模式，哪怕做出细微的变化，也需要很长的时间。因此，重要的信息，不要嫌麻烦，可以说三遍甚至更多；而当你好心给同学指出问题，也不要期望对方立刻接受并改变，很多时候他不做任何改变也是很正常的。但这也不是我们不做正确事情的理由，如果十个同学中有一两个因为你的指导，在职业生涯上突破了自己的一些瓶颈，那已经作为 TL 能实现的巨大成就了。</p>
+<h1 id="六-延伸阅读"><a href="#六-延伸阅读" class="headerlink" title="六 延伸阅读"></a>六 延伸阅读</h1><p>杨绛有一句话我非常喜欢，她在一封回复青年学生的时候，写了这么一句话：</p>
+<blockquote>
+<p>你的问题主要在于读书不多而想得太多。</p>
+</blockquote>
+<p>作者：开发者小助手_LS<br>链接：<a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/781284?utm_content=g_1000232271">https://developer.aliyun.com/article/781284?utm_content=g_1000232271</a><br>来源：阿里云开发者社区<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2021/01/22/%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E6%8A%80%E6%9C%AF%20Team%20Leader%EF%BC%9F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF-%E7%BC%96%E7%A8%8B-%E5%9B%A2%E9%98%9F-%E7%AE%A1%E7%90%86/" rel="tag">技术 编程 团队 管理</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/01/19/%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E4%B8%8E%E9%9D%99%E6%80%81%E6%A3%80%E6%9F%A5/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">如何制定企业级代码规范与静态检查</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

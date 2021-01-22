@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    图解 Vue 响应式原理 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-图解 Vue 响应式原理"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  图解 Vue 响应式原理
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/08/06/%E5%9B%BE%E8%A7%A3%20Vue%20%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" class="article-date">
+  <time datetime="2020-08-06T08:30:29.000Z" itemprop="datePublished">2020-08-06</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <ul>
+<li><p>最近部门分享，有同学提到了 Vue 响应式原理，大家在讨论时，发现一些同学对这一知识理解还不够深入，不能形成一个闭环，为了帮助大家理解这个问题，我重新过了一下 Vue 源码，并整理了多张流程图，便于大家理解。</p>
+<ul>
+<li>Vue 初始化</li>
+<li>模板渲染</li>
+<li>组件渲染</li>
+</ul>
+<blockquote>
+<p>本文 Vue 源码版本：2.6.11，为了便于理解，均有所删减。</p>
+</blockquote>
+<p>本文将从以下两个方面进行探索：</p>
+<ul>
+<li>从 Vue 初始化，到首次渲染生成 DOM 的流程。</li>
+<li>从 Vue 数据修改，到页面更新 DOM 的流程。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+
+
+<h2 id="Vue-初始化"><a href="#Vue-初始化" class="headerlink" title="Vue 初始化"></a>Vue 初始化</h2><p>先从最简单的一段 Vue 代码开始：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123;&#123; message &#125;&#125;</span><br><span class="line">  &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">new Vue(&#123;</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      message: &quot;hello world&quot;,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<p>这段代码很简单，最终会在页面上打印一个 hello world，它是如何实现的呢？</p>
+<p>我们从源头：new Vue 的地方开始分析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 执行 new Vue 时会依次执行以下方法</span><br><span class="line">&#x2F;&#x2F; 1. Vue.prototype._init(option)</span><br><span class="line">&#x2F;&#x2F; 2. initState(vm)</span><br><span class="line">&#x2F;&#x2F; 3. observe(vm._data)</span><br><span class="line">&#x2F;&#x2F; 4. new Observer(data)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 5. 调用 walk 方法，遍历 data 中的每一个属性，监听数据的变化。</span><br><span class="line">function walk(obj) &#123;</span><br><span class="line">  const keys &#x3D; Object.keys(obj);</span><br><span class="line">  for (let i &#x3D; 0; i &lt; keys.length; i++) &#123;</span><br><span class="line">    defineReactive(obj, keys[i]);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 6. 执行 defineProperty 监听数据读取和设置。</span><br><span class="line">function defineReactive(obj, key, val) &#123;</span><br><span class="line">  &#x2F;&#x2F; 为每个属性创建 Dep（依赖搜集的容器，后文会讲）</span><br><span class="line">  const dep &#x3D; new Dep();</span><br><span class="line">  &#x2F;&#x2F; 绑定 get、set</span><br><span class="line">  Object.defineProperty(obj, key, &#123;</span><br><span class="line">    get() &#123;</span><br><span class="line">      const value &#x3D; val;</span><br><span class="line">      &#x2F;&#x2F; 如果有 target 标识，则进行依赖搜集</span><br><span class="line">      if (Dep.target) &#123;</span><br><span class="line">        dep.depend();</span><br><span class="line">      &#125;</span><br><span class="line">      return value;</span><br><span class="line">    &#125;,</span><br><span class="line">    set(newVal) &#123;</span><br><span class="line">      val &#x3D; newVal;</span><br><span class="line">      &#x2F;&#x2F; 修改数据时，通知页面重新渲染</span><br><span class="line">      dep.notify();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>数据描述符绑定完成后，我们就能得到以下的流程图：</p>
+<p><img src="https://i.loli.net/2021/01/11/49KdpFaOBTHmGuX.png" alt="img"></p>
+<p>图中我们可以看到，Vue 初始化时，进行了数据的 get、set 绑定，并创建了一个 Dep 对象。</p>
+<p>对于数据的 get、set 绑定我们并不陌生，但是 Dep 对象什么呢？</p>
+<p>Dep 对象用于依赖收集，它实现了一个发布订阅模式，完成了数据 Data 和渲染视图 Watcher 的订阅，我们一起来剖析一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Dep &#123;</span><br><span class="line">  &#x2F;&#x2F; 根据 ts 类型提示，我们可以得出 Dep.target 是一个 Watcher 类型。</span><br><span class="line">  static target: ?Watcher;</span><br><span class="line">  &#x2F;&#x2F; subs 存放搜集到的 Watcher 对象集合</span><br><span class="line">  subs: Array&lt;Watcher&gt;;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.subs &#x3D; [];</span><br><span class="line">  &#125;</span><br><span class="line">  addSub(sub: Watcher) &#123;</span><br><span class="line">    &#x2F;&#x2F; 搜集所有使用到这个 data 的 Watcher 对象。</span><br><span class="line">    this.subs.push(sub);</span><br><span class="line">  &#125;</span><br><span class="line">  depend() &#123;</span><br><span class="line">    if (Dep.target) &#123;</span><br><span class="line">      &#x2F;&#x2F; 搜集依赖，最终会调用上面的 addSub 方法</span><br><span class="line">      Dep.target.addDep(this);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  notify() &#123;</span><br><span class="line">    const subs &#x3D; this.subs.slice();</span><br><span class="line">    for (let i &#x3D; 0, l &#x3D; subs.length; i &lt; l; i++) &#123;</span><br><span class="line">      &#x2F;&#x2F; 调用对应的 Watcher，更新视图</span><br><span class="line">      subs[i].update();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>根据对 Dep 的源码分析，我们得到了下面这张逻辑图：</p>
+<p><img src="https://i.loli.net/2021/01/11/xGwDBUTZri13C4d.png" alt="img"></p>
+<p>了解 Data 和 Dep 之后，我们来继续揭开 Watcher 的面纱。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Watcher &#123;</span><br><span class="line">  constructor(vm: Component, expOrFn: string | Function) &#123;</span><br><span class="line">    &#x2F;&#x2F; 将 vm._render 方法赋值给 getter。</span><br><span class="line">    &#x2F;&#x2F; 这里的 expOrFn 其实就是 vm._render，后文会讲到。</span><br><span class="line">    this.getter &#x3D; expOrFn;</span><br><span class="line">    this.value &#x3D; this.get();</span><br><span class="line">  &#125;</span><br><span class="line">  get() &#123;</span><br><span class="line">    &#x2F;&#x2F; 给 Dep.target 赋值为当前 Watcher 对象</span><br><span class="line">    Dep.target &#x3D; this;</span><br><span class="line">    &#x2F;&#x2F; this.getter 其实就是 vm._render</span><br><span class="line">    &#x2F;&#x2F; vm._render 用来生成虚拟 dom、执行 dom-diff、更新真实 dom。</span><br><span class="line">    const value &#x3D; this.getter.call(this.vm, this.vm);</span><br><span class="line">    return value;</span><br><span class="line">  &#125;</span><br><span class="line">  addDep(dep: Dep) &#123;</span><br><span class="line">    &#x2F;&#x2F; 将当前的 Watcher 添加到 Dep 收集池中</span><br><span class="line">    dep.addSub(this);</span><br><span class="line">  &#125;</span><br><span class="line">  update() &#123;</span><br><span class="line">    &#x2F;&#x2F; 开启异步队列，批量更新 Watcher</span><br><span class="line">    queueWatcher(this);</span><br><span class="line">  &#125;</span><br><span class="line">  run() &#123;</span><br><span class="line">    &#x2F;&#x2F; 和初始化一样，会调用 get 方法，更新视图</span><br><span class="line">    const value &#x3D; this.get();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>源码中我们看到，Watcher 实现了渲染方法 <code>_render</code> 和 Dep 的关联， 初始化 Watcher 的时候，打上 Dep.target 标识，然后调用 get 方法进行页面渲染。加上上文的 Data，目前 Data、Dep、Watcher 三者的关系如下：</p>
+<p><img src="https://i.loli.net/2021/01/11/a9cI5fHDEgQ3t2w.png" alt="img"></p>
+<p>我们再拉通串一下整个流程：Vue 通过 <code>defineProperty</code> 完成了 Data 中所有数据的代理，当数据触发 get 查询时，会将当前的 Watcher 对象加入到依赖收集池 Dep 中，当数据 Data 变化时，会触发 set 通知所有使用到这个 Data 的 Watcher 对象去 update 视图。</p>
+<p>目前的整体流程如下：</p>
+<p><img src="https://i.loli.net/2021/01/11/T4VZberJnC2zG78.png" alt="img"></p>
+<p>上图的流程中 Data 和 Dep 都是 Vue 初始化时创建的，但现在我们并不知道 Wacher 是从哪里创建的，带着这个问题，我们接着往下探索。</p>
+<h2 id="模板渲染"><a href="#模板渲染" class="headerlink" title="模板渲染"></a>模板渲染</h2><p>上文中，我们分析了初始化 Vue 过程中处理数据的部分，接下来，我们分析一下数据渲染的部分。</p>
+<p>其实 new Vue 执行到最后，会调用 mount 方法，将 Vue 实例渲染成 dom 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; new Vue 执行流程。</span><br><span class="line">&#x2F;&#x2F; 1. Vue.prototype._init(option)</span><br><span class="line">&#x2F;&#x2F; 2. vm.$mount(vm.$options.el)</span><br><span class="line">&#x2F;&#x2F; 3. render &#x3D; compileToFunctions(template) ，编译 Vue 中的 template 模板，生成 render 方法。</span><br><span class="line">&#x2F;&#x2F; 4. Vue.prototype.$mount 调用上面的 render 方法挂载 dom。</span><br><span class="line">&#x2F;&#x2F; 5. mountComponent</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 6. 创建 Watcher 实例</span><br><span class="line">const updateComponent &#x3D; () &#x3D;&gt; &#123;</span><br><span class="line">  vm._update(vm._render());</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; 结合上文，我们就能得出，updateComponent 就是传入 Watcher 内部的 getter 方法。</span><br><span class="line">new Watcher(vm, updateComponent);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 7. new Watcher 会执行 Watcher.get 方法</span><br><span class="line">&#x2F;&#x2F; 8. Watcher.get 会执行 this.getter.call(vm, vm) ，也就是执行 updateComponent 方法</span><br><span class="line">&#x2F;&#x2F; 9. updateComponent 会执行 vm._update(vm._render())</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 10. 调用 vm._render 生成虚拟 dom</span><br><span class="line">Vue.prototype._render &#x3D; function (): VNode &#123;</span><br><span class="line">  const vm: Component &#x3D; this;</span><br><span class="line">  const &#123; render &#125; &#x3D; vm.$options;</span><br><span class="line">  let vnode &#x3D; render.call(vm._renderProxy, vm.$createElement);</span><br><span class="line">  return vnode;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; 11. 调用 vm._update(vnode) 渲染虚拟 dom</span><br><span class="line">Vue.prototype._update &#x3D; function (vnode: VNode) &#123;</span><br><span class="line">  const vm: Component &#x3D; this;</span><br><span class="line">  if (!prevVnode) &#123;</span><br><span class="line">    &#x2F;&#x2F; 初次渲染</span><br><span class="line">    vm.$el &#x3D; vm.__patch__(vm.$el, vnode, hydrating, false);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    &#x2F;&#x2F; 更新</span><br><span class="line">    vm.$el &#x3D; vm.__patch__(prevVnode, vnode);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; 12. vm.__patch__ 方法就是做的 dom diff 比较，然后更新 dom，这里就不展开了。</span><br></pre></td></tr></table></figure>
+<p>看完 Vue 模板渲染的过程，我们可以得到如下的流程图：</p>
+<p><img src="https://i.loli.net/2021/01/11/WVOeow1XDBIjH6d.png" alt="img"></p>
+<p>到这里，我们就知道了 Watcher 其实是在 Vue 初始化的阶段创建的，属于生命周期中 beforeMount 的位置创建的，创建 Watcher 时会执行 render 方法，最终将 Vue 代码渲染成真实的 DOM。</p>
+<p>我们再将之前的流程整合一下，就能得到以下的流程：</p>
+<p><img src="https://i.loli.net/2021/01/11/S4FLiUV1YoKs9Jp.png" alt="img"></p>
+<p>上图分析了 Vue 初始化到渲染 DOM 的整个过程，最后我们再分析一下，当数据变化时，Vue 又是怎么进行更新的？</p>
+<p>其实，在上图也能看出，在 Data 变化时，会调用 Dep.notify 方法，随即调用 Watcher 内部的 update 方法，此方法会将所有使用到这个 Data 的 Watcher 加入一个队列，并开启一个异步队列进行更新，最终执行 <code>_render</code> 方法完成页面更新。</p>
+<p>整体的流程如下：</p>
+<p><img src="https://i.loli.net/2021/01/11/PFcKShgqH5x3kWT.png" alt="img"></p>
+<p>好了，探索到这里，Vue 的响应式原理，已经被我们分析透彻了，如果你还没有明白，不妨再细品一下上图。</p>
+<h2 id="组件渲染"><a href="#组件渲染" class="headerlink" title="组件渲染"></a>组件渲染</h2><p>本来探索到上面的流程图就结束了，但好奇的我又想到了一个问题 😂。</p>
+<blockquote>
+<p>Vue 组件又是怎么渲染的呢？</p>
+</blockquote>
+<p>带着这个问题，我继续查阅了源码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 从模板编译开始，当发现一个自定义组件时，会执行以下函数</span><br><span class="line">&#x2F;&#x2F; 1. compileToFunctions(template)</span><br><span class="line">&#x2F;&#x2F; 2. compile(template, options);</span><br><span class="line">&#x2F;&#x2F; 3. const ast &#x3D; parse(template.trim(), options)</span><br><span class="line">&#x2F;&#x2F; 4. const code &#x3D; generate(ast, options)</span><br><span class="line">&#x2F;&#x2F; 5. createElement</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 6. createComponent</span><br><span class="line">export function createComponent(</span><br><span class="line">  Ctor: Class&lt;Component&gt; | Function | Object | void,</span><br><span class="line">  data: ?VNodeData,</span><br><span class="line">  context: Component,</span><br><span class="line">  children: ?Array&lt;VNode&gt;,</span><br><span class="line">  tag?: string</span><br><span class="line">): VNode | Array&lt;VNode&gt; | void &#123;</span><br><span class="line">  &#x2F;&#x2F; $options._base 其实就是全局 Vue 构造函数，在初始化时 initGlobalAPI 中定义的：Vue.options._base &#x3D; Vue</span><br><span class="line">  const baseCtor &#x3D; context.$options._base;</span><br><span class="line">  &#x2F;&#x2F; Ctor 就是 Vue 组件中 &lt;script&gt; 标签下 export 出的对象</span><br><span class="line">  if (isObject(Ctor)) &#123;</span><br><span class="line">    &#x2F;&#x2F; 将组件中 export 出的对象，继承自 Vue，得到一个构造函数</span><br><span class="line">    &#x2F;&#x2F; 相当于 Vue.extend(YourComponent)</span><br><span class="line">    Ctor &#x3D; baseCtor.extend(Ctor);</span><br><span class="line">  &#125;</span><br><span class="line">  const vnode &#x3D; new VNode(&#96;vue-component-$&#123;Ctor.cid&#125;xxx&#96;);</span><br><span class="line">  return vnode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 7. 实现组件继承 Vue，并调用 Vue._init 方法，进行初始化</span><br><span class="line">Vue.extend &#x3D; function (extendOptions: Object): Function &#123;</span><br><span class="line">  const Super &#x3D; this;</span><br><span class="line">  const Sub &#x3D; function VueComponent(options) &#123;</span><br><span class="line">    &#x2F;&#x2F; 调用 Vue.prototype._init，之后的流程就和首次加载保持一致</span><br><span class="line">    this._init(options);</span><br><span class="line">  &#125;;</span><br><span class="line">  &#x2F;&#x2F; 原型继承，相当于：Component extends Vue</span><br><span class="line">  Sub.prototype &#x3D; Object.create(Super.prototype);</span><br><span class="line">  Sub.prototype.constructor &#x3D; Sub;</span><br><span class="line">  return Sub;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>看完组件渲染的源码后，结合上文，重新整理了一张流程图，图中的蓝色部分就是渲染组件的过程。</p>
+<p><img src="https://i.loli.net/2021/01/11/WGcHyvUJTqDYEba.png" alt="img"></p>
+<p>好了，现在是真的结束了，最终的流程图就是上面的这一张图。</p>
+<p>问个问题，现在你理解 Vue 响应式原理了吗？</p>
+<p>如果仍觉得不好理解，我这里还准备了一张带标注的简图 😂</p>
+<p><img src="https://i.loli.net/2021/01/11/sud8jT57Aay4vOU.png" alt="img"></p>
+<h2 id="思考与总结"><a href="#思考与总结" class="headerlink" title="思考与总结"></a>思考与总结</h2><p>本文从源码的角度，介绍了 Vue 响应式原理，来简单回顾一下吧。</p>
+<ol>
+<li>从 new Vue 开始，首先通过 get、set 监听 Data 中的数据变化，同时创建 Dep 用来搜集使用该 Data 的 Watcher。</li>
+<li>编译模板，创建 Watcher，并将 Dep.target 标识为当前 Watcher。</li>
+<li>编译模板时，如果使用到了 Data 中的数据，就会触发 Data 的 get 方法，然后调用 Dep.addSub 将 Watcher 搜集起来。</li>
+<li>数据更新时，会触发 Data 的 set 方法，然后调用 Dep.notify 通知所有使用到该 Data 的 Watcher 去更新 DOM。</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2020/08/06/%E5%9B%BE%E8%A7%A3%20Vue%20%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-vue-js-javascript-%E6%BA%90%E7%A0%81/" rel="tag">前端 vue.js javascript 源码</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/08/10/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            前端性能优化原理与实践
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/07/30/%E5%BF%AB%E9%80%9F%E4%BA%86%E8%A7%A3%20React%20Hooks%20%E5%8E%9F%E7%90%86/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">快速了解 React Hooks 原理</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    JavaScript概念整理 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-JavaScript权威面试指南"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  JavaScript概念整理
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2017/12/11/JavaScript%E6%9D%83%E5%A8%81%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/" class="article-date">
+  <time datetime="2017-12-11T14:44:18.000Z" itemprop="datePublished">2017-12-11</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">7.4k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">32 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>这篇文章的目的是汇集 JavaScript 相关概念。有了这篇文章，你就可以在一个地方温故一下你需要了解的关于 JavaScript 的所有知识点。</p>
+</blockquote>
+<a id="more"></a>
+
+<h1 id="类型及其转换"><a href="#类型及其转换" class="headerlink" title="类型及其转换"></a>类型及其转换</h1><p>JavaScript 内置了7种类型：<code>null</code>, <code>undefined</code> , <code>boolean</code>, <code>number</code>, <code>string</code>, <code>object</code>以及 <code>symbol (ES6)</code>.</p>
+<p>除了 object 以外，这几种类型都可以归类为<strong>原始类型（基本类型）</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">typeof 0              &#x2F;&#x2F; number</span><br><span class="line">typeof true           &#x2F;&#x2F; boolean</span><br><span class="line">typeof &#39;Hello&#39;        &#x2F;&#x2F; string</span><br><span class="line">typeof Math           &#x2F;&#x2F; object</span><br><span class="line">typeof null           &#x2F;&#x2F; object  !!</span><br><span class="line">typeof Symbol(&#39;Hi&#39;)   &#x2F;&#x2F; symbol (New ES6) </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Null 与 Undefined</li>
+</ul>
+<p><code>Undefined</code> 表示尚未定义。它被用作表示未初始化变量，未提供的函数参数，对象缺少的属性的默认值。当函数没有返回值时也会默认返回 undefined .</p>
+<p><code>Null</code> 则表示空值。它可以被赋值给一个变量来表示的“没有值”。</p>
+<ul>
+<li>隐式类型转换</li>
+</ul>
+<p>让我们来看下面这个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var name &#x3D; &#39;Joey&#39;;</span><br><span class="line">if (name) &#123;</span><br><span class="line">  console.log(name + &quot; doesn&#39;t share food!&quot;)  &#x2F;&#x2F; Joey doesn’t share food!</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>在这种情况下，字符串变量 <code>name</code> 会被转换为 <code>true</code> ，所以我们能够在命令行里输出这段话。那我们到底要如何确定这些真假值的转换呢？</p>
+<p>Falsy 类型的值是指在强制类型转换时会被转换为布尔 <code>false</code> 的值。</p>
+<p>Falsy 类型值包括：<code>&quot;&quot;</code>, <code>0</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code>, <code>false</code>.</p>
+<p>除了 Falsy 类型值以外的都被称为 truthy 类型值，它们会被转换为 <code>true</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Boolean(null)         &#x2F;&#x2F; false</span><br><span class="line">Boolean(&#39;hello&#39;)      &#x2F;&#x2F; true </span><br><span class="line">Boolean(&#39;0&#39;)          &#x2F;&#x2F; true </span><br><span class="line">Boolean(&#39; &#39;)          &#x2F;&#x2F; true </span><br><span class="line">Boolean([])           &#x2F;&#x2F; true </span><br><span class="line">Boolean(function()&#123;&#125;) &#x2F;&#x2F; true </span><br></pre></td></tr></table></figure>
+<p>没错。你可能注意到了。空的数组，对象和函数布尔值也会被转换为 <code>true</code> ！</p>
+<ul>
+<li>String &amp; Number 运算</li>
+</ul>
+<p>你需要注意的第一件事是 + 操作符。这是一个棘手的操作符，因为它同时适用于数值运算和字符串连接。</p>
+<p>但是，<code>*</code>，<code>/</code>和<code>-</code>操作符都是数字运算专用的。当这些运算符与字符串一起使用时，会强制转换字符串为数字类型的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">1 + &quot;2&quot; &#x3D; &quot;12&quot;</span><br><span class="line">&quot;&quot; + 1 + 0 &#x3D; &quot;10&quot;</span><br><span class="line">&quot;&quot; - 1 + 0 &#x3D; -1</span><br><span class="line">&quot;-9\n&quot; + 5 &#x3D; &quot;-9\n5&quot;</span><br><span class="line">&quot;-9\n&quot; - 5 &#x3D; -14</span><br><span class="line">&quot;2&quot; * &quot;3&quot; &#x3D; 6</span><br><span class="line">4 + 5 + &quot;px&quot; &#x3D; &quot;9px&quot;</span><br><span class="line">&quot;$&quot; + 4 + 5 &#x3D; &quot;$45&quot;</span><br><span class="line">&quot;4&quot; - 2 &#x3D; 2</span><br><span class="line">&quot;4px&quot; - 2 &#x3D; NaN</span><br><span class="line">null + 1 &#x3D; 1</span><br><span class="line">undefined + 1 &#x3D; NaN </span><br></pre></td></tr></table></figure>
+<ul>
+<li>== 与 ===</li>
+</ul>
+<p>对此大多数人的理解肯定是 <code>==</code> 只比较值相等，而 <code>===</code> 在比较的同时还会检查类型。不过这种解释其实是错误的。</p>
+<p>事实上，<code>==</code> 是比较强制类型转换之后的结果，而 <code>===</code> 则是直接比较。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2 &#x3D;&#x3D; &#39;2&#39;            &#x2F;&#x2F; True</span><br><span class="line">2 &#x3D;&#x3D;&#x3D; &#39;2&#39;           &#x2F;&#x2F; False</span><br><span class="line">undefined &#x3D;&#x3D; null   &#x2F;&#x2F; True</span><br><span class="line">undefined &#x3D;&#x3D;&#x3D; null  &#x2F;&#x2F; False </span><br></pre></td></tr></table></figure>
+<p>强制类型转换有时候会造成一些混乱，我们来看下面这个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D; &#39;0&#39;;</span><br><span class="line">console.log(Boolean(a)); &#x2F;&#x2F; True</span><br><span class="line">let b &#x3D; false;</span><br><span class="line">console.log(Boolean(b)); &#x2F;&#x2F; False </span><br></pre></td></tr></table></figure>
+<p>好，根据以上结果，请告诉我下面这此比较的输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(a &#x3D;&#x3D; b); &#x2F;&#x2F;(1) </span><br></pre></td></tr></table></figure>
+<p>上述代码事实上返回了 True，那么这是为什么呢？</p>
+<p>在 JavaScript 的机制中，当你拿一个其它类型的值和 <code>boolean</code> 类型进行比较时，JavaScript 会将这个布尔值转换为 <code>number</code> 类型再进行比较。（2）</p>
+<p>此时这个问题就变成了 <code>number</code> 和 <code>string</code> 类型值之间的比较。根据我们之前所说的，JavaScript 会把 <code>string</code> 类型转换为 <code>number</code> 类型再比较两个数字。（3）</p>
+<p>所以最后的表达式被转换为了 <code>0 == 0</code>，结果理所当然是 True.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#39;0&#39; &#x3D;&#x3D; false   &#x2F;&#x2F;(1)</span><br><span class="line">&#39;0&#39; &#x3D;&#x3D; 0       &#x2F;&#x2F;(2)</span><br><span class="line"> 0  &#x3D;&#x3D; 0       &#x2F;&#x2F;(3) </span><br></pre></td></tr></table></figure>
+<p>如果你想全面理解这种比较是如何进行的，可以查阅ES5文档。</p>
+<p>这里也有一个 JavaScript 当中各种类型值对比结果的参照表。</p>
+<p>下面是一些特殊比较的示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">false &#x3D;&#x3D; &quot;&quot;  &#x2F;&#x2F; true</span><br><span class="line">false &#x3D;&#x3D; []  &#x2F;&#x2F; true</span><br><span class="line">false &#x3D;&#x3D; &#123;&#125;  &#x2F;&#x2F; false</span><br><span class="line">&quot;&quot; &#x3D;&#x3D; 0      &#x2F;&#x2F; true</span><br><span class="line">&quot;&quot; &#x3D;&#x3D; []     &#x2F;&#x2F; true</span><br><span class="line">&quot;&quot; &#x3D;&#x3D; &#123;&#125;     &#x2F;&#x2F; false</span><br><span class="line">0 &#x3D;&#x3D; []      &#x2F;&#x2F; true</span><br><span class="line">0 &#x3D;&#x3D; &#123;&#125;      &#x2F;&#x2F; false</span><br><span class="line">0 &#x3D;&#x3D; null    &#x2F;&#x2F; false </span><br></pre></td></tr></table></figure>
+<h1 id="赋值与引用"><a href="#赋值与引用" class="headerlink" title="赋值与引用"></a>赋值与引用</h1><p>简单值（或者称为原始值 primitives）均是 <code>null</code>, <code>undefined</code> , <code>boolean</code>, <code>number</code>, <code>string</code>, 以及 <code>symbol (ES6)</code>类型的赋值。</p>
+<p>复合值则是对 <code>object</code>，包含 <code>array</code> 以及 <code>function</code> 在内的引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 2;        &#x2F;&#x2F; &#39;a&#39; hold a copy of the value 2.</span><br><span class="line">var b &#x3D; a;        &#x2F;&#x2F; &#39;b&#39; is always a copy of the value in &#39;a&#39;</span><br><span class="line">b++;</span><br><span class="line">console.log(a);   &#x2F;&#x2F; 2</span><br><span class="line">console.log(b);   &#x2F;&#x2F; 3</span><br><span class="line">var c &#x3D; [1,2,3];</span><br><span class="line">var d &#x3D; c;        &#x2F;&#x2F; &#39;d&#39; is a reference to the shared value</span><br><span class="line">d.push( 4 );      &#x2F;&#x2F; Mutates the referenced value (object)</span><br><span class="line">console.log(c);   &#x2F;&#x2F; [1,2,3,4]</span><br><span class="line">console.log(d);   &#x2F;&#x2F; [1,2,3,4]</span><br><span class="line">&#x2F;* Compound values are equal by reference *&#x2F;</span><br><span class="line">var e &#x3D; [1,2,3,4];</span><br><span class="line">console.log(c &#x3D;&#x3D;&#x3D; d);  &#x2F;&#x2F; true</span><br><span class="line">console.log(c &#x3D;&#x3D;&#x3D; e);  &#x2F;&#x2F; false </span><br></pre></td></tr></table></figure>
+<p>当你想要复制一份复合值的时候，你需要通过一些方法对其进行<strong>拷贝</strong>（这里区分浅拷贝及深拷贝）。这样引用才不会指向同一个值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const copy &#x3D; c.slice()    &#x2F;&#x2F; &#39;copy&#39; references to a new value</span><br><span class="line">console.log(c);           &#x2F;&#x2F; [1,2,3,4]</span><br><span class="line">console.log(copy);        &#x2F;&#x2F; [1,2,3,4]</span><br><span class="line">console.log(c &#x3D;&#x3D;&#x3D; copy);  &#x2F;&#x2F; false </span><br></pre></td></tr></table></figure>
+<h1 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h1><p>作用域是指代码执行时的上下文，它定义了变量以及函数生效的范围。</p>
+<p><strong>全局作用域</strong>指的是最外层的作用域。所有在函数外部声明的变量都会在全局作用域当中，可以在任何地方访问到。在浏览器当中，window 对象就属于全局作用域。</p>
+<p><strong>局部作用域</strong>是指例如在某个函数内部的范围。在局部作用域中声明的变量只能够在其内部被访问到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function outer() &#123;</span><br><span class="line">  let a &#x3D; 1;</span><br><span class="line">  function inner() &#123;</span><br><span class="line">    let b &#x3D; 2;</span><br><span class="line">    function innermost() &#123;</span><br><span class="line">      let c &#x3D; 3;</span><br><span class="line">      console.log(a, b, c);   &#x2F;&#x2F; 1 2 3</span><br><span class="line">    &#125;</span><br><span class="line">    innermost();</span><br><span class="line">    console.log(a, b);        &#x2F;&#x2F; 1 2 — &#39;c&#39; is not defined</span><br><span class="line">  &#125;</span><br><span class="line">  inner();</span><br><span class="line">  console.log(a);             &#x2F;&#x2F; 1 — &#39;b&#39; and &#39;c&#39; are not defined</span><br><span class="line">&#125;</span><br><span class="line">outer(); </span><br></pre></td></tr></table></figure>
+<p>为了便于理解，你可以把作用域想象为一扇扇从大到小排列的门。最矮的人（上述代码1，2，3表示高矮）可以进入最小的门（innermost 的作用域），同时也能通过最大的门（outer 的作用域）。</p>
+<p>而个子高的人在通过门时则会被卡住（也就是在外部访问不到内部定义的变量）。</p>
+<h1 id="变量提升-Hoisting"><a href="#变量提升-Hoisting" class="headerlink" title="变量提升 Hoisting"></a>变量提升 Hoisting</h1><p>在编译过程中，JavaScript 会自动把 <code>var</code> 和 <code>function</code> 声明移动到顶部的行为被称为 <strong>hoisting</strong>.</p>
+<p>函数声明会被完整地提升。这就意味着你在编写代码时可以在声明一个函数之前就调用它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(toSquare(3));  &#x2F;&#x2F; 9</span><br><span class="line"></span><br><span class="line">function toSquare(n)&#123;</span><br><span class="line">  return n*n;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>变量只会被部分提升。例如只有 <code>var</code> 的声明会被提升，而赋值则不会。</p>
+<p><code>let</code> 以及 <code>const</code> 也不会被提升。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;  &#x2F;* Original code *&#x2F;</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; undefined</span><br><span class="line">  var i &#x3D; 10</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; 10</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;  &#x2F;* Compilation phase *&#x2F;</span><br><span class="line">  var i;</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; undefined</span><br><span class="line">  i &#x3D; 10</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; 10</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; ES6 let &amp; const</span><br><span class="line">&#123;</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; ReferenceError: i is not defined</span><br><span class="line">  const i &#x3D; 10</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; 10</span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; ReferenceError: i is not defined</span><br><span class="line">  let i &#x3D; 10</span><br><span class="line">  console.log(i);  &#x2F;&#x2F; 10</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h1 id="函数表达式-与-函数声明"><a href="#函数表达式-与-函数声明" class="headerlink" title="函数表达式 与 函数声明"></a>函数表达式 与 函数声明</h1><ul>
+<li>函数表达式</li>
+</ul>
+<p>函数表达式只有被执行之后才可用，它不会被提升（相当于赋值函数表达式给变量）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var sum &#x3D; function(a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数声明</li>
+</ul>
+<p>函数声明则可以在定义前后被任意调用，因为它最终会被提升。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function sum(a, b) &#123;</span><br><span class="line">  return a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="变量声明方式：var-let-cost"><a href="#变量声明方式：var-let-cost" class="headerlink" title="变量声明方式：var let cost"></a>变量声明方式：var let cost</h1><p>在 ES6 之前，只有 <code>var</code> 一种声明变量的方法。在某一函数内部声明的变量和方法只能在其函数作用域内部访问到。</p>
+<p>一些在例如 <code>if</code> 或者 <code>for</code> 语句的块作用域内声明的变量，能够在其包含的大括号外被访问到。</p>
+<p>注意：未使用 <code>var</code>，<code>let</code> 或 <code>const</code> 关键字声明的变量会自动变成全局变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function greeting() &#123;</span><br><span class="line">  console.log(s) &#x2F;&#x2F; undefined</span><br><span class="line">  if(true) &#123;</span><br><span class="line">    var s &#x3D; &#39;Hi&#39;;</span><br><span class="line">    undeclaredVar &#x3D; &#39;I am automatically created in global scope&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">  console.log(s) &#x2F;&#x2F; &#39;Hi&#39;</span><br><span class="line">&#125;</span><br><span class="line">console.log(s);  &#x2F;&#x2F; Error — ReferenceError: s is not defined</span><br><span class="line">greeting();</span><br><span class="line">console.log(undeclaredVar) &#x2F;&#x2F; &#39;I am automatically created in global scope&#39; </span><br></pre></td></tr></table></figure>
+<p>ES6 中我们有了 <code>let</code> 和 <code>const</code> 这两个新的关键字。它们不会被提升，且可以在块级作用域内生效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let g1 &#x3D; &#39;global 1&#39;</span><br><span class="line">let g2 &#x3D; &#39;global 2&#39;</span><br><span class="line">&#123;   &#x2F;* Creating a new block scope *&#x2F;</span><br><span class="line">  g1 &#x3D; &#39;new global 1&#39;</span><br><span class="line">  let g2 &#x3D; &#39;local global 2&#39;</span><br><span class="line">  console.log(g1)   &#x2F;&#x2F; &#39;new global 1&#39;</span><br><span class="line">  console.log(g2)   &#x2F;&#x2F; &#39;local global 2&#39;</span><br><span class="line">  console.log(g3)   &#x2F;&#x2F; ReferenceError: g3 is not defined</span><br><span class="line">  let g3 &#x3D; &#39;I am not hoisted&#39;;</span><br><span class="line">&#125;</span><br><span class="line">console.log(g1)    &#x2F;&#x2F; &#39;new global 1&#39;</span><br><span class="line">console.log(g2)    &#x2F;&#x2F; &#39;global 2&#39; </span><br></pre></td></tr></table></figure>
+<p>另外有一个普遍的误解是 <code>const</code> 是不可变的。事实上它只是不能被重新赋值，但其指向的值是可以被操作的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const tryMe &#x3D; &#39;initial assignment&#39;;</span><br><span class="line">tryMe &#x3D; &#39;this has been reassigned&#39;;  &#x2F;&#x2F; TypeError: Assignment to constant variable.</span><br><span class="line">&#x2F;&#x2F; You cannot reassign but you can change it…</span><br><span class="line">const array &#x3D; [&#39;Ted&#39;, &#39;is&#39;, &#39;awesome!&#39;];</span><br><span class="line">array[0] &#x3D; &#39;Barney&#39;;</span><br><span class="line">array[3] &#x3D; &#39;Suit up!&#39;;</span><br><span class="line">console.log(array);     &#x2F;&#x2F; [“Barney”, “is”, “awesome!”, “Suit up!”]</span><br><span class="line">const airplane &#x3D; &#123;&#125;;</span><br><span class="line">airplane.wings &#x3D; 2;</span><br><span class="line">airplane.passengers &#x3D; 200;</span><br><span class="line">console.log(airplane);   &#x2F;&#x2F; &#123;passengers: 200, wings: 2&#125; </span><br></pre></td></tr></table></figure>
+<h1 id="闭包-Closure"><a href="#闭包-Closure" class="headerlink" title="闭包 Closure"></a>闭包 Closure</h1><p>闭包是一个函数及其词法环境的组合。闭包可以让我们在一个函数的作用范围外访问其内部的变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function sayHi(name)&#123;</span><br><span class="line">  var message &#x3D; &#96;Hi $&#123;name&#125;!&#96;;</span><br><span class="line">  function greeting() &#123;</span><br><span class="line">    console.log(message)</span><br><span class="line">  &#125;</span><br><span class="line">  return greeting</span><br><span class="line">&#125;</span><br><span class="line">var sayHiToJon &#x3D; sayHi(&#39;Jon&#39;);</span><br><span class="line">console.log(sayHiToJon)     &#x2F;&#x2F; ƒ() &#123; console.log(message) &#125;</span><br><span class="line">console.log(sayHiToJon())   &#x2F;&#x2F; &#39;Hi Jon!&#39; </span><br></pre></td></tr></table></figure>
+<ol>
+<li>获取变量到外部作用域。</li>
+</ol>
+<p>返回的 <code>greeting</code> 方法访问了其内部作用域的 <code>message</code> 变量。</p>
+<ol start="2">
+<li>即使在外部函数返回之后也能访问到作用域外的变量。</li>
+</ol>
+<p><code>sayHiToJon</code> 是在调用 <code>sayHi</code> 方法时对 <code>greeting</code> 的引用。这样我们就能够通过 <code>greeting</code> 访问到作用域外的 <code>message</code> 变量。</p>
+<p>闭包比较有用的地方在于我们可以用它来实现<strong>数据封装</strong>。有一些理念认为，有些数据不应该直接暴露在外，我们举个栗子来说明：</p>
+<p>例如在下面这段代码当中，我们只能过通过 <code>elementary</code> 的实例来访问和操作 <code>SpringfieldSchool</code> 内部的 <code>staff</code> 变量，而不用担心其在其他地方被改动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function SpringfieldSchool() &#123;</span><br><span class="line">  let staff &#x3D; [&#39;Seymour Skinner&#39;, &#39;Edna Krabappel&#39;];</span><br><span class="line">  return &#123;</span><br><span class="line">    getStaff: function() &#123; console.log(staff) &#125;,</span><br><span class="line">    addStaff: function(name) &#123; staff.push(name) &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let elementary &#x3D; SpringfieldSchool()</span><br><span class="line">console.log(elementary)        &#x2F;&#x2F; &#123; getStaff: ƒ, addStaff: ƒ &#125;</span><br><span class="line">console.log(staff)             &#x2F;&#x2F; ReferenceError: staff is not defined</span><br><span class="line">&#x2F;* Closure allows access to the staff variable *&#x2F;</span><br><span class="line">elementary.getStaff()          &#x2F;&#x2F; [&quot;Seymour Skinner&quot;, &quot;Edna Krabappel&quot;]</span><br><span class="line">elementary.addStaff(&#39;Otto Mann&#39;)</span><br><span class="line">elementary.getStaff()          &#x2F;&#x2F; [&quot;Seymour Skinner&quot;, &quot;Edna Krabappel&quot;, &quot;Otto Mann&quot;] </span><br></pre></td></tr></table></figure>
+<p>我们接着再来用闭包解决一个面试中最常见的问题吧：</p>
+<p>下面这段代码存在什么问题？如何输出我们想要的结果？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; [10, 12, 15, 21];</span><br><span class="line">for (var i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  setTimeout(function() &#123;</span><br><span class="line">    console.log(&#96;The value $&#123;arr[i]&#125; is at index: $&#123;i&#125;&#96;);</span><br><span class="line">  &#125;, (i+1) * 1000);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>这段代码执行的输出结果中，每次 <code>i</code> 都等于4.这是因为 <code>setTimeout</code> 方法执行的时候，循环早已运行结束。</p>
+<p>我们可以通过立即执行函数 IIFE 来解决这个问题，它可以创建出独立的作用域来存储每次传入 <code>i</code> 的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; [10, 12, 15, 21];</span><br><span class="line">for (var i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  (function(j) &#123;</span><br><span class="line">    setTimeout(function() &#123;</span><br><span class="line">      console.log(&#96;The value $&#123;arr[j]&#125; is at index: $&#123;j&#125;&#96;);</span><br><span class="line">    &#125;, j * 1000);</span><br><span class="line">  &#125;)(i)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>另外一个更简洁的答案是使用 <code>let</code> 关键字来声明变量 <code>i</code>，也能够得到相同的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; [10, 12, 15, 21];</span><br><span class="line">for (let i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  setTimeout(function() &#123;</span><br><span class="line">    console.log(&#96;The value $&#123;arr[i]&#125; is at index: $&#123;i&#125;&#96;);</span><br><span class="line">  &#125;, (i) * 1000);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="立即执行函数表达式-IIFE"><a href="#立即执行函数表达式-IIFE" class="headerlink" title="立即执行函数表达式 IIFE"></a>立即执行函数表达式 IIFE</h1><p>正如其名，立即执行函数在定义时就会被执行。我们通常在创建一个新的变量作用域时使用到它。</p>
+<p>表达式外的括号用来和函数声明作以区分。</p>
+<p>结尾的括号表示对函数的调用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var result &#x3D; [];</span><br><span class="line">for (var i&#x3D;0; i &lt; 5; i++) &#123;</span><br><span class="line">  result.push( function() &#123; return i &#125; );</span><br><span class="line">&#125;</span><br><span class="line">console.log( result[1]() ); &#x2F;&#x2F; 5</span><br><span class="line">console.log( result[3]() ); &#x2F;&#x2F; 5</span><br><span class="line">result &#x3D; [];</span><br><span class="line">for (var i&#x3D;0; i &lt; 5; i++) &#123;</span><br><span class="line">  (function () &#123;</span><br><span class="line">    var j &#x3D; i; &#x2F;&#x2F; copy current value of i</span><br><span class="line">    result.push( function() &#123; return j &#125; );</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;</span><br><span class="line">console.log( result[1]() ); &#x2F;&#x2F; 1</span><br><span class="line">console.log( result[3]() ); &#x2F;&#x2F; 3 </span><br></pre></td></tr></table></figure>
+<p>通过使用IIFE你可以：</p>
+<ul>
+<li><p>使你能过添加私有数据到一个方法中</p>
+</li>
+<li><p>创建新的作用环境</p>
+</li>
+<li><p>防止污染全局命名空间</p>
+</li>
+</ul>
+<h1 id="上下文"><a href="#上下文" class="headerlink" title="上下文"></a>上下文</h1><p>上下文的概念经常会同作用域之间混淆。为了保持条理清晰，我们需要注意以下两条：</p>
+<ul>
+<li>上下文是在函数被调用时确定的。它通常指的是你的代码当中某一部分的值。</li>
+<li></li>
+<li>作用域值的则是变量能过被访问到的范围。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 作用域</span><br><span class="line">var param &#x3D; 1;      &#x2F;&#x2F; global scope</span><br><span class="line">function myScope()&#123;</span><br><span class="line">    var param &#x3D; 2;     &#x2F;&#x2F; local scope</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 上下文</span><br><span class="line">this.prop &#x3D; 1;      &#x2F;&#x2F; global context</span><br><span class="line">function myContext()&#123;</span><br><span class="line">    this.prop &#x3D; 2;   &#x2F;&#x2F; local context</span><br><span class="line">&#125;</span><br><span class="line">var myInstance &#x3D; new myContext(); </span><br></pre></td></tr></table></figure>
+<p>例如上述实例当中调用 <code>this</code> 的位置不同，<code>this</code> 的指向也是不同的，也就表示着不同的上下文；而作用域则是我们在编写代码时使用 <code>var</code> 关键字来确定的。</p>
+<h1 id="函数调用方式：call-apply-bind"><a href="#函数调用方式：call-apply-bind" class="headerlink" title="函数调用方式：call apply bind"></a>函数调用方式：call apply bind</h1><p>这三种方法可以改变函数调用时 <code>this</code> 的指向，区别则在于函数调用的时候。</p>
+<ul>
+<li><p><code>.call()</code> 会立即调用函数，并要求你按次序一个个传入参数。</p>
+</li>
+<li><p><code>.apply()</code> 也会立即调用函数，不过你需要以数组的形式传参。</p>
+</li>
+<li><p><code>.call()</code> 和 <code>.apply()</code> 效用几乎是相同的，它们都可以用来调用对象中的某个方法，具体怎么使用取决于你的使用场景里如何传参更方便。</p>
+</li>
+</ul>
+<p>应用示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const Snow &#x3D; &#123;surename: &#39;Snow&#39;&#125;</span><br><span class="line">const char &#x3D; &#123;</span><br><span class="line">  surename: &#39;Stark&#39;,</span><br><span class="line">  knows: function(arg, name) &#123;</span><br><span class="line">    console.log(&#96;You know $&#123;arg&#125;, $&#123;name&#125; $&#123;this.surename&#125;&#96;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">char.knows(&#39;something&#39;, &#39;Bran&#39;);              &#x2F;&#x2F; You know something, Bran Stark</span><br><span class="line">char.knows.call(Snow, &#39;nothing&#39;, &#39;Jon&#39;);      &#x2F;&#x2F; You know nothing, Jon Snow</span><br><span class="line">char.knows.apply(Snow, [&#39;nothing&#39;, &#39;Jon&#39;]);   &#x2F;&#x2F; You know nothing, Jon Snow </span><br></pre></td></tr></table></figure>
+<p>注意： 如果你在使用 <code>.call()</code> 时传入了数组形式的参数，它会把整个数组当作一个参数使用。</p>
+<p>不过在 ES6 里你倒是可以试试展开操作符的方法进行传参：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char.knows.call(Snow, ...[&quot;nothing&quot;, &quot;Jon&quot;]);  &#x2F;&#x2F; You know nothing, Jon Snow </span><br></pre></td></tr></table></figure>
+<p><code>.bind()</code> 不会直接触发某个方法，而是根据你传入的参数和上下文返回一个新的方法。当你想要在程序之后的某些上下文环境中调用一个方法时可以使用 <code>.bind()</code> 这种方式。</p>
+<p>这在我们使用一些异步操作或者事件处理函数时非常有用。<code>.bind()</code> 的传参形式则类似于 <code>.call()</code> 你需要讲参数以逗号分隔传入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const Snow &#x3D; &#123;surename: &#39;Snow&#39;&#125;</span><br><span class="line">const char &#x3D; &#123;</span><br><span class="line">  surename: &#39;Stark&#39;,</span><br><span class="line">  knows: function(arg, name) &#123;</span><br><span class="line">    console.log(&#96;You know $&#123;arg&#125;, $&#123;name&#125; $&#123;this.surename&#125;&#96;);&#125;</span><br><span class="line">  &#125;</span><br><span class="line">const whoKnowsNothing &#x3D; char.knows.bind(Snow, &#39;nothing&#39;);</span><br><span class="line">whoKnowsNothing(&#39;Jon&#39;);  &#x2F;&#x2F; You know nothing, Jon Snow </span><br></pre></td></tr></table></figure>
+<h1 id="this-关键字"><a href="#this-关键字" class="headerlink" title="this 关键字"></a>this 关键字</h1><p>JavaScript 当中的 <code>this</code> 理解起来算比较复杂的。</p>
+<p><code>this</code> 具体指向什么是由函数的执行上下文决定的（其实上一节已经有很多栗子了）。</p>
+<p>关键字 <code>this</code> 类似于一个占位符。它会指向具体调用某个方法的对象。</p>
+<p>下面这个检查表用来确定 <code>this</code> 的顺位规则：</p>
+<ul>
+<li><strong>new binding</strong> 当使用 <code>new</code> 关键字调用某个函数时，<code>this</code> 会被绑定到新构造的对象上。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person(name, age) &#123;</span><br><span class="line">  this.name &#x3D; name;</span><br><span class="line">  this.age &#x3D;age;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;</span><br><span class="line">const Rachel &#x3D; new Person(&#39;Rachel&#39;, 30);   &#x2F;&#x2F; &#123; age: 30, name: &#39;Rachel&#39; &#125; </span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>显式绑定</strong> 当使用 <code>call</code> 或者 <code>apply</code> 方法调用函数时，<code>this</code> 会指向我们传入的对象。<code>bind</code> 我们在前面已经介绍过了，返回的是一个新的函数而不是直接调用。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123;</span><br><span class="line">  console.log(this);</span><br><span class="line">&#125;</span><br><span class="line">var agent &#x3D; &#123;id: &#39;007&#39;&#125;;</span><br><span class="line">fn.call(agent);    &#x2F;&#x2F; &#123; id: &#39;007&#39; &#125;</span><br><span class="line">fn.apply(agent);   &#x2F;&#x2F; &#123; id: &#39;007&#39; &#125;</span><br><span class="line">var boundFn &#x3D; fn.bind(agent);</span><br><span class="line">boundFn();         &#x2F;&#x2F; &#123; id: &#39;007&#39; &#125; </span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>隐式绑定</strong> 当我们在某一具体上下文中调用一个函数时，<code>this</code> 会指向这个函数所属的对象。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var building &#x3D; &#123;</span><br><span class="line">  floors: 5,</span><br><span class="line">  printThis: function() &#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">building.printThis();  &#x2F;&#x2F; &#123; floors: 5, printThis: function() &#123;…&#125; &#125; </span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>默认绑定</strong> 如果函数在调用时不遵从上述所有规则，那么 <code>this</code> 会被绑定在全局对象上（在浏览器里，这个全局对象就是 <code>window</code>）。</li>
+</ul>
+<p>这种情况会在我们定义独立函数时出现，如果一个函数在定义时不属于任何对象，它就会默认成为全局对象的一个属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function printWindow() &#123;</span><br><span class="line">  console.log(this)</span><br><span class="line">&#125;</span><br><span class="line">printWindow();  &#x2F;&#x2F; window object </span><br></pre></td></tr></table></figure>
+<p>注意： 即使是在不同的作用域下，调用这种独立函数也不会改变其 <code>this</code> 的指向：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Dinosaur(name) &#123;</span><br><span class="line">  this.name &#x3D; name;</span><br><span class="line">  var self &#x3D; this;</span><br><span class="line">  inner();</span><br><span class="line">  function inner() &#123;</span><br><span class="line">    alert(this);        &#x2F;&#x2F; window object — the function has overwritten the &#39;this&#39; context</span><br><span class="line">    console.log(self);  &#x2F;&#x2F; &#123;name: &#39;Dino&#39;&#125; — referencing the stored value from the outer context</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var myDinosaur &#x3D; new Dinosaur(&#39;Dino&#39;); </span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>语法绑定</strong> 当你以 <code>=&gt;</code> 箭头函数的形式调用某一方法时，相当于为其传入了当前执行上下文的 <code>this</code> 值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Cat(name) &#123;</span><br><span class="line">  this.name &#x3D; name;</span><br><span class="line">  console.log(this);   &#x2F;&#x2F; &#123; name: &#39;Garfield&#39; &#125;</span><br><span class="line">  ( () &#x3D;&gt; console.log(this) )();   &#x2F;&#x2F; &#123; name: &#39;Garfield&#39; &#125;</span><br><span class="line">&#125;</span><br><span class="line">var myCat &#x3D; new Cat(&#39;Garfield&#39;); </span><br></pre></td></tr></table></figure>
+<h1 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h1><p>我们可以通过使用<code>&quot;use strict&quot;</code>指令来启用 JavaScript 的严格模式。它会为你的代码添加更多的限制及错误处理。</p>
+<p>使用严格模式的好处有：</p>
+<ul>
+<li><p>更方便调试 你能够看到更多的报错，例如在你试图为只读的全局对象或属性赋值时。</p>
+</li>
+<li><p>防止意外产生全局变量 对未声明的变量进行赋值时会报错。</p>
+</li>
+<li><p>禁止无效的删除操作 尝试删除变量、函数、不可删除的属性时会报错。</p>
+</li>
+<li><p>禁止重复的属性名及参数 如果有命名重复的属性名或者参数值就会报错。</p>
+</li>
+<li><p>让 eval() 的调用更加安全 在 eval() 方法内部定义的变量及函数不会污染其他作用域。</p>
+</li>
+<li><p>禁止 this 指向全局对象 当 this 的值为 null 或者 undefined 时不会再默认指向到全局对象。这也就意味着在函数内部的 this 不会再默认指向 window 对象了。</p>
+</li>
+</ul>
+<h1 id="new-关键字"><a href="#new-关键字" class="headerlink" title="new 关键字"></a>new 关键字</h1><p>关键字 <code>new</code> 是一种非常特殊的调用函数的方法，被通过 <code>new</code> 关键字调用的函数被称为<strong>构造函数</strong>。</p>
+<p>所以 <code>new</code> 到底进行了哪些操作呢？</p>
+<ul>
+<li><p>创建了一个新的对象。</p>
+</li>
+<li><p>新对象的原型继承自构造函数的原型。</p>
+</li>
+<li><p>以新对象的 <code>this</code> 执行构造函数。</p>
+</li>
+<li><p>返回新的对象。如果构造函数返回了一个对象，那么这个对象会取代整个 <code>new</code> 出来的结果。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; In order to better understand what happens under the hood, lets build the new keyword </span><br><span class="line">function myNew(constructor) &#123;</span><br><span class="line">  var obj &#x3D; &#123;&#125;</span><br><span class="line">  Object.setPrototypeOf(obj, constructor.prototype);</span><br><span class="line">  return constructor.apply(obj, [...arguments].slice(1)) || obj</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>那么在调用函数时使用 <code>new</code> 关键字与否到底有什么区别呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Bird() &#123;</span><br><span class="line">  this.wings &#x3D; 2;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;* invoking as a normal function *&#x2F;</span><br><span class="line">let fakeBird &#x3D; Bird();</span><br><span class="line">console.log(fakeBird);    &#x2F;&#x2F; undefined</span><br><span class="line">&#x2F;* invoking as a constructor function *&#x2F;</span><br><span class="line">let realBird&#x3D; new Bird();</span><br><span class="line">console.log(realBird)     &#x2F;&#x2F; &#123; wings: 2 &#125; </span><br></pre></td></tr></table></figure>
+<h1 id="原型与继承"><a href="#原型与继承" class="headerlink" title="原型与继承"></a>原型与继承</h1><p>原型是 JavaScript 当中最容易造成困惑的一个概念。原因之一是因为<strong>原型</strong>这个词会在两个语境下使用：</p>
+<ul>
+<li>原型关系</li>
+</ul>
+<p>每个对象都有自己的原型对象，并会继承它原型的所有属性。</p>
+<p>你可以通过 <code>.__proto__</code> 这种非标准的机制来获取一个对象的原型（在ES6中，在 ES5 标准里还可以通过 <code>Object.getPrototypeOf() </code>方法来获取）。</p>
+<p>一般的对象还会继承一个叫做 <code>.constructor</code> 的属性指向其构造函数。当你使用构造函数生成一个对象时，其 <code>.__proto__</code> 属性会指向构造函数的 <code>.prototype</code> 属性。</p>
+<ul>
+<li>原型属性</li>
+</ul>
+<p>每个被定义的函数都有一个名为 <code>.prototype</code> 的属性。</p>
+<p>它是一个继承了原型链上所有属性的对象。这个对象也默认包括一个 <code>.constructor</code> 属性，指向原始的构造函数。</p>
+<p>所有用构造函数生成的对象也会继承一个指向这个函数的 <code>.constructor</code> 属性（用控制台把对象打出来会比较好理解，也可以看下面的示例）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">function Dog(breed, name)&#123;</span><br><span class="line">  this.breed &#x3D; breed,</span><br><span class="line">  this.name &#x3D; name</span><br><span class="line">&#125;</span><br><span class="line">Dog.prototype.describe &#x3D; function() &#123;</span><br><span class="line">  console.log(&#96;$&#123;this.name&#125; is a $&#123;this.breed&#125;&#96;)</span><br><span class="line">&#125;</span><br><span class="line">const rusty &#x3D; new Dog(&#39;Beagle&#39;, &#39;Rusty&#39;);</span><br><span class="line"></span><br><span class="line">&#x2F;* .prototype property points to an object which has constructor and attached </span><br><span class="line">properties to be inherited by objects created by this constructor. *&#x2F;</span><br><span class="line">console.log(Dog.prototype)  &#x2F;&#x2F; &#123; describe: ƒ , constructor: ƒ &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Object created from Dog constructor function *&#x2F;</span><br><span class="line">console.log(rusty)   &#x2F;&#x2F;  &#123; breed: &quot;Beagle&quot;, name: &quot;Rusty&quot; &#125;</span><br><span class="line">&#x2F;* Object inherited properties from constructor function&#39;s prototype *&#x2F;</span><br><span class="line">console.log(rusty.describe())   &#x2F;&#x2F; &quot;Rusty is a Beagle&quot;</span><br><span class="line">&#x2F;* .__proto__ property points to the .prototype property of the constructor function *&#x2F; </span><br><span class="line">console.log(rusty.__proto__)    &#x2F;&#x2F; &#123; describe: ƒ , constructor: ƒ &#125;</span><br><span class="line">&#x2F;* .constructor property points to the constructor of the object *&#x2F;</span><br><span class="line">console.log(rusty.constructor)  &#x2F;&#x2F; ƒ Dog(breed, name) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>原型链描述了对象之间相互引用的关系。</p>
+<p>当获取一个对象的属性时，JavaScript 引擎会先从这个对象本身开始查找。如果没有找到，就会转向其原型上的属性，直到第一次找到这个属性为止。原型链上的最后一个对象是内置的 <code>Object.prototype</code> 而它的原型则是 <code>null</code>（也就是所谓原型链的终点）。JavaScript 引擎在查找属性到这一层还是没有找到时就会返回 <code>undefined</code>.</p>
+<h2 id="自有属性与继承属性"><a href="#自有属性与继承属性" class="headerlink" title="自有属性与继承属性"></a>自有属性与继承属性</h2><p>对象的属性分为自有和继承两种。</p>
+<p>自有属性也就是在对象内部定义的属性。</p>
+<p>继承属性则是通过原型链获得的属性。继承属性是不可枚举的（也就是在 <code>for/in</code> 循环里看不到的）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function Car() &#123; &#125;</span><br><span class="line">Car.prototype.wheels &#x3D; 4;</span><br><span class="line">Car.prototype.airbags &#x3D; 1;</span><br><span class="line"></span><br><span class="line">var myCar &#x3D; new Car();</span><br><span class="line">myCar.color &#x3D; &#39;black&#39;;</span><br><span class="line"></span><br><span class="line">&#x2F;*  Check for Property including Prototype Chain:  *&#x2F;</span><br><span class="line">console.log(&#39;airbags&#39; in myCar)  &#x2F;&#x2F; true</span><br><span class="line">console.log(myCar.wheels)        &#x2F;&#x2F; 4</span><br><span class="line">console.log(myCar.year)          &#x2F;&#x2F; undefined</span><br><span class="line"></span><br><span class="line">&#x2F;*  Check for Own Property:  *&#x2F;</span><br><span class="line">console.log(myCar.hasOwnProperty(&#39;airbags&#39;))  &#x2F;&#x2F; false — Inherited</span><br><span class="line">console.log(myCar.hasOwnProperty(&#39;color&#39;))    &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<p><strong>Object.create(obj)</strong> 方法可以指定原型来创建对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var dog &#x3D; &#123; legs: 4 &#125;;</span><br><span class="line">var myDog &#x3D; Object.create(dog);</span><br><span class="line"></span><br><span class="line">console.log(myDog.hasOwnProperty(&#39;legs&#39;))  &#x2F;&#x2F; false</span><br><span class="line">console.log(myDog.legs)                    &#x2F;&#x2F; 4</span><br><span class="line">console.log(myDog.__proto__ &#x3D;&#x3D;&#x3D; dog)       &#x2F;&#x2F; true </span><br></pre></td></tr></table></figure>
+<h2 id="通过引用继承"><a href="#通过引用继承" class="headerlink" title="通过引用继承"></a>通过引用继承</h2><p>继承属性是原型对象上属性的一份引用拷贝。</p>
+<p>如果对象在原型上的属性被改变了，继承这一属性的对象也会受到相同的影响。但假如属性被整个替换掉了，则不会影响到继承的对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var objProt &#x3D; &#123; text: &#39;original&#39; &#125;;</span><br><span class="line">var objAttachedToProt &#x3D; Object.create(objProt);</span><br><span class="line">console.log(objAttachedToProt.text)   &#x2F;&#x2F; original</span><br><span class="line"></span><br><span class="line">objProt.text &#x3D; &#39;prototype property changed&#39;;</span><br><span class="line">console.log(objAttachedToProt.text)   &#x2F;&#x2F; prototype property changed</span><br><span class="line"></span><br><span class="line">objProt &#x3D; &#123; text: &#39;replacing property&#39; &#125;;</span><br><span class="line">console.log(objAttachedToProt.text)   &#x2F;&#x2F; prototype property changed </span><br></pre></td></tr></table></figure>
+<h2 id="类继承与原型继承"><a href="#类继承与原型继承" class="headerlink" title="类继承与原型继承"></a>类继承与原型继承</h2><p>在类继承模式当中，对象继承自各式各样的类。就好像为对象设置好了一些模版和描述，并创建出了子类关系。我们可以通过 <code>new</code> 关键字从构造函数中创建这样的对象。</p>
+<p>但类继承模式有以下这些缺点：</p>
+<ul>
+<li><p>死板的层级关系</p>
+</li>
+<li><p>高度耦合</p>
+</li>
+<li><p>基类薄弱</p>
+</li>
+<li><p>代码重复</p>
+</li>
+<li><p>以及传说中的大猩猩/香蕉问题——“What you wanted was a banana, what you got was a gorilla holding the banana, and the entire jungle.”</p>
+</li>
+</ul>
+<p>在原型继承模式中，一个对象可以直接继承另一个对象。我们可以通过 <code>Object.create()</code> 或者其他对象方法及工厂函数来创建对象。</p>
+<p>下面是三种不同的原型继承的形式：</p>
+<ul>
+<li><p>原型代理 我们通常称那些用来给其他对象提供模型的对象为代理原型。当你继承一个代理原型时，新的对象可以获取对代理原型属性的引用。这种操作通常使用 Object.create() 来完成。</p>
+</li>
+<li><p>拼接继承 通过拷贝一个对象的属性来进行继承，不会产生引用关系，这种操作通常使用 Object.assign() 来进行。</p>
+</li>
+<li><p>函数继承 这种方法是通过工厂函数（工厂函数是指不通过 new 关键字创建并返回对象的函数）来创建对象，然后直接将新的属性添加到对象上。这种形式的好处是我们可以使用闭包进行数据封装。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const person &#x3D; function(name) &#123;</span><br><span class="line">  const message &#x3D; &#96;Hello! My name is $&#123;name&#125;&#96;;</span><br><span class="line">  return &#123; greeting: () &#x3D;&gt; console.log(message) &#125;</span><br><span class="line">&#125;</span><br><span class="line">const will &#x3D; person(&quot;Will&quot;);</span><br><span class="line">will.greeting();     &#x2F;&#x2F; Hello! My name is Will </span><br></pre></td></tr></table></figure>
+<h2 id="组合与继承"><a href="#组合与继承" class="headerlink" title="组合与继承"></a>组合与继承</h2><p>开发者都公认在大多数情况下应该避免使用类继承。因为在这种模式下，你需要很清楚地定义设计你的代码它们是什么。</p>
+<p>而另一方面，组合的模式则允许你从你的代码要做什么的角度来定义，从而提高你代码的灵活度和可复用性（React组件就是一个非常好的栗子）。</p>
+<h1 id="JavaScript-异步"><a href="#JavaScript-异步" class="headerlink" title="JavaScript 异步"></a>JavaScript 异步</h1><p>JavaScript 是一种单线程编程语言。这意味着 JavaScript 引擎一次只能处理一段代码。其主要影响之一是，当 JavaScript 遇到一段需要很长时间处理的代码时，它会阻塞后续的代码运行。</p>
+<p>JavaScript 使用了一种存储运行函数信息的数据结构叫做<strong>调用栈</strong>。你可以吧调用栈想象为一摞书。每本放上去的书都会在之前的一摞书上面。最后放上去的书会最早被拿走，最先放上去的书则到最后才会被拿走（LIFO）。</p>
+<p>用来解决大段代码非阻塞执行的方法叫做异步回调函数。这类函数可以推迟执行。</p>
+<p>异步过程从一个放入堆或内存中的异步回调函数开始。你可以将堆视为一个<strong>事件管理器（事件队列）</strong>。调用栈可以访问事件管理器只在某个事件发生时才执行特定的函数。当某个事件发生后，事件管理器就会将该函数移至回调用队列。<em>注意：当事件管理器处理一个函数时，之后的代码不会被阻塞并且能继续执行</em>。</p>
+<p>调用栈会不断检查其是否空闲。当它空闲时，如果有一个等待被调用的函数，则会检查调用队列。当有函数在等待执行时，队列中的第一个函数被压入调用栈并执行。这一过程被称为事件循环当中的一次执行循环.</p>
+<p>我们还是用一个栗子来解释吧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const first &#x3D; function () &#123;</span><br><span class="line">  console.log(&#39;First message&#39;)</span><br><span class="line">&#125;</span><br><span class="line">const second &#x3D; function () &#123;</span><br><span class="line">  console.log(&#39;Second message&#39;)</span><br><span class="line">&#125;</span><br><span class="line">const third &#x3D; function() &#123;</span><br><span class="line">  console.log(&#39;Third message&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">first();</span><br><span class="line">setTimeout(second, 0);</span><br><span class="line">third();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Output:</span><br><span class="line">  &#x2F;&#x2F; First message</span><br><span class="line">  &#x2F;&#x2F; Third message</span><br><span class="line">  &#x2F;&#x2F; Second message </span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>初始化浏览器的控制台，清空调用栈及事件管理器。</p>
+</li>
+<li><p>first() 加入调用栈。</p>
+</li>
+<li><p>console.log(“First message”) 加入调用栈。</p>
+</li>
+<li><p>console.log(“First message”) 被执行并在浏览器控制台打印出”First message”.</p>
+</li>
+<li><p>console.log(“First message”) 被移出调用栈。</p>
+</li>
+<li><p>first() 被移出调用栈。</p>
+</li>
+<li><p>setTimeout(second, 0) 加入调用栈。</p>
+</li>
+<li><p>setTimeout(second, 0) 被执行并由事件管理器管理。0ms 之后事件管理器将 second() 移入调用队列。</p>
+</li>
+<li><p>setTimeout(second, 0) 完成执行并被移出调用栈。</p>
+</li>
+<li><p>third() 加入调用栈。</p>
+</li>
+<li><p>console.log(“Third message”) 加入调用栈。</p>
+</li>
+<li><p>console.log(“Third message”) 被执行并在浏览器控制台打印出”Third message”.</p>
+</li>
+<li><p>console.log(“Third message”) 被移出调用栈。</p>
+</li>
+<li><p>third() 被移出调用栈。</p>
+</li>
+<li><p>调用栈空闲，second() 在调用队列中等待执行。</p>
+</li>
+<li><p>事件管理器将 second() 从调用队列中移入调用栈。</p>
+</li>
+<li><p>console.log(“Second message”) 加入调用栈。</p>
+</li>
+<li><p>console.log(“Second message”) 被执行并在浏览器控制台打印出”Second message”.</p>
+</li>
+<li><p>console.log(“Second message”) 被移出调用栈。</p>
+</li>
+<li><p>second() 被移出调用栈。</p>
+</li>
+</ol>
+<p><em>注意：你为 setTimeout 方法传入的时间参数并不是 second() 延迟执行的时间，而是<strong>事件管理器（事件队列）</strong>将函数移入调用栈的等待时间。</em></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2017/12/11/JavaScript%E6%9D%83%E5%A8%81%E9%9D%A2%E8%AF%95%E6%8C%87%E5%8D%97/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript-%E6%A6%82%E5%BF%B5-%E7%90%86%E8%AE%BA/" rel="tag">Javascript 概念 理论</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2017/12/17/%E5%85%A5%E9%97%A8Webpack%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            入门Webpack，看这篇就够了
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2017/12/06/%E7%90%86%E9%A1%BAreact%EF%BC%8Cflux%EF%BC%8Credux%E8%BF%99%E4%BA%9B%E6%A6%82%E5%BF%B5%E7%9A%84%E5%85%B3%E7%B3%BB/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">理顺react，flux，redux这些概念的关系</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
