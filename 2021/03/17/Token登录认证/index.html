@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="交流、学习、提升" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Token登录认证 |  科瑞兹曼的博客
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+<link rel="alternate" href="/atom.xml" title="科瑞兹曼的博客" type="application/atom+xml">
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Token登录认证"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Token登录认证
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/17/Token%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" class="article-date">
+  <time datetime="2021-03-17T01:09:29.000Z" itemprop="datePublished">2021-03-17</time>
+</a>   
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.9k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">10 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="基于-Cookie-Session-的认证方案"><a href="#基于-Cookie-Session-的认证方案" class="headerlink" title="基于 Cookie/Session 的认证方案"></a>基于 Cookie/Session 的认证方案</h2><blockquote>
+<p>Cookie</p>
+</blockquote>
+<ul>
+<li>Cookie的工作原理</li>
+</ul>
+<p>由于<code>HTTP</code>是一种无状态的协议，服务器单从网络连接上无从知道客户身份。怎么办呢？就给客户端们颁发一个通行证吧，每人一个，无论谁访问都必须携带自己通行证。这样服务器就能从通行证上确认客户身份了。这就是。<br> <code>cookie</code>指的就是在浏览器里面存储的一种数据，仅仅是浏览器实现的一种数据存储功能。<br> <code>cookie</code>的保存时间，可以自己在程序中设置。如果没有设置保存时间，应该是一关闭浏览器，<code>cookie</code>就自动消失。</p>
+<p><code>Cookie</code>实际上是一小段的文本信息。客户端请求服务器，如果服务器需要记录该用户状态，就使用<code>response</code>向客户端浏览器颁发一个<code>Cookie</code>。客户端浏览器会把<code>Cookie</code>保存起来。当浏览器再请求该网站时，浏览器把请求的网址连同该<code>Cookie</code>一同提交给服务器。服务器检查该<code>Cookie</code>，以此来辨认用户状态。服务器还可以根据需要修改<code>Cookie</code>的内容。</p>
+<p><strong>注意</strong>：<code>Cookie</code>功能需要浏览器的支持。如果浏览器不支持<code>Cookie</code>（如大部分手机中的浏览器）或者把<code>Cookie</code>禁用了，<code>Cookie</code>功能就会失效。不同的浏览器采用不同的方式保存<code>Cookie</code>。<code>IE</code>浏览器会以文本文件形式保存，一个文本文件保存一个<code>Cookie</code>。</p>
+<a id="more"></a>
+
+<ul>
+<li>Cookie的不可跨域名性</li>
+</ul>
+<p><code>Cookie</code>具有不可跨域名性。根据<code>Cookie</code>规范，浏览器访问<code>Google</code>只会携带<code>Google</code>的<code>Cookie</code>，而不会携带<code>Baidu</code>的<code>Cookie</code>。浏览器判断一个网站是否能操作另一个网站<code>Cookie</code>的依据是域名。</p>
+<blockquote>
+<p>Session</p>
+</blockquote>
+<p><code>Session</code>是另一种记录客户状态的机制，<strong>不同的是</strong><code>Cookie</code>保存在客户端浏览器中，而<code>Session</code>保存在服务器上。客户端浏览器访问服务器的时候，服务器把客户端信息以某种形式记录在服务器上。这就是<code>Session</code>。客户端浏览器再次访问时只需要从该<code>Session</code>中查找该客户的状态就可以了。</p>
+<p>如果说<code>Cookie</code>机制是通过检查客户身上的“通行证”来确定客户身份的话，那么<code>Session</code>机制就是通过检查服务器上的“客户明细表”来确认客户身份。</p>
+<p><code>session</code> 也是类似的道理，服务器要知道当前发请求给自己的是谁。为了做这种区分，<strong>服务器</strong>就要给每个<strong>客户端</strong>分配不同的“身份标识”，然后<strong>客户端</strong>每次向服务器发请求的时候，都带上这个“身份标识”，服务器就知道这个请求来自于谁了。对于浏览器客户端，大家都默认采用 <code>cookie</code> 的方式，保存这个“身份标识”。</p>
+<p>服务器使用<code>session</code>把用户的信息临时保存在了服务器上，用户离开网站后<code>session</code>会被销毁。这种用户信息存储方式相对<code>cookie</code>来说更安。</p>
+<p>可是<code>session</code>有一个<strong>缺陷</strong>：如果<code>web</code>服务器做了负载均衡，那么下一个操作请求到了另一台服务器的时候<code>session</code>会丢失。</p>
+<p><strong>提示</strong>：<code>Session</code>的使用比<code>Cookie</code>方便，但是过多的<code>Session</code>存储在服务器内存中，会对服务器造成压力。</p>
+<blockquote>
+<p>Cookie与Session的区别和联系</p>
+</blockquote>
+<ol>
+<li><code>cookie</code>数据存放在客户的浏览器上，<code>session</code>数据放在服务器上；</li>
+<li><code>cookie</code>不是很安全，别人可以分析存放在本地的<code>COOKIE</code>并进行 <code>COOKIE</code>欺骗，考虑到安全应当使用<code>session</code>；</li>
+<li><code>session</code>会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能。考虑到减轻服务器性能方面，应当使用<code>COOKIE</code>；</li>
+<li>单个cookie在客户端的限制是3K，就是说一个站点在客户端存放的COOKIE不能超过3K；</li>
+</ol>
+<p><code>Cookie</code>和<code>Session</code>的方案虽然分别属于客户端和服务端，但是服务端的<code>session</code>的实现对客户端的<code>cookie</code>有依赖关系的，上面我讲到服务端执行<code>session</code>机制时候会生成<code>session</code>的id值，这个<code>id</code>值会发送给客户端，客户端每次请求都会把这个<code>id</code>值放到<code>http</code>请求的头部发送给服务端，而这个<code>id</code>值在客户端会保存下来，保存的容器就是<code>cookie</code>，因此当我们完全禁掉浏览器的<code>cookie</code>的时候，服务端的<code>session</code>也会不能正常使用。</p>
+<h2 id="基于token的认证方式"><a href="#基于token的认证方式" class="headerlink" title="基于token的认证方式"></a>基于token的认证方式</h2><p>在大多数使用<code>Web API</code>的互联网公司中，<code>tokens</code> 是多用户下处理认证的最佳方式。</p>
+<p>以下几点特性会让你在程序中使用基于Token的身份验证</p>
+<p>1.无状态、可扩展</p>
+<p>2.支持移动设备</p>
+<p>3.跨程序调用</p>
+<p>4.安全</p>
+<h3 id="Token的起源"><a href="#Token的起源" class="headerlink" title="Token的起源"></a>Token的起源</h3><p>在介绍基于<code>Token</code>的身份验证的原理与优势之前，不妨先看看<strong>之前</strong>的认证都是怎么做的。</p>
+<ul>
+<li>基于服务器的验证</li>
+</ul>
+<p>我们都是知道<code>HTTP</code>协议是无状态的，这种无状态意味着程序需要验证每一次请求，从而辨别客户端的身份。</p>
+<p>在这之前，程序都是通过在服务端存储的登录信息来辨别请求的。这种方式一般都是通过存储<code>Session</code>来完成。</p>
+<ul>
+<li>基于服务器验证方式暴露的一些问题</li>
+</ul>
+<p>1.<code>Seesion</code>：每次认证用户发起请求时，服务器需要去创建一个记录来存储信息。当越来越多的用户发请求时，<strong>内存</strong>的开销也会不断增加。</p>
+<p>2.可扩展性：在服务端的内存中使用<code>Seesion</code>存储登录信息，伴随而来的是可扩展性问题。</p>
+<p>3.<code>CORS</code>(跨域资源共享)：当我们需要让数据跨多台移动设备上使用时，跨域资源的共享会是一个让人头疼的问题。在使用<code>Ajax</code>抓取另一个域的资源，就可以会出现禁止请求的情况。</p>
+<p>4.<code>CSRF</code>(跨站请求伪造)：用户在访问银行网站时，他们很容易受到跨站请求伪造的攻击，并且能够被利用其访问其他的网站。</p>
+<p>在这些问题中，可扩展行是最突出的。因此我们有必要去寻求一种更有行之有效的方法。</p>
+<h3 id="基于Token的验证原理"><a href="#基于Token的验证原理" class="headerlink" title="基于Token的验证原理"></a>基于Token的验证原理</h3><p>基于Token的身份验证是<strong>无状态</strong>的，我们<strong>不将</strong>用户信息存在服务器中。这种概念解决了在服务端存储信息时的许多问题。<code>NoSession</code>意味着你的程序可以根据需要去增减机器，而不用去担心用户是否登录。</p>
+<h3 id="基于Token的身份验证的过程如下"><a href="#基于Token的身份验证的过程如下" class="headerlink" title="基于Token的身份验证的过程如下:"></a>基于Token的身份验证的过程如下:</h3><ol>
+<li>用户通过用户名和密码发送请求。</li>
+<li>服务器端程序验证。</li>
+</ol>
+<p>3.服务器端程序返回一个<strong>带签名</strong>的<code>token</code> 给客户端。</p>
+<p>4.客户端储存<code>token</code>,并且每次访问<code>API</code>都携带<code>Token</code>到服务器端的。</p>
+<p>5.服务端验证<code>token</code>，校验成功则返回请求数据，校验失败则返回错误码。</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15096291-543566756c7218ff?imageMogr2/auto-orient/strip%7CimageView2/2/w/639/format/webp" alt="img"></p>
+<h3 id="Tokens的优势"><a href="#Tokens的优势" class="headerlink" title="Tokens的优势"></a>Tokens的优势</h3><ul>
+<li>无状态、可扩展</li>
+</ul>
+<p>在客户端存储的<code>Tokens</code>是无状态的，并且能够被扩展。基于这种无状态和不存储<code>Session</code>信息，负载负载均衡器能够将用户信息从一个服务传到其他服务器上。<br> <code>tokens</code>自己<code>hold</code>住了用户的验证信息。</p>
+<ul>
+<li>安全性</li>
+</ul>
+<p>请求中发送<code>token</code>而不再是发送<code>cookie</code>能够防止<code>CSRF</code>(跨站请求伪造)。即使在客户端使用<code>cookie</code>存储<code>token</code>，<code>cookie</code>也仅仅是一个存储机制而不是用于认证。不将信息存储在<code>Session</code>中，让我们少了对<code>session</code>操作。</p>
+<p><code>token</code>是有时效的，一段时间之后用户需要重新验证。</p>
+<ul>
+<li>可扩展性</li>
+</ul>
+<p><code>Tokens</code>能够创建与其它程序共享权限的程序。</p>
+<ul>
+<li>多平台跨域</li>
+</ul>
+<p>我们提前先来谈论一下<code>CORS</code>(跨域资源共享)，对应用程序和服务进行扩展的时候，需要介入各种各种的设备和应用程序。</p>
+<h3 id="需要设置有效期吗？"><a href="#需要设置有效期吗？" class="headerlink" title="需要设置有效期吗？"></a>需要设置有效期吗？</h3><p>对于这个问题，我们不妨先看两个例子。一个例子是登录密码，一般要求定期改变密码，以防止泄漏，所以密码是有有效期的；另一个例子是安全证书。<code>SSL</code> 安全证书都有有效期，目的是为了解决吊销的问题。所以无论是从安全的角度考虑，还是从吊销的角度考虑，<code>Token</code> 都需要设有效期。</p>
+<ul>
+<li>那么有效期多长合适呢？</li>
+</ul>
+<p>只能说，根据系统的安全需要，尽可能的短，但也不能短得离谱</p>
+<ul>
+<li>然后新问题产生了，如果用户在正常操作的过程中，<code>Token</code> 过期失效了，要求用户重新登录……用户体验岂不是很糟糕？</li>
+</ul>
+<p>一种方案，使用 <code>Refresh Token</code>，它可以避免频繁的读写操作。这种方案中，服务端不需要刷新 <code>Token</code> 的过期时间，一旦 <code>Token</code> 过期，就反馈给前端，前端使用 <code>Refresh Token</code> 申请一个全新<code>Token</code> 继续使用。这种方案中，服务端只需要在客户端请求更新 <code>Token</code> 的时候对 <code>Refresh Token</code> 的有效性进行一次检查，大大减少了更新有效期的操作，也就避免了频繁读写。当然 <code>Refresh Token</code> 也是有有效期的，但是这个有效期就可以长一点了，比如，以天为单位的时间。</p>
+<ul>
+<li>时序图表示</li>
+</ul>
+<p>使用 <code>Token</code> 和 <code>Refresh Token</code> 的时序图如下：</p>
+<p>1）登录</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15096291-4a028da83d83b5b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/680/format/webp" alt="img"></p>
+<p>2）业务请求</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15096291-75ad0bdfa6dd7506?imageMogr2/auto-orient/strip%7CimageView2/2/w/510/format/webp" alt="img"></p>
+<p> 3）<code>Token</code>过期，刷新 <code>Token</code></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15096291-21cdaa18849f5ae7?imageMogr2/auto-orient/strip%7CimageView2/2/w/648/format/webp" alt="img"></p>
+<p> 上面的时序图中并未提到 <code>Refresh Token</code> 过期怎么办。不过很显然，<code>Refresh Token</code> 既然已经过期，就该要求用户重新登录了。</p>
+<h3 id="项目中使用token总结"><a href="#项目中使用token总结" class="headerlink" title="项目中使用token总结"></a>项目中使用token总结</h3><p>使用基于 <code>Token</code> 的身份验证方法，在服务端<strong>不需要</strong>存储用户的登录记录。大概的流程是这样的：</p>
+<p>1.前端使用用户名跟密码请求首次登录</p>
+<p>2.后服务端收到请求，去验证用户名与密码是否正确</p>
+<p>3.验证成功后，服务端会根据用户<code>id</code>、用户名、定义好的秘钥、过期时间生成一个 <code>Token</code>，再把这个 <code>Token</code> 发送给前端</p>
+<p>4.前端收到 返回的<code>Token</code> ，把它存储起来，比如放在 <code>Cookie</code> 里或者 <code>Local Storage</code> 里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export interface User &#123;</span><br><span class="line">    token: string;</span><br><span class="line">    userInfo: UserInfo | any;</span><br><span class="line">    companyInfo: CompanyInfo | any;</span><br><span class="line">    resources?: string[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">save(key: <span class="built_in">string</span>, <span class="keyword">value</span>: any, storageType ?: StorageType) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.storageService.put(</span><br><span class="line">        &#123;</span><br><span class="line">            pool: key,</span><br><span class="line">            key: <span class="string">&#x27;chris-app&#x27;</span>,</span><br><span class="line">            storageType: StorageType.localStorage</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="keyword">value</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">this</span>.storageService.save(CACHE_USER_KEY, user);</span><br></pre></td></tr></table></figure>
+<p>5.前端每次路由跳转，判断 <code>localStroage</code> 有无 <code>token</code> ，没有则跳转到登录页。有则请求获取用户信息，改变登录状态；<br> 6.前端每次向服务端请求资源的时候需要在<strong>请求头</strong>里携带服务端签发的<code>Token</code></p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HttpInterceptor =&gt; headers = headers.<span class="keyword">set</span>(<span class="string">&#x27;token&#x27;</span>, <span class="keyword">this</span>.authService.getToken());</span><br></pre></td></tr></table></figure>
+<p>7.服务端收到请求，然后去验证前端请求里面带着的 <code>Token</code>。没有或者 <code>token</code> 过期，返回<code>401</code>。如果验证成功，就向前端返回请求的数据。</p>
+<p>8.前端得到 <code>401</code> 状态码，重定向到登录页面。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HttpInterceptor =&gt; </span><br><span class="line">    <span class="number">401</span>: <span class="string">&#x27;用户登陆状态失效，请重新登陆。&#x27;</span></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://www.icrazyman.cn/2021/03/17/Token%E7%99%BB%E5%BD%95%E8%AE%A4%E8%AF%81/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/token-%E7%99%BB%E5%BD%95-%E8%AE%A4%E8%AF%81-%E6%97%A0%E7%8A%B6%E6%80%81/" rel="tag">token 登录 认证 无状态</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2021/03/17/%E5%A6%82%E4%BD%95%E8%AE%A9%E4%BD%A0%E7%9A%84%20React%20%E4%BB%A3%E7%A0%81%E6%9B%B4%E7%AE%80%E6%B4%81/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            如何让你的 React 代码更简洁
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2021/01/22/%E5%A6%82%E4%BD%95%E5%81%9A%E5%A5%BD%E6%8A%80%E6%9C%AF%20Team%20Leader%EF%BC%9F/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">如何做好技术 Team Leader？</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+   
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2017-2021
+        <i class="ri-heart-fill heart_icon"></i> 科瑞兹曼
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        
+        由 <a href="https://hexo.io" target="_blank">Hexo</a> 强力驱动
+        <span class="division">|</span>
+        主题 - <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="科瑞兹曼的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+    
+  </div>
+</body>
+
+</html>
